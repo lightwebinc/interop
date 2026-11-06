@@ -24,6 +24,16 @@ save('run-lock.json', { schema: 'tpnil-native-wallet-run-lock@1.0.0', source, pl
 function receipt(info) {
   return { id: info.Id, image: info.Image, user: info.Config.User, networkMode: info.HostConfig.NetworkMode, networks: info.NetworkSettings.Networks, privileged: info.HostConfig.Privileged, capAdd: info.HostConfig.CapAdd, capDrop: info.HostConfig.CapDrop, readonly: info.HostConfig.ReadonlyRootfs, pidMode: info.HostConfig.PidMode, init: info.HostConfig.Init, mounts: info.Mounts.map(mount => ({ destination: mount.Destination, rw: mount.RW, type: mount.Type })), state: info.State };
 }
+// The ephemeral Ubuntu runner's AppArmor restriction otherwise prevents Chromium's
+// own PID/user-namespace sandbox, even with an unconfined container profile.
+// Keep this host-only change bounded to execution and retain restoration evidence.
+const usernsPath = '/proc/sys/kernel/apparmor_restrict_unprivileged_userns';
+const usernsBefore = fs.readFileSync(usernsPath, 'utf8').trim();
+let usernsActive;
+try {
+  if (usernsBefore !== '0') execFileSync('sudo', ['sysctl', '-w', 'kernel.apparmor_restrict_unprivileged_userns=0'], { stdio: 'inherit' });
+  usernsActive = fs.readFileSync(usernsPath, 'utf8').trim();
+  if (usernsActive !== '0') throw new Error('Host still blocks Chromium user namespaces');
 for (let index = 1; index <= plan.repetitions; index++) {
   const name = `tpnil-native-${randomBytes(12).toString('hex')}`;
   const repetition = path.join(output, `repetition-${index}`);
@@ -46,6 +56,12 @@ for (let index = 1; index <= plan.repetitions; index++) {
     save(`host-repetition-${index}-cleanup.json`, { id, removed, completedAt: new Date().toISOString() });
   }
   if (error) throw error;
+}
+} finally {
+  if (fs.readFileSync(usernsPath, 'utf8').trim() !== usernsBefore) execFileSync('sudo', ['sysctl', '-w', `kernel.apparmor_restrict_unprivileged_userns=${usernsBefore}`], { stdio: 'inherit' });
+  const restored = fs.readFileSync(usernsPath, 'utf8').trim();
+  save('host-userns.json', { before: usernsBefore, active: usernsActive, restored, restoredSuccessfully: restored === usernsBefore });
+  if (restored !== usernsBefore) throw new Error('Host user namespace policy restoration failed');
 }
 const verify = spawnSync(path.join(root, 'synthesis/node_modules/.bin/tsx'), [path.join(root, 'synthesis/src/wallet-lab/native/verify.ts'), output], { cwd: root, stdio: 'inherit', timeout: 60000 });
 if (verify.status !== 0) throw new Error('Native conformance evidence verification failed');

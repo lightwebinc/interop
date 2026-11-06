@@ -19,5 +19,6 @@ COPY fixtures/artifacts/todo-ts-236733c-webroot.tgz /work/fixtures/artifacts/
 COPY fixtures/teranode/wab-funding-v1.json /work/fixtures/teranode/
 RUN mkdir -p /evidence && chown pwuser:pwuser /evidence
 ENV TPNIL_GO_BINARY=/opt/tpnil/itcve-go-services TPNIL_GO_MONGO_URI=mongodb://127.0.0.1:27017/?directConnection=true HOME=/tmp/tpnil-home
+RUN dpkg-query -W -f='${Package} ${Version}\n' > /opt/tpnil/os-packages.txt
 USER pwuser
 CMD ["/bin/sh", "-c", "mkdir -p \"$HOME\" && xvfb-run -a /usr/local/bin/node --import /work/synthesis/node_modules/tsx/dist/loader.mjs /work/synthesis/src/wallet-lab/native/worker.ts"]

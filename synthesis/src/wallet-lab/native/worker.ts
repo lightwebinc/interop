@@ -6,6 +6,7 @@ import { spawn, execFileSync } from 'node:child_process'
 import { once } from 'node:events'
 import { runYoursWallet } from '../yours-driver.js'
 import { sha256Hex } from '../../determinism.js'
+import { chromium } from 'playwright'
 import { verifyEvidenceBundle } from '../evidence.js'
 import type { TeranodeWalletFundingFixture } from '../services.js'
 
@@ -47,6 +48,10 @@ const startedAt = new Date().toISOString()
 try {
   assertArtifact(path.join(root, 'out/sut-artifacts/yours-wallet-v5.1.0/pw-v5.1.0.zip'), plan.wallet)
   assertArtifact(path.join(root, 'fixtures/artifacts/todo-ts-236733c-webroot.tgz'), plan.application)
+  const installed = JSON.parse(execFileSync('python3', [path.join(root, 'infra/native/yours-go/verify-installed.py')], { encoding: 'utf8', timeout: 30000 }))
+  save('installed-artifacts.json', installed)
+  fs.writeFileSync(path.join(output, 'browser-version.txt'), execFileSync(chromium.executablePath(), ['--version'], { encoding: 'utf8', timeout: 10000 }))
+  fs.copyFileSync('/opt/tpnil/os-packages.txt', path.join(output, 'os-packages.txt'))
   const before = await network()
   save('network-before.json', before)
   const db = fs.mkdtempSync('/tmp/tpnil-native-mongo-')

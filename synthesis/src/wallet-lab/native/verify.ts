@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url'
 import { createHash } from 'node:crypto'
 import { Beef, LockingScript, P2PKH, PublicKey, PushDrop, Transaction, Utils } from '@bsv/sdk'
 import { canonicalJson, sha256Hex } from '../../determinism.js'
+import { aggregateOutcome } from '../model.js'
 import { verifyEvidenceBundle } from '../evidence.js'
 
 export function verifyHostReceipt(observation: Record<string, any>, image: string): void {
@@ -27,6 +28,8 @@ export async function verifyNativeWallet(directory: string) {
   assert.equal(lock.image.os, 'linux'); assert.equal(lock.image.architecture, 'amd64')
   assert.equal(lock.runner.platform, 'linux'); assert.equal(lock.runner.architecture, 'x64')
   assert.match(lock.source, /^[a-f0-9]{40}$/)
+  const userns = read('host-userns.json')
+  assert.equal(userns.active, '0'); assert.equal(userns.restored, userns.before); assert.equal(userns.restoredSuccessfully, true)
   const results = []
   const containers = new Set<string>()
   for (let index = 1; index <= 2; index++) {
@@ -39,11 +42,16 @@ export async function verifyNativeWallet(directory: string) {
     const rep = path.join(directory, `repetition-${index}`)
     const record = verifyEvidenceBundle(rep)
     const evidence = (name: string) => JSON.parse(fs.readFileSync(path.join(rep, 'evidence', name), 'utf8'))
+    const installed = read(`repetition-${index}/installed-artifacts.json`)
+    assert.equal(installed.exactArchiveContents, true)
+    assert.match(installed.walletDirectorySha256, /^[a-f0-9]{64}$/); assert.match(installed.applicationDirectorySha256, /^[a-f0-9]{64}$/)
     assert.deepEqual(record.artifacts.wallet, plan.wallet); assert.deepEqual(record.artifacts.application, plan.application)
     assert.deepEqual(record.configuration.serviceComponents?.components, plan.components)
     assert.deepEqual(record.vectors.map(vector => vector.id), Array.from({ length: 8 }, (_, i) => `ISI-4-V00${i+1}`))
     for (const vector of record.vectors) assert.equal(record.semanticProjection[vector.id.toLowerCase().replace('isi-4-', '')], vector.outcome)
     assert.equal(record.runner.architecture, 'x64')
+    assert.equal(record.observations.walletVersion, 'yours-wallet-5.1.0'); assert.equal(record.observations.walletNetwork, 'mainnet'); assert.equal(record.observations.authenticated, true)
+    assert.match(fs.readFileSync(path.join(rep, 'browser-version.txt'), 'utf8'), /151\.0\.7922\.34/)
     const worker = read(`repetition-${index}/worker.json`)
     assert.equal(worker.completed, true); assert.equal(worker.cleanWalletAndServiceShutdown, true)
     assert.equal(worker.recordSha256, sha256Hex(fs.readFileSync(path.join(rep, 'record.json'))))
@@ -100,10 +108,25 @@ export async function verifyNativeWallet(directory: string) {
     assert.ok(await spend.verify(tracker))
     let inputs = 0; for (const input of spend.inputs) { const sourceOutput = input.sourceTransaction?.outputs[input.sourceOutputIndex!]; assert.ok(sourceOutput?.satoshis !== undefined); inputs += sourceOutput.satoshis }
     const outputs = spend.outputs.reduce((sum, item) => sum + (item.satoshis ?? 0), 0); assert.ok(inputs >= outputs)
-    results.push({ record, recordSha256: worker.recordSha256, independent: { funding: funding.id('hex'), create: create.id('hex'), redemption: spend.id('hex'), valueConserved: true, fee: inputs - outputs } })
+    const vectors = structuredClone(record.vectors)
+    for (const vector of vectors.slice(0, 4)) assert.equal(vector.outcome, 'PASS')
+    const permission = evidence('permissions.json')
+    const explicitDenial = (value: { rejected?: boolean; independentlyPrompted?: boolean; message?: string }) =>
+      (value.rejected === true || value.independentlyPrompted === true) && /permission|denied|user reject|not authori[sz]ed/i.test(value.message ?? '') && !/timeout|network error|fetch failed|500|502|503/i.test(value.message ?? '')
+    const deniedPrompt = (origin: string) => permission.permissions.some((item: { origin: string; decision: string }) => item.origin.includes(origin) && item.decision === 'deny')
+    vectors[4]!.outcome = explicitDenial(permission.denial) && explicitDenial(permission.crossOrigin) && deniedPrompt('deny.itcve.test') && deniedPrompt('alternate.itcve.test') ? 'PASS' : 'FAIL'
+    const lifecycle = evidence('broadcast-lifecycle.json')
+    const acceptedCount = lifecycle.accepted.outputs?.totalOutputs
+    const accepted = lifecycle.accepted.submission?.verdict === 'ACCEPTED_BY_NETWORK' && lifecycle.accepted.body.includes('Task successfully created!')
+    const rejected = lifecycle.rejected.submission?.verdict === 'REJECTED' && acceptedCount !== undefined && lifecycle.rejected.outputs?.totalOutputs === acceptedCount
+    const recovered = lifecycle.recovered.submission?.verdict === 'ACCEPTED_BY_NETWORK' && acceptedCount !== undefined && lifecycle.recovered.outputs?.totalOutputs === acceptedCount + 1
+    vectors[5]!.outcome = accepted && rejected && recovered ? 'PASS' : 'FAIL'
+    assert.equal(vectors[6]!.outcome, 'BLOCKED'); assert.equal(vectors[7]!.outcome, 'BLOCKED')
+    results.push({ record, vectors, recordSha256: worker.recordSha256, independent: { funding: funding.id('hex'), create: create.id('hex'), redemption: spend.id('hex'), valueConserved: true, fee: inputs - outputs } })
   }
+  assert.equal(canonicalJson(results[0]!.vectors.map(vector => vector.outcome)), canonicalJson(results[1]!.vectors.map(vector => vector.outcome)))
   assert.equal(canonicalJson(results[0]!.record.semanticProjection), canonicalJson(results[1]!.record.semanticProjection))
-  return { schema: 'tpnil-native-wallet-qualification@1.0.0', claim: 'EXPERIMENTAL_CONFORMANCE_RESULT', itcve: plan.itcve, program: plan.program, lane: plan.lane, planSha256: lock.planSha256, source: lock.source, image: lock.image, qualifiedEnvironment: true, artifact: plan.wallet, vectors: results[0]!.record.vectors, outcome: results[0]!.record.outcome, repetitionMatch: true, repetitions: results.map((result, index) => ({ runId: `repetition-${index + 1}`, recordSha256: result.recordSha256, independent: result.independent })) }
+  return { schema: 'tpnil-native-wallet-qualification@1.0.0', claim: 'EXPERIMENTAL_CONFORMANCE_RESULT', itcve: plan.itcve, program: plan.program, lane: plan.lane, planSha256: lock.planSha256, source: lock.source, image: lock.image, qualifiedEnvironment: true, artifact: plan.wallet, vectors: results[0]!.vectors, outcome: aggregateOutcome(results[0]!.vectors), repetitionMatch: true, repetitions: results.map((result, index) => ({ runId: `repetition-${index + 1}`, recordSha256: result.recordSha256, independent: result.independent })) }
 }
 if (process.argv[1]?.endsWith('/native/verify.ts')) {
   const directory = path.resolve(process.argv[2] ?? '')

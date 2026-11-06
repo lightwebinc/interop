@@ -725,8 +725,10 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     throw error
   } finally {
     if (promptPoll !== undefined) clearInterval(promptPoll)
-    await context?.close().catch(() => undefined)
-    await services.close().catch(() => undefined)
-    fs.rmSync(profileDirectory, { recursive: true, force: true })
+    const cleanupFailures: unknown[] = []
+    try { await context?.close() } catch (error) { cleanupFailures.push(error) }
+    try { await services.close() } catch (error) { cleanupFailures.push(error) }
+    try { fs.rmSync(profileDirectory, { recursive: true, force: true }) } catch (error) { cleanupFailures.push(error) }
+    if (options.nativeQualification !== undefined && cleanupFailures.length > 0) throw new AggregateError(cleanupFailures, 'Native wallet cleanup failed')
   }
 }
