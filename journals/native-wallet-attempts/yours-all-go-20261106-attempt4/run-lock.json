@@ -1,0 +1,91 @@
+{
+  "schema": "tpnil-native-wallet-run-lock@1.0.0",
+  "source": "6b6ac788020113f33187eeb369181fff0b1ddd8c",
+  "plan": {
+    "schema": "tpnil-native-wallet-plan@1.0.0",
+    "id": "YOURS-5.1.0-GO-ITCVE-1.2.0",
+    "itcve": "ITCVE-1@1.2.0",
+    "program": "ISI-4@1.0.0",
+    "lane": "chromium-extension-linux-amd64",
+    "wallet": {
+      "id": "yours-wallet-chromium-extension",
+      "version": "5.1.0",
+      "sha256": "d55abda7dc8790ecfdd57ed0f5f4dd4a28187bb4833715f7612b067625eabc52",
+      "size": 13513123
+    },
+    "application": {
+      "id": "todo-ts-compiled-webroot",
+      "version": "236733c586c4d2cc3ab7f957afa382005509acd4",
+      "sha256": "b3c41dc60ba99b497231008a15033a60110cc7cd60b2d4fffd405e33f4979ddc",
+      "size": 502803
+    },
+    "components": {
+      "overlay": "go",
+      "chaintracks": "go",
+      "storage": "go"
+    },
+    "componentLock": "synthesis/go/components.lock.json",
+    "fundingFixture": "fixtures/teranode/wab-funding-v1.json",
+    "repetitions": 2,
+    "task": "TPNIL controlled task",
+    "amount": 2,
+    "timeoutSecondsPerRepetition": 600,
+    "publicMainnetBroadcast": false,
+    "requiredEnvironmentAssertions": [
+      "exact-wallet-and-application-artifacts",
+      "native-chromium-with-sandbox",
+      "fresh-container-and-wallet-profile-each-repetition",
+      "kernel-network-none-before-and-after",
+      "no-network-admin-capabilities",
+      "negative-tcp-ipv4-and-ipv6-probes",
+      "controlled-ca-trust-without-global-tls-bypass",
+      "proof-carrying-mined-funding-ancestry",
+      "independent-transaction-and-state-oracles",
+      "all-eight-vector-outcomes-retained",
+      "two-matching-semantic-projections",
+      "successful-process-and-state-cleanup"
+    ],
+    "sutOutcomePolicy": "PASS, FAIL and BLOCKED are retained findings; a valid environment and complete reproducible report do not require all SUT vectors to pass",
+    "scope": "Yours Wallet 5.1.0 Chromium extension on the all-Go closure. Android, native desktop HTTP wallets, mixed closures, ISI-3 replacement and the remaining BRC-100 clauses retain separate admission requirements.",
+    "fundingFixtureCanonicalSha256": "67a6da93734b8bad048c3a723068293fc946e3cb3ed582a0fd7d104353814a12"
+  },
+  "planSha256": "de2ecc978c9650bdb7e494101b5bfa577421a7660fff8e44569de10465079c47",
+  "image": {
+    "id": "sha256:02ec73a71d71086f111a76896fbbcd4e7394127af0d7c7c51ab6c2249db86e4f",
+    "os": "linux",
+    "architecture": "amd64",
+    "layers": [
+      "sha256:f103cd120fdd6cbc7f3d0e1d5bfb3e16290c32ead7b822d15c34460ecdf64b29",
+      "sha256:7977f86a68e25bf507c4e3faaedcba1ff90e851bf51e0dabc001bd862c207b89",
+      "sha256:5fef904f76c944dd8d1b43166f655548956154190c608e1c2aaf2ee8cd0e7c7b",
+      "sha256:9b7d8f2ce511d137301694fa020ceff796023cadef15c57367f2bad256391293",
+      "sha256:8f5233eb992fd10952c1b59538c63cea539156a06280947046bbd9d572b3dd31",
+      "sha256:04fb1229b6ff4c5ee1d9e490ff9c504413e3f6df17899de6f944a52517256a27",
+      "sha256:41509d6f4662d20641f4830fe3e2d6947ac95f28b8aec746049eef4f9d33cfa4",
+      "sha256:68d6088465926aa9e918a6b4f23ddb6ca8adf1346cca180e1d6d6a9b1cfc8e21",
+      "sha256:f88f05c166dea539c8b2d8b7376a9fae302e95ae5a51c639163b4492f2a8d4ea",
+      "sha256:f43883f4a036aa0dd991b86fd5b13fabc226606a8943c5eb8c9a82814ef50fe4",
+      "sha256:b1960da139ded639d957d19766fbf2b3b889783220b29de137237a278d8959db",
+      "sha256:4f5978d7c12a4523b76de00a5d574796340ae21ba23dcb82eddb04f7e7e7d19d",
+      "sha256:7c4125eb0c5f00a28d0d52e4de9963bcbe4759aa06ac35e8e97971cda4e16cce",
+      "sha256:27a5ca01cfa7f798f2049a1a18da952e2ce68c096f8aef7c6bad72d416583295",
+      "sha256:677e9ad865beb3bc103caa60ddd52900a8e63a5127c67aeee4161985594ff199",
+      "sha256:1e2366f8cb49bf90d2b3a92222b963e5a793aa8cb202d381605ad2643fda5616",
+      "sha256:76dd9a6f02ed11cab6cc04cd128dd7a548eabd141b8e0a3e2ca0f3684b78158e",
+      "sha256:3f404f72af6bfcc0249dfc4cbd4f311f67480fc3866676c3007faa57849187ef",
+      "sha256:e7531e19e1889c51c7b896b0b303d7a89eab2ac9c0156a9451e3c12910b4b880",
+      "sha256:ef447ca98262bb7e0912c1cae236cebc92a6252a5330b505d141367375cd35e1",
+      "sha256:9bff3048bbf7eec7462ccf3c2c9c493e0991ee2632193dc7a98fb6bf9eaaff91",
+      "sha256:960069a787cda00ca4cb0dd46d42701c0ce63ff734f2f577fcddb8d2ba7fd3cf",
+      "sha256:8e8a63ea7e3d9dba6b9fb0c2c94f243d7e33ba01d909e38055325a71a51e8848",
+      "sha256:354ab2a0edaa140cbd7cb5205b4bfcf630fa0cd5817d61ae4a2888079e2a915e"
+    ]
+  },
+  "runner": {
+    "os": "7.0.0-1017-azure",
+    "node": "v24.22.1",
+    "platform": "linux",
+    "architecture": "x64"
+  },
+  "startedAt": "2026-11-06T19:39:43.194Z"
+}

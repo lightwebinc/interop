@@ -1,0 +1,273 @@
+{
+  "schema": "tpnil-native-wallet-qualification@1.0.0",
+  "claim": "EXPERIMENTAL_CONFORMANCE_RESULT",
+  "itcve": "ITCVE-1@1.2.0",
+  "program": "ISI-4@1.0.0",
+  "lane": "chromium-extension-linux-amd64",
+  "planSha256": "de2ecc978c9650bdb7e494101b5bfa577421a7660fff8e44569de10465079c47",
+  "source": "9906dc9f85c35b4c069acb170889ec62de57fe44",
+  "image": {
+    "id": "sha256:71073779378f6970d7ad2640bad44b8ed59fee50330698fb3ce0cfd29b23626f",
+    "os": "linux",
+    "architecture": "amd64",
+    "layers": [
+      "sha256:f103cd120fdd6cbc7f3d0e1d5bfb3e16290c32ead7b822d15c34460ecdf64b29",
+      "sha256:7977f86a68e25bf507c4e3faaedcba1ff90e851bf51e0dabc001bd862c207b89",
+      "sha256:5fef904f76c944dd8d1b43166f655548956154190c608e1c2aaf2ee8cd0e7c7b",
+      "sha256:9b7d8f2ce511d137301694fa020ceff796023cadef15c57367f2bad256391293",
+      "sha256:8f5233eb992fd10952c1b59538c63cea539156a06280947046bbd9d572b3dd31",
+      "sha256:04fb1229b6ff4c5ee1d9e490ff9c504413e3f6df17899de6f944a52517256a27",
+      "sha256:41509d6f4662d20641f4830fe3e2d6947ac95f28b8aec746049eef4f9d33cfa4",
+      "sha256:e5a747c77bf4cb2d68df4ed13404c8145944f0029283a0757362d82ee51483a5",
+      "sha256:ccdfcdcaecebd7d8ef9b199f1ebcf860e3768d07174e11ac8ec96488170eda98",
+      "sha256:32e6ccb592d067fcafbd0fbf6d953e2f10331b083b4fb5d1e2608b580dfdb74f",
+      "sha256:1b1f8805f5c7a3d07689a0213311db86b106abf62dc017a3e678ba690888aa27",
+      "sha256:f757d3d1c1d3fb427d47c4842c7cb2521fb2df0ad29e2dc9af50e48c18c88487",
+      "sha256:fa42ff84bff375a7ff6f5ff92c17b9b66442b4af4b898c4dfef746f3592e5dc6",
+      "sha256:499c1278b1a797c334f7b071b90e01555d26884156ed04c99cceb3da89cbcc9b",
+      "sha256:a0fe02821fa11e9491a5b39e2dc0d8da5a8748c782b16d1e72e35a913377b818",
+      "sha256:004dde8a0e1a33090272281dade89201b9f2e63a3b00b175c149506eac91bf4a",
+      "sha256:46e9c535013657a1d648a7e7aa8950e01c51d6d7cc42d9bed71d414b3594b579",
+      "sha256:fc516e6793b157246562277dc79fb74abaacd7b45fe3ecefd6ad920087a44a70",
+      "sha256:a867959d1277def61cb56010f9a66e227f671b920d618df0d986b408f79d79f7",
+      "sha256:bff55b63c72399d98f86ed4d17626385b8b58d4018f5a564d6961e1cf8d4ca4d",
+      "sha256:4328d9da1688c9ef4ae426e71e836f9fff56e3eae1205b93ca0a874ed4a032f3",
+      "sha256:f2c2f6175f0075d6dae2d5cf9515d0dc31635841433a4b925502fe57634f64cb",
+      "sha256:57ab70be5a3a6ba54861ccb54fc5059ac2eae31ae44de7b7dbda7ae17b6f42eb",
+      "sha256:a7e33e5eb9e40a097e3e7bb9253f4408efe82a423078b66953634499d8c9e62e"
+    ]
+  },
+  "qualifiedEnvironment": true,
+  "artifact": {
+    "id": "yours-wallet-chromium-extension",
+    "version": "5.1.0",
+    "sha256": "d55abda7dc8790ecfdd57ed0f5f4dd4a28187bb4833715f7612b067625eabc52",
+    "size": 13513123
+  },
+  "vectors": [
+    {
+      "assertions": [
+        {
+          "detail": "yours-wallet-5.1.0",
+          "evidence": [
+            "artifact.json"
+          ],
+          "id": "artifact-and-version",
+          "outcome": "PASS"
+        },
+        {
+          "detail": "mainnet",
+          "evidence": [
+            "boundary.json"
+          ],
+          "id": "mainnet-configuration",
+          "outcome": "PASS"
+        },
+        {
+          "detail": "f8688e990f12d49d692e3ec68a8cbbe06f5bece1e784881ab6515e2a85fd12a1",
+          "evidence": [
+            "funding.atomicbeef",
+            "funding.json"
+          ],
+          "id": "controlled-fixture-proof",
+          "outcome": "PASS"
+        }
+      ],
+      "id": "ISI-4-V001",
+      "limitations": [
+        "The controlled mainnet-format fixture is not a public-mainnet UTXO or public-network acceptance claim."
+      ],
+      "outcome": "PASS"
+    },
+    {
+      "assertions": [
+        {
+          "detail": "657edfafd8c47b6d664a53cd8ebb1bd02a4386f2f2246b8e787a9e42026a9986.0",
+          "evidence": [
+            "created-output.json"
+          ],
+          "id": "todo-basket-output",
+          "outcome": "PASS"
+        },
+        {
+          "detail": "1ToDoDtKreEzbHYKFjmoBuduFmSXXUGZG",
+          "evidence": [
+            "created-output.json"
+          ],
+          "id": "pushdrop-protocol-field",
+          "outcome": "PASS"
+        },
+        {
+          "detail": "TPNIL controlled task",
+          "evidence": [
+            "created-output.json"
+          ],
+          "id": "encrypted-task-roundtrip",
+          "outcome": "PASS"
+        }
+      ],
+      "id": "ISI-4-V002",
+      "limitations": [],
+      "outcome": "PASS"
+    },
+    {
+      "assertions": [
+        {
+          "detail": "657edfafd8c47b6d664a53cd8ebb1bd02a4386f2f2246b8e787a9e42026a9986.0",
+          "evidence": [
+            "cold-reload.json"
+          ],
+          "id": "wallet-state-reconstruction",
+          "outcome": "PASS"
+        }
+      ],
+      "id": "ISI-4-V003",
+      "limitations": [],
+      "outcome": "PASS"
+    },
+    {
+      "assertions": [
+        {
+          "detail": "657edfafd8c47b6d664a53cd8ebb1bd02a4386f2f2246b8e787a9e42026a9986.0",
+          "evidence": [
+            "redeem.json"
+          ],
+          "id": "spent-output-absent",
+          "outcome": "PASS"
+        }
+      ],
+      "id": "ISI-4-V004",
+      "limitations": [
+        "Delayed-broadcast wallet state was evaluated; public-mainnet acceptance was outside the profile."
+      ],
+      "outcome": "PASS"
+    },
+    {
+      "assertions": [
+        {
+          "detail": "",
+          "evidence": [
+            "permissions.json"
+          ],
+          "id": "deny-enforced",
+          "outcome": "FAIL"
+        },
+        {
+          "detail": "",
+          "evidence": [
+            "permissions.json"
+          ],
+          "id": "origin-isolation",
+          "outcome": "FAIL"
+        }
+      ],
+      "id": "ISI-4-V005",
+      "limitations": [
+        "The extension window-injection substrate was exercised; HTTP and XDM substrates are separate deployment profiles."
+      ],
+      "outcome": "FAIL"
+    },
+    {
+      "assertions": [
+        {
+          "detail": "f092809eb86e50040a8beac711641f1e392b1b1e20e3e11032b5b3894d5e0faa",
+          "evidence": [
+            "broadcast-lifecycle.json"
+          ],
+          "id": "accepted-service-verdict-observed",
+          "outcome": "PASS"
+        },
+        {
+          "detail": "d63a030830e89aa024d30e2de6b1c9a1c029118ce180fe11668ffec4b45536d0",
+          "evidence": [
+            "broadcast-lifecycle.json"
+          ],
+          "id": "rejection-preserves-wallet-state",
+          "outcome": "FAIL"
+        },
+        {
+          "detail": "c624d333e3c2f3b745ad68d7861f8f5b9fe026b9f315810639076daa6f71fc93",
+          "evidence": [
+            "broadcast-lifecycle.json"
+          ],
+          "id": "post-rejection-recovery",
+          "outcome": "FAIL"
+        }
+      ],
+      "id": "ISI-4-V006",
+      "limitations": [
+        "These are controlled-service verdicts; they are not public-mainnet observations."
+      ],
+      "outcome": "FAIL"
+    },
+    {
+      "assertions": [
+        {
+          "detail": "Creation, cold reload, and redemption used the controlled Wallet Toolbox remote-storage boundary.",
+          "evidence": [
+            "cold-reload.json",
+            "redeem.json"
+          ],
+          "id": "remote-storage-continuity",
+          "outcome": "PASS"
+        }
+      ],
+      "id": "ISI-4-V007",
+      "limitations": [
+        "Counterpart replacement requires the executable ISI-3 multi-remote synchronization profile, which is not yet implemented."
+      ],
+      "outcome": "BLOCKED"
+    },
+    {
+      "assertions": [
+        {
+          "detail": "28 methods",
+          "evidence": [
+            "method-inventory.json"
+          ],
+          "id": "declared-method-inventory",
+          "outcome": "PASS"
+        },
+        {
+          "detail": "encrypt/decrypt, signature, and HMAC",
+          "evidence": [
+            "method-inventory.json"
+          ],
+          "id": "crypto-positive-cases",
+          "outcome": "PASS"
+        }
+      ],
+      "id": "ISI-4-V008",
+      "limitations": [
+        "Certificate acquisition, identity discovery, linkage revelation, abort, and relinquishment need clause-level positive and specified-error fixtures before complete BRC-100 coverage can be claimed."
+      ],
+      "outcome": "BLOCKED"
+    }
+  ],
+  "outcome": "FAIL",
+  "repetitionMatch": true,
+  "repetitions": [
+    {
+      "runId": "repetition-1",
+      "recordSha256": "a81d728271a41dcf4193a838aa1d7b23f3e3433f35efcde907b24017e7b41a16",
+      "independent": {
+        "funding": "f8688e990f12d49d692e3ec68a8cbbe06f5bece1e784881ab6515e2a85fd12a1",
+        "create": "657edfafd8c47b6d664a53cd8ebb1bd02a4386f2f2246b8e787a9e42026a9986",
+        "redemption": "7e4918ba8f900177ba32d3dce5056d3919a21bdd9a0e76f6d6bf2a81aaa44c21",
+        "valueConserved": true,
+        "fee": 31
+      }
+    },
+    {
+      "runId": "repetition-2",
+      "recordSha256": "f538f2104a7fcb2cf99585028bb62f52eb43774a7c69203f4aeaf580231c3015",
+      "independent": {
+        "funding": "58fc766a2927daf872c6107fb24e185af9a8c99f864bb3a378df5db468c90ca1",
+        "create": "ab2e02fcff8f0ee744be49217e3ae133724bf5205fc5976f5701701290161f10",
+        "redemption": "9978720338edb8d503cb8e1fc7c975ced5b786415dbfe9b2077732ec1605a367",
+        "valueConserved": true,
+        "fee": 31
+      }
+    }
+  ]
+}

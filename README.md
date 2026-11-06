@@ -64,3 +64,8 @@ payment outcomes require separate execution and evidence.
 
 ITCVE-1 supports independently selectable Go Overlay Services, Go ChainTracks and
 Go Wallet Storage through the [1.1.0 engineering component profile](itcves/ITCVE-1/1.1.0/README.md).
+
+The [1.2.0 native qualification](itcves/ITCVE-1/1.2.0/README.md) admits the
+unchanged Yours Wallet 5.1.0 Chromium extension on the all-Go Linux/amd64 closure.
+Two clean native repetitions match: V001–V004 PASS, V005–V006 FAIL and V007–V008
+BLOCKED, with mined funding ancestry and actual redemption verified offline.

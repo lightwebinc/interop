@@ -1,0 +1,53 @@
+{
+  "id": "c0a026220bce723274951949709532b192e12633854f49e083b78f1b9bc0c34d",
+  "image": "sha256:02ec73a71d71086f111a76896fbbcd4e7394127af0d7c7c51ab6c2249db86e4f",
+  "user": "1001:1001",
+  "networkMode": "none",
+  "networks": {
+    "none": {
+      "IPAMConfig": null,
+      "Links": null,
+      "Aliases": null,
+      "MacAddress": "",
+      "DriverOpts": null,
+      "GwPriority": 0,
+      "NetworkID": "e70f13bb53d6bd87e3ca6095e085ae90e8b530fcdf97b39768cc2ac079be2ca4",
+      "EndpointID": "cc3ad8c9ce969460c3bf85bdcb266a054c35beb710b23f03d26967efdfa1c0c4",
+      "Gateway": "",
+      "IPAddress": "",
+      "IPPrefixLen": 0,
+      "IPv6Gateway": "",
+      "GlobalIPv6Address": "",
+      "GlobalIPv6PrefixLen": 0,
+      "DNSNames": null
+    }
+  },
+  "privileged": false,
+  "capAdd": null,
+  "capDrop": [
+    "ALL"
+  ],
+  "readonly": true,
+  "pidMode": "",
+  "init": true,
+  "mounts": [
+    {
+      "destination": "/evidence",
+      "rw": true,
+      "type": "bind"
+    }
+  ],
+  "state": {
+    "Status": "running",
+    "Running": true,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 4162,
+    "ExitCode": 0,
+    "Error": "",
+    "StartedAt": "2026-11-06T19:40:23.192016414Z",
+    "FinishedAt": "0001-01-01T00:00:00Z"
+  }
+}

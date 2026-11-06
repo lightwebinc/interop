@@ -70,6 +70,17 @@ function walk(dir) {
       nativeWalletAttemptCount++;
     }
     else if (file.startsWith(path.join(ROOT, 'journals/native-wallet-qualification') + path.sep) && entry.name === 'qualification.json') {
+      const provenance = JSON.parse(fs.readFileSync(path.join(dir, 'provenance.json'), 'utf8'));
+      assert.equal(provenance.schema, 'tpnil-native-wallet-source-artifact@1.0.0');
+      assert.equal(provenance.source, JSON.parse(fs.readFileSync(file, 'utf8')).source);
+      const actual = fs.readdirSync(dir, { recursive: true, withFileTypes: true }).filter(item => item.isFile()).map(item => path.relative(dir, path.join(item.parentPath, item.name)).split(path.sep).join('/')).filter(name => !['README.md', 'provenance.json'].includes(name)).sort();
+      assert.deepEqual(provenance.files.map(item => item.name).sort(), actual);
+      for (const item of provenance.files) {
+        assert.ok(/^[a-zA-Z0-9][a-zA-Z0-9._/-]*$/.test(item.name) && !item.name.includes('..'));
+        const bytes = fs.readFileSync(path.join(dir, item.name));
+        assert.equal(bytes.length, item.size);
+        assert.equal(createHash('sha256').update(bytes).digest('hex'), item.sha256);
+      }
       execFileSync(path.join(ROOT, 'synthesis/node_modules/.bin/tsx'), [path.join(ROOT, 'synthesis/src/wallet-lab/native/verify.ts'), dir], { cwd: ROOT, encoding: 'utf8', timeout: 60000 });
       nativeWalletQualificationCount++;
     }

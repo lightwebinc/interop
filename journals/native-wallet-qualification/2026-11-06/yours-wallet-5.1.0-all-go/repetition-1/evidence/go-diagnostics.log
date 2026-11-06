@@ -1,0 +1,7 @@
+2026/11/06 19:44:04 WARN: No config file 'settings.conf'
+2026/11/06 19:44:04 WARN: No local config file 'settings_local.conf'
+2026/11/06 19:44:04 Loading checkpoint metadata from: /tmp/tpnil-wallet-services-auzT1b/go/chaintracks-runtime-2893229375/mainNetBlockHeaders.json
+2026/11/06 19:44:04 No persisted chain state found, initializing from genesis block
+2026/11/06 19:44:04 Initialized from genesis block: 000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f
+time=2026-11-06T19:44:20.086Z level=WARN msg="parent wait ran out, force-posting children" service=GormStorageProvider service=processAction service=BackgroundBroadcaster count=1
+time=2026-11-06T19:44:29.892Z level=WARN msg="error when calling service" service=services.PostTX service.name=tpnil-controlled error="controlled submission HTTP 400"

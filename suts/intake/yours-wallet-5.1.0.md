@@ -18,3 +18,15 @@ Both repetitions produced the same semantic projection:
 | V008 | BLOCKED | The 28-method inventory and safe crypto cases passed; remaining certificate, identity and lifecycle clauses still need executable fixtures. |
 
 The failed and blocked outcomes are laboratory results, not harness errors. Every applicable action was bounded, scored and retained. The [series record](../../journals/wallet-runs/2026-09-20/yours-wallet-5.1.0-todo-controlled-services/series.json), [first repetition](../../journals/wallet-runs/2026-09-20/yours-wallet-5.1.0-todo-controlled-services/repetition-1/record.json), and [second repetition](../../journals/wallet-runs/2026-09-20/yours-wallet-5.1.0-todo-controlled-services/repetition-2/record.json) verify offline.
+
+## All-Go native closure — November 6, 2026
+
+[ITCVE-1 1.2.0 qualification](../../journals/native-wallet-qualification/2026-11-06/yours-wallet-5.1.0-all-go/README.md)
+completed two native Linux/amd64 repetitions with Go Overlay Services, Go
+ChainTracks and authenticated Go Wallet Storage. Exact executed archives,
+Chromium sandbox and CA trust, kernel isolation, mined fixture ancestry,
+serialized redemption and complete teardown passed. The vector sequence remains
+PASS/PASS/PASS/PASS/FAIL/FAIL/BLOCKED/BLOCKED. In this closure, accepted and
+recovered immediate submissions were observed; the rejected action advanced the
+returned output count, failing preservation and the recovery baseline. The
+original TypeScript result and its bytes retain their historical identity.

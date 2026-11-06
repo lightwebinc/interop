@@ -1,0 +1,48 @@
+{
+  "schema": "tpnil-native-wallet-worker@1.0.0",
+  "completed": true,
+  "startedAt": "2026-11-06T19:44:03.705Z",
+  "endedAt": "2026-11-06T19:44:38.529Z",
+  "platform": "linux",
+  "architecture": "x64",
+  "os": "7.0.0-1017-azure",
+  "node": "v24.22.1",
+  "planSha256": "de2ecc978c9650bdb7e494101b5bfa577421a7660fff8e44569de10465079c47",
+  "recordSha256": "a81d728271a41dcf4193a838aa1d7b23f3e3433f35efcde907b24017e7b41a16",
+  "cleanWalletAndServiceShutdown": true,
+  "vectorOutcomes": [
+    {
+      "id": "ISI-4-V001",
+      "outcome": "PASS"
+    },
+    {
+      "id": "ISI-4-V002",
+      "outcome": "PASS"
+    },
+    {
+      "id": "ISI-4-V003",
+      "outcome": "PASS"
+    },
+    {
+      "id": "ISI-4-V004",
+      "outcome": "PASS"
+    },
+    {
+      "id": "ISI-4-V005",
+      "outcome": "FAIL"
+    },
+    {
+      "id": "ISI-4-V006",
+      "outcome": "FAIL"
+    },
+    {
+      "id": "ISI-4-V007",
+      "outcome": "BLOCKED"
+    },
+    {
+      "id": "ISI-4-V008",
+      "outcome": "BLOCKED"
+    }
+  ],
+  "sandboxSha256": "14faa884c2549d4e3ef5df128dab312c3ca13cf6b4e5d7340fe07cf9346b59a4"
+}

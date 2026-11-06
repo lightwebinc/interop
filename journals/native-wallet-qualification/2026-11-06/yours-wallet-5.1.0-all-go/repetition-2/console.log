@@ -1,0 +1,72 @@
+◇ injected env (0) from .env // tip: ⌘ enable debugging { debug: true }
+◇ injected env (0) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+SNI enabled. Clients not supporting SNI may fail
+https server started on 43389
+creating SNI context for www.google.com
+HTTPS_CLIENT_ERROR
+Error: socket hang up
+    at TLSSocket.onSocketClose (node:internal/tls/wrap:1379:23)
+    at TLSSocket.emit (node:events:526:24)
+    at node:net:362:12
+    at Socket.done (node:internal/tls/wrap:780:7)
+    at Socket.wrapper (node:events:639:12)
+    at Socket.emit (node:events:526:24)
+    at TCP.<anonymous> (node:net:362:12) {
+  code: 'ECONNRESET'
+}
+creating SNI context for fonts.googleapis.com
+creating SNI context for redirector.gvt1.com
+creating SNI context for android.clients.google.com
+creating SNI context for wallet.1sat.app
+creating SNI context for messagebox.1sat.app
+creating SNI context for api.1sat.app
+[wallet-lab:evidence] wallet initialized
+creating SNI context for todo.itcve.test
+creating SNI context for api.whatsonchain.com
+creating SNI context for i.ibb.co
+creating SNI context for proxy-api.mnee.net
+creating SNI context for localhost
+[wallet-lab:evidence] boundary getVersion: requesting
+[wallet-lab:evidence] boundary getVersion: completed
+[wallet-lab:evidence] boundary getNetwork: requesting
+[wallet-lab:evidence] boundary getNetwork: completed
+[wallet-lab:evidence] boundary isAuthenticated: requesting
+[wallet-lab:evidence] boundary isAuthenticated: completed
+[wallet-lab:evidence] boundary identified yours-wallet-5.1.0 on mainnet
+[wallet-lab:evidence] permission 1: allow Permission Request for todo.itcve.test
+[wallet-lab:evidence] permission 2: allow Protocol Permission for todo.itcve.test
+[wallet-lab:evidence] permission 3: allow Protocol Permission for todo.itcve.test
+[wallet-lab:evidence] controlled funding internalized
+creating SNI context for content-autofill.googleapis.com
+[wallet-lab:evidence] permission 4: allow Permission Request for todo.itcve.test
+[wallet-lab:evidence] permission 5: allow Spending Authorization for todo.itcve.test
+[wallet-lab:evidence] ToDo token created and decoded
+[wallet-lab:evidence] cold reload reconstructed wallet state
+[wallet-lab:evidence] ToDo token redeemed
+creating SNI context for deny.itcve.test
+[wallet-lab:evidence] permission 6: allow Permission Request for todo.itcve.test
+[wallet-lab:evidence] requesting explicit protocol denial
+creating SNI context for alternate.itcve.test
+[wallet-lab:evidence] permission 7: allow Permission Request for todo.itcve.test
+[wallet-lab:evidence] requesting independent cross-origin protocol decision
+[wallet-lab:evidence] permission denial and cross-origin isolation exercised
+[wallet-lab:evidence] immediate ACCEPTED_BY_NETWORK: opening isolated application page
+[wallet-lab:evidence] permission 8: allow Permission Request for todo.itcve.test
+[wallet-lab:evidence] immediate ACCEPTED_BY_NETWORK: submit dispatched
+[wallet-lab:evidence] permission 9: allow Spending Authorization for todo.itcve.test
+[wallet-lab:evidence] permission 10: allow Permission Request for todo.itcve.test
+[wallet-lab:evidence] immediate ACCEPTED_BY_NETWORK: 1 submission(s) observed
+[wallet-lab:evidence] permission 11: allow Spending Authorization for todo.itcve.test
+[wallet-lab:evidence] immediate REJECTED: opening isolated application page
+[wallet-lab:evidence] immediate REJECTED: submit dispatched
+[wallet-lab:evidence] permission 12: allow Permission Request for todo.itcve.test
+[wallet-lab:evidence] permission 13: allow Spending Authorization for todo.itcve.test
+[wallet-lab:evidence] immediate REJECTED: 1 submission(s) observed
+[wallet-lab:evidence] immediate ACCEPTED_BY_NETWORK: opening isolated application page
+[wallet-lab:evidence] immediate ACCEPTED_BY_NETWORK: submit dispatched
+[wallet-lab:evidence] permission 14: allow Permission Request for todo.itcve.test
+[wallet-lab:evidence] permission 15: allow Spending Authorization for todo.itcve.test
+[wallet-lab:evidence] immediate ACCEPTED_BY_NETWORK: 1 submission(s) observed
+[wallet-lab:evidence] accepted, rejected, and recovered immediate broadcasts exercised
+[wallet-lab:evidence] permission 16: allow Protocol Permission for todo.itcve.test
+[wallet-lab:evidence] safe BRC-100 boundary corpus exercised
