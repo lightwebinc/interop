@@ -12,8 +12,10 @@ export async function verifyMessaging(directory) {
   assert.equal(result.claim, 'INFRASTRUCTURE_QUALIFICATION_ONLY');
   assert.equal(result.nativeWalletClaim, false);
   assert.equal(result.goNativeWebSockets, false);
-  const profile = JSON.parse(fs.readFileSync(path.join(root, 'components/messaging/profile.json')));
-  assert.equal(result.profileSha256, sha256(fs.readFileSync(path.join(root, 'components/messaging/profile.json'))));
+  const candidates = ['components/messaging/profile.json', 'components/messaging/profiles/http-polling-v1.json'];
+  const matching = candidates.find(file => sha256(fs.readFileSync(path.join(root, file))) === result.profileSha256);
+  assert(matching, 'Unknown frozen messaging profile');
+  const profile = JSON.parse(fs.readFileSync(path.join(root, matching)));
   const lock = JSON.parse(fs.readFileSync(path.join(root, 'components/messaging/sources.lock.json')));
   assert.deepEqual(result.components, lock.components);
   const evidence = new Set();
@@ -32,7 +34,7 @@ export async function verifyMessaging(directory) {
   for (const implementation of ['typescript', 'go', 'go-adapted']) {
     const list = result.assertions.filter(a => a.implementation === implementation);
     const ids = new Set(list.map(a => a.id)); assert.equal(ids.size, list.length, 'Duplicate assertion');
-    for (const id of Object.keys(profile.assertions)) if (id !== 'discovery' || implementation === 'typescript') assert(ids.has(id), `Missing ${implementation}/${id}`);
+    for (const id of Object.keys(profile.assertions)) if ((profile.appliesTo?.[id] ?? (id === 'discovery' ? ['typescript'] : ['typescript', 'go', 'go-adapted'])).includes(implementation)) assert(ids.has(id), `Missing ${implementation}/${id}`);
     for (const entry of list) assert(['PASS', 'FAIL', 'BLOCKED'].includes(entry.result));
     const paid = list.find(a => a.id === 'paid-internalization');
     if (paid.result === 'PASS') {
@@ -59,6 +61,7 @@ export async function verifyMessaging(directory) {
     assert.equal(Transaction.fromBEEF(record.found.outputs[0].beef).id('hex'), record.advertisement.txid);
   }
   assert(result.cleanup.every(entry => !entry.error && !entry.walletError && entry.running !== true && (entry.exitCode === undefined || entry.exitCode === 0) && entry.signal == null));
+  for (const entry of result.cleanup) if (entry.bridge) assert(entry.bridge.httpListening === false && entry.bridge.databaseClosed === true && entry.bridge.socketCount === 0, 'Go socket bridge remains active');
   assert(result.cleanup.some(entry => entry.component === 'controlled-services' && entry.closed === true));
   return { verified: true, assertions: result.assertions.length, pass: result.assertions.filter(a => a.result === 'PASS').length, fail: result.assertions.filter(a => a.result === 'FAIL').length, blocked: result.assertions.filter(a => a.result === 'BLOCKED').length, paidTransactions: [...paidIds] };
 }

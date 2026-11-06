@@ -6,6 +6,7 @@ import { createRequire } from 'node:module';
 import { pathToFileURL, fileURLToPath } from 'node:url';
 import { startGoMessageBox } from './go-host.mjs';
 import { startTypeScriptMessageBox } from './ts-host.mjs';
+import { qualifyGoWebSocket } from './websocket-qualification.mjs';
 import { subscribeByPolling } from './polling.mjs';
 import { startMessagingMongo } from './mongo.mjs';
 import { startMessageBoxDiscovery } from './discovery.mjs';
@@ -45,7 +46,7 @@ const deadline = (promise, ms = 15000) => new Promise((resolve, reject) => {
   Promise.resolve(promise).then(value => { clearTimeout(timer); resolve(value); }, error => { clearTimeout(timer); reject(error); });
 });
 async function startGo(state, key, port = 0, compatibility = false) {
-  return startGoMessageBox({ binary: paths['go-binary'], state, key, port, compatibility, onClose(receipt) {
+  return startGoMessageBox({ binary: paths['go-binary'], typescriptSource: paths['typescript-messagebox'], state, key, port, compatibility, onClose(receipt) {
     fs.appendFileSync(path.join(out, 'go-host.log'), receipt.stderr + receipt.stdout);
     const { stdout, stderr, ...summary } = receipt; cleanup.push(summary);
   }});
@@ -166,6 +167,11 @@ try {
         return { transport: implementation === 'typescript' ? 'BRC-103 AuthSocket' : 'recipient-side authenticated HTTP polling' };
       } finally { await polling?.close(); await receiver.disconnectWebSocket(); }
     });
+    if (implementation === 'go-adapted') await test(implementation, 'websocket-adapter-contract', async () => {
+      const detail = await qualifyGoWebSocket({ load, host: () => host, restart: async () => { await host.close(); host = await start(fixedPort); }, senderWallet, receiverWallet, outsiderWallet, participant });
+      sender = participant(senderWallet, host); receiver = participant(receiverWallet, host);
+      return detail;
+    });
     if (implementation === 'typescript') await test(implementation, 'discovery', async () => {
       mongo = await startMessagingMongo();
       const { submit, lookup, syncPeer } = await import('../../integrations/services/src/overlay.ts');
@@ -223,7 +229,7 @@ finally {
 }
 fs.writeFileSync(path.join(out, 'wire.json'), JSON.stringify(trace, null, 2) + '\n');
 const evidence = fs.readdirSync(out).filter(name => fs.statSync(path.join(out, name)).isFile()).map(name => ({ path: name, sha256: sha(fs.readFileSync(path.join(out, name))) }));
-const result = { runtime: { platform: process.platform, architecture: process.arch, node: process.version, nodeSha256: sha(fs.readFileSync(process.execPath)) }, build: JSON.parse(fs.readFileSync(path.join(root,'out/messaging-sources/build.json'))), adapters: Object.fromEntries(fs.readdirSync(path.join(root,'components/messaging')).filter(name => fs.statSync(path.join(root,'components/messaging',name)).isFile()).map(name => [name, sha(fs.readFileSync(path.join(root,'components/messaging',name)))])), schema: 'tpnil-messaging-result@1', claim: profile.claim, startedAt, endedAt: new Date().toISOString(), components: lock.components, profileSha256: sha(fs.readFileSync(path.join(root, 'components/messaging/profile.json'))), assertions, evidence, cleanup, nativeWalletClaim: false, goNativeWebSockets: false };
+const result = { runtime: { platform: process.platform, architecture: process.arch, node: process.version, nodeSha256: sha(fs.readFileSync(process.execPath)) }, build: JSON.parse(fs.readFileSync(path.join(root,'out/messaging-sources/build.json'))), adapters: Object.fromEntries(fs.readdirSync(path.join(root,'components/messaging')).filter(name => fs.statSync(path.join(root,'components/messaging',name)).isFile()).map(name => [name, sha(fs.readFileSync(path.join(root,'components/messaging',name)))])), schema: 'tpnil-messaging-result@1', claim: profile.claim, startedAt, endedAt: new Date().toISOString(), components: lock.components, profileSha256: sha(fs.readFileSync(path.join(root, 'components/messaging/profile.json'))), assertions, evidence, cleanup, nativeWalletClaim: false, goNativeWebSockets: false, goAdaptedWebSockets: true };
 fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(result, null, 2) + '\n');
 console.log(JSON.stringify({ out, assertions: assertions.map(a => ({ implementation: a.implementation, id: a.id, result: a.result })), cleanup }));
 if (assertions.some(a => a.id === 'execution') || cleanup.some(c => c.error || c.walletError)) process.exitCode = 1;

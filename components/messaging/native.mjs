@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createRequire } from 'node:module';
 import { createHash } from 'node:crypto';
+import { verifyMessagingBuild } from './identity.mjs';
 import { startTypeScriptMessageBox } from './ts-host.mjs';
 import { startGoMessageBox } from './go-host.mjs';
 import { startMessageBoxDiscovery } from './discovery.mjs';
@@ -30,6 +31,7 @@ export async function runNativeMessaging(wallet, services, output) {
   const out = path.resolve(output); fs.mkdirSync(out, { recursive: true });
   const profileBytes = fs.readFileSync(path.join(root, 'components/messaging/native-profile.json'));
   const profile = JSON.parse(profileBytes), paths = messagingPaths();
+  verifyMessagingBuild(root, paths);
   const require = createRequire(path.join(paths['typescript-messagebox'], 'package.json'));
   const load = name => import(pathToFileURL(require.resolve(name)).href);
   const sdk = await load('@bsv/sdk'), { MessageBoxClient } = await load('@bsv/message-box-client');
@@ -59,7 +61,7 @@ export async function runNativeMessaging(wallet, services, output) {
       const state = path.join(out, `${implementation}.sqlite`);
       const start = port => implementation === 'typescript'
         ? startTypeScriptMessageBox({ source: paths['typescript-messagebox'], state, key: serverKey, wallet: serverWallet, port })
-        : startGoMessageBox({ binary: paths['go-binary'], state, key: serverKey, compatibility: true, port, onClose(receipt) { const { stdout, stderr, ...data } = receipt; cleanup.push(data); fs.appendFileSync(path.join(out, `${implementation}.log`), stdout + stderr); } });
+        : startGoMessageBox({ binary: paths['go-binary'], typescriptSource: paths['typescript-messagebox'], state, key: serverKey, compatibility: true, port, onClose(receipt) { const { stdout, stderr, ...data } = receipt; cleanup.push(data); fs.appendFileSync(path.join(out, `${implementation}.log`), stdout + stderr); } });
       host = await start(0); const port = Number(new URL(host.origin).port);
       const mongoUri = process.env.TPNIL_GO_MONGO_URI;
       check(mongoUri, 'Native discovery requires the enclosing isolated Mongo replica set');
@@ -93,15 +95,17 @@ export async function runNativeMessaging(wallet, services, output) {
       transactions.push({ implementation, purpose: 'native-wallet-messagebox-payment', txid: payment.id('hex'), rawHex: payment.toHex(), beef: request.payment.tx, inputSatoshis: input, outputSatoshis: paid, fee: input - paid });
       assertions.push({ id: `${implementation}/native-paid-delivery`, verdict: 'PASS', txid: payment.id('hex'), messageId: sent.messageId, nativeIdentity, recipient });
       await host.close(); host = await start(port); receiver = makeClient(recipientWallet, host);
-      check((await eventually(() => receiver.listMessages({ messageBox: 'native_payment', host: host.origin }))).some(message => message.messageId === sent.messageId), 'Paid message lost during server restart');
+      const afterRestart = await eventually(() => receiver.listMessages({ messageBox: 'native_payment', host: host.origin }));
+      check(afterRestart.some(message => message.messageId === sent.messageId), 'Paid message lost during server restart');
       await receiver.acknowledgeMessage({ messageIds: [sent.messageId], host: host.origin });
       await host.close(); host = await start(port); receiver = makeClient(recipientWallet, host);
-      check(!(await eventually(() => receiver.listMessages({ messageBox: 'native_payment', host: host.origin }))).some(message => message.messageId === sent.messageId), 'Acknowledged native payment message returned');
+      const afterAcknowledgment = await eventually(() => receiver.listMessages({ messageBox: 'native_payment', host: host.origin }));
+      check(!afterAcknowledgment.some(message => message.messageId === sent.messageId), 'Acknowledged native payment message returned');
       const replay = structuredClone(request); replay.message.messageId += '-replay';
       const response = await eventually(() => sender.authFetch.fetch(host.origin + '/sendMessage', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(replay), requireMutualAuth: true, expectedIdentityKey: host.identityKey, allowPayments: false }));
       check(response.status >= 400 && response.status < 500, 'Native payment replay was not rejected after acknowledgment/restart');
       assertions.push({ id: `${implementation}/restart-ack-replay`, verdict: 'PASS', replayStatus: response.status });
-      fs.writeFileSync(path.join(out, `${implementation}-native-payment.json`), JSON.stringify({ nativeIdentity, recipient, advertisement: { txid: advertisementTx.id('hex'), beef: advertisement.tx }, admission, resolved, request, txid: payment.id('hex'), recipientActions: actions, sent, replayStatus: response.status, elapsedMs: Date.now() - startedAt }, null, 2) + '\n');
+      fs.writeFileSync(path.join(out, `${implementation}-native-payment.json`), JSON.stringify({ nativeIdentity, recipient, advertisement: { txid: advertisementTx.id('hex'), beef: advertisement.tx }, admission, resolved, request, txid: payment.id('hex'), recipientActions: actions, messages, afterRestart, afterAcknowledgment, sent, replayStatus: response.status, elapsedMs: Date.now() - startedAt }, null, 2) + '\n');
     } catch (error) { assertions.push({ id: `${implementation}/execution`, verdict: 'FAIL', error: String(error?.stack ?? error) }); }
     finally {
       if (host) await host.close().then(() => cleanup.push({ implementation, serviceClosed: true }), error => cleanup.push({ implementation, error: String(error) }));
@@ -110,7 +114,8 @@ export async function runNativeMessaging(wallet, services, output) {
   }
   for (const item of localWallets.reverse()) await item.destroy();
   fs.writeFileSync(path.join(out, 'exchanges.json'), JSON.stringify(exchanges, null, 2) + '\n');
-  const result = { schema: 'tpnil-native-messaging-result@1', profile: profile.id, profileSha256: sha256(profileBytes), nativeIdentity, assertions, transactions, cleanup, result: assertions.some(item => item.verdict !== 'PASS') || cleanup.some(item => item.error) ? 'FAIL' : 'PASS' };
+  const evidence = fs.readdirSync(out).filter(file => file.endsWith('.json') && file !== 'result.json').map(file => ({ path: file, encoding: 'canonical-json', sha256: sha256(JSON.stringify(JSON.parse(fs.readFileSync(path.join(out, file))))) }));
+  const result = { schema: 'tpnil-native-messaging-result@1', profile: profile.id, profileSha256: sha256(profileBytes), nativeIdentity, assertions, transactions, evidence, cleanup, result: assertions.some(item => item.verdict !== 'PASS') || cleanup.some(item => item.error) ? 'FAIL' : 'PASS' };
   fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(result, null, 2) + '\n');
   return result;
 }

@@ -19,7 +19,7 @@ export function sourceTreeDigest(directory) {
   return sha256(JSON.stringify(files));
 }
 export function verifyMessagingBuild(root, paths) {
-  const build = JSON.parse(fs.readFileSync(path.join(root, 'out/messaging-sources/build.json')));
+  const build = JSON.parse(fs.readFileSync(path.join(path.dirname(paths['go-binary']), 'build.json')));
   if (build.lockSha256 !== sha256(fs.readFileSync(path.join(root, 'components/messaging/sources.lock.json')))) throw new Error('Messaging source lock differs from prepared build');
   if (build.goAdapterSha256 !== sha256(fs.readFileSync(path.join(root, 'components/messaging/go-host.go')))) throw new Error('Go adapter differs from prepared binary');
   if (build.goBinarySha256 !== sha256(fs.readFileSync(paths['go-binary']))) throw new Error('Go binary differs from prepared build');

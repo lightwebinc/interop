@@ -7,6 +7,7 @@ import (
 	"database/sql"
 	"encoding/base64"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"net"
@@ -19,6 +20,7 @@ import (
 
 	"github.com/bsv-blockchain/go-bsv-middleware/pkg/middleware"
 	"github.com/bsv-blockchain/go-message-box-server/pkg/handlers"
+	mbstorage "github.com/bsv-blockchain/go-message-box-server/pkg/storage"
 	"github.com/bsv-blockchain/go-message-box-server/pkg/storage/sqlstore"
 	ec "github.com/bsv-blockchain/go-sdk/primitives/ec"
 	"github.com/bsv-blockchain/go-sdk/transaction"
@@ -66,7 +68,11 @@ func main() {
 		must(err)
 		must(db.Close())
 	}
-	service := handlers.NewServer(store, wallet)
+	var messages mbstorage.Store = store
+	if *adapted {
+		messages = &compatibleStore{Store: store}
+	}
+	service := handlers.NewServer(messages, wallet)
 	mux := http.NewServeMux()
 	mux.HandleFunc("POST /sendMessage", service.SendMessage)
 	if *adapted {
@@ -196,4 +202,18 @@ func normalizePaymentBytes(next http.HandlerFunc) http.HandlerFunc {
 		w.WriteHeader(200)
 		_ = json.NewEncoder(w).Encode(response)
 	}
+}
+
+// sqlstore's native duplicate classifier keys on its driver name. Preserve the
+// same public duplicate response for the registered deterministic-function
+// driver rather than exposing a constraint rejection as an internal error.
+type compatibleStore struct{ *sqlstore.Store }
+
+func (s *compatibleStore) InsertMessage(ctx context.Context, message mbstorage.NewMessage) error {
+	err := s.Store.InsertMessage(ctx, message)
+	var sqliteError sqlite3.Error
+	if errors.As(err, &sqliteError) && (sqliteError.ExtendedCode == sqlite3.ErrConstraintUnique || sqliteError.ExtendedCode == sqlite3.ErrConstraintPrimaryKey) {
+		return mbstorage.ErrDuplicateMessage
+	}
+	return err
 }

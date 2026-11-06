@@ -38,8 +38,8 @@ an encrypted message to that service. Discovery persists through restart, and
 an independently verified signed spend removes the advertisement. Automatic
 public peer discovery is disabled; the two admitted peers are explicitly wired.
 
-The TypeScript transport exercises actual authenticated WebSockets. The Go lane
-uses the recipient-side authenticated HTTP polling adapter. This adapter retains
+The TypeScript transport exercises actual authenticated WebSockets. Both Go lanes
+also exercise the recipient-side authenticated HTTP polling adapter. This adapter retains
 recipient wallet authority at the client, bounds remembered message IDs, waits
 for callbacks and stops its timer and in-flight operation during teardown. It
 does not establish native Go WebSocket or mobile push support.
@@ -52,7 +52,7 @@ TypeScript client from internalizing recipient payments, the same payment can
 fund a second message, and acknowledgment/restart does not prevent that reuse.
 These observations remain laboratory data.
 
-The explicitly identified `go-adapted` closure adds two narrow changes in
+The explicitly identified `go-adapted` closure adds two narrow data changes in
 [`go-host.go`](../components/messaging/go-host.go):
 
 - Payment bytes are encoded as BRC-100 JSON numeric arrays before the Go
@@ -63,6 +63,25 @@ The explicitly identified `go-adapted` closure adds two narrow changes in
   claim survives message acknowledgment and restart. A failed message insertion
   rolls back its claim. Distinct BEEF encodings cannot evade the transaction ID
   key, and a multi-recipient payment can still create one claim per recipient.
+
+The same closure exposes actual maintained TypeScript AuthSocket through
+[`go-websocket.mjs`](../components/messaging/go-websocket.mjs). Its HTTP frontend
+forwards authenticated requests to the actual Go handlers. The socket uses the
+same server identity, and its cryptographically verified client identity selects
+read-only rows from Go's SQLite store. The bridge receives no recipient keys or
+delegated HTTP credentials. Writes, permissions, payment processing and
+acknowledgments remain with Go HTTP. Fee-bearing message receipt uses the client's
+HTTP path so payment internalization precedes acknowledgment, matching the
+TypeScript service's contract.
+
+Push uses bounded 32-row scans and connection/room/delivery limits. Scans wrap to
+avoid starvation after insertion or deletion, and only one scan runs at a time.
+A disconnected client receives unacknowledged messages again; messages are
+deduplicated within each connection. The real client tests cross-owner room
+rejection, encrypted push, 34 queued messages spanning pages, reconnect, complete
+service restart and acknowledgment durability. This closes the lab's push
+contract with an explicit adapter; the pinned Go source still has no native
+WebSocket implementation. No mobile FCM claim is made.
 
 The adapter is scoped to SQLite and recipient fee delivery. The baseline server
 wallet supports authentication; the fee-bearing output belongs to the recipient
@@ -81,10 +100,27 @@ height to accommodate the older verifier.
 `startTypeScriptMessageBox` accepts an actual `wallet` dependency and returns an
 origin, authenticated identity and close function. `startGoMessageBox` accepts
 the prepared binary, isolated SQLite filename, laboratory key and the explicit
-compatibility selection. `startMessageBoxDiscovery` registers the actual plugins
+compatibility selection. Compatibility mode enables the socket bridge and
+requires `typescriptSource` from the prepared source paths. `origin` identifies
+the joined HTTP/socket frontend; `upstreamOrigin` identifies Go's HTTP server.
+`websockets: false` selects the independently exercised HTTP/polling path.
+`startMessageBoxDiscovery` registers the actual plugins
 in the common OverlayExpress factory and exposes `resolve(identityKey)`.
 These factories share the same implementations as the standalone matrix.
 
 The protocol matrix is infrastructure evidence. Native wallet qualification uses
 the unchanged admitted application and its public wallet interface; this matrix
 alone does not establish that application or a physical device result.
+
+`runNativeMessaging(wallet, services, output)` dispatches every payer operation to
+the enclosing native wallet boundary. It returns six required assertions, exact
+payment BEEF/raw transactions, recipient receipts, restart/replay exchanges and
+cleanup evidence. `node scripts/verify-native-messaging.mjs DIR` independently
+verifies the transactions, recipient derivation, ciphertext, advertisement
+signature and evidence bindings. It accepts either the helper output directory
+or the native envelope's flattened `messaging.json` and `messaging-*.json` files.
+The native application's admission and provenance still come from that envelope.
+
+Retained implementation attempts and final reference-wallet engineering runs are
+indexed in `journals/messaging-integration/2026-11-06/index.json`. Earlier failures
+remain unchanged; later passing samples do not replace them.
