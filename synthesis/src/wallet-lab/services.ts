@@ -4,9 +4,10 @@ import net from 'node:net'
 import os from 'node:os'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
-import { Beef, Curve, P2PKH, PrivateKey, PublicKey, Random, RPuzzle, Transaction, Utils } from '@bsv/sdk'
+import { Beef, Curve, P2PKH, PrivateKey, PublicKey, PushDrop, Random, RPuzzle, Transaction, Utils } from '@bsv/sdk'
 import { KnexSessionManager, Services, Setup, StorageServer, Wallet } from '@bsv/wallet-toolbox'
 import { Proxy } from 'http-mitm-proxy'
+import { GoServices, selectComponents, type ComponentSelection, type GoServiceOptions } from './go-services.js'
 import type { RouteObservation } from './model.js'
 import { ControlledOverlayServices, type OverlayObservation, type UmpRecord } from './overlay-services.js'
 
@@ -52,6 +53,8 @@ export interface StorageRpcObservation {
 
 export interface ControlledServicesOptions {
   webroot: string
+  components?: ComponentSelection
+  go?: GoServiceOptions
   walletStorageRootKeyHex?: string
   submitVerdicts?: Array<'ACCEPTED_BY_NETWORK' | 'REJECTED'>
   wabPort?: number
@@ -113,6 +116,16 @@ const genesisBytes = Buffer.from(
   'hex'
 )
 
+export function withHeaderHash(header: Omit<HeaderRecord, 'hash'>): HeaderRecord {
+  const raw = Buffer.alloc(80)
+  raw.writeInt32LE(header.version, 0)
+  Buffer.from(header.previousHash, 'hex').reverse().copy(raw, 4)
+  Buffer.from(header.merkleRoot, 'hex').reverse().copy(raw, 36)
+  raw.writeUInt32LE(header.time, 68); raw.writeUInt32LE(header.bits, 72); raw.writeUInt32LE(header.nonce, 76)
+  const hash = createHash('sha256').update(createHash('sha256').update(raw).digest()).digest().reverse().toString('hex')
+  return { ...header, hash }
+}
+
 async function freePort(): Promise<number> {
   const server = net.createServer()
   await new Promise<void>((resolve, reject) => {
@@ -142,6 +155,10 @@ function sendJson(response: ServerResponse, status: number, value: unknown): voi
 }
 
 export class ControlledWalletServices {
+  readonly components: Required<ComponentSelection>
+  private readonly goOptions?: GoServiceOptions
+  private goServices?: GoServices
+  private goStorageServer?: http.Server
   readonly headers = new Map<number, HeaderRecord>([[0, genesisHeader]])
   readonly routes: RouteObservation[] = []
   readonly submissions: SubmittedTransaction[] = []
@@ -161,6 +178,7 @@ export class ControlledWalletServices {
   private storageSetup?: Awaited<ReturnType<typeof Setup.createWalletSQLite>>
   private storageServer?: StorageServer
   private faucetWallet?: Wallet
+  private faucetRootKeyHex?: string
   private readonly faucetPayments = new Map<string, { amount: number; txid: string; outputIndex: number; k: string; tx: number[] }>()
   private serviceServer?: http.Server
   private proxy?: Proxy
@@ -169,12 +187,20 @@ export class ControlledWalletServices {
   }>()
 
   constructor(options: ControlledServicesOptions) {
+    this.components = selectComponents(options.components)
+    this.goOptions = options.go
     this.webroot = path.resolve(options.webroot)
     this.storageRootKeyHex = options.walletStorageRootKeyHex ?? '11'.repeat(32)
     this.identityKey = PrivateKey.fromHex(this.storageRootKeyHex).toPublicKey().toString()
     this.verdicts = [...(options.submitVerdicts ?? [])]
     this.wabPort = options.wabPort
     this.temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'tpnil-wallet-services-'))
+  }
+
+  get componentDiagnostics(): string { return this.goServices?.diagnostics ?? '' }
+
+  get componentIdentity(): Record<string, unknown> {
+    return { components: this.components, ...(this.goServices === undefined ? {} : { go: this.goServices.identity }) }
   }
 
   get proxyUrl(): string {
@@ -189,6 +215,11 @@ export class ControlledWalletServices {
 
   get caDirectory(): string {
     return path.join(this.temporaryDirectory, 'ca')
+  }
+
+  get serviceUrl(): string {
+    if (this.servicePort === 0) throw new Error('Controlled services are not started')
+    return `http://127.0.0.1:${this.servicePort}`
   }
 
   get storageUrl(): string {
@@ -213,6 +244,10 @@ export class ControlledWalletServices {
     }))
   }
 
+  registerSyntheticHeader(header: Omit<HeaderRecord, 'hash'>): void {
+    this.registerHeader(Object.values(this.components).includes('go') ? withHeaderHash(header) : { ...header, hash: '01'.repeat(32) })
+  }
+
   registerHeader(header: HeaderRecord): void {
     this.headers.set(header.height, { ...header })
   }
@@ -226,6 +261,30 @@ export class ControlledWalletServices {
     if (index < 0) return false
     this.verdicts.splice(index, 1)
     return true
+  }
+
+  private async connectRemoteWallet(rootKeyHex: string): Promise<Wallet> {
+    const wallet = await Setup.createWalletClientNoEnv({
+      chain: 'main',
+      rootKeyHex,
+      storageUrl: this.storageUrl
+    })
+    if (wallet.services === undefined) throw new Error('Remote wallet services are absent')
+    const remoteServices = wallet.services as Services
+    remoteServices.options.chainTracker = {
+      isValidRootForHeight: async (root: string, height: number) => this.headers.get(height)?.merkleRoot === root,
+      currentHeight: async () => 900_100
+    }
+    remoteServices.postBeef = async (beef, txids) => txids.map(txid => {
+      const bytes = Uint8Array.from(beef.toBinaryAtomic(txid))
+      this.submissions.push({ txid, bytes, verdict: 'ACCEPTED_BY_NETWORK' })
+      return {
+        name: 'tpnil-controlled-submission',
+        status: 'success' as const,
+        txidResults: [{ txid, status: 'success' as const }]
+      }
+    })
+    return wallet
   }
 
   async fundRemoteWalletFromTeranode(
@@ -263,27 +322,8 @@ export class ControlledWalletServices {
       currentHeight: async () => fixture.fundingHeight + fixture.maturityDepth,
       isValidRootForHeight: async (root, height) => root === fixture.merkleRoot && height === fixture.fundingHeight
     })) throw new Error('Teranode funding proof is not valid and mature')
-    const wallet = await Setup.createWalletClientNoEnv({
-      chain: 'main',
-      rootKeyHex,
-      storageUrl: this.storageUrl
-    })
+    const wallet = await this.connectRemoteWallet(rootKeyHex)
     try {
-      if (wallet.services === undefined) throw new Error('Remote wallet services are absent')
-      const remoteServices = wallet.services as Services
-      remoteServices.options.chainTracker = {
-        isValidRootForHeight: async (root: string, height: number) => this.headers.get(height)?.merkleRoot === root,
-        currentHeight: async () => 900_100
-      }
-      remoteServices.postBeef = async (beef, txids) => txids.map(txid => {
-        const bytes = Uint8Array.from(beef.toBinaryAtomic(txid))
-        this.submissions.push({ txid, bytes, verdict: 'ACCEPTED_BY_NETWORK' })
-        return {
-          name: 'tpnil-controlled-submission',
-          status: 'success' as const,
-          txidResults: [{ txid, status: 'success' as const }]
-        }
-      })
       const senderIdentityKey = fixture.payment.senderIdentityKey
       const derivationPrefix = fixture.payment.derivationPrefix
       const derivationSuffix = fixture.payment.derivationSuffix
@@ -310,6 +350,7 @@ export class ControlledWalletServices {
         labels: ['tpnil-fixture', 'wab-faucet', 'teranode-mined']
       })
       this.faucetWallet = wallet
+      this.faucetRootKeyHex = rootKeyHex
       return {
         txid: fixture.txid,
         outputIndex: fixture.outputIndex,
@@ -328,68 +369,98 @@ export class ControlledWalletServices {
   }
 
   async start(): Promise<void> {
+    try { await this.startServices() } catch (error) {
+      try { await this.close() } catch (cleanupError) { throw new AggregateError([error, cleanupError], 'Service startup and cleanup failed') }
+      throw error
+    }
+  }
+
+  private async startServices(): Promise<void> {
     this.storagePort = await freePort()
     this.servicePort = await freePort()
     this.proxyPort = await freePort()
     await this.overlay.initialize()
-    const database = path.join(this.temporaryDirectory, 'storage.sqlite')
-    const env = {
-      chain: 'main' as const,
-      identityKey: this.identityKey,
-      identityKey2: this.identityKey,
-      filePath: database,
-      taalApiKey: 'controlled-fixture-no-key',
-      devKeys: { [this.identityKey]: this.storageRootKeyHex },
-      mySQLConnection: '{}'
-    }
-    this.storageSetup = await Setup.createWalletSQLite({
-      env,
-      rootKeyHex: this.storageRootKeyHex,
-      filePath: database,
-      databaseName: 'tpnil-wallet-lab'
+    this.serviceServer = http.createServer((request, response) => {
+      void this.handleRequest(request, response).catch(error => {
+        if (!response.headersSent) sendJson(response, 502, { error: String(error) })
+        else response.destroy(error as Error)
+      })
     })
-    this.storageSetup.services.options.chainTracker = {
-      isValidRootForHeight: async (root: string, height: number) => this.headers.get(height)?.merkleRoot === root,
-      currentHeight: async () => 900_100
-    } as never
-    this.storageSetup.services.postBeef = (async (beef: { toBinaryAtomic: (txid: string) => number[] }, txids: string[]) =>
-      txids.map(txid => {
-        const bytes = Uint8Array.from(beef.toBinaryAtomic(txid))
-        const verdict = this.verdicts.shift() ?? 'ACCEPTED_BY_NETWORK'
-        this.submissions.push({ txid, bytes, verdict })
-        this.routes.push({
-          sequence: ++this.routeSequence,
-          method: 'POST',
-          host: 'api.1sat.app',
-          pathname: '/1sat/tx',
-          disposition: 'controlled-service',
-          status: verdict === 'REJECTED' ? 400 : 200
-        })
-        return verdict === 'ACCEPTED_BY_NETWORK'
-          ? { name: 'tpnil-controlled-submission', status: 'success', txidResults: [{ txid, status: 'success' }] }
-          : {
-              name: 'tpnil-controlled-submission',
-              status: 'error',
-              error: new Error('controlled rejection'),
-              txidResults: [{ txid, status: 'error', serviceError: false }]
-            }
-      })) as unknown as typeof this.storageSetup.services.postBeef
-    this.storageServer = new StorageServer(this.storageSetup.activeStorage, {
-      host: '127.0.0.1',
-      port: this.storagePort,
-      wallet: this.storageSetup.wallet,
-      monetize: false,
-      logRpcRequests: false,
-      sessionManager: new KnexSessionManager(this.storageSetup.activeStorage.knex),
-      maxRpcListLimit: 100_000,
-      defaultRpcListLimit: 1_000
-    })
-    this.storageServer.start()
-    this.serviceServer = http.createServer((request, response) => void this.handleRequest(request, response))
     await new Promise<void>((resolve, reject) => {
       this.serviceServer!.once('error', reject)
       this.serviceServer!.listen(this.servicePort, '127.0.0.1', resolve)
     })
+    if (Object.values(this.components).includes('go')) {
+      this.goServices = new GoServices(path.join(this.temporaryDirectory, 'go'), this.components, this.goOptions)
+      await this.goServices.start(`http://127.0.0.1:${this.servicePort}`, this.storageRootKeyHex)
+      await this.syncGoHeaders()
+    }
+    if (this.components.storage === 'typescript') {
+      const database = path.join(this.temporaryDirectory, 'storage.sqlite')
+      const env = {
+        chain: 'main' as const,
+        identityKey: this.identityKey,
+        identityKey2: this.identityKey,
+        filePath: database,
+        taalApiKey: 'controlled-fixture-no-key',
+        devKeys: { [this.identityKey]: this.storageRootKeyHex },
+        mySQLConnection: '{}'
+      }
+      this.storageSetup = await Setup.createWalletSQLite({
+        env,
+        rootKeyHex: this.storageRootKeyHex,
+        filePath: database,
+        databaseName: 'tpnil-wallet-lab'
+      })
+      this.storageSetup.services.options.chainTracker = {
+        isValidRootForHeight: async (root: string, height: number) => this.headers.get(height)?.merkleRoot === root,
+        currentHeight: async () => 900_100
+      } as never
+      this.storageSetup.services.postBeef = (async (beef: { toBinaryAtomic: (txid: string) => number[] }, txids: string[]) =>
+        txids.map(txid => {
+          const bytes = Uint8Array.from(beef.toBinaryAtomic(txid))
+          const verdict = this.verdicts.shift() ?? 'ACCEPTED_BY_NETWORK'
+          this.submissions.push({ txid, bytes, verdict })
+          this.routes.push({
+            sequence: ++this.routeSequence,
+            method: 'POST',
+            host: 'api.1sat.app',
+            pathname: '/1sat/tx',
+            disposition: 'controlled-service',
+            status: verdict === 'REJECTED' ? 400 : 200
+          })
+          return verdict === 'ACCEPTED_BY_NETWORK'
+            ? { name: 'tpnil-controlled-submission', status: 'success', txidResults: [{ txid, status: 'success' }] }
+            : {
+                name: 'tpnil-controlled-submission',
+                status: 'error',
+                error: new Error('controlled rejection'),
+                txidResults: [{ txid, status: 'error', serviceError: false }]
+              }
+        })) as unknown as typeof this.storageSetup.services.postBeef
+      this.storageServer = new StorageServer(this.storageSetup.activeStorage, {
+        host: '127.0.0.1',
+        port: this.storagePort,
+        wallet: this.storageSetup.wallet,
+        monetize: false,
+        logRpcRequests: false,
+        sessionManager: new KnexSessionManager(this.storageSetup.activeStorage.knex),
+        maxRpcListLimit: 100_000,
+        defaultRpcListLimit: 1_000
+      })
+      this.storageServer.start()
+    } else {
+      this.goStorageServer = http.createServer((request, response) => {
+        void this.forwardGo(request, response, `/storage${request.url ?? '/'}`).catch(error => {
+          if (!response.headersSent) sendJson(response, 502, { error: String(error) })
+          else response.destroy(error as Error)
+        })
+      })
+      await new Promise<void>((resolve, reject) => {
+        this.goStorageServer!.once('error', reject)
+        this.goStorageServer!.listen(this.storagePort, '127.0.0.1', resolve)
+      })
+    }
     this.proxy = new Proxy()
     this.proxy.onRequest((context, callback) => {
       const host = String(context.clientToProxyRequest.headers.host ?? '').split(':')[0]!.toLowerCase()
@@ -472,6 +543,15 @@ export class ControlledWalletServices {
     })
   }
 
+  async restartGoComponents(): Promise<void> {
+    if (this.goServices === undefined) throw new Error('No Go components selected')
+    await this.faucetWallet?.destroy()
+    this.faucetWallet = undefined
+    await this.goServices.close()
+    await this.goServices.start(this.serviceUrl, this.storageRootKeyHex)
+    if (this.faucetRootKeyHex !== undefined) this.faucetWallet = await this.connectRemoteWallet(this.faucetRootKeyHex)
+  }
+
   async close(): Promise<void> {
     if (this.proxy !== undefined) {
       for (const client of this.proxy.wsServer?.clients ?? []) client.terminate()
@@ -484,18 +564,77 @@ export class ControlledWalletServices {
         server?.closeAllConnections()
       this.proxy.close()
     }
-    if (this.serviceServer !== undefined)
-      await new Promise<void>(resolve => this.serviceServer!.close(() => resolve()))
-    await this.faucetWallet?.destroy()
-    await this.storageServer?.close()
-    await this.storageSetup?.wallet.destroy()
-    await this.storageSetup?.activeStorage.destroy()
+    const failures: unknown[] = []
+    const clean = async (operation: () => Promise<unknown>): Promise<void> => { try { await operation() } catch (error) { failures.push(error) } }
+    await clean(async () => this.faucetWallet?.destroy())
+    this.faucetWallet = undefined
+    if (this.goStorageServer !== undefined) {
+      this.goStorageServer.closeAllConnections()
+      await clean(() => new Promise<void>(resolve => this.goStorageServer!.close(() => resolve())))
+    }
+    await clean(async () => this.goServices?.dispose())
+    if (this.serviceServer !== undefined) {
+      this.serviceServer.closeAllConnections()
+      await clean(() => new Promise<void>(resolve => this.serviceServer!.close(() => resolve())))
+    }
+    await clean(async () => this.storageServer?.close())
+    await clean(async () => this.storageSetup?.wallet.destroy())
+    await clean(async () => this.storageSetup?.activeStorage.destroy())
     fs.rmSync(this.temporaryDirectory, { recursive: true, force: true })
+    if (failures.length > 0) throw new AggregateError(failures, 'Controlled service cleanup failed')
+  }
+
+  private async syncGoHeaders(): Promise<void> {
+    if (this.goServices === undefined) return
+    const headers = [...this.headers.values()].sort((a, b) => a.height - b.height)
+    const last = headers.at(-1)!
+    // Explicit synthetic maturation checkpoint, matching the controlled fixture
+    // height. The raw header hash remains exact; this is not a PoW/chain oracle.
+    if (last.height < 900_100) headers.push(withHeaderHash({ ...last, previousHash: last.hash, merkleRoot: '00'.repeat(32), height: 900_100, time: last.time + 100, nonce: 0 }))
+    await this.goServices.syncHeaders(headers)
+  }
+
+  private async forwardGo(request: IncomingMessage, response: ServerResponse, route: string, transform?: (body: Buffer, status: number) => Buffer) {
+    if (this.goServices === undefined) throw new Error('Go services are absent')
+    await this.syncGoHeaders()
+    return this.goServices.forward(request, response, route, transform)
+  }
+
+  private async handleGoOverlay(request: IncomingMessage, response: ServerResponse, pathname: string): Promise<void> {
+    const native = await this.forwardGo(request, response, `/overlay${pathname}`, (body, status) => {
+      if (status !== 200) return body
+      const value = JSON.parse(body.toString()) as { STEAK?: unknown }
+      if (value.STEAK === undefined) throw new Error('Go overlay response omitted STEAK')
+      return Buffer.from(JSON.stringify(value.STEAK))
+    })
+    if (native === undefined) throw new Error('Go overlay response is absent')
+    if (pathname === '/submit' && native.status === 200) {
+      const result = (JSON.parse(native.output.toString()) as { STEAK?: { tm_users?: { outputsToAdmit?: number[] } } }).STEAK
+      const tx = Transaction.fromBEEF([...native.input])
+      const admitted = native.status === 200 ? result?.tm_users?.outputsToAdmit ?? [] : []
+      this.overlay.observations.push({ sequence: this.overlay.observations.length + 1, operation: 'submit', topics: ['tm_users'], txid: tx.id('hex'), admittedOutputs: admitted })
+      for (const outputIndex of admitted) {
+        const fields = PushDrop.decode(tx.outputs[outputIndex]!.lockingScript).fields
+        const txid = tx.id('hex')
+        if (!this.overlay.records.some(record => record.txid === txid && record.outputIndex === outputIndex))
+          this.overlay.records.push({ txid, outputIndex, outpoint: `${txid}.${outputIndex}`, presentationHash: Utils.toHex(fields[6]!), recoveryHash: Utils.toHex(fields[7]!), beef: [...native.input] })
+      }
+    }
   }
 
   private async handleRequest(request: IncomingMessage, response: ServerResponse): Promise<void> {
     const host = hostOf(request)
     const url = new URL(request.url ?? '/', 'http://controlled.invalid')
+    if (host === '127.0.0.1' && url.pathname === '/tpnil/submit' && request.method === 'POST') {
+      const chunks: Buffer[] = []
+      let size = 0
+      for await (const chunk of request) { size += chunk.length; if (size > 4 * 1024 * 1024) throw new Error('Submission exceeds limit'); chunks.push(Buffer.from(chunk)) }
+      const tx = Transaction.fromHex(Buffer.concat(chunks).toString('utf8'))
+      const verdict = this.verdicts.shift() ?? 'ACCEPTED_BY_NETWORK'
+      this.submissions.push({ txid: tx.id('hex'), bytes: tx.toUint8Array(), verdict })
+      sendJson(response, verdict === 'REJECTED' ? 400 : 200, { txid: tx.id('hex'), verdict })
+      return
+    }
     if (request.method === 'OPTIONS') {
       response
         .writeHead(204, {
@@ -517,6 +656,30 @@ export class ControlledWalletServices {
     }
     if (host === 'overlay.itcve.test' || host === 'overlay-us-1.bsvb.tech' ||
       host === 'overlay-eu-1.bsvb.tech' || host === 'overlay-ap-1.bsvb.tech' || host === 'users.bapp.dev') {
+      if (this.components.overlay === 'go' && url.pathname === '/submit') {
+        await this.handleGoOverlay(request, response, url.pathname)
+        return
+      }
+      if (this.components.overlay === 'go' && url.pathname === '/lookup') {
+        // Read the question once, then replay it to the selected service.
+        const chunks: Buffer[] = []
+        let size = 0
+        for await (const chunk of request) { size += chunk.length; if (size > 4 * 1024 * 1024) throw new Error('Lookup exceeds limit'); chunks.push(Buffer.from(chunk)) }
+        const body = Buffer.concat(chunks)
+        const question = JSON.parse(body.toString()) as { service?: string }
+        const { Readable } = await import('node:stream')
+        const replay = Object.assign(Readable.from([body]), { method: request.method, headers: request.headers, url: request.url }) as IncomingMessage
+        if (question.service === 'ls_users' || question.service === 'ls_tpnil') {
+          const result = await this.forwardGo(replay, response, '/overlay/lookup')
+          if (result !== undefined) {
+            const answer = JSON.parse(result.output.toString()) as { outputs?: unknown[] }
+            this.overlay.observations.push({ sequence: this.overlay.observations.length + 1, operation: 'lookup', service: question.service, resultCount: answer.outputs?.length ?? 0 })
+          }
+          return
+        }
+        await this.overlay.handle(replay, response, url.pathname)
+        return
+      }
       await this.overlay.handle(request, response, url.pathname)
       return
     }
@@ -525,13 +688,15 @@ export class ControlledWalletServices {
       return
     }
     if (url.pathname.startsWith('/chaintracks/v2/')) {
-      this.handleGoChaintracks(response, url)
+      if (this.components.chaintracks === 'go') await this.forwardGo(request, response, `${url.pathname}${url.search}`)
+      else this.handleGoChaintracks(response, url)
       return
     }
     if (url.pathname === '/getPresentHeight' || url.pathname === '/findChainTipHeaderHex' ||
       url.pathname === '/findChainTipHashHex' || url.pathname === '/getHeaders' ||
       url.pathname === '/findHeaderHexForHeight' || url.pathname === '/getInfo') {
-      this.handleLegacyChaintracks(response, url)
+      if (this.components.chaintracks === 'go' && url.pathname !== '/getInfo') await this.forwardGo(request, response, `${url.pathname}${url.search}`)
+      else this.handleLegacyChaintracks(response, url)
       return
     }
     if (host === 'messagebox.1sat.app') {
@@ -604,6 +769,10 @@ export class ControlledWalletServices {
   }
 
   private async handleOneSat(request: IncomingMessage, response: ServerResponse, url: URL): Promise<void> {
+    if (this.components.chaintracks === 'go' && url.pathname.startsWith('/1sat/chaintracks/')) {
+      await this.forwardGo(request, response, `/chaintracks/v2${url.pathname.slice('/1sat/chaintracks'.length)}${url.search}`)
+      return
+    }
     if (url.pathname === '/1sat/chaintracks/tip') {
       sendJson(response, 200, { ...genesisHeader, height: 900_100 })
       return

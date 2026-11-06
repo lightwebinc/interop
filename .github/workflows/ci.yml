@@ -31,3 +31,28 @@ jobs:
       - run: node scripts/check-journal-history.mjs "$BASE_SHA"
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+  go-components:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version-file: '.nvmrc'
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: '1.27.3'
+          cache-dependency-path: synthesis/go/go.sum
+      - run: npm ci --prefix synthesis --ignore-scripts
+      - name: Verify Go host, all mixed stacks, faults and recovery
+        run: npm run test:go
+      - name: Retain native component evidence on every outcome
+        if: always()
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        with:
+          name: itcve-go-components
+          path: out/go-components
+          if-no-files-found: error
+          retention-days: 90

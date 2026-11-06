@@ -61,3 +61,6 @@ payment outcomes require separate execution and evidence.
 - [Participation](CONTRIBUTING.md) explains submissions and technical contributions.
 
 `programs/` holds versioned requirements and vector catalogs; `itcves/` defines environment profiles; `infra/` contains runnable laboratory plans and provisioning contracts; `schemas/` holds machine-readable contracts; `src/` and `bin/` implement the offline core; `adapters/` specifies the control plane; `suts/` records artifact candidates; `fixtures/` contains laboratory self-tests; `journals/` retains accepted evidence; and `docs/` contains technical policies and research.
+
+ITCVE-1 supports independently selectable Go Overlay Services, Go ChainTracks and
+Go Wallet Storage through the [1.1.0 engineering component profile](itcves/ITCVE-1/1.1.0/README.md).

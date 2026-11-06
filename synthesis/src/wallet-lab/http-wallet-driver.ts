@@ -1,3 +1,4 @@
+import type { ComponentSelection } from './go-services.js'
 import os from 'node:os'
 import path from 'node:path'
 import {
@@ -49,7 +50,7 @@ export const BRC100_METHODS = [
 ] as const
 
 export type FixtureEnvironmentConfiguration =
-  | { mode: 'controlled-services' }
+  | { mode: 'controlled-services'; components?: ComponentSelection }
   | {
       mode: 'declared-hook'
       hook: FixtureHookConfiguration
@@ -145,6 +146,7 @@ interface FixtureEnvironment {
   readonly controlledDestinations: string[]
   readonly profile: WalletLabResult['profile']
   routes(): RouteObservation[]
+  componentIdentity?(): Record<string, unknown>
   storageBoundaryObserved(): boolean
   fund(publicKey: string, satoshis: number): Promise<FundingResult>
   enqueueVerdict(verdict: Submission['verdict']): Promise<void>
@@ -153,11 +155,12 @@ interface FixtureEnvironment {
   close(): Promise<void>
 }
 
-async function controlledServicesEnvironment(webroot: string): Promise<FixtureEnvironment> {
+async function controlledServicesEnvironment(webroot: string, components?: ComponentSelection): Promise<FixtureEnvironment> {
   const { ControlledWalletServices } = await import('./services.js')
-  const services = new ControlledWalletServices({ webroot })
+  const services = new ControlledWalletServices({ webroot, components })
   await services.start()
   return {
+    componentIdentity: () => services.componentIdentity,
     applicationOrigin: 'https://todo.itcve.test',
     denyOrigin: 'https://deny.itcve.test',
     alternateOrigin: 'https://alternate.itcve.test',
@@ -172,7 +175,7 @@ async function controlledServicesEnvironment(webroot: string): Promise<FixtureEn
       const txid = funding.id('hex')
       const height = 900_000
       funding.merklePath = new MerklePath(height, [[{ offset: 0, hash: txid, txid: true }]])
-      services.registerHeader({
+      services.registerSyntheticHeader({
         version: 1,
         previousHash: '00'.repeat(32),
         merkleRoot: txid,
@@ -180,7 +183,6 @@ async function controlledServicesEnvironment(webroot: string): Promise<FixtureEn
         bits: 486_604_799,
         nonce: 0,
         height,
-        hash: '01'.repeat(32)
       })
       const beef = Uint8Array.from(funding.toAtomicBEEF())
       const proofValid = await Beef.fromBinary(beef).verify({
@@ -385,7 +387,7 @@ export async function runHttpDesktopWallet(options: HttpWalletRunOptions): Promi
   let redeemTxid: string | undefined
   try {
     environment = options.fixture.mode === 'controlled-services'
-      ? await controlledServicesEnvironment(webroot)
+      ? await controlledServicesEnvironment(webroot, options.fixture.components)
       : hookEnvironment(options.fixture, hooks)
     const env = environment
     browser = await chromium.launch({
@@ -823,11 +825,12 @@ export async function runHttpDesktopWallet(options: HttpWalletRunOptions): Promi
     evidence.addJson('wallet-trace.json', trace)
     evidence.addJson('prompt-answering.json', answerer.describe())
     evidence.addJson('declared-hooks.json', hooks.uses)
+    if (env.componentIdentity !== undefined) evidence.addJson('service-components.json', env.componentIdentity())
     const resultWithoutEvidence: Omit<WalletLabResult, 'evidence'> = {
       schema: 'tpnil-isi4-wallet-run@1.0.0',
       claim: 'ENGINEERING_OBSERVATION_ONLY',
       program: 'ISI-4@1.0.0',
-      itcve: 'ITCVE-1@1.0.0',
+      itcve: options.fixture.mode === 'controlled-services' && Object.values(options.fixture.components ?? {}).includes('go') ? 'ITCVE-1@1.1.0' : 'ITCVE-1@1.0.0',
       profile: env.profile,
       runId,
       startedAt,
@@ -841,6 +844,7 @@ export async function runHttpDesktopWallet(options: HttpWalletRunOptions): Promi
       },
       artifacts: { wallet: options.walletArtifact, application: options.applicationArtifact },
       configuration: {
+        ...(env.componentIdentity === undefined ? {} : { serviceComponents: env.componentIdentity() }),
         walletNetwork: options.networkDeviation?.network ?? 'mainnet',
         publicMainnetBroadcast: 'not-observed',
         applicationOrigin: env.applicationOrigin,

@@ -92,7 +92,7 @@ async function provisionDemoAccount(port: number): Promise<string> {
   return result.code
 }
 
-const [wabArgument, webrootArgument, fundingArgument, outputArgument] = process.argv.slice(2)
+const [wabArgument, webrootArgument, fundingArgument, outputArgument, componentsArgument] = process.argv.slice(2)
 if (wabArgument === undefined || webrootArgument === undefined || fundingArgument === undefined || outputArgument === undefined) {
   fail('Usage: android-runtime <WAB_SOURCE_DIRECTORY> <WEBROOT> <TERANODE_FUNDING_FIXTURE> <OUTPUT_DIRECTORY>')
 }
@@ -108,7 +108,8 @@ const fundingFixture = JSON.parse(fs.readFileSync(fundingPath, 'utf8')) as Teran
 fs.mkdirSync(outputDirectory, { recursive: true })
 fs.chmodSync(outputDirectory, 0o700)
 const wabPort = await freePort()
-const services = new ControlledWalletServices({ webroot, wabPort })
+const components = componentsArgument === undefined ? undefined : JSON.parse(fs.readFileSync(path.resolve(componentsArgument), 'utf8')).components
+const services = new ControlledWalletServices({ webroot, wabPort, components })
 let wab: ChildProcess | undefined
 let closing = false
 let funding: TeranodeFundingObservation | undefined
@@ -126,6 +127,7 @@ async function close(exitCode: number): Promise<never> {
   if (wab?.exitCode === null) wab.kill('SIGKILL')
   fs.writeFileSync(path.join(outputDirectory, 'controlled-boundary.json'), `${JSON.stringify({
     schema: 'tpnil-isi4-controlled-activation-boundary@1.0.0',
+    ...(Object.values(services.components).includes('go') ? { serviceComponents: services.componentIdentity } : {}),
     wab: { version: wabVersion, sourceRevision: wabSourceRevision, baseUrl: 'https://wab.itcve.test/demo' },
     funding,
     overlay: { origin: 'https://overlay.itcve.test', topics: ['tm_users'], services: ['ls_ship', 'ls_slap', 'ls_users'] },

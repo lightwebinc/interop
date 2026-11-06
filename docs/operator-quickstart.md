@@ -98,3 +98,10 @@ The fixture environment is either the controlled services of the Yours profile (
 An operator who runs the vectors on another network declares `networkDeviation` with the network the wallet reports and the reason. The `mainnet-configuration` assertion is then `NOT_APPLICABLE` when the wallet reports the declared network, the deviation appears in the V001 limitations and the configuration, and the run is outside the mainnet profile.
 
 Android operators use `scripts/native/android/create-avd.sh`, `launch-emulator.sh`, `bundle-to-universal-apk.sh`, `capture-runtime.sh`, and the optional uiautomator2 driver. The public fixture key under `fixtures/keys/` signs laboratory derivatives and carries no publisher identity. `.github/workflows/isi4-android-qualification.yml` executes the same boundary on the owned KVM runner.
+
+## Go service components
+
+Run `npm run test:go` after installing the locked synthesis dependencies. The
+[component profile](../itcves/ITCVE-1/1.1.0/README.md) documents prerequisites,
+independent role selection, wallet/Android configuration, evidence, teardown and
+the boundary between sparse fixture replay and native ChainTracks recovery.

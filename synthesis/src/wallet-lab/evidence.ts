@@ -1,3 +1,4 @@
+import { validateComponentIdentity } from './go-services.js'
 import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -73,8 +74,19 @@ export function verifyEvidenceBundle(directory: string): WalletLabResult {
   const recordPath = path.join(directory, 'record.json')
   const parsed = JSON.parse(fs.readFileSync(recordPath, 'utf8')) as WalletLabResult
   if (parsed.schema !== 'tpnil-isi4-wallet-run@1.0.0') throw new Error('Unsupported wallet-run evidence schema')
-  if (!['EXPERIMENTAL_CONFORMANCE_RESULT', 'ENGINEERING_OBSERVATION_ONLY'].includes(parsed.claim) || parsed.program !== 'ISI-4@1.0.0' || parsed.itcve !== 'ITCVE-1@1.0.0')
+  if (!['EXPERIMENTAL_CONFORMANCE_RESULT', 'ENGINEERING_OBSERVATION_ONLY'].includes(parsed.claim) || parsed.program !== 'ISI-4@1.0.0' || !['ITCVE-1@1.0.0', 'ITCVE-1@1.1.0'].includes(parsed.itcve))
     throw new Error('Unexpected wallet-run claim or program boundary')
+  const selection = parsed.configuration.serviceComponents?.components
+  if (selection !== null && typeof selection === 'object' && Object.values(selection).includes('go') && parsed.itcve !== 'ITCVE-1@1.1.0')
+    throw new Error('Go service selection requires the Go component profile')
+  if (parsed.itcve === 'ITCVE-1@1.1.0') {
+    if (parsed.claim !== 'ENGINEERING_OBSERVATION_ONLY' || parsed.configuration.serviceComponents === undefined)
+      throw new Error('Go component profile requires engineering claim and component identities')
+    validateComponentIdentity(parsed.configuration.serviceComponents)
+    const identity = JSON.parse(fs.readFileSync(path.join(directory, 'evidence/service-components.json'), 'utf8'))
+    if (canonicalJson(identity) !== canonicalJson(parsed.configuration.serviceComponents))
+      throw new Error('Service component evidence differs from configuration')
+  }
   if (!Array.isArray(parsed.vectors) || parsed.vectors.length !== 8)
     throw new Error('A wallet run must score all eight vectors')
   if (!Array.isArray(parsed.evidence) || parsed.evidence.length === 0)
@@ -138,6 +150,9 @@ export function verifyWalletRunSeries(directory: string): { results: WalletLabRe
     if (declaration.recordSha256 !== sha256Hex(bytes)) throw new Error(`Wallet-run record digest mismatch: ${declaration.runId}`)
     if (declaration.outcome !== results[index]!.outcome) throw new Error(`Wallet-run outcome mismatch: ${declaration.runId}`)
   }
+  if (results.some(result => result.itcve === 'ITCVE-1@1.1.0') && results.some(result =>
+    result.itcve !== results[0]!.itcve || canonicalJson(result.configuration.serviceComponents ?? {}) !== canonicalJson(results[0]!.configuration.serviceComponents ?? {})))
+    throw new Error('Wallet-run series mixes service component identities')
   const projections = results.map(result => canonicalJson(result.semanticProjection))
   const repetitionMatch = projections.every(projection => projection === projections[0])
   if (series.repetitionMatch !== repetitionMatch) throw new Error('Wallet-run series repeatability finding differs')

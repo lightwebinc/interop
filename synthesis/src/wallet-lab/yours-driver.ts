@@ -22,6 +22,7 @@ import {
   type VectorResult,
   type WalletLabResult
 } from './model.js'
+import type { ComponentSelection } from './go-services.js'
 import { ControlledWalletServices } from './services.js'
 
 interface CwiBoundary {
@@ -57,6 +58,7 @@ interface ListOutputProjection {
 }
 
 export interface YoursRunOptions {
+  components?: ComponentSelection
   extensionDirectory: string
   webroot: string
   outputDirectory: string
@@ -136,7 +138,7 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
   const outputDirectory = path.resolve(options.outputDirectory)
   const runId = path.basename(outputDirectory)
   const evidence = new EvidenceBundle(outputDirectory)
-  const services = new ControlledWalletServices({ webroot })
+  const services = new ControlledWalletServices({ webroot, components: options.components })
   const permissions: PermissionObservation[] = []
   const consoleErrors: string[] = []
   const profileDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'tpnil-yours-profile-'))
@@ -157,6 +159,7 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
   let redeemTxid: string | undefined
   try {
     await services.start()
+    if (Object.values(services.components).includes('go')) evidence.addJson('service-components.json', services.componentIdentity)
     context = await chromium.launchPersistentContext(profileDirectory, {
       headless: options.headless ?? true,
       ignoreHTTPSErrors: true,
@@ -274,7 +277,7 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     fundingTxid = funding.id('hex')
     const fundingHeight = 900_000
     funding.merklePath = new MerklePath(fundingHeight, [[{ offset: 0, hash: fundingTxid, txid: true }]])
-    services.registerHeader({
+    services.registerSyntheticHeader({
       version: 1,
       previousHash: '00'.repeat(32),
       merkleRoot: fundingTxid,
@@ -282,7 +285,6 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
       bits: 486_604_799,
       nonce: 0,
       height: fundingHeight,
-      hash: '01'.repeat(32)
     })
     const fundingBeef = Uint8Array.from(funding.toAtomicBEEF())
     const fixtureProofValid = await Beef.fromBinary(fundingBeef).verify({
@@ -624,9 +626,9 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     evidence.addJson('console-errors.json', consoleErrors)
     const resultWithoutEvidence: Omit<WalletLabResult, 'evidence'> = {
       schema: 'tpnil-isi4-wallet-run@1.0.0',
-      claim: 'EXPERIMENTAL_CONFORMANCE_RESULT',
+      claim: Object.values(services.components).includes('go') ? 'ENGINEERING_OBSERVATION_ONLY' : 'EXPERIMENTAL_CONFORMANCE_RESULT',
       program: 'ISI-4@1.0.0',
-      itcve: 'ITCVE-1@1.0.0',
+      itcve: Object.values(services.components).includes('go') ? 'ITCVE-1@1.1.0' : 'ITCVE-1@1.0.0',
       profile: 'production-wallet-todo-controlled-services',
       runId,
       startedAt,
@@ -640,6 +642,7 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
       },
       artifacts: { wallet: options.walletArtifact, application: options.applicationArtifact },
       configuration: {
+        ...(Object.values(services.components).includes('go') ? { serviceComponents: services.componentIdentity } : {}),
         walletNetwork: 'mainnet',
         publicMainnetBroadcast: false,
         applicationOrigin: 'https://todo.itcve.test',

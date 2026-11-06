@@ -25,3 +25,13 @@ The synthesis package includes both original Apache-licensed material and the Op
 Existing evaluation alone does not establish acceptance of submission terms. P2PPSR's owner has expressly accepted version 2.1.0 for the archived Metanet Explorer v1.1.10 AAB; see the [acceptance record](journals/submission-acceptance/2026-11-02/metanet-explorer-1.1.10/acceptance.json) and current intake evidence. The owner's [scope clarification](journals/submission-acceptance/2026-11-02/metanet-explorer-1.1.10/education-scope-clarification.json) adds broad non-commercial TPNIL-related use, including education. These records do not cover other releases or other vendors. Vendor participation announcements and continued hosting require the applicable license or an authorized acceptance covering the identified artifacts. Outstanding rights remain unresolved until supported; public availability alone supplies no additional grant. Public-result admission requires everyone's continuing rights to run, retain and mirror the artifacts for non-commercial TPNIL-related activity, including reproduction and education, plus an accessible reproduction bundle. This submission grant excludes resale and unrelated use or distribution, without narrowing broader rights available under an existing license. Existing binary archives and historical evaluations are not automatically cleared by adopting the submission terms.
 
 Historical source-revision identifiers in retained evidence refer to the prelaunch development revisions recorded at execution. Replacing Git history does not change those observations or imply that historical workspaces used the current license.
+
+## Optional Go controlled-service dependencies
+
+The optional ITCVE Go host links the exact Go Overlay Services, Go ChainTracks,
+Go SDK and Go Wallet Toolbox modules resolved by `synthesis/go/go.mod` and
+`go.sum`. The three service source revisions and module checksums are recorded
+in [the component lock](synthesis/go/components.lock.json). The three pinned service modules carry Open BSV License Version 5; their
+unchanged license texts remain in the resolved module archives; linking or downloading them supplies no additional rights.
+The digest-pinned MongoDB container used for component qualification retains
+its own license. Original laboratory host and adapter code remains Apache-2.0.

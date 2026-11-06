@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Add ITCVE-1 1.1.0 with independent TypeScript/Go Overlay, ChainTracks and Wallet Storage selection, pinned native dependencies, authenticated mixed-component tests, fault/recovery checks, wallet/Android configuration and CI evidence. Historical profiles and results remain fixed.
+
+## Unreleased
+
 - Simplified the roadmap, security reporting and submission guidance; aligned current wallet summaries with retained evidence and removed obsolete governance requirements.
 
 - Broadened public submission permissions to non-commercial TPNIL-related activity, including education, research, reproduction and preservation, with resale and unrelated commercial exploitation excluded.
