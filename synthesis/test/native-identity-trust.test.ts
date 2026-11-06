@@ -10,6 +10,59 @@ import { expect, it } from 'vitest'
 import { verifyNativeTrust, verifySettingsTokenSignature } from '../src/wallet-lab/native/verify-identity-trust.js'
 import { verifyBoundaryCorpus } from '../src/wallet-lab/verify-boundary.js'
 import { EvidenceBundle } from '../src/wallet-lab/evidence.js'
+import { PublicSettingsTrust } from '../src/wallet-lab/native/identity-trust.js'
+
+it('serializes live optional wallet arguments without conflating undefined with null', async () => {
+  const calls: any[] = []
+  const returned = { totalOutputs: 0, outputs: [], optional: undefined, explicitNull: null, 'a~/b': undefined }
+  const wallet = { listOutputs: async (...args: any[]) => { calls.push(args); return returned }, discoverByIdentityKey: async () => { throw new Error('Intentional stop before trust mutation') } }
+  const helper = new PublicSettingsTrust(wallet)
+  await helper.enable({ certifier: '03e7e9acacbdb43fc9fb71a8db1536c0f866caa78def49f666fa121a6f7954bb01', subject: 'fixture' })
+  expect(calls[0]).toHaveLength(2); expect(calls[0][1]).toBeUndefined()
+  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'tpnil-trust-raw-'))
+  try {
+    const evidence = new EvidenceBundle(temporary)
+    evidence.addJson('identity-trust.json', helper.report); evidence.flush()
+    const observed = JSON.parse(fs.readFileSync(path.join(temporary, 'evidence/identity-trust.json'), 'utf8'))
+    expect(observed.trace[0].args).toHaveLength(2); expect(observed.trace[0].args[1]).toBeNull()
+    expect(observed.serialization.undefinedPaths).toContain('/trace/0/args/1')
+    expect(observed.serialization.undefinedPaths).toContain('/trace/0/result/optional')
+    expect(observed.serialization.undefinedPaths).toContain('/trace/0/result/a~0~1b')
+    expect(observed.serialization.undefinedPaths).not.toContain('/trace/0/result/explicitNull')
+    expect(observed.trace[0].result.explicitNull).toBeNull()
+    expect(observed.trace[1].args).toHaveLength(1)
+    expect(observed.serialization.undefinedPaths).not.toContain('/trace/1/args/1')
+    const detached = helper.report; detached.trace[0].result.totalOutputs = 99
+    expect(helper.report.trace[0].result.totalOutputs).toBe(0)
+    expect(returned.optional).toBeUndefined(); expect(returned.totalOutputs).toBe(0)
+  } finally { fs.rmSync(temporary, { recursive: true, force: true }) }
+})
+
+it('replays canonical files written directly from both live settings helpers', async () => {
+  const directory = path.resolve(import.meta.dirname, '../../journals/native-identity-trust-reference/2026-11-06/undefined-evidence-fix')
+  const summary = JSON.parse(fs.readFileSync(path.join(directory, 'summary.json'), 'utf8'))
+  const bytes = fs.readFileSync(path.join(directory, summary.archive.path))
+  const sha = (value: Buffer) => createHash('sha256').update(value).digest('hex')
+  assert.equal(bytes.length, summary.archive.size); assert.equal(sha(bytes), summary.archive.sha256)
+  const archive = JSON.parse(gunzipSync(bytes, { maxOutputLength: 16 * 1024 * 1024 }).toString())
+  const files = new Map<string, string>()
+  for (const row of archive.files) {
+    const bytes = Buffer.from(row.content); assert.equal(bytes.length, row.size); assert.equal(sha(bytes), row.sha256)
+    assert.ok(!files.has(row.path)); files.set(row.path, row.content)
+  }
+  for (const run of summary.runs) {
+    const prefix = `${run.directory}/native-format/evidence/integrated/`
+    const reportText = files.get(`${prefix}identity-trust.json`)!
+    const report = JSON.parse(reportText), boundary = JSON.parse(files.get(`${prefix}boundary.json`)!)
+    const receipt = JSON.parse(files.get(`${run.directory}/direct-trust-write.json`)!)
+    assert.equal(receipt.noIntermediateJsonSerialization, true)
+    assert.equal(receipt.files.length, 1); assert.equal(receipt.files[0].sha256, sha(Buffer.from(reportText)))
+    assert.equal(report.serialization.encoding, 'null-with-undefined-json-pointers@1')
+    assert.ok(report.serialization.undefinedPaths.some((pointer: string) => /^\/trace\/[0-9]+\/args\/1$/.test(pointer)))
+    expect((await verifyNativeTrust(report, boundary)).result).toBe('PASS')
+    expect((await verifyBoundaryCorpus(boundary, JSON.parse(files.get(`${prefix}boundary-publication.json`)!))).outcome).toBe('PASS')
+  }
+})
 
 it('replays both public settings retirement cases and rejects semantic tampering', async () => {
   const directory = path.resolve(import.meta.dirname, '../../journals/native-identity-trust-reference/2026-11-06')

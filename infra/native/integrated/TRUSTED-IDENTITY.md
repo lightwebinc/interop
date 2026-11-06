@@ -22,6 +22,12 @@ The offline oracle proves that the temporary token was spent and rejects altered
 restoration, elapsed time or retirement transactions. Container retirement clears
 any residual in-memory trust cache after the durable settings are restored.
 
+The public report records explicit JavaScript `undefined` values as JSON `null`
+with their exact JSON Pointer paths in `serialization.undefinedPaths`. This
+preserves optional argument positions and distinguishes undefined from explicit
+null. Wallet calls and returned values remain unchanged; only the evidence
+snapshot uses this encoding.
+
 No native key, private object, cache, clock or database is modified by this
 configuration path. The isolated issuer key and mined funding belong to the
 controlled fixture. Positive discovery under explicit temporary trust does not
