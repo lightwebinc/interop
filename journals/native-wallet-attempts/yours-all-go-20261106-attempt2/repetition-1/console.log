@@ -1,0 +1,37 @@
+◇ injected env (0) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+◇ injected env (0) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+starting server for www.google.com
+https server started for www.google.com on 45393
+HTTPS_CLIENT_ERROR
+Error: socket hang up
+    at TLSSocket.onSocketClose (node:internal/tls/wrap:1379:23)
+    at TLSSocket.emit (node:events:526:24)
+    at node:net:362:12
+    at Socket.done (node:internal/tls/wrap:780:7)
+    at Socket.wrapper (node:events:639:12)
+    at Socket.emit (node:events:526:24)
+    at TCP.<anonymous> (node:net:362:12) {
+  code: 'ECONNRESET'
+}
+starting server for fonts.googleapis.com
+https server started for fonts.googleapis.com on 34603
+starting server for redirector.gvt1.com
+https server started for redirector.gvt1.com on 43943
+starting server for android.clients.google.com
+https server started for android.clients.google.com on 39475
+starting server for wallet.1sat.app
+https server started for wallet.1sat.app on 39421
+[wallet-lab:evidence] wallet initialized
+starting server for todo.itcve.test
+https server started for todo.itcve.test on 46253
+starting server for api.whatsonchain.com
+https server started for api.whatsonchain.com on 37521
+starting server for i.ibb.co
+https server started for i.ibb.co on 42971
+starting server for api.1sat.app
+https server started for api.1sat.app on 39635
+starting server for proxy-api.mnee.net
+https server started for proxy-api.mnee.net on 35337
+starting server for localhost
+https server started for localhost on 40593
+context canceled
