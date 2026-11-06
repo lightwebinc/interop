@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { sha256 } from '../components/messaging/identity.mjs';
+import { canonicalMessageEvidence, messageEvidenceHash } from '../components/messaging/evidence.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 /** Verify helper evidence independently. Native application identity/admission
  * and wallet-boundary provenance must also pass the enclosing native verifier.
@@ -30,7 +31,8 @@ export async function verifyNativeMessaging(directory) {
   const evidence = new Set();
   for (const item of result.evidence) {
     assert(!path.isAbsolute(item.path) && !item.path.split(/[\\/]/).includes('..')); assert(!evidence.has(item.path)); evidence.add(item.path);
-    assert.equal(item.encoding, 'canonical-json'); assert.equal(sha256(JSON.stringify(read(item.path))), item.sha256, `Changed evidence ${item.path}`);
+    assert(['canonical-json', 'canonical-json-v2'].includes(item.encoding), 'Unknown messaging evidence encoding');
+    assert.equal(messageEvidenceHash(read(item.path), item.encoding), item.sha256, `Changed evidence ${item.path}`);
   }
   assert(evidence.has('exchanges.json'));
   const exchanges = read('exchanges.json'), txids = new Set();
@@ -73,9 +75,13 @@ export async function verifyNativeMessaging(directory) {
     for (const messages of [record.messages, record.afterRestart]) assert(messages.some(item => item.messageId === message.messageId && item.sender === result.nativeIdentity && item.body === profile.message));
     assert(!record.afterAcknowledgment.some(item => item.messageId === message.messageId));
     assert(record.replayStatus >= 400 && record.replayStatus < 500); assert.equal(result.assertions.find(item => item.id === `${implementation}/restart-ack-replay`).replayStatus, record.replayStatus);
-    const sent = exchanges.find(item => item.url === `${resolved.host}/sendMessage` && item.status === 200 && item.body === JSON.stringify(record.request)); assert(sent, 'Successful actual payment exchange absent');
+    const matchesRequest = (body, request) => {
+      try { return typeof body === 'string' && canonicalMessageEvidence(JSON.parse(body)) === canonicalMessageEvidence(request); }
+      catch { return false; }
+    };
+    const sent = exchanges.find(item => item.url === `${resolved.host}/sendMessage` && item.status === 200 && matchesRequest(item.body, record.request)); assert(sent, 'Successful actual payment exchange absent');
     const replay = structuredClone(record.request); replay.message.messageId += '-replay';
-    assert(exchanges.some(item => item.url === `${resolved.host}/sendMessage` && item.status === record.replayStatus && item.body === JSON.stringify(replay)), 'Replay exchange absent');
+    assert(exchanges.some(item => item.url === `${resolved.host}/sendMessage` && item.status === record.replayStatus && matchesRequest(item.body, replay)), 'Replay exchange absent');
     assert(result.cleanup.some(item => item.implementation === implementation && item.serviceClosed === true));
     assert(result.cleanup.some(item => item.implementation === implementation && item.discoveryClosed === true));
   }

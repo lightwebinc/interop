@@ -5,6 +5,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createRequire } from 'node:module';
 import { createHash } from 'node:crypto';
 import { verifyMessagingBuild } from './identity.mjs';
+import { messageEvidenceHash } from './evidence.mjs';
 import { startTypeScriptMessageBox } from './ts-host.mjs';
 import { startGoMessageBox } from './go-host.mjs';
 import { startMessageBoxDiscovery } from './discovery.mjs';
@@ -114,7 +115,7 @@ export async function runNativeMessaging(wallet, services, output) {
   }
   for (const item of localWallets.reverse()) await item.destroy();
   fs.writeFileSync(path.join(out, 'exchanges.json'), JSON.stringify(exchanges, null, 2) + '\n');
-  const evidence = fs.readdirSync(out).filter(file => file.endsWith('.json') && file !== 'result.json').map(file => ({ path: file, encoding: 'canonical-json', sha256: sha256(JSON.stringify(JSON.parse(fs.readFileSync(path.join(out, file))))) }));
+  const evidence = fs.readdirSync(out).filter(file => file.endsWith('.json') && file !== 'result.json').map(file => ({ path: file, encoding: 'canonical-json-v2', sha256: messageEvidenceHash(JSON.parse(fs.readFileSync(path.join(out, file)))) }));
   const result = { schema: 'tpnil-native-messaging-result@1', profile: profile.id, profileSha256: sha256(profileBytes), nativeIdentity, assertions, transactions, evidence, cleanup, result: assertions.some(item => item.verdict !== 'PASS') || cleanup.some(item => item.error) ? 'FAIL' : 'PASS' };
   fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(result, null, 2) + '\n');
   return result;
