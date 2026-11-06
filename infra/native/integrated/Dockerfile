@@ -2,6 +2,7 @@ ARG TPNIL_NATIVE_BASE
 FROM ${TPNIL_NATIVE_BASE}
 USER root
 WORKDIR /work
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential && rm -rf /var/lib/apt/lists/*
 COPY components/transport/package.json components/transport/package-lock.json /work/components/transport/
 RUN npm ci --ignore-scripts --prefix /work/components/transport
 COPY components/transport/*.mjs /work/components/transport/
@@ -16,4 +17,5 @@ COPY infra/adapters/storage-sync /work/infra/adapters/storage-sync
 COPY infra/native/integrated/plan.json /work/infra/native/integrated/plan.json
 COPY programs/ISI-4/profiles/brc100-boundary-1.0.0 /work/programs/ISI-4/profiles/brc100-boundary-1.0.0
 ENV TPNIL_NATIVE_INTEGRATED=1 TPNIL_MESSAGING_PATHS=/work/out/messaging-sources/paths.json
+RUN dpkg-query -W -f='${Package} ${Version}\n' > /opt/tpnil/os-packages.txt
 USER pwuser
