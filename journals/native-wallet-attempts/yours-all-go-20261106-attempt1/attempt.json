@@ -1,0 +1,80 @@
+{
+  "schema": "tpnil-native-wallet-attempt@1.0.0",
+  "claim": "OBSERVER_STARTUP_ERROR",
+  "profile": "ITCVE-1@1.2.0",
+  "source": "88f5ddb2958dbe91268a59747c8622a3e814cb70",
+  "workflowRun": "https://github.com/p2ppsr/interop/actions/runs/42277115263",
+  "artifact": {
+    "id": 13534465173,
+    "size": 35051,
+    "sha256": "a840918469976ab71ac7961ededf261af766e18add506e33a31cd0bdc65c9d29"
+  },
+  "finding": "Chromium could not start its sandbox under the ephemeral Ubuntu host AppArmor user-namespace restriction. No wallet conformance result was issued.",
+  "files": [
+    {
+      "name": "host-repetition-1-after.json",
+      "size": 1220,
+      "sha256": "59563544e3fc0a6abba56ce792531916e3292207332b6af2d733de3e3edbde83"
+    },
+    {
+      "name": "host-repetition-1-before.json",
+      "size": 1137,
+      "sha256": "f72e377300d9969682a472190668985d808452781a81c701c629722ee5198606"
+    },
+    {
+      "name": "host-repetition-1-cleanup.json",
+      "size": 143,
+      "sha256": "d419f10518c116876407fd3b0ac26862e6395a6ab69f80fea8059f3005d24e24"
+    },
+    {
+      "name": "repetition-1/console.log",
+      "size": 7304,
+      "sha256": "4c3201529d09f59ea80bb91d966f8ec19b539beab9cbc1af63cf07debebeb9f2"
+    },
+    {
+      "name": "repetition-1/evidence/attempt-failure.json",
+      "size": 3656,
+      "sha256": "35639964b25b37cf5408caa808093bdf4ed7b0e5240d2aff4c0fec17cafd0777"
+    },
+    {
+      "name": "repetition-1/evidence/controlled-ca.pem",
+      "size": 1496,
+      "sha256": "8c4629a97f56e4e44c8904124371ec738b68296a6aee4519590bdf228e03cd9e"
+    },
+    {
+      "name": "repetition-1/evidence/go-diagnostics.log",
+      "size": 474,
+      "sha256": "17d5df0d221b47f400b00941f0569f34e92cd10c184ac68bebb7912859bac305"
+    },
+    {
+      "name": "repetition-1/evidence/native-trust.txt",
+      "size": 227,
+      "sha256": "3fc7ef0f87732bf3fb37c42ed3545fc5d5a3bf78f92e909fdb7bb88b611d7de6"
+    },
+    {
+      "name": "repetition-1/evidence/service-components.json",
+      "size": 1388,
+      "sha256": "2d3db2e78ee97b6877d5a5bcf27f07ad67533d781194ed4a78c9a72d9e75cb1e"
+    },
+    {
+      "name": "repetition-1/mongo.log",
+      "size": 242822,
+      "sha256": "a2a12915076ab06df8f5a28ec8ce46bcea1332a1705888d9d9b40b89cb90a5b4"
+    },
+    {
+      "name": "repetition-1/network-before.json",
+      "size": 1326,
+      "sha256": "b1b2f301d58a51d2172332aaee97c18b4148e923a535a883b3c7084b3d3a5cad"
+    },
+    {
+      "name": "repetition-1/worker-failure.json",
+      "size": 3732,
+      "sha256": "1836fe976117d2253231b0871495d1138e89fcc6bce23bddaa8e4fc4487291d2"
+    },
+    {
+      "name": "run-lock.json",
+      "size": 4513,
+      "sha256": "62b31acaa38d225c73ddd44dca9c1304d50a71f1c327b5dbfe7ef93286428487"
+    }
+  ]
+}

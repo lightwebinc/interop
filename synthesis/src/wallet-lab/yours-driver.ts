@@ -151,6 +151,11 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
   const handledPromptUrls = new Set<string>()
   const progress = (message: string): void => {
     process.stdout.write(`[wallet-lab:${runId}] ${message}\n`)
+    if (options.nativeQualification !== undefined) {
+      evidence.addJson('live-diagnostics.json', { phase: message, routes: services.routes, storageRpc: services.storageRpcObservations, consoleErrors, permissions })
+      evidence.addText('go-diagnostics.log', services.componentDiagnostics)
+      evidence.flush()
+    }
   }
   const vectors: VectorResult[] = []
   let walletVersion = ''
@@ -264,14 +269,20 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     const application = await context.newPage()
     await application.goto('https://todo.itcve.test/')
     await waitForText(application, 'ToDo List', 30_000)
-    const boundary = await application.evaluate(async () => {
-      const wallet = (window as unknown as { CWI: CwiBoundary }).CWI
-      return {
-        version: await wallet.getVersion({}),
-        network: await wallet.getNetwork({}),
-        authenticated: await wallet.isAuthenticated({})
-      }
-    })
+    const boundaryCall = async (method: 'getVersion' | 'getNetwork' | 'isAuthenticated') => {
+      progress(`boundary ${method}: requesting`)
+      const result = await within(`wallet boundary ${method}`, 30_000, application.evaluate(async method => {
+        const wallet = (window as unknown as { CWI: CwiBoundary }).CWI
+        return wallet[method]({})
+      }, method))
+      progress(`boundary ${method}: completed`)
+      return result
+    }
+    const boundary = {
+      version: await boundaryCall('getVersion'),
+      network: await boundaryCall('getNetwork'),
+      authenticated: await boundaryCall('isAuthenticated')
+    }
     walletVersion = String(boundary.version.version)
     walletNetwork = String(boundary.network.network)
     authenticated = Boolean(boundary.authenticated.authenticated)
@@ -719,7 +730,12 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     }
     return evidence.write(resultWithoutEvidence)
   } catch (error) {
-    evidence.addJson('attempt-failure.json', { message: error instanceof Error ? error.message : String(error), vectors })
+    evidence.addJson('attempt-failure.json', { message: error instanceof Error ? error.message : String(error), vectors, routes: services.routes, storageRpc: services.storageRpcObservations, consoleErrors, permissions })
+    if (options.nativeQualification !== undefined && context !== undefined) {
+      for (const [index, page] of context.pages().filter(page => page.url().startsWith('https://todo.itcve.test/')).entries()) {
+        try { evidence.addBytes(`attempt-application-${index}.png`, await page.screenshot({ timeout: 5000 })) } catch { /* Preserve the original observer failure. */ }
+      }
+    }
     evidence.addText('go-diagnostics.log', services.componentDiagnostics)
     evidence.flush()
     throw error

@@ -1,0 +1,5 @@
+2026/11/06 19:11:56 WARN: No config file 'settings.conf'
+2026/11/06 19:11:56 WARN: No local config file 'settings_local.conf'
+2026/11/06 19:11:56 Loading checkpoint metadata from: /tmp/tpnil-wallet-services-ww9DD0/go/chaintracks-runtime-2075914748/mainNetBlockHeaders.json
+2026/11/06 19:11:56 No persisted chain state found, initializing from genesis block
+2026/11/06 19:11:56 Initialized from genesis block: 000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f

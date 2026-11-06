@@ -1,0 +1,70 @@
+{
+  "schema": "tpnil-native-wallet-attempt@1.0.0",
+  "claim": "OBSERVER_EXECUTION_ERROR",
+  "profile": "ITCVE-1@1.2.0",
+  "source": "5163acab9bec4da62113e5802933c412b651b177",
+  "workflowRun": "https://github.com/p2ppsr/interop/actions/runs/42278077704",
+  "artifact": {
+    "id": 13535321712,
+    "size": 29060,
+    "sha256": "fb0fa44efea85575eceb861b8769a76f7cbc79834e52012ef1f048fb97f55173"
+  },
+  "finding": "Wallet initialization completed but the application wallet boundary did not complete before the outer repetition deadline. Host policy was restored and the container removed. No conformance result was issued.",
+  "files": [
+    {
+      "name": "host-repetition-1-after.json",
+      "size": 1277,
+      "sha256": "77afd79da179dacd1ab3f55d8e216c9332371e5743112ca0695f93e40cf3b502"
+    },
+    {
+      "name": "host-repetition-1-before.json",
+      "size": 1137,
+      "sha256": "4c36e141d75d37e7df115c63678aaee749c2e265a8ee538e4f2d3722265f97b4"
+    },
+    {
+      "name": "host-repetition-1-cleanup.json",
+      "size": 143,
+      "sha256": "f8a3d56df5648124aa88666e0076d56414ac3055bff56f445bf84ccb47401372"
+    },
+    {
+      "name": "host-userns.json",
+      "size": 88,
+      "sha256": "f8fc484bdb15798dd41f7f7e2d8b9b440371acc6e21f632e955b5741169ebabd"
+    },
+    {
+      "name": "repetition-1/browser-version.txt",
+      "size": 41,
+      "sha256": "2d44e8c7507ca1c7cefc2fff277ee234d5d87be645dd56bee1b3ffca6564e529"
+    },
+    {
+      "name": "repetition-1/console.log",
+      "size": 1563,
+      "sha256": "1c0afe0ef7528d264e3e90a44a779a543877a5de6dc7346c0f4e3e3a95ec1667"
+    },
+    {
+      "name": "repetition-1/installed-artifacts.json",
+      "size": 230,
+      "sha256": "50d2e5b250f48f95a0126e467ca996cc883aedaaea88798aee87c9db03cb6d42"
+    },
+    {
+      "name": "repetition-1/mongo.log",
+      "size": 188666,
+      "sha256": "966cb196b3b5b31ae23f544d00efed704fb52f27a18757bb536c3a045e93e2ac"
+    },
+    {
+      "name": "repetition-1/network-before.json",
+      "size": 1326,
+      "sha256": "b1b2f301d58a51d2172332aaee97c18b4148e923a535a883b3c7084b3d3a5cad"
+    },
+    {
+      "name": "repetition-1/os-packages.txt",
+      "size": 15451,
+      "sha256": "f28e751da4796efbedf86598df01f7d87938a130de085b792a4f2f9f5c2115ab"
+    },
+    {
+      "name": "run-lock.json",
+      "size": 4594,
+      "sha256": "9b0e7d593455bbbda7c780819df9fbede314d20979ab739f10e332a72b410bb4"
+    }
+  ]
+}

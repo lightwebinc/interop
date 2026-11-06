@@ -110,3 +110,10 @@ connects real Go Overlay Services, ChainTracks and authenticated Wallet Storage
 to the controlled TypeScript service plane. Run `npm run test:go` for all eight
 implementation combinations and fault/recovery checks. The wallet CLI, desktop
 controlled fixture and Android service host accept explicit component selections.
+
+The [native all-Go wallet protocol](../itcves/ITCVE-1/1.2.0/README.md) adds a
+separate Linux/amd64 admission gate for Yours Wallet 5.1.0: exact executed
+archives, fresh isolated containers, native Chromium sandbox and CA trust,
+Teranode-mined funding ancestry, independent transaction/state oracles and two
+matching repetitions. Use `profile=all-go-native` in the manual Yours workflow.
+The 1.1.0 engineering CLI does not issue this qualification by itself.
