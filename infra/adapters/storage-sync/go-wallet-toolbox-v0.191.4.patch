@@ -171,6 +171,42 @@
  			return nil, fmt.Errorf("failed to decode string %s, expected valid Base64 string: %w", val, err)
 --- a/pkg/storage/provider_insert_certificate_auth_test.go
 +++ b/pkg/storage/provider_insert_certificate_auth_test.go
+@@ -51,7 +51,7 @@
+ 				},
+ 			},
+ 			Keyring: map[primitives.StringUnder50Bytes]primitives.Base64String{
+-				exampleFieldName: exampleFieldValue,
++				exampleFieldName: "exampleMasterKey",
+ 			},
+ 		}}
+ 
+@@ -89,7 +89,7 @@
+ 				},
+ 			},
+ 			Keyring: map[primitives.StringUnder50Bytes]primitives.Base64String{
+-				exampleFieldName: exampleFieldValue,
++				exampleFieldName: "exampleMasterKey",
+ 			},
+ 		}, {
+ 			Verifier: "",
+@@ -105,7 +105,7 @@
+ 				},
+ 			},
+ 			Keyring: map[primitives.StringUnder50Bytes]primitives.Base64String{
+-				exampleFieldName: exampleFieldValue,
++				exampleFieldName: "exampleMasterKey",
+ 			},
+ 		}}
+ 
+@@ -154,7 +154,7 @@
+ 				},
+ 			},
+ 			Keyring: map[primitives.StringUnder50Bytes]primitives.Base64String{
+-				exampleFieldName: exampleFieldValue,
++				exampleFieldName: "exampleMasterKey",
+ 			},
+ 		}}
+ 
 @@ -295,3 +295,19 @@
  		require.Len(t, certs.Certificates, 1)
  	})

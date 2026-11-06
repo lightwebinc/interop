@@ -49,6 +49,6 @@
   "compatibilityPatch": "infra/adapters/storage-sync/patch.lock.json",
   "boundaryCoverage": "programs/ISI-4/profiles/brc100-boundary-1.0.0/coverage.json",
   "boundaryProfile": "programs/ISI-4/profiles/brc100-boundary-1.0.0/profile.json",
-  "compatibilityPatchSha256": "d240f5814e465b876b536f7b4159486dcf47d9c90feb30d58afbfa159886aa07",
+  "compatibilityPatchSha256": "73b327cb785ab061d58678ff6c26eefa46a9aa838d09d5f8bfee50aae3fb4391",
   "boundaryProfileSha256": "a803434b5a554894009b45b66ca74b5f44e4553018ca16c2fa6739242c04815c"
 }

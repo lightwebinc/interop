@@ -4,7 +4,7 @@
   "version": "v0.191.4",
   "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
   "patch": "go-wallet-toolbox-v0.191.4.patch",
-  "patchSha256": "ccc1fc3c87be32830c0ec71933c6c2c167c30a9da4befc34305f09343a02fe55",
+  "patchSha256": "197f465236907f146297015b609e193c5815006ce6e8ae920db55779f90e2074",
   "files": {
     "pkg/internal/storage/repo/syncrepo/sync_basket.go": {
       "before": "e2ef950d7cc27346de34a3ba75aa8bdfd8fc71cb59785b5fcd2e1411038b1871",
@@ -32,7 +32,7 @@
     },
     "pkg/storage/provider_insert_certificate_auth_test.go": {
       "before": "c369ee836f46e2374e28070c68d7695154e1bb988c0e0225264ece557d4f8248",
-      "after": "abd2082082f387ecd1c3261b581b9efa181ec3147dbb6698f96beab91a3b68fa"
+      "after": "c1f8b8ee00bea26082b3fa7eb3a4c73b62a1e6a2b7ff9d5aa17575ac467797ff"
     }
   }
 }
