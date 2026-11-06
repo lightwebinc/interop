@@ -1,8 +1,8 @@
 # Integrated laboratory results — November 6, 2026
 
 ITCVE-1 1.3.0 has a verified component evidence pack at source
-`28916cb6355f120c790a0cd97a5d97d7d52116c2`. [Foundation run
-42309037195](https://github.com/p2ppsr/interop/actions/runs/42309037195)
+`56a1de95b01308fee612b80a49bfdf1b034a2d66`. [Foundation run
+42312093738](https://github.com/p2ppsr/interop/actions/runs/42312093738)
 completed all three jobs. Its eight component lanes contain 22 isolated
 executions and **510 assertions: 504 PASS, six FAIL, zero BLOCKED**. The six
 failures are three unchanged upstream Go Message Box findings reproduced twice.
@@ -50,7 +50,7 @@ complete, independently verified native pack.
 | Rust independent checks | 2 | 72 | 72 | 0 | Cross-language keys/signatures, strict Atomic BEEF, mined ancestry, scripts, value conservation, certificate vectors and modified-payment rejection |
 | **Total** | **22** | **510** | **504** | **6** | **15 top-level lane results; storage aggregates its eight cells** |
 
-The [machine-readable qualification](../journals/integrated-component-qualification/2026-11-06/42309037195/qualification.json)
+The [machine-readable qualification](../journals/integrated-component-qualification/2026-11-06/42312093738/qualification.json)
 records every lane, repetition, exit code and finding. No lane timed out. The
 assertion total excludes unit tests and the separate mixed Go-component matrix.
 
@@ -70,29 +70,31 @@ continues to perform writes and acknowledgment. The adapter's ownership,
 pagination, reconnect, restart and duplicate-delivery checks pass. HTTP polling
 coverage remains separate. No native Go WebSocket or FCM result is issued.
 
-All three Foundation jobs succeeded. `offline-core` passed repository tests,
-contract checks, standards qualification, synthesis typecheck/tests, the moderate
-dependency-audit threshold, Python packaging tests, demo verification and journal
-history checks. `go-components` passed all eight mixed service combinations and
+All three Foundation jobs succeeded. `offline-core` passed 75 repository tests,
+50 synthesis tests (eight skipped), five Python packaging tests, contract checks,
+standards qualification, synthesis typecheck, demo verification and journal
+history checks. The synthesis dependency audit reported zero vulnerabilities. `go-components` passed all eight mixed service combinations and
 their fault/recovery checks. `integrated-components` passed dependency preparation,
-transport/service/Rust regressions, repeated execution, independent child oracles,
+three transport, 13 service and one Rust regression tests, repeated execution,
+independent child oracles,
 published-archive semantic verification and messaging/Rust tamper tests. Exact
-step outcomes are retained in [jobs.json](../journals/integrated-component-qualification/2026-11-06/42309037195/jobs.json);
-[the original log ZIP](../journals/integrated-component-qualification/2026-11-06/42309037195/foundation-logs.zip)
+step outcomes are retained in [jobs.json](../journals/integrated-component-qualification/2026-11-06/42312093738/jobs.json);
+[the original log ZIP](../journals/integrated-component-qualification/2026-11-06/42312093738/foundation-logs.zip)
 contains every job's logs.
 
-The retained [original GitHub artifact](../journals/integrated-component-qualification/2026-11-06/42309037195/integrated-lab.zip)
-is 1,822,465 bytes, SHA-256
-`35e1f9d9b9bf765d7031bdbec9a28769acc92e58928e8af39051899a3912ea62`.
-That digest matches GitHub's receipt. [Provenance](../journals/integrated-component-qualification/2026-11-06/42309037195/provenance.json)
+The retained [original GitHub artifact](../journals/integrated-component-qualification/2026-11-06/42312093738/integrated-lab.zip)
+is 1,832,015 bytes, SHA-256
+`9bed5f9c354301132991cd167aa9bdee6080f13f857318fc3e497884aac0a41f`.
+That digest matches GitHub's receipt. [Provenance](../journals/integrated-component-qualification/2026-11-06/42312093738/provenance.json)
 binds the artifact, raw API receipts, logs, qualification and independent
 verification. Local macOS/arm64 verification with the same frozen component code
 re-ran every child oracle; all original ZIP members remained byte-identical.
 The published verifier checks complete inventories and digests, bounded safe ZIP
 extraction, frozen inputs, exact lane counts and the underlying semantic oracles.
 
-Earlier successful component packs [42304588035](../journals/integrated-component-qualification/2026-11-06/42304588035/README.md)
-and [42305420953](../journals/integrated-component-qualification/2026-11-06/42305420953/README.md)
+Earlier successful component packs [42304588035](../journals/integrated-component-qualification/2026-11-06/42304588035/README.md),
+[42305420953](../journals/integrated-component-qualification/2026-11-06/42305420953/README.md)
+and [42309037195](../journals/integrated-component-qualification/2026-11-06/42309037195/README.md)
 remain independently retained at their own source revisions. Failed native
 attempts remain separate:
 
