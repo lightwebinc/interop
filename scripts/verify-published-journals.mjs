@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { verifyIntakeReview } from '../src/intake.mjs';
 import { ROOT } from '../src/core.mjs';
@@ -10,6 +11,7 @@ import { verifyRuntimeQualification } from '../src/runtime-qualification.mjs';
 import { verifyReferenceQualification } from '../src/reference-qualification.mjs';
 import { verifySynthesisStackQualification } from '../src/synthesis-stack-qualification.mjs';
 import { verifyNativeObservation, verifyWalletRun, verifyWalletRunSeries } from '../src/sut-evidence.mjs';
+let nativeWalletQualificationCount = 0;
 let count = 0, intakeCount = 0, qualificationCount = 0, nativeQualificationCount = 0;
 let componentQualificationCount = 0, runtimeQualificationCount = 0;
 let referenceQualificationCount = 0;
@@ -50,6 +52,10 @@ function walk(dir) {
     else if (file.startsWith(path.join(ROOT, 'journals/wallet-runs') + path.sep) && entry.name === 'series.json') {
       verifyWalletRunSeries(dir); experimentalWalletSeriesCount++;
     }
+    else if (file.startsWith(path.join(ROOT, 'journals/native-wallet-qualification') + path.sep) && entry.name === 'qualification.json') {
+      execFileSync(path.join(ROOT, 'synthesis/node_modules/.bin/tsx'), [path.join(ROOT, 'synthesis/src/wallet-lab/native/verify.ts'), dir], { cwd: ROOT, encoding: 'utf8', timeout: 60000 });
+      nativeWalletQualificationCount++;
+    }
     else if (entry.name === 'journal.jsonl') { verifyJournal(dir); count++; }
   }
 }
@@ -66,5 +72,6 @@ console.log(JSON.stringify({
   verifiedNativeObservations: nativeObservationCount,
   verifiedExperimentalWalletRuns: experimentalWalletRunCount,
   verifiedExperimentalWalletSeries: experimentalWalletSeriesCount,
+  verifiedNativeWalletQualifications: nativeWalletQualificationCount,
   officialSutRuns: 0
 }));

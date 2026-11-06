@@ -1,4 +1,5 @@
 import fs from 'node:fs'
+import { execFileSync } from 'node:child_process'
 import os from 'node:os'
 import path from 'node:path'
 import {
@@ -23,7 +24,7 @@ import {
   type WalletLabResult
 } from './model.js'
 import type { ComponentSelection } from './go-services.js'
-import { ControlledWalletServices } from './services.js'
+import { ControlledWalletServices, type TeranodeWalletFundingFixture } from './services.js'
 
 interface CwiBoundary {
   [method: string]: (args: Record<string, unknown>) => Promise<Record<string, unknown>>
@@ -58,6 +59,7 @@ interface ListOutputProjection {
 }
 
 export interface YoursRunOptions {
+  nativeQualification?: { fundingFixture: TeranodeWalletFundingFixture; sandbox: true }
   components?: ComponentSelection
   extensionDirectory: string
   webroot: string
@@ -160,15 +162,25 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
   try {
     await services.start()
     if (Object.values(services.components).includes('go')) evidence.addJson('service-components.json', services.componentIdentity)
+    if (options.nativeQualification !== undefined) {
+      const nss = path.join(os.homedir(), '.pki/nssdb')
+      fs.mkdirSync(nss, { recursive: true })
+      execFileSync('certutil', ['-N', '--empty-password', '-d', `sql:${nss}`])
+      const certificate = path.join(services.caDirectory, 'certs/ca.pem')
+      execFileSync('certutil', ['-A', '-d', `sql:${nss}`, '-n', 'ITCVE controlled CA', '-t', 'C,,', '-i', certificate])
+      evidence.addText('controlled-ca.pem', fs.readFileSync(certificate, 'utf8'))
+      evidence.addText('native-trust.txt', execFileSync('certutil', ['-L', '-d', `sql:${nss}`], { encoding: 'utf8' }))
+    }
     context = await chromium.launchPersistentContext(profileDirectory, {
       headless: options.headless ?? true,
-      ignoreHTTPSErrors: true,
+      chromiumSandbox: options.nativeQualification?.sandbox ?? false,
+      ignoreHTTPSErrors: options.nativeQualification === undefined,
       args: [
         `--disable-extensions-except=${extensionDirectory}`,
         `--load-extension=${extensionDirectory}`,
         `--proxy-server=${services.proxyUrl}`,
         '--proxy-bypass-list=<-loopback>',
-        '--ignore-certificate-errors',
+        ...(options.nativeQualification === undefined ? ['--ignore-certificate-errors'] : []),
         '--disable-background-networking'
       ]
     })
@@ -227,6 +239,14 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     worker.on('console', message => {
       if (message.type() === 'error') consoleErrors.push(message.text().slice(0, 2_000))
     })
+    if (options.nativeQualification !== undefined) {
+      const securityPage = await context.newPage()
+      await securityPage.goto('chrome://sandbox')
+      const sandbox = await securityPage.locator('body').innerText()
+      evidence.addText('native-sandbox.txt', sandbox)
+      if (!/PID namespaces\s+Yes/.test(sandbox) || !/Seccomp-BPF sandbox\s+Yes/.test(sandbox)) throw new Error(`Native Chromium sandbox qualification failed: ${sandbox}`)
+      await securityPage.close()
+    }
     const extensionId = new URL(worker.url()).host
     const walletPage = await context.newPage()
     await walletPage.goto(`chrome-extension://${extensionId}/index.html`)
@@ -269,28 +289,34 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
       },
       { keyID, senderIdentityKey }
     )
-    const funding = new Transaction()
-    funding.addOutput({
-      satoshis: 10_000,
-      lockingScript: new P2PKH().lock(PublicKey.fromString(String(derived.publicKey)).toAddress())
-    })
-    fundingTxid = funding.id('hex')
-    const fundingHeight = 900_000
-    funding.merklePath = new MerklePath(fundingHeight, [[{ offset: 0, hash: fundingTxid, txid: true }]])
-    services.registerSyntheticHeader({
-      version: 1,
-      previousHash: '00'.repeat(32),
-      merkleRoot: fundingTxid,
-      time: 1_800_000_000,
-      bits: 486_604_799,
-      nonce: 0,
-      height: fundingHeight,
-    })
-    const fundingBeef = Uint8Array.from(funding.toAtomicBEEF())
-    const fixtureProofValid = await Beef.fromBinary(fundingBeef).verify({
-      isValidRootForHeight: async (root, height) => root === fundingTxid && height === fundingHeight,
-      currentHeight: async () => 900_100
-    }, false)
+    let fundingBeef: Uint8Array
+    let fundingHeight: number
+    let fixtureProofValid: boolean
+    if (options.nativeQualification !== undefined) {
+      const fixture = options.nativeQualification.fundingFixture
+      const source = await services.fundRemoteWalletFromTeranode('77'.repeat(32), fixture)
+      const payment = await services.payNativeWallet(String(derived.publicKey), 10_000)
+      fundingBeef = Uint8Array.from(payment.tx)
+      fundingTxid = payment.txid
+      fundingHeight = fixture.fundingHeight
+      fixtureProofValid = await Beef.fromBinary(fundingBeef).verify({
+        isValidRootForHeight: async (root, height) => services.headers.get(height)?.merkleRoot === root,
+        currentHeight: async () => 900_100
+      }, false)
+      evidence.addJson('mined-funding-source.json', { fixture, source, paymentTxid: fundingTxid, outputIndex: 0, publicKey: String(derived.publicKey), satoshis: 10_000 })
+    } else {
+      const funding = new Transaction()
+      funding.addOutput({ satoshis: 10_000, lockingScript: new P2PKH().lock(PublicKey.fromString(String(derived.publicKey)).toAddress()) })
+      fundingTxid = funding.id('hex')
+      fundingHeight = 900_000
+      funding.merklePath = new MerklePath(fundingHeight, [[{ offset: 0, hash: fundingTxid, txid: true }]])
+      services.registerSyntheticHeader({ version: 1, previousHash: '00'.repeat(32), merkleRoot: fundingTxid, time: 1_800_000_000, bits: 486_604_799, nonce: 0, height: fundingHeight })
+      fundingBeef = Uint8Array.from(funding.toAtomicBEEF())
+      fixtureProofValid = await Beef.fromBinary(fundingBeef).verify({
+        isValidRootForHeight: async (root, height) => root === fundingTxid && height === fundingHeight,
+        currentHeight: async () => 900_100
+      }, false)
+    }
     const internalized = await application.evaluate(
       async ({ tx, derivationPrefix, derivationSuffix, senderIdentityKey }) => {
         const wallet = (window as unknown as { CWI: CwiBoundary }).CWI
@@ -369,6 +395,7 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
       ],
       limitations: []
     })
+    if (options.nativeQualification !== undefined) evidence.addBytes('native-created.png', await application.screenshot())
     progress('ToDo token created and decoded')
 
     await application.evaluate(() => localStorage.clear())
@@ -388,6 +415,7 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
       }],
       limitations: []
     })
+    if (options.nativeQualification !== undefined) evidence.addBytes('native-reloaded.png', await application.screenshot())
     progress('cold reload reconstructed wallet state')
 
     await application.getByLabel(`${task} ${amount} satoshis`).click()
@@ -404,12 +432,19 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     const newest = actionList.at(-1)
     redeemTxid = typeof newest?.txid === 'string' ? newest.txid : undefined
     evidence.addJson('redeem.json', { spentOutpoint: createdOutput.outpoint, afterRedeem, actions })
+    if (options.nativeQualification !== undefined) {
+      const submissions = services.submissions.map(item => ({ txid: item.txid, verdict: item.verdict, beefHex: Buffer.from(item.bytes).toString('hex') }))
+      evidence.addJson('native-submissions.json', submissions)
+      const spend = actionList.find(action => Array.isArray(action.inputs) && action.inputs.some((input: Record<string, unknown>) => String(input.sourceOutpoint ?? '') === createdOutput.outpoint))
+      if (typeof spend?.txid === 'string') redeemTxid = spend.txid
+    }
     vectors.push({
       id: 'ISI-4-V004',
       outcome: spent ? 'PASS' : 'FAIL',
       assertions: [{ id: 'spent-output-absent', outcome: spent ? 'PASS' : 'FAIL', detail: createdOutput.outpoint, evidence: ['redeem.json'] }],
       limitations: ['Delayed-broadcast wallet state was evaluated; public-mainnet acceptance was outside the profile.']
     })
+    if (options.nativeQualification !== undefined) evidence.addBytes('native-redeemed.png', await application.screenshot())
     progress('ToDo token redeemed')
 
     const deniedProtocol = [2, 'tpnil denied permission']
@@ -622,6 +657,10 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     })
     progress('safe BRC-100 boundary corpus exercised')
 
+    if (options.nativeQualification !== undefined) {
+      evidence.addJson('native-transactions.json', await services.nativeTransactions())
+      evidence.addJson('native-submissions.json', services.submissions.map(item => ({ txid: item.txid, verdict: item.verdict, beefHex: Buffer.from(item.bytes).toString('hex') })))
+    }
     evidence.addJson('routes.json', services.routes)
     evidence.addJson('console-errors.json', consoleErrors)
     const resultWithoutEvidence: Omit<WalletLabResult, 'evidence'> = {
@@ -679,6 +718,11 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
       outcome: aggregateOutcome(vectors)
     }
     return evidence.write(resultWithoutEvidence)
+  } catch (error) {
+    evidence.addJson('attempt-failure.json', { message: error instanceof Error ? error.message : String(error), vectors })
+    evidence.addText('go-diagnostics.log', services.componentDiagnostics)
+    evidence.flush()
+    throw error
   } finally {
     if (promptPoll !== undefined) clearInterval(promptPoll)
     await context?.close().catch(() => undefined)

@@ -287,6 +287,22 @@ export class ControlledWalletServices {
     return wallet
   }
 
+  async nativeTransactions(): Promise<Array<{ txid: string; rawTxHex: string }>> {
+    if (this.goServices === undefined || this.components.storage !== 'go') throw new Error('Native Go storage is absent')
+    return this.goServices.transactions()
+  }
+
+  async payNativeWallet(publicKey: string, satoshis: number): Promise<{ txid: string; tx: number[] }> {
+    if (this.faucetWallet === undefined) throw new Error('Mined fixture funder is absent')
+    const result = await this.faucetWallet.createAction({
+      description: 'TPNIL mined native-wallet funding',
+      outputs: [{ lockingScript: new P2PKH().lock(PublicKey.fromString(publicKey).toAddress()).toHex(), satoshis, outputDescription: 'Native wallet fixture payment' }],
+      options: { randomizeOutputs: false, acceptDelayedBroadcast: false }
+    })
+    if (result.txid === undefined || result.tx === undefined) throw new Error('Native fixture payment is incomplete')
+    return { txid: result.txid, tx: [...result.tx] }
+  }
+
   async fundRemoteWalletFromTeranode(
     rootKeyHex: string,
     fixture: TeranodeWalletFundingFixture

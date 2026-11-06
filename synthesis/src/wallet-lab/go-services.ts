@@ -174,6 +174,11 @@ export class GoServices {
       request.pipe(target)
     })
   }
+  async transactions(): Promise<Array<{ txid: string; rawTxHex: string }>> {
+    const response = await fetch(`${this.origin}/control/transactions`, { headers: { authorization: `Bearer ${this.token}` }, redirect: 'error', signal: AbortSignal.timeout(15000) })
+    if (!response.ok) throw new Error(`Go transaction snapshot failed: HTTP ${response.status}`)
+    return response.json() as Promise<Array<{ txid: string; rawTxHex: string }>>
+  }
   async dispose(): Promise<void> {
     try {
       if (this.admitted && this.components.overlay === 'go' && (this.process?.exitCode !== null || this.process?.signalCode !== null))

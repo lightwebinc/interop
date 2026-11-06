@@ -109,6 +109,8 @@ describe.skipIf(process.env.TPNIL_GO_TESTS !== '1')('native Go / TypeScript comp
           try { expect((await persistedWallet.listOutputs({ basket: 'default' })).totalOutputs).toBeGreaterThan(0) } finally { await persistedWallet.destroy() }
           const recoveredFaucet = await request(services.serviceUrl, '/demo/faucet/request', 'wab.itcve.test', Buffer.from(JSON.stringify({ presentationKey: '99'.repeat(32) })), { 'content-type': 'application/json' })
           expect(recoveredFaucet.status, recoveredFaucet.bytes.toString()).toBe(200)
+          const nativeTransactions = await services.nativeTransactions()
+          expect(nativeTransactions.some(item => item.txid.length === 64 && item.rawTxHex.length > 0)).toBe(true)
           const recovered = await lookup()
           expect(recovered.status, recovered.bytes.toString()).toBe(200)
           expect(JSON.parse(recovered.bytes.toString()).outputs).toHaveLength(1)

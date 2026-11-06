@@ -1,0 +1,48 @@
+{
+  "schema": "tpnil-native-wallet-plan@1.0.0",
+  "id": "YOURS-5.1.0-GO-ITCVE-1.2.0",
+  "itcve": "ITCVE-1@1.2.0",
+  "program": "ISI-4@1.0.0",
+  "lane": "chromium-extension-linux-amd64",
+  "wallet": {
+    "id": "yours-wallet-chromium-extension",
+    "version": "5.1.0",
+    "sha256": "d55abda7dc8790ecfdd57ed0f5f4dd4a28187bb4833715f7612b067625eabc52",
+    "size": 13513123
+  },
+  "application": {
+    "id": "todo-ts-compiled-webroot",
+    "version": "236733c586c4d2cc3ab7f957afa382005509acd4",
+    "sha256": "b3c41dc60ba99b497231008a15033a60110cc7cd60b2d4fffd405e33f4979ddc",
+    "size": 502803
+  },
+  "components": {
+    "overlay": "go",
+    "chaintracks": "go",
+    "storage": "go"
+  },
+  "componentLock": "synthesis/go/components.lock.json",
+  "fundingFixture": "fixtures/teranode/wab-funding-v1.json",
+  "repetitions": 2,
+  "task": "TPNIL controlled task",
+  "amount": 2,
+  "timeoutSecondsPerRepetition": 600,
+  "publicMainnetBroadcast": false,
+  "requiredEnvironmentAssertions": [
+    "exact-wallet-and-application-artifacts",
+    "native-chromium-with-sandbox",
+    "fresh-container-and-wallet-profile-each-repetition",
+    "kernel-network-none-before-and-after",
+    "no-network-admin-capabilities",
+    "negative-tcp-ipv4-and-ipv6-probes",
+    "controlled-ca-trust-without-global-tls-bypass",
+    "proof-carrying-mined-funding-ancestry",
+    "independent-transaction-and-state-oracles",
+    "all-eight-vector-outcomes-retained",
+    "two-matching-semantic-projections",
+    "successful-process-and-state-cleanup"
+  ],
+  "sutOutcomePolicy": "PASS, FAIL and BLOCKED are retained findings; a valid environment and complete reproducible report do not require all SUT vectors to pass",
+  "scope": "Yours Wallet 5.1.0 Chromium extension on the all-Go closure. Android, native desktop HTTP wallets, mixed closures, ISI-3 replacement and the remaining BRC-100 clauses retain separate admission requirements.",
+  "fundingFixtureCanonicalSha256": "67a6da93734b8bad048c3a723068293fc946e3cb3ed582a0fd7d104353814a12"
+}
