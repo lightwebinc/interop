@@ -12,6 +12,13 @@ function execute(script,args=[]) {
   const result=spawnSync(process.execPath,[path.join(root,'scripts',script),...args],{stdio:'inherit',timeout:300_000})
   if(result.status!==0) throw new Error(`${script} did not verify the retained observations`)
 }
+export function verifyIntegratedWalletIdentity(identity,boundary,trust) {
+  const calls=boundary.trace.filter(row=>row.method==='getPublicKey'&&row.args?.identityKey===true)
+  assert.equal(calls.length,1,'Expected one boundary wallet identity observation')
+  assert.equal(calls[0].result?.publicKey,identity,'Boundary corpus belongs to a different native wallet')
+  if(trust) assert.equal(trust.certificate?.subject,identity,'Trust certificate belongs to a different native wallet')
+}
+if(process.argv[1]&&path.resolve(process.argv[1])===import.meta.filename) {
 const admission=spawnSync(process.execPath,['--import',path.join(root,'synthesis/node_modules/tsx/dist/loader.mjs'),path.join(root,'synthesis/src/wallet-lab/native/verify.ts'),output],{stdio:'inherit',timeout:60_000})
 assert.equal(admission.status,0,'Native artifact, isolation, trust, funding and cleanup admission failed')
 const base=read('qualification.json'),lock=read('run-lock.json')
@@ -42,6 +49,7 @@ for(let index=1;index<=2;index++) {
   assert.match(identity,/^(02|03)[0-9a-f]{64}$/);assert.equal(identity,report.walletIdentity)
   const messaging=read(`${prefix}/messaging.json`);assert.equal(messaging.nativeIdentity,identity)
   const boundary=read(`${prefix}/boundary.json`)
+  verifyIntegratedWalletIdentity(identity,boundary,trustedIdentity?read(`${prefix}/identity-trust.json`):undefined)
   assert.equal(boundary.discoveryExpectation,trustedIdentity?'published':'untrusted-excluded')
   const expected=[...relay.assertions,...paid.assertions,
     ...messaging.assertions.map(x=>({id:`messaging/${x.id}`,result:x.verdict})),
@@ -74,3 +82,4 @@ const target=path.join(output,'integrated-qualification.json')
 if(fs.existsSync(target)) assert.deepEqual(JSON.parse(fs.readFileSync(target)),result)
 else fs.writeFileSync(target,JSON.stringify(result,null,2)+'\n',{flag:'wx'})
 console.log(JSON.stringify(result))
+}
