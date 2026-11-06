@@ -90,8 +90,12 @@ try {
   if (mongo !== undefined && mongo.exitCode === null && mongo.signalCode === null) {
     const exited = once(mongo, 'exit')
     mongo.kill('SIGTERM')
-    const timer = setTimeout(() => mongo?.kill('SIGKILL'), 7000)
-    await exited; clearTimeout(timer)
+    let forced = false
+    const timer = setTimeout(() => { forced = true; mongo?.kill('SIGKILL') }, 7000)
+    const [code, signal] = await exited; clearTimeout(timer)
+    const clean = !forced && code === 0
+    save('mongo-cleanup.json', { clean, forced, code, signal })
+    if (!clean) failure ??= new Error('Mongo did not shut down cleanly')
   }
 }
 if (failure !== undefined) throw failure

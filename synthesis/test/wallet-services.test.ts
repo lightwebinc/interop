@@ -26,14 +26,14 @@ afterEach(() => {
     fs.rmSync(directory, { recursive: true, force: true })
 })
 
-async function openControlledTunnel(proxyUrl: string): Promise<tls.TLSSocket> {
+async function openControlledTunnel(proxyUrl: string, host = 'todo.itcve.test'): Promise<tls.TLSSocket> {
   const proxy = new URL(proxyUrl)
   const socket = net.connect(Number(proxy.port), proxy.hostname)
   await new Promise<void>((resolve, reject) => {
     socket.once('connect', resolve)
     socket.once('error', reject)
   })
-  socket.write('CONNECT todo.itcve.test:443 HTTP/1.1\r\nHost: todo.itcve.test:443\r\n\r\n')
+  socket.write(`CONNECT ${host}:443 HTTP/1.1\r\nHost: ${host}:443\r\n\r\n`)
   await new Promise<void>((resolve, reject) => {
     let response = ''
     const onData = (chunk: Buffer): void => {
@@ -46,13 +46,13 @@ async function openControlledTunnel(proxyUrl: string): Promise<tls.TLSSocket> {
     socket.on('data', onData)
     socket.once('error', reject)
   })
-  const secure = tls.connect({ socket, servername: 'todo.itcve.test', rejectUnauthorized: false })
+  const secure = tls.connect({ socket, servername: host, rejectUnauthorized: false })
   secure.on('error', () => undefined)
   await new Promise<void>((resolve, reject) => {
     secure.once('secureConnect', resolve)
     secure.once('error', reject)
   })
-  secure.write('GET / HTTP/1.1\r\nHost: todo.itcve.test\r\nConnection: keep-alive\r\n\r\n')
+  secure.write(`GET / HTTP/1.1\r\nHost: ${host}\r\nConnection: keep-alive\r\n\r\n`)
   await new Promise<void>((resolve, reject) => {
     secure.once('data', () => resolve())
     secure.once('error', reject)
@@ -231,13 +231,17 @@ describe('controlled wallet services', () => {
     fs.writeFileSync(path.join(webroot, 'index.html'), '<!doctype html><title>fixture</title>')
     const services = new ControlledWalletServices({ webroot })
     await services.start()
-    const tunnel = await openControlledTunnel(services.proxyUrl)
+    const tunnels = await Promise.all(['todo.itcve.test', 'alternate.itcve.test', 'deny.itcve.test'].map(host => openControlledTunnel(services.proxyUrl, host)))
+    const closed = Promise.all(tunnels.map(tunnel => new Promise<void>(resolve => {
+      if (tunnel.destroyed) resolve()
+      else { tunnel.once('close', () => resolve()); tunnel.resume() }
+    })))
     await services.close()
     await Promise.race([
-      new Promise<void>(resolve => tunnel.once('close', () => resolve())),
+      closed,
       new Promise<never>((_resolve, reject) => setTimeout(() => reject(new Error('proxy tunnel remained open')), 2_000))
     ])
-    expect(tunnel.destroyed).toBe(true)
+    expect(tunnels.every(tunnel => tunnel.destroyed)).toBe(true)
   }, 15_000)
 
   it('provides root SLAP, SHIP submission and UMP lookup as one controlled boundary', async () => {

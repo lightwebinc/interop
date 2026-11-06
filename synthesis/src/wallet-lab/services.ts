@@ -553,7 +553,7 @@ export class ControlledWalletServices {
       callback()
     })
     await new Promise<void>((resolve, reject) => {
-      this.proxy!.listen({ port: this.proxyPort, host: '0.0.0.0', sslCaDir: this.caDirectory }, error =>
+      this.proxy!.listen({ port: this.proxyPort, host: '0.0.0.0', forceSNI: true, sslCaDir: this.caDirectory }, error =>
         error ? reject(error) : resolve()
       )
     })
@@ -576,8 +576,10 @@ export class ControlledWalletServices {
       this.proxy.httpsAgent?.destroy()
       this.proxy.httpServer?.closeAllConnections()
       this.proxy.httpsServer?.closeAllConnections()
-      for (const { server } of Object.values(this.proxy.sslServers ?? {}))
+      for (const { server } of Object.values(this.proxy.sslServers ?? {})) {
         server?.closeAllConnections()
+        server?.close()
+      }
       this.proxy.close()
     }
     const failures: unknown[] = []

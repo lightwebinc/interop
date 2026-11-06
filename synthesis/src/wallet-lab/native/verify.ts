@@ -38,6 +38,7 @@ export async function verifyNativeWallet(directory: string) {
     for (const observation of [before, after]) {
       verifyHostReceipt(observation, lock.image.id)
     }
+    assert.equal(after.state.Running, false); assert.equal(after.state.Status, 'exited'); assert.equal(after.state.Pid, 0)
     assert.equal(after.state.ExitCode, 0); assert.equal(after.state.OOMKilled, false); assert.equal(cleanup.removed, true)
     const rep = path.join(directory, `repetition-${index}`)
     const record = verifyEvidenceBundle(rep)
@@ -53,6 +54,8 @@ export async function verifyNativeWallet(directory: string) {
     assert.equal(record.observations.walletVersion, 'yours-wallet-5.1.0'); assert.equal(record.observations.walletNetwork, 'mainnet'); assert.equal(record.observations.authenticated, true)
     assert.match(fs.readFileSync(path.join(rep, 'browser-version.txt'), 'utf8'), /151\.0\.7922\.34/)
     const worker = read(`repetition-${index}/worker.json`)
+    const mongoCleanup = read(`repetition-${index}/mongo-cleanup.json`)
+    assert.equal(mongoCleanup.clean, true); assert.equal(mongoCleanup.forced, false); assert.equal(mongoCleanup.code, 0)
     assert.equal(worker.completed, true); assert.equal(worker.cleanWalletAndServiceShutdown, true)
     assert.equal(worker.recordSha256, sha256Hex(fs.readFileSync(path.join(rep, 'record.json'))))
     assert.equal(worker.planSha256, lock.planSha256)
