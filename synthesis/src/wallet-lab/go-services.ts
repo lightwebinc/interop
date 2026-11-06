@@ -33,6 +33,23 @@ export function validateGoBuild(build: GoBuild): void {
   }
 }
 
+export function validateStorageSyncGoBuild(build: GoBuild, binarySha256: string, manifest: Record<string, unknown>): void {
+  const lockBytes = fs.readFileSync(fileURLToPath(new URL('../../../infra/adapters/storage-sync/patch.lock.json', import.meta.url)))
+  const lock = JSON.parse(lockBytes.toString()) as { module: string; version: string; sum: string; patchSha256: string }
+  const expectedUpstream = { module: lock.module, version: lock.version, sum: lock.sum }
+  if (manifest.schema !== 'tpnil-storage-sync-go-build@1.0.0' || manifest.binarySha256 !== binarySha256 ||
+      manifest.patchLockSha256 !== createHash('sha256').update(lockBytes).digest('hex') || manifest.patchSha256 !== lock.patchSha256 ||
+      manifest.toolchain !== componentLock.toolchain || canonicalJson(manifest.upstream) !== canonicalJson(expectedUpstream) ||
+      typeof manifest.replacementModule !== 'string' || !path.isAbsolute(manifest.replacementModule))
+    throw new Error('Storage sync compatibility build manifest differs from frozen inputs')
+  const normalized = structuredClone(build)
+  const actual = normalized.dependencies?.[lock.module]
+  if (actual?.version !== lock.version || actual.replacementModule !== manifest.replacementModule || !['', '(devel)'].includes(actual.replacementVersion ?? ''))
+    throw new Error('Storage sync compatibility source replacement differs from manifest')
+  normalized.dependencies![lock.module] = { version: lock.version, sum: lock.sum }
+  validateGoBuild(normalized)
+}
+
 export interface ComponentSelection {
   overlay?: 'typescript' | 'go'
   chaintracks?: 'typescript' | 'go'
@@ -41,6 +58,8 @@ export interface ComponentSelection {
 export interface GoServiceOptions {
   binary?: string
   mongoUri?: string
+  /** Separate prospective storage-sync build; historical native profiles reject it. */
+  storageSyncPatch?: boolean
 }
 export function selectComponents(value: ComponentSelection = {}): Required<ComponentSelection> {
   if (value === null || typeof value !== 'object' || Array.isArray(value)) throw new Error('Invalid component selection')
@@ -56,6 +75,7 @@ export function validateComponentIdentity(value: Record<string, unknown>): void 
   const go = value.go as Record<string, unknown> | undefined
   if (go?.schema !== 'tpnil-go-services@1.0.0' || canonicalJson(go.components) !== canonicalJson(components) ||
       typeof go.binarySha256 !== 'string' || !/^[a-f0-9]{64}$/.test(go.binarySha256) ||
+      go.compatibilityPatch !== undefined ||
       go.goModSha256 !== componentLock.moduleFiles['go.mod'] || go.goSumSha256 !== componentLock.moduleFiles['go.sum'] ||
       canonicalJson(go.dependencies) !== canonicalJson(componentLock))
     throw new Error('Go service component identity is incomplete or differs from lock')
@@ -71,13 +91,14 @@ export class GoServices {
   private stderr = ''
   private executableSha256 = ''
   private admitted = false
+  private compatibilityPatch?: Record<string, unknown>
   get diagnostics(): string { return this.stderr }
   readonly binary: string
   constructor(readonly state: string, readonly components: Required<ComponentSelection>, readonly options: GoServiceOptions = {}) {
     this.binary = path.resolve(options.binary ?? process.env.TPNIL_GO_BINARY ?? fileURLToPath(new URL('../../../out/itcve-go-services', import.meta.url)))
   }
   get identity(): Record<string, unknown> {
-    return { schema: 'tpnil-go-services@1.0.0', components: this.components, binarySha256: this.executableSha256, dependencies: componentLock, goModSha256: createHash('sha256').update(fs.readFileSync(fileURLToPath(new URL('../../go/go.mod', import.meta.url)))).digest('hex'), goSumSha256: createHash('sha256').update(fs.readFileSync(fileURLToPath(new URL('../../go/go.sum', import.meta.url)))).digest('hex') }
+    return { schema: 'tpnil-go-services@1.0.0', ...(this.compatibilityPatch === undefined ? {} : { compatibilityPatch: this.compatibilityPatch }), components: this.components, binarySha256: this.executableSha256, dependencies: componentLock, goModSha256: createHash('sha256').update(fs.readFileSync(fileURLToPath(new URL('../../go/go.mod', import.meta.url)))).digest('hex'), goSumSha256: createHash('sha256').update(fs.readFileSync(fileURLToPath(new URL('../../go/go.sum', import.meta.url)))).digest('hex') }
   }
   async start(fixtures: string, rootKey: string): Promise<void> {
     const args = ['--state', this.state, '--fixtures', fixtures, '--control-token', this.token, '--root-key', rootKey]
@@ -90,6 +111,9 @@ export class GoServices {
     this.origin = ''
     this.stderr = ''
     this.executableSha256 = createHash('sha256').update(fs.readFileSync(this.binary)).digest('hex')
+    if (this.options.storageSyncPatch) {
+      this.compatibilityPatch = JSON.parse(fs.readFileSync(`${this.binary}.json`, 'utf8')) as Record<string, unknown>
+    }
     const child = spawn(this.binary, args, { stdio: ['ignore', 'pipe', 'pipe'] })
     this.process = child
     child.stderr!.on('data', data => { this.stderr = (this.stderr + String(data)).slice(-64000) })
@@ -108,7 +132,10 @@ export class GoServices {
           try {
             const message = JSON.parse(line) as GoBuild & { schema?: string; origin?: string }
             if (message.schema !== 'tpnil-go-services@1.0.0') continue
-            try { validateGoBuild(message) } catch (error) { return failed(error as Error) }
+            try {
+              if (this.compatibilityPatch === undefined) validateGoBuild(message)
+              else validateStorageSyncGoBuild(message, this.executableSha256, this.compatibilityPatch)
+            } catch (error) { return failed(error as Error) }
             const url = new URL(message.origin!)
             if (url.protocol !== 'http:' || url.hostname !== '127.0.0.1' || !url.port) return failed(new Error('Invalid Go service origin'))
             this.origin = url.origin
@@ -173,6 +200,10 @@ export class GoServices {
       request.on('aborted', () => target.destroy(new Error('Client aborted')))
       request.pipe(target)
     })
+  }
+  async synchronizeOverlay(peer: string): Promise<void> {
+    const response = await fetch(`${this.origin}/control/sync`, { method: 'POST', headers: { authorization: `Bearer ${this.token}`, 'content-type': 'application/json' }, body: JSON.stringify({ peer }), redirect: 'error', signal: AbortSignal.timeout(25000) })
+    if (response.status !== 204) throw new Error(`Go GASP sync failed: HTTP ${response.status}: ${await response.text()}`)
   }
   async transactions(): Promise<Array<{ txid: string; rawTxHex: string }>> {
     const response = await fetch(`${this.origin}/control/transactions`, { headers: { authorization: `Bearer ${this.token}` }, redirect: 'error', signal: AbortSignal.timeout(15000) })

@@ -116,6 +116,15 @@ const genesisBytes = Buffer.from(
   'hex'
 )
 
+export function serializeHeader(header: Omit<HeaderRecord, 'hash'>): Buffer {
+  const raw = Buffer.alloc(80)
+  raw.writeInt32LE(header.version, 0)
+  Buffer.from(header.previousHash, 'hex').reverse().copy(raw, 4)
+  Buffer.from(header.merkleRoot, 'hex').reverse().copy(raw, 36)
+  raw.writeUInt32LE(header.time, 68); raw.writeUInt32LE(header.bits, 72); raw.writeUInt32LE(header.nonce, 76)
+  return raw
+}
+
 export function withHeaderHash(header: Omit<HeaderRecord, 'hash'>): HeaderRecord {
   const raw = Buffer.alloc(80)
   raw.writeInt32LE(header.version, 0)
@@ -412,59 +421,7 @@ export class ControlledWalletServices {
       await this.syncGoHeaders()
     }
     if (this.components.storage === 'typescript') {
-      const database = path.join(this.temporaryDirectory, 'storage.sqlite')
-      const env = {
-        chain: 'main' as const,
-        identityKey: this.identityKey,
-        identityKey2: this.identityKey,
-        filePath: database,
-        taalApiKey: 'controlled-fixture-no-key',
-        devKeys: { [this.identityKey]: this.storageRootKeyHex },
-        mySQLConnection: '{}'
-      }
-      this.storageSetup = await Setup.createWalletSQLite({
-        env,
-        rootKeyHex: this.storageRootKeyHex,
-        filePath: database,
-        databaseName: 'tpnil-wallet-lab'
-      })
-      this.storageSetup.services.options.chainTracker = {
-        isValidRootForHeight: async (root: string, height: number) => this.headers.get(height)?.merkleRoot === root,
-        currentHeight: async () => 900_100
-      } as never
-      this.storageSetup.services.postBeef = (async (beef: { toBinaryAtomic: (txid: string) => number[] }, txids: string[]) =>
-        txids.map(txid => {
-          const bytes = Uint8Array.from(beef.toBinaryAtomic(txid))
-          const verdict = this.verdicts.shift() ?? 'ACCEPTED_BY_NETWORK'
-          this.submissions.push({ txid, bytes, verdict })
-          this.routes.push({
-            sequence: ++this.routeSequence,
-            method: 'POST',
-            host: 'api.1sat.app',
-            pathname: '/1sat/tx',
-            disposition: 'controlled-service',
-            status: verdict === 'REJECTED' ? 400 : 200
-          })
-          return verdict === 'ACCEPTED_BY_NETWORK'
-            ? { name: 'tpnil-controlled-submission', status: 'success', txidResults: [{ txid, status: 'success' }] }
-            : {
-                name: 'tpnil-controlled-submission',
-                status: 'error',
-                error: new Error('controlled rejection'),
-                txidResults: [{ txid, status: 'error', serviceError: false }]
-              }
-        })) as unknown as typeof this.storageSetup.services.postBeef
-      this.storageServer = new StorageServer(this.storageSetup.activeStorage, {
-        host: '127.0.0.1',
-        port: this.storagePort,
-        wallet: this.storageSetup.wallet,
-        monetize: false,
-        logRpcRequests: false,
-        sessionManager: new KnexSessionManager(this.storageSetup.activeStorage.knex),
-        maxRpcListLimit: 100_000,
-        defaultRpcListLimit: 1_000
-      })
-      this.storageServer.start()
+      await this.startTypeScriptStorage()
     } else {
       this.goStorageServer = http.createServer((request, response) => {
         void this.forwardGo(request, response, `/storage${request.url ?? '/'}`).catch(error => {
@@ -559,6 +516,91 @@ export class ControlledWalletServices {
     })
   }
 
+  private async startTypeScriptStorage(): Promise<void> {
+    const database = path.join(this.temporaryDirectory, 'storage.sqlite')
+    const env = {
+      chain: 'main' as const,
+      identityKey: this.identityKey,
+      identityKey2: this.identityKey,
+      filePath: database,
+      taalApiKey: 'controlled-fixture-no-key',
+      devKeys: { [this.identityKey]: this.storageRootKeyHex },
+      mySQLConnection: '{}'
+    }
+    this.storageSetup = await Setup.createWalletSQLite({
+      env,
+      rootKeyHex: this.storageRootKeyHex,
+      filePath: database,
+      databaseName: 'tpnil-wallet-lab'
+    })
+    this.storageSetup.services.options.chainTracker = {
+      isValidRootForHeight: async (root: string, height: number) => this.headers.get(height)?.merkleRoot === root,
+      currentHeight: async () => 900_100
+    } as never
+    this.storageSetup.services.getHeaderForHeight = async height => {
+      const header = this.headers.get(height)
+      if (header === undefined) throw new Error(`Controlled header unavailable: ${height}`)
+      return [...serializeHeader(header)]
+    }
+    this.storageSetup.services.getHeight = async () => 900_100
+    this.storageSetup.services.postBeef = (async (beef: { toBinaryAtomic: (txid: string) => number[] }, txids: string[]) =>
+      txids.map(txid => {
+        const bytes = Uint8Array.from(beef.toBinaryAtomic(txid))
+        const verdict = this.verdicts.shift() ?? 'ACCEPTED_BY_NETWORK'
+        this.submissions.push({ txid, bytes, verdict })
+        this.routes.push({
+          sequence: ++this.routeSequence,
+          method: 'POST',
+          host: 'api.1sat.app',
+          pathname: '/1sat/tx',
+          disposition: 'controlled-service',
+          status: verdict === 'REJECTED' ? 400 : 200
+        })
+        return verdict === 'ACCEPTED_BY_NETWORK'
+          ? { name: 'tpnil-controlled-submission', status: 'success', txidResults: [{ txid, status: 'success' }] }
+          : {
+              name: 'tpnil-controlled-submission',
+              status: 'error',
+              error: new Error('controlled rejection'),
+              txidResults: [{ txid, status: 'error', serviceError: false }]
+            }
+      })) as unknown as typeof this.storageSetup.services.postBeef
+    this.storageServer = new StorageServer(this.storageSetup.activeStorage, {
+      host: '127.0.0.1',
+      port: this.storagePort,
+      wallet: this.storageSetup.wallet,
+      monetize: false,
+      logRpcRequests: false,
+      sessionManager: new KnexSessionManager(this.storageSetup.activeStorage.knex),
+      maxRpcListLimit: 100_000,
+      defaultRpcListLimit: 1_000
+    })
+    this.storageServer.start()
+    await new Promise<void>((resolve, reject) => {
+      this.storageServer!.server.once('listening', resolve)
+      this.storageServer!.server.once('error', reject)
+    })
+  }
+
+  private async closeTypeScriptStorageServer(): Promise<void> {
+    const server = this.storageServer?.server as http.Server | undefined
+    if (server === undefined || !server.listening) return
+    server.closeAllConnections()
+    await new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve()))
+  }
+
+  /** Reopen the same provider state without recreating its identity or database. */
+  async restartStorage(): Promise<void> {
+    if (this.components.storage === 'go') return this.restartGoComponents()
+    await this.faucetWallet?.destroy()
+    this.faucetWallet = undefined
+    await this.closeTypeScriptStorageServer()
+    await this.storageSetup?.wallet.destroy()
+    await this.storageSetup?.activeStorage.destroy()
+    await this.startTypeScriptStorage()
+    if (this.faucetRootKeyHex !== undefined) this.faucetWallet = await this.connectRemoteWallet(this.faucetRootKeyHex)
+  }
+
   async restartGoComponents(): Promise<void> {
     if (this.goServices === undefined) throw new Error('No Go components selected')
     await this.faucetWallet?.destroy()
@@ -595,7 +637,7 @@ export class ControlledWalletServices {
       this.serviceServer.closeAllConnections()
       await clean(() => new Promise<void>(resolve => this.serviceServer!.close(() => resolve())))
     }
-    await clean(async () => this.storageServer?.close())
+    await clean(async () => this.closeTypeScriptStorageServer())
     await clean(async () => this.storageSetup?.wallet.destroy())
     await clean(async () => this.storageSetup?.activeStorage.destroy())
     fs.rmSync(this.temporaryDirectory, { recursive: true, force: true })

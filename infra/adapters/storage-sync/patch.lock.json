@@ -1,0 +1,22 @@
+{
+  "schema": "tpnil-storage-sync-go-patch@1.0.0",
+  "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+  "version": "v0.191.4",
+  "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
+  "patch": "go-wallet-toolbox-v0.191.4.patch",
+  "patchSha256": "dc484dbe6862d3b122a03ee3a97d969cd71df6acecda0fe6d954fcc5f9f08994",
+  "files": {
+    "pkg/internal/storage/repo/syncrepo/sync_basket.go": {
+      "before": "e2ef950d7cc27346de34a3ba75aa8bdfd8fc71cb59785b5fcd2e1411038b1871",
+      "after": "0df14d00fe1318a5b93d229f3ce295b87e54db14ac06ad1020e7d948cb53ccda"
+    },
+    "pkg/internal/storage/repo/syncrepo/sync_output.go": {
+      "before": "5093e148ccb97f739cc63f3eb54de4f034ab9b8e8b51a3763342a9f718d1549e",
+      "after": "6fb9a01ca9b0d900bf0423c24022d70002fedc908e0df5ef668d26a0fb0bacdd"
+    },
+    "pkg/storage/internal/sync/chunk_processor.go": {
+      "before": "c0781d16e1d818919f6474fddd6beb391edc983c52116cdda6ad9bd7bcad6ac3",
+      "after": "d8b764d2c7cfef604de82134a559b0cf99f073b88d77f30dd8fb1c4263dda972"
+    }
+  }
+}
