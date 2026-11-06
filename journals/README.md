@@ -23,3 +23,15 @@ Intake reports retain their complete review record and referenced evidence in `i
 `native-observation/` retains content-addressed Android intake and engineering observations. `wallet-runs/` retains experimental ISI-4 results with all eight vector outcomes. The offline verifier checks every declared evidence file and digest. Certification remains unavailable until a separate certification program and independent review are established.
 
 The prelaunch Git history replacement retains existing evidence bytes. Source revision identifiers inside those records retain their historical meaning and are not substituted with the new Git root. Version 1.0.0 intake reviews remain verifiable under their original schema.
+
+`native-wallet-qualification/` retains ITCVE-1 1.2.0 native-wallet qualification
+bundles. The offline verifier checks the frozen plan, exact artifact admission,
+host and worker isolation receipts, sandbox/trust observations, mined transaction
+ancestry, serialized redemption and value conservation, all eight vector outcomes
+and both semantic projections. A qualified environment may retain FAIL or BLOCKED
+wallet outcomes. These experimental results do not issue certification.
+
+`native-wallet-attempts/` preserves unsuccessful observer attempts, their complete
+raw evidence and file digests. Observer startup errors issue no wallet score;
+they remain distinct from completed wallet FAIL results and are never replaced
+by a later successful attempt.

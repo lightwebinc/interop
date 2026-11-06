@@ -1,0 +1,87 @@
+◇ injected env (0) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+◇ injected env (0) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+starting server for www.google.com
+https server started for www.google.com on 36797
+HTTPS_CLIENT_ERROR
+Error: socket hang up
+    at TLSSocket.onSocketClose (node:internal/tls/wrap:1379:23)
+    at TLSSocket.emit (node:events:526:24)
+    at node:net:362:12
+    at Socket.done (node:internal/tls/wrap:780:7)
+    at Socket.wrapper (node:events:639:12)
+    at Socket.emit (node:events:526:24)
+    at TCP.<anonymous> (node:net:362:12) {
+  code: 'ECONNRESET'
+}
+starting server for fonts.googleapis.com
+https server started for fonts.googleapis.com on 35797
+starting server for android.clients.google.com
+https server started for android.clients.google.com on 36967
+starting server for wallet.1sat.app
+https server started for wallet.1sat.app on 34103
+starting server for messagebox.1sat.app
+https server started for messagebox.1sat.app on 38435
+starting server for api.1sat.app
+https server started for api.1sat.app on 43841
+[wallet-lab:evidence] wallet initialized
+starting server for todo.itcve.test
+https server started for todo.itcve.test on 34289
+starting server for api.whatsonchain.com
+https server started for api.whatsonchain.com on 36447
+starting server for i.ibb.co
+https server started for i.ibb.co on 41531
+starting server for proxy-api.mnee.net
+https server started for proxy-api.mnee.net on 39669
+starting server for proxy-api.mnee.net
+https server started for proxy-api.mnee.net on 43175
+starting server for localhost
+https server started for localhost on 39297
+[wallet-lab:evidence] boundary getVersion: requesting
+[wallet-lab:evidence] boundary getVersion: completed
+[wallet-lab:evidence] boundary getNetwork: requesting
+[wallet-lab:evidence] boundary getNetwork: completed
+[wallet-lab:evidence] boundary isAuthenticated: requesting
+[wallet-lab:evidence] boundary isAuthenticated: completed
+[wallet-lab:evidence] boundary identified yours-wallet-5.1.0 on mainnet
+[wallet-lab:evidence] permission 1: allow Permission Request for todo.itcve.test
+[wallet-lab:evidence] permission 2: allow Protocol Permission for todo.itcve.test
+[wallet-lab:evidence] permission 3: allow Protocol Permission for todo.itcve.test
+[wallet-lab:evidence] controlled funding internalized
+starting server for content-autofill.googleapis.com
+https server started for content-autofill.googleapis.com on 34105
+[wallet-lab:evidence] permission 4: allow Permission Request for todo.itcve.test
+[wallet-lab:evidence] permission 5: allow Spending Authorization for todo.itcve.test
+[wallet-lab:evidence] ToDo token created and decoded
+[wallet-lab:evidence] cold reload reconstructed wallet state
+[wallet-lab:evidence] ToDo token redeemed
+starting server for deny.itcve.test
+https server started for deny.itcve.test on 46721
+[wallet-lab:evidence] permission 6: allow Permission Request for todo.itcve.test
+[wallet-lab:evidence] requesting explicit protocol denial
+starting server for alternate.itcve.test
+https server started for alternate.itcve.test on 36471
+[wallet-lab:evidence] permission 7: allow Permission Request for todo.itcve.test
+[wallet-lab:evidence] requesting independent cross-origin protocol decision
+[wallet-lab:evidence] permission 8: deny Protocol Permission for alternate.itcve.test
+[wallet-lab:evidence] permission denial and cross-origin isolation exercised
+[wallet-lab:evidence] immediate ACCEPTED_BY_NETWORK: opening isolated application page
+[wallet-lab:evidence] permission 9: allow Spending Authorization for todo.itcve.test
+[wallet-lab:evidence] immediate ACCEPTED_BY_NETWORK: submit dispatched
+[wallet-lab:evidence] permission 10: allow Spending Authorization for todo.itcve.test
+[wallet-lab:evidence] permission 11: allow Spending Authorization for todo.itcve.test
+[wallet-lab:evidence] immediate ACCEPTED_BY_NETWORK: 1 submission(s) observed
+[wallet-lab:evidence] permission 12: allow Spending Authorization for todo.itcve.test
+[wallet-lab:evidence] immediate REJECTED: opening isolated application page
+[wallet-lab:evidence] immediate REJECTED: submit dispatched
+[wallet-lab:evidence] permission 13: allow Permission Request for todo.itcve.test
+[wallet-lab:evidence] permission 14: allow Spending Authorization for todo.itcve.test
+[wallet-lab:evidence] immediate REJECTED: 1 submission(s) observed
+[wallet-lab:evidence] immediate ACCEPTED_BY_NETWORK: opening isolated application page
+[wallet-lab:evidence] immediate ACCEPTED_BY_NETWORK: submit dispatched
+[wallet-lab:evidence] permission 15: allow Permission Request for todo.itcve.test
+[wallet-lab:evidence] permission 16: allow Spending Authorization for todo.itcve.test
+[wallet-lab:evidence] immediate ACCEPTED_BY_NETWORK: 1 submission(s) observed
+[wallet-lab:evidence] accepted, rejected, and recovered immediate broadcasts exercised
+[wallet-lab:evidence] permission 17: allow Protocol Permission for todo.itcve.test
+[wallet-lab:evidence] safe BRC-100 boundary corpus exercised
+context canceled

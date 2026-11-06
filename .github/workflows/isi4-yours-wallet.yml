@@ -1,10 +1,19 @@
 name: ISI-4 Yours Wallet controlled-service run
 on:
   workflow_dispatch:
+    inputs:
+      profile:
+        description: 'Pinned controlled-service qualification lane'
+        type: choice
+        default: typescript
+        options:
+          - typescript
+          - all-go-native
 permissions:
   contents: read
 jobs:
   yours-wallet:
+    if: inputs.profile != 'all-go-native'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
@@ -34,5 +43,40 @@ jobs:
         with:
           name: isi4-yours-wallet-5.1.0
           path: out/isi4-yours-todo-controlled-services
+          if-no-files-found: error
+          retention-days: 90
+  all-go-native:
+    if: inputs.profile == 'all-go-native'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version-file: '.nvmrc'
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: '1.27.3'
+          cache-dependency-path: synthesis/go/go.sum
+      - name: Prepare and verify immutable artifacts and Go host
+        run: |
+          set -euo pipefail
+          scripts/prepare-yours-wallet-run.sh
+          npm ci --prefix synthesis --ignore-scripts
+          npm run prepare:go
+          cd synthesis/go
+          go build -mod=readonly -trimpath -o ../../out/itcve-mongo ./cmd/itcve-mongo
+      - name: Build the frozen native browser closure
+        run: docker build --iidfile out/native-go-image.id -f infra/native/yours-go/Dockerfile -t tpnil-native-go:${{ github.sha }} .
+      - name: Execute two clean isolated native repetitions and verify results
+        run: node scripts/run-native-go-wallet.mjs tpnil-native-go:${{ github.sha }} out/native-go-wallet
+      - name: Retain every attempt and qualification receipt
+        if: always()
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        with:
+          name: native-go-yours-wallet-5.1.0
+          path: out/native-go-wallet
           if-no-files-found: error
           retention-days: 90

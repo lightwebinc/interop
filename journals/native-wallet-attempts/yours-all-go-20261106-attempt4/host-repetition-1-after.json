@@ -1,0 +1,53 @@
+{
+  "id": "3fb6d75c7061a45ad0bb9ebf390d00c4008f11c1a3261325bbbbc56046c32dbe",
+  "image": "sha256:02ec73a71d71086f111a76896fbbcd4e7394127af0d7c7c51ab6c2249db86e4f",
+  "user": "1001:1001",
+  "networkMode": "none",
+  "networks": {
+    "none": {
+      "IPAMConfig": null,
+      "Links": null,
+      "Aliases": null,
+      "MacAddress": "",
+      "DriverOpts": null,
+      "GwPriority": 0,
+      "NetworkID": "e70f13bb53d6bd87e3ca6095e085ae90e8b530fcdf97b39768cc2ac079be2ca4",
+      "EndpointID": "",
+      "Gateway": "",
+      "IPAddress": "",
+      "IPPrefixLen": 0,
+      "IPv6Gateway": "",
+      "GlobalIPv6Address": "",
+      "GlobalIPv6PrefixLen": 0,
+      "DNSNames": null
+    }
+  },
+  "privileged": false,
+  "capAdd": null,
+  "capDrop": [
+    "ALL"
+  ],
+  "readonly": true,
+  "pidMode": "",
+  "init": true,
+  "mounts": [
+    {
+      "destination": "/evidence",
+      "rw": true,
+      "type": "bind"
+    }
+  ],
+  "state": {
+    "Status": "exited",
+    "Running": false,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 0,
+    "ExitCode": 0,
+    "Error": "",
+    "StartedAt": "2026-11-06T19:39:43.305453806Z",
+    "FinishedAt": "2026-11-06T19:40:23.058422766Z"
+  }
+}

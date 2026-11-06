@@ -98,3 +98,41 @@ The fixture environment is either the controlled services of the Yours profile (
 An operator who runs the vectors on another network declares `networkDeviation` with the network the wallet reports and the reason. The `mainnet-configuration` assertion is then `NOT_APPLICABLE` when the wallet reports the declared network, the deviation appears in the V001 limitations and the configuration, and the run is outside the mainnet profile.
 
 Android operators use `scripts/native/android/create-avd.sh`, `launch-emulator.sh`, `bundle-to-universal-apk.sh`, `capture-runtime.sh`, and the optional uiautomator2 driver. The public fixture key under `fixtures/keys/` signs laboratory derivatives and carries no publisher identity. `.github/workflows/isi4-android-qualification.yml` executes the same boundary on the owned KVM runner.
+
+## Go service components
+
+Run `npm run test:go` after installing the locked synthesis dependencies. The
+[component profile](../itcves/ITCVE-1/1.1.0/README.md) documents prerequisites,
+independent role selection, wallet/Android configuration, evidence, teardown and
+the boundary between sparse fixture replay and native ChainTracks recovery.
+
+## Native all-Go wallet qualification
+
+The [ITCVE-1 1.2.0 protocol](../itcves/ITCVE-1/1.2.0/README.md) admits the
+unchanged Yours Wallet 5.1.0 Chromium artifact on native Linux/amd64. Run the
+manual **ISI-4 Yours Wallet controlled-service run** workflow with
+`profile=all-go-native` on the committed source revision. The workflow prepares
+and hashes the archives, builds the locked Go binaries and pinned browser image,
+then runs two fresh network-isolated containers with sandboxing and native CA
+trust. It retains partial evidence on every outcome. Each job is bounded to
+35 minutes and each repetition to ten minutes.
+
+The disposable Ubuntu host must permit Chromium user namespaces. The runner
+records the host's AppArmor user-namespace restriction, temporarily enables the
+required namespaces, restores the original policy after execution, and verifies
+restoration. The containers retain no Linux capabilities, external network
+interface or host control socket. This workflow is for disposable qualification
+hosts; it does not alter a deployed service host.
+
+Download the resulting artifact to a new directory and verify it offline:
+
+```sh
+synthesis/node_modules/.bin/tsx synthesis/src/wallet-lab/native/verify.ts PATH_TO_BUNDLE
+npm run verify:journals
+```
+
+A valid `qualification.json` binds the experimental result to the plan, source,
+image, exact wallet/application artifacts and both raw records. Its
+`qualifiedEnvironment` finding is separate from the wallet's vector outcomes.
+Android, desktop HTTP and mixed Go/TypeScript closures require their own native
+admission and qualification evidence.

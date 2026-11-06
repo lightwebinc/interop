@@ -1,0 +1,115 @@
+{
+  "schema": "tpnil-native-wallet-attempt@1.0.0",
+  "claim": "OBSERVER_EXECUTION_ERROR",
+  "profile": "ITCVE-1@1.2.0",
+  "source": "23eef5944ed4707f9622b93d58f3660b16df6372",
+  "workflowRun": "https://github.com/p2ppsr/interop/actions/runs/42280599707",
+  "artifact": {
+    "id": 13533949574,
+    "size": 46858,
+    "sha256": "e7f3f41a705940e312e486b8ffd59ed11bd83b71e7d76f2f8db532a806adebe8"
+  },
+  "finding": "Bounded getNetwork observation timed out. The native trace confirms Go Storage rejected the unchanged Chromium extension origin with CORS origin denied during BRC-104 authentication. This service-admission defect issued no wallet conformance result.",
+  "files": [
+    {
+      "name": "host-repetition-1-after.json",
+      "size": 1220,
+      "sha256": "731da373816cf07882ec20958700184b27faeb546014415850bcc0d699168aa7"
+    },
+    {
+      "name": "host-repetition-1-before.json",
+      "size": 1137,
+      "sha256": "2b74548cf52336150a3002680f6370ff9a469fdda8a449127cb8524bfc5cd173"
+    },
+    {
+      "name": "host-repetition-1-cleanup.json",
+      "size": 143,
+      "sha256": "a0096cafb135dfef94ed9ac621753135cd08df755b6787e5c4ca97c58566d883"
+    },
+    {
+      "name": "host-userns.json",
+      "size": 88,
+      "sha256": "f8fc484bdb15798dd41f7f7e2d8b9b440371acc6e21f632e955b5741169ebabd"
+    },
+    {
+      "name": "repetition-1/browser-version.txt",
+      "size": 41,
+      "sha256": "2d44e8c7507ca1c7cefc2fff277ee234d5d87be645dd56bee1b3ffca6564e529"
+    },
+    {
+      "name": "repetition-1/console.log",
+      "size": 2173,
+      "sha256": "89759fd95b017f02c841fa3faf38730e76b22bd0c090c0fb6b48e52cfe1dd56f"
+    },
+    {
+      "name": "repetition-1/evidence/attempt-application-0.png",
+      "size": 11205,
+      "sha256": "62bc9594ba82464ae3dcba52ecbd3d6ea582b70bcf71738a026b0eebcf756af3"
+    },
+    {
+      "name": "repetition-1/evidence/attempt-failure.json",
+      "size": 5353,
+      "sha256": "dde72d097cd72321a3da743113c7f144878efd7dba3d55cadafc7e5287ee9b36"
+    },
+    {
+      "name": "repetition-1/evidence/controlled-ca.pem",
+      "size": 1496,
+      "sha256": "348f2c4f28c6367365a95f0678b93637281c7c17009e110c72e2814286fde6df"
+    },
+    {
+      "name": "repetition-1/evidence/go-diagnostics.log",
+      "size": 474,
+      "sha256": "ebb526a5cac62d8db7c691d4bd29debb841067bcb5901cada7502834846386cd"
+    },
+    {
+      "name": "repetition-1/evidence/live-diagnostics.json",
+      "size": 4886,
+      "sha256": "03334fcf48e2fbefede32dba7a0e936e224866e1cb61c1b665220fe70aede724"
+    },
+    {
+      "name": "repetition-1/evidence/native-sandbox.txt",
+      "size": 269,
+      "sha256": "14faa884c2549d4e3ef5df128dab312c3ca13cf6b4e5d7340fe07cf9346b59a4"
+    },
+    {
+      "name": "repetition-1/evidence/native-trust.txt",
+      "size": 227,
+      "sha256": "3fc7ef0f87732bf3fb37c42ed3545fc5d5a3bf78f92e909fdb7bb88b611d7de6"
+    },
+    {
+      "name": "repetition-1/evidence/service-components.json",
+      "size": 1388,
+      "sha256": "8f7cba470bb29519d2483d6566864f6c0186c421fadce2cfc3389cad6c618d9f"
+    },
+    {
+      "name": "repetition-1/installed-artifacts.json",
+      "size": 230,
+      "sha256": "50d2e5b250f48f95a0126e467ca996cc883aedaaea88798aee87c9db03cb6d42"
+    },
+    {
+      "name": "repetition-1/mongo.log",
+      "size": 242699,
+      "sha256": "669b1ea20a34c89acd8c792171cb6e0616c857874cdba07ec3577e9e794b8bb7"
+    },
+    {
+      "name": "repetition-1/network-before.json",
+      "size": 1326,
+      "sha256": "b1b2f301d58a51d2172332aaee97c18b4148e923a535a883b3c7084b3d3a5cad"
+    },
+    {
+      "name": "repetition-1/os-packages.txt",
+      "size": 15451,
+      "sha256": "f28e751da4796efbedf86598df01f7d87938a130de085b792a4f2f9f5c2115ab"
+    },
+    {
+      "name": "repetition-1/worker-failure.json",
+      "size": 155,
+      "sha256": "36eba231d6c3b28cbb98e0c12cfe7b6f27467ac1bf5a3e912000ffb04e6c8a64"
+    },
+    {
+      "name": "run-lock.json",
+      "size": 4594,
+      "sha256": "4a43e2a1df15d5219be3895146c96957bfe76737faca4823b8bb2ab9fe921cd5"
+    }
+  ]
+}

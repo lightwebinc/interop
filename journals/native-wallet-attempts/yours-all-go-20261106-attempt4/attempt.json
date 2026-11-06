@@ -1,0 +1,395 @@
+{
+  "schema": "tpnil-native-wallet-attempt@1.0.0",
+  "claim": "OBSERVER_EXECUTION_ERROR",
+  "profile": "ITCVE-1@1.2.0",
+  "source": "6b6ac788020113f33187eeb369181fff0b1ddd8c",
+  "workflowRun": "https://github.com/p2ppsr/interop/actions/runs/42281229637",
+  "artifact": {
+    "id": 13536137194,
+    "size": 255493,
+    "sha256": "57be43d2b8a9e24e91b5ecfa5c7419ed27c5934521e67fb1bba08c7835552754"
+  },
+  "finding": "Both wallet records completed, but the second worker process did not exit before the outer deadline. The retained after-receipt shows the container still running. Logical worker completion does not qualify process teardown. The bounded run failed, removed both containers and restored the host policy; no native qualification envelope was issued.",
+  "files": [
+    {
+      "name": "host-repetition-1-after.json",
+      "size": 1220,
+      "sha256": "f921ce28ae78f60a55a8d7650370d9dd42f3d86b1dbb0c6ab73563221517f899"
+    },
+    {
+      "name": "host-repetition-1-before.json",
+      "size": 1137,
+      "sha256": "cdd3ffaec1f597f51f9e6eff6ffcd65b5ff0cc53a8c4a45671a1e95cf38f25d6"
+    },
+    {
+      "name": "host-repetition-1-cleanup.json",
+      "size": 143,
+      "sha256": "50d23f6a10c5731a993e67636dd8e93354e0943b64fbddc2fb1368dc9343a7d2"
+    },
+    {
+      "name": "host-repetition-2-after.json",
+      "size": 1277,
+      "sha256": "82ec8b3ebd8e3d431ac27b74b0e5df7712cb746a121126c7becb5cbf7be82535"
+    },
+    {
+      "name": "host-repetition-2-before.json",
+      "size": 1137,
+      "sha256": "23ef7e0be0777799a81c8fe68251f7dc4e78e83e7b248bbada71525ce450e93c"
+    },
+    {
+      "name": "host-repetition-2-cleanup.json",
+      "size": 143,
+      "sha256": "2dee54bd22b158bdedc22954768a274819e2a2af93171cfb7804531022147c2c"
+    },
+    {
+      "name": "host-userns.json",
+      "size": 88,
+      "sha256": "f8fc484bdb15798dd41f7f7e2d8b9b440371acc6e21f632e955b5741169ebabd"
+    },
+    {
+      "name": "repetition-1/browser-version.txt",
+      "size": 41,
+      "sha256": "2d44e8c7507ca1c7cefc2fff277ee234d5d87be645dd56bee1b3ffca6564e529"
+    },
+    {
+      "name": "repetition-1/console.log",
+      "size": 5277,
+      "sha256": "918d329ab5d4c42e1b8814f60c505b5741d7f253a752f68dba215a2e9a5d9756"
+    },
+    {
+      "name": "repetition-1/evidence/artifact.json",
+      "size": 353,
+      "sha256": "144c0ec0daf9eb2a8efe3891ed0b3310712dc8f96dc12f402ec45c020df611e1"
+    },
+    {
+      "name": "repetition-1/evidence/boundary.json",
+      "size": 116,
+      "sha256": "10bdc2af5bac852702de265588c8dc2897bf4325a78fda8d0a5e9cb6ba7e8c16"
+    },
+    {
+      "name": "repetition-1/evidence/broadcast-lifecycle.json",
+      "size": 23554,
+      "sha256": "4ad2cd6531a45c4b8323f2e87989a9f36fd5e942d3a761d22cf2eaa6d91e2d2b"
+    },
+    {
+      "name": "repetition-1/evidence/cold-reload.json",
+      "size": 3765,
+      "sha256": "32199ffb40a3e99569cd9bcc0d153e9b1c7a8fbd7b072526c4eface0e557aa96"
+    },
+    {
+      "name": "repetition-1/evidence/console-errors.json",
+      "size": 9582,
+      "sha256": "17a5d60f7ec992d62a68dc7b2d8f580bef5d50aadc1c74cdfc2d86ed7b1f7836"
+    },
+    {
+      "name": "repetition-1/evidence/controlled-ca.pem",
+      "size": 1496,
+      "sha256": "beba6c0a22336b2ed11e5b5ab60352dfd80646497123d148f261cce9d31bbd3a"
+    },
+    {
+      "name": "repetition-1/evidence/create.beef",
+      "size": 1067,
+      "sha256": "642ad9032d60b7886ed131ce439b05ec6c8eec69e0d4a1ecdb6fe3af7ff44c05"
+    },
+    {
+      "name": "repetition-1/evidence/created-output.json",
+      "size": 4328,
+      "sha256": "4230d82b45c88a75aa222584ab014eb1c884c17a4b6bd3cd4ec35cf049bd1a27"
+    },
+    {
+      "name": "repetition-1/evidence/funding.atomicbeef",
+      "size": 656,
+      "sha256": "61e3e534f896107c3cce283e832e0a3a50cf98503a350776c92dc3f4ed65ee53"
+    },
+    {
+      "name": "repetition-1/evidence/funding.json",
+      "size": 266,
+      "sha256": "b3e0f525d7c01dd014033a9870bc4c3b7b352a5811c1f7431ccf78bd1fc5b673"
+    },
+    {
+      "name": "repetition-1/evidence/go-diagnostics.log",
+      "size": 820,
+      "sha256": "ca143c1845235e739be09aeece1f1090146243afe6f093899b16d8938d290811"
+    },
+    {
+      "name": "repetition-1/evidence/live-diagnostics.json",
+      "size": 45919,
+      "sha256": "1a491d7c279cc839b17ac069fa46c1a3d69a009cf2ec572d81e479da4aca574f"
+    },
+    {
+      "name": "repetition-1/evidence/method-inventory.json",
+      "size": 874,
+      "sha256": "68895220c5150d085197fc299360e04287b1cf8293729ad120a380872304841b"
+    },
+    {
+      "name": "repetition-1/evidence/mined-funding-source.json",
+      "size": 3104,
+      "sha256": "f59d52e338ec315dee2df0bd6229cf9ce7b7dd242998c5e4edf544f684d8809d"
+    },
+    {
+      "name": "repetition-1/evidence/native-created.png",
+      "size": 22399,
+      "sha256": "0e0e8c6d83c33b0849c1b206a13313ad8b723042bb1ce1cf61788a23f1471189"
+    },
+    {
+      "name": "repetition-1/evidence/native-redeemed.png",
+      "size": 27998,
+      "sha256": "3aa9993a36de7115a59d8ddd429750e9531506d16e7769a3d47f86766c796f29"
+    },
+    {
+      "name": "repetition-1/evidence/native-reloaded.png",
+      "size": 17038,
+      "sha256": "ce80ba01ba8799d8da8440ebef0c7a8f1315d9a7f99a50e0f8c39ec80f36a0fa"
+    },
+    {
+      "name": "repetition-1/evidence/native-sandbox.txt",
+      "size": 269,
+      "sha256": "14faa884c2549d4e3ef5df128dab312c3ca13cf6b4e5d7340fe07cf9346b59a4"
+    },
+    {
+      "name": "repetition-1/evidence/native-submissions.json",
+      "size": 5689,
+      "sha256": "4b988d7fd08ce6727e8e6f0c1618cf5c31a818713721b2d4af6666cccd996300"
+    },
+    {
+      "name": "repetition-1/evidence/native-transactions.json",
+      "size": 5826,
+      "sha256": "792b69df92c606efea23b1ba94f581bc73b5bee3c75b021b453ebe13b33f3971"
+    },
+    {
+      "name": "repetition-1/evidence/native-trust.txt",
+      "size": 227,
+      "sha256": "3fc7ef0f87732bf3fb37c42ed3545fc5d5a3bf78f92e909fdb7bb88b611d7de6"
+    },
+    {
+      "name": "repetition-1/evidence/permissions.json",
+      "size": 3126,
+      "sha256": "7b3ec80eefe428ff994c8544de56e7ba6841ff0184157d27d32703a5cce341ec"
+    },
+    {
+      "name": "repetition-1/evidence/redeem.json",
+      "size": 2176,
+      "sha256": "fec5b9eba90f0b106642d355d513bbee0724edbe0f89501e54e656aa44720032"
+    },
+    {
+      "name": "repetition-1/evidence/routes.json",
+      "size": 23857,
+      "sha256": "b2e1872dbcaf86b70db9006b50766b59c8f877e9da4d9dec1e1a941cde0e7e3d"
+    },
+    {
+      "name": "repetition-1/evidence/service-components.json",
+      "size": 1388,
+      "sha256": "ef1e0e432ef86d04f5521e4daec823d9af9e92fd8c9c3bfc9f0e873067ca0d39"
+    },
+    {
+      "name": "repetition-1/installed-artifacts.json",
+      "size": 230,
+      "sha256": "50d2e5b250f48f95a0126e467ca996cc883aedaaea88798aee87c9db03cb6d42"
+    },
+    {
+      "name": "repetition-1/mongo.log",
+      "size": 244750,
+      "sha256": "dd2ac57b4439287dbdebe029bd8f4a9589c42a336fdd09b965d070c4988f1379"
+    },
+    {
+      "name": "repetition-1/network-after.json",
+      "size": 1326,
+      "sha256": "b1b2f301d58a51d2172332aaee97c18b4148e923a535a883b3c7084b3d3a5cad"
+    },
+    {
+      "name": "repetition-1/network-before.json",
+      "size": 1326,
+      "sha256": "b1b2f301d58a51d2172332aaee97c18b4148e923a535a883b3c7084b3d3a5cad"
+    },
+    {
+      "name": "repetition-1/os-packages.txt",
+      "size": 15451,
+      "sha256": "f28e751da4796efbedf86598df01f7d87938a130de085b792a4f2f9f5c2115ab"
+    },
+    {
+      "name": "repetition-1/record.json",
+      "size": 39979,
+      "sha256": "0fd392a6ee1b47d29d53132968e2efa196504141122645ace6d0c0028d31b82f"
+    },
+    {
+      "name": "repetition-1/worker.json",
+      "size": 1088,
+      "sha256": "de83fc9f58b915f50e690a5abf0cf4cf902a6ccdcd402634a7db7bc9ddca12fa"
+    },
+    {
+      "name": "repetition-2/browser-version.txt",
+      "size": 41,
+      "sha256": "2d44e8c7507ca1c7cefc2fff277ee234d5d87be645dd56bee1b3ffca6564e529"
+    },
+    {
+      "name": "repetition-2/console.log",
+      "size": 5036,
+      "sha256": "7abf65f1da01a65c7431e4af873e431a0371156fe4f04f5fdbd486fb8830234d"
+    },
+    {
+      "name": "repetition-2/evidence/artifact.json",
+      "size": 353,
+      "sha256": "144c0ec0daf9eb2a8efe3891ed0b3310712dc8f96dc12f402ec45c020df611e1"
+    },
+    {
+      "name": "repetition-2/evidence/boundary.json",
+      "size": 116,
+      "sha256": "10bdc2af5bac852702de265588c8dc2897bf4325a78fda8d0a5e9cb6ba7e8c16"
+    },
+    {
+      "name": "repetition-2/evidence/broadcast-lifecycle.json",
+      "size": 23533,
+      "sha256": "22c42ad58d7d9283c897d868c8dc1ad7c4b947f5d72ca20e7aceaf780105eab7"
+    },
+    {
+      "name": "repetition-2/evidence/cold-reload.json",
+      "size": 3770,
+      "sha256": "567bb9d7a70b8bce2d50b9a04c2ecf226ef15577971d9dbcf30c55dbc8fe4408"
+    },
+    {
+      "name": "repetition-2/evidence/console-errors.json",
+      "size": 11695,
+      "sha256": "94a788a0dbf1f6e6a65435ac5d367fb3248c8083e05752f72e5418f05d363d0a"
+    },
+    {
+      "name": "repetition-2/evidence/controlled-ca.pem",
+      "size": 1496,
+      "sha256": "f60671114f8bda63bc6b1ca4679740c878a6dffa08f6debbfe000b18951a0fc5"
+    },
+    {
+      "name": "repetition-2/evidence/create.beef",
+      "size": 1069,
+      "sha256": "ad8ba8b86cf86d077502dfd6e1a3051d3704dbf8b904e38feffc876d10b31fbb"
+    },
+    {
+      "name": "repetition-2/evidence/created-output.json",
+      "size": 4333,
+      "sha256": "3257153343e3268355e8ad1c4e6d6302eb4fe183f791e56739d9a4139c79d300"
+    },
+    {
+      "name": "repetition-2/evidence/funding.atomicbeef",
+      "size": 657,
+      "sha256": "13a0246f3a9e02a5b09e9b8210a4f2bae804dd3b885961b567eea6044db5f038"
+    },
+    {
+      "name": "repetition-2/evidence/funding.json",
+      "size": 266,
+      "sha256": "96e0822624cec8f1c2712e8d779e537a6a66789da185f20ea206bc6e3ce1930e"
+    },
+    {
+      "name": "repetition-2/evidence/go-diagnostics.log",
+      "size": 820,
+      "sha256": "477f57808c8c886d24a4b72f38cc1c59c9f4f806ddad046f93e171db360c5ad0"
+    },
+    {
+      "name": "repetition-2/evidence/live-diagnostics.json",
+      "size": 48479,
+      "sha256": "1908840f1c7f842194b1bd031383b2787caa5df88c98f788da22d1b82ddcd258"
+    },
+    {
+      "name": "repetition-2/evidence/method-inventory.json",
+      "size": 874,
+      "sha256": "68895220c5150d085197fc299360e04287b1cf8293729ad120a380872304841b"
+    },
+    {
+      "name": "repetition-2/evidence/mined-funding-source.json",
+      "size": 3104,
+      "sha256": "ced72247436a0b521af8f8100de2830ae56983dc93f082bed4310504752a10ce"
+    },
+    {
+      "name": "repetition-2/evidence/native-created.png",
+      "size": 21515,
+      "sha256": "58d889fd4158ebb5bdb5509e4bb23901ea706acc44b298159fa98512bd3c7a3c"
+    },
+    {
+      "name": "repetition-2/evidence/native-redeemed.png",
+      "size": 27998,
+      "sha256": "3aa9993a36de7115a59d8ddd429750e9531506d16e7769a3d47f86766c796f29"
+    },
+    {
+      "name": "repetition-2/evidence/native-reloaded.png",
+      "size": 17038,
+      "sha256": "ce80ba01ba8799d8da8440ebef0c7a8f1315d9a7f99a50e0f8c39ec80f36a0fa"
+    },
+    {
+      "name": "repetition-2/evidence/native-sandbox.txt",
+      "size": 269,
+      "sha256": "14faa884c2549d4e3ef5df128dab312c3ca13cf6b4e5d7340fe07cf9346b59a4"
+    },
+    {
+      "name": "repetition-2/evidence/native-submissions.json",
+      "size": 5691,
+      "sha256": "7184c498d2adc65e456a5a882160490a1913b3c5a46e844f74efef39546845e1"
+    },
+    {
+      "name": "repetition-2/evidence/native-transactions.json",
+      "size": 5828,
+      "sha256": "f6a9b5ebf37a9d610389755c4c71a173001b50a3600038898892ab1a7b8c1f5b"
+    },
+    {
+      "name": "repetition-2/evidence/native-trust.txt",
+      "size": 227,
+      "sha256": "3fc7ef0f87732bf3fb37c42ed3545fc5d5a3bf78f92e909fdb7bb88b611d7de6"
+    },
+    {
+      "name": "repetition-2/evidence/permissions.json",
+      "size": 3541,
+      "sha256": "1f130a988abf6857acac7fe7f78970e067560476181b1efe66d2f00ed7b5a419"
+    },
+    {
+      "name": "repetition-2/evidence/redeem.json",
+      "size": 2176,
+      "sha256": "4e7dd014b0172394aa5b6c6405665be4b73fbbfe202e6cca2935424e3f228e49"
+    },
+    {
+      "name": "repetition-2/evidence/routes.json",
+      "size": 23960,
+      "sha256": "5d3aa6043d99ec0dbd1ba79f5ceef2ff107cd93837c1dd9cac1d86704cc4057b"
+    },
+    {
+      "name": "repetition-2/evidence/service-components.json",
+      "size": 1388,
+      "sha256": "ef1e0e432ef86d04f5521e4daec823d9af9e92fd8c9c3bfc9f0e873067ca0d39"
+    },
+    {
+      "name": "repetition-2/installed-artifacts.json",
+      "size": 230,
+      "sha256": "50d2e5b250f48f95a0126e467ca996cc883aedaaea88798aee87c9db03cb6d42"
+    },
+    {
+      "name": "repetition-2/mongo.log",
+      "size": 243761,
+      "sha256": "bc11e78f09e563d72c99cce4ea5655fe83f3c7ea04efa5933af686e500c52222"
+    },
+    {
+      "name": "repetition-2/network-after.json",
+      "size": 1326,
+      "sha256": "b1b2f301d58a51d2172332aaee97c18b4148e923a535a883b3c7084b3d3a5cad"
+    },
+    {
+      "name": "repetition-2/network-before.json",
+      "size": 1326,
+      "sha256": "b1b2f301d58a51d2172332aaee97c18b4148e923a535a883b3c7084b3d3a5cad"
+    },
+    {
+      "name": "repetition-2/os-packages.txt",
+      "size": 15451,
+      "sha256": "f28e751da4796efbedf86598df01f7d87938a130de085b792a4f2f9f5c2115ab"
+    },
+    {
+      "name": "repetition-2/record.json",
+      "size": 40448,
+      "sha256": "4618f79628b7faff0f892f956aaaee251f1a3299c81d42de182362f085afca4d"
+    },
+    {
+      "name": "repetition-2/worker.json",
+      "size": 1088,
+      "sha256": "eb0dac7efd3aa172aef8b8a2583258b835123d14c69f97104bfdc872362bb3f9"
+    },
+    {
+      "name": "run-lock.json",
+      "size": 4594,
+      "sha256": "ac1e7586e74064c390fc1a293715c6d7abb9b289b9a230a7e7b18fd6d7c7e5a0"
+    }
+  ]
+}

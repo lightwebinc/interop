@@ -1,3 +1,4 @@
+import type { ComponentSelection } from './go-services.js'
 import fs from 'node:fs'
 import path from 'node:path'
 import { canonicalJson, sha256Hex } from '../determinism.js'
@@ -15,6 +16,7 @@ interface CommonConfiguration {
   outputDirectory: string
   repetitions: number
   headless?: boolean
+  components?: ComponentSelection
   walletArtifact: ArtifactIdentity
   applicationArtifact: ArtifactIdentity
 }
@@ -74,6 +76,7 @@ async function run(configPath: string): Promise<void> {
     const result = config.driver === 'yours-extension'
       ? await runYoursWallet({
           extensionDirectory: resolve(config.extensionDirectory),
+          components: config.components,
           webroot: resolve(config.webroot),
           outputDirectory,
           walletArtifact: config.walletArtifact,
