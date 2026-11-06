@@ -3,7 +3,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createHash } from 'node:crypto'
 import assert from 'node:assert/strict'
-import { Transaction, VerifiableCertificate } from '@bsv/sdk'
+import { Transaction, VerifiableCertificate, PublicKey, PrivateKey } from '@bsv/sdk'
 import { headerHash, genesis } from './chaintracks.js'
 const root = fileURLToPath(new URL('../', import.meta.url))
 const sha256 = (bytes: string | Uint8Array) => createHash('sha256').update(bytes).digest('hex')
@@ -74,11 +74,19 @@ export async function verifyServicesResult(directory: string): Promise<any> {
   assert.equal(await certificate.verify(), true)
   if (files.has('rust-certificate-vectors.json')) {
     const vectors = JSON.parse(await fs.readFile(path.join(directory, 'rust-certificate-vectors.json'), 'utf8'))
-    assert.equal(vectors.schema, 'tpnil-rust-certificate-vectors@1')
-    assert.equal(vectors.cases.length, 2)
+    assert(['tpnil-rust-certificate-vectors@1', 'tpnil-rust-certificate-vectors@2'].includes(vectors.schema))
+    const version2 = vectors.schema.endsWith('@2')
+    assert.equal(vectors.cases.length, version2 ? 3 : 2)
     const message = Buffer.from(certificate.toBinary(false)).toString('hex')
-    for (const [index, entry] of vectors.cases.entries()) {
-      assert.deepEqual(entry.request, { op: 'signature', publicKey: certificate.certifier, signature: certificate.signature, message: index === 0 ? message : `${message}00` })
+    let publicKey = certificate.certifier
+    if (version2) {
+      const privateKey = '00'.repeat(31) + '01', invoice = `2-certificate signature-${certificate.type} ${certificate.serialNumber}`
+      publicKey = PublicKey.fromString(certificate.certifier).deriveChild(PrivateKey.fromHex(privateKey), invoice).toString()
+      assert.deepEqual(vectors.cases[0].request, { op: 'derive-public', publicKey: certificate.certifier, privateKey, invoice })
+      assert.deepEqual(vectors.cases[0].expected, { publicKey })
+    }
+    for (const [index, entry] of vectors.cases.slice(version2 ? 1 : 0).entries()) {
+      assert.deepEqual(entry.request, { op: 'signature', publicKey, signature: certificate.signature, message: index === 0 ? message : `${message}00` })
       assert.deepEqual(entry.expected, { valid: index === 0 })
     }
   }

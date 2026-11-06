@@ -107,7 +107,11 @@ the actual replica/UHRP answers. For the native evidence naming layout use
 subject to equal that native identity. The latest retained Go engineering oracle
 is `journals/services-integration/2026-11-06/go-joined-02/synthesis`.
 
-New service runs also emit `rust-certificate-vectors.json`: the exact actual
-certificate signature preimage (`Certificate.toBinary(false)`), certifier key,
-DER signature and an altered-preimage negative. Rust verifies SHA-256/ECDSA over
-those bytes independently; these are certificate vectors, not generic messages.
+New service runs emit version 2 of `rust-certificate-vectors.json`: the exact
+certificate signature preimage (`Certificate.toBinary(false)`), the BRC-52 public
+signing-key derivation, DER signature and an altered-preimage negative. The issuer
+identity is the derivation parent; the signature uses its derived certificate key.
+The retained local-02 version 1 vector incorrectly used the issuer identity for
+signature verification and produced a Rust FAIL. That vector defect is preserved;
+local-03 supplies the corrected vector and separate results. Rust independently
+checks the public key derivation and SHA-256/ECDSA over the actual certificate.

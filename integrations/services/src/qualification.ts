@@ -4,7 +4,7 @@ import { createHash, randomBytes } from 'node:crypto'
 import assert from 'node:assert/strict'
 import { fileURLToPath } from 'node:url'
 import { MongoMemoryReplSet } from 'mongodb-memory-server'
-import { Transaction, PrivateKey, ProtoWallet, PushDrop, MerklePath, OverlayAdminTokenTemplate, MasterCertificate, VerifiableCertificate, Utils, LockingScript } from '@bsv/sdk'
+import { Transaction, PrivateKey, PublicKey, ProtoWallet, PushDrop, MerklePath, OverlayAdminTokenTemplate, MasterCertificate, VerifiableCertificate, Utils, LockingScript } from '@bsv/sdk'
 import { startChaintracks, genesis, mineHeader, headerHash } from './chaintracks.js'
 import { startOverlayNode, submit, lookup, syncPeer } from './overlay.js'
 import { startGoOverlay } from './go-peer.js'
@@ -39,9 +39,12 @@ const certificate = await MasterCertificate.issueCertificateForSubject(issuer as
 const keyring = await MasterCertificate.createKeyringForVerifier(subject as any, certificate.certifier, 'anyone', certificate.fields, ['userName'], certificate.masterKeyring, certificate.serialNumber)
 const publicCertificate = new VerifiableCertificate(certificate.type, certificate.serialNumber, certificate.subject, certificate.certifier, certificate.revocationOutpoint, certificate.fields, keyring, certificate.signature)
 const certificateMessage = Buffer.from(publicCertificate.toBinary(false)).toString('hex')
-await fs.writeFile(path.join(directory, 'rust-certificate-vectors.json'), JSON.stringify({ schema: 'tpnil-rust-certificate-vectors@1', serialization: 'BSV Certificate.toBinary(false); ECDSA verification hashes message once with SHA-256', cases: [
-  { id: 'actual-identity-certificate-signature', request: { op: 'signature', publicKey: publicCertificate.certifier, signature: publicCertificate.signature, message: certificateMessage }, expected: { valid: true } },
-  { id: 'actual-identity-certificate-mutated-preimage', request: { op: 'signature', publicKey: publicCertificate.certifier, signature: publicCertificate.signature, message: `${certificateMessage}00` }, expected: { valid: false } }
+const publicAnyone = '00'.repeat(31) + '01', certificateInvoice = `2-certificate signature-${publicCertificate.type} ${publicCertificate.serialNumber}`
+const certificateSigningKey = PublicKey.fromString(publicCertificate.certifier).deriveChild(PrivateKey.fromHex(publicAnyone), certificateInvoice).toString()
+await fs.writeFile(path.join(directory, 'rust-certificate-vectors.json'), JSON.stringify({ schema: 'tpnil-rust-certificate-vectors@2', serialization: 'BSV Certificate.toBinary(false); BRC-52 publicly derived certificate-signature key; ECDSA hashes message once with SHA-256', cases: [
+  { id: 'actual-identity-certificate-public-key-derivation', request: { op: 'derive-public', publicKey: publicCertificate.certifier, privateKey: publicAnyone, invoice: certificateInvoice }, expected: { publicKey: certificateSigningKey } },
+  { id: 'actual-identity-certificate-signature', request: { op: 'signature', publicKey: certificateSigningKey, signature: publicCertificate.signature, message: certificateMessage }, expected: { valid: true } },
+  { id: 'actual-identity-certificate-mutated-preimage', request: { op: 'signature', publicKey: certificateSigningKey, signature: publicCertificate.signature, message: `${certificateMessage}00` }, expected: { valid: false } }
 ] }, null, 2) + '\n')
 const certScript = await new PushDrop(subject as any).lock([Utils.toArray(JSON.stringify(publicCertificate), 'utf8')], [1, 'identity'], '1', 'anyone')
 const identityTx = new Transaction(1, [{ sourceTransaction: payloadTx, sourceOutputIndex: 0, unlockingScriptTemplate: payload.unlock([2, 'tpnil integration'], '1', 'self') }], [{ satoshis: 1, lockingScript: certScript }], 0)
