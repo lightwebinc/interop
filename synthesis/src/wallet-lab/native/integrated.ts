@@ -8,6 +8,7 @@ import type { EvidenceBundle } from '../evidence.js'
 import { createFixtureWallet } from '../../storage-sync/fixture-wallet.js'
 import { runNativeSynthesis } from './synthesis.js'
 import { runWalletBoundaryCorpus } from '../boundary-corpus.js'
+import { PublicSettingsTrust } from './identity-trust.js'
 
 /** Native wallet calls cross the unchanged application's public CWI boundary.
  * No wallet key, database or extension implementation is accessed by this proxy. */
@@ -77,15 +78,20 @@ export async function runNativeIntegration({ application, services, evidence }: 
       isValidRootForHeight: async (merkleRoot: string, height: number) => services.headers.get(height)?.merkleRoot === merkleRoot
     } })
     let boundary: any, publication: any
+    const trust = process.env.TPNIL_NATIVE_IDENTITY_TRUST === '1' ? new PublicSettingsTrust(wallet) : undefined
     try {
       services.registerOverlayLookup(identityOverlay.origin, ['ls_identity'])
-      boundary = await runWalletBoundaryCorpus({ wallet, funder: funder as any, discoveryExpectation: 'untrusted-excluded', prepareDiscovery: async certificate => {
+      boundary = await runWalletBoundaryCorpus({ wallet, funder: funder as any, discoveryExpectation: trust ? 'published' : 'untrusted-excluded', prepareDiscovery: async certificate => {
         publication = await publishIdentityCertificate({ wallet, origin: identityOverlay.origin, certificate })
+        await trust?.enable(certificate)
       } })
       evidence.addJson('integrated/boundary.json', boundary)
       evidence.addJson('integrated/boundary-publication.json', publication ?? null)
       evidence.addJson('integrated/boundary-coverage.json', JSON.parse(fs.readFileSync(path.join(root, 'programs/ISI-4/profiles/brc100-boundary-1.0.0/coverage.json'), 'utf8')))
-    } finally { await funder.destroy(); await identityOverlay.close() }
+    } finally {
+      if (trust) { await trust.finish(boundary); evidence.addJson('integrated/identity-trust.json', trust.report) }
+      await funder.destroy(); await identityOverlay.close()
+    }
     const boundaryAssertions = boundary.assertions.map((item: any) => ({ ...item, id: `boundary/${item.id}` }))
     evidence.addJson('integrated/result.json', {
       schema: 'tpnil-native-integration@1', profile: 'ITCVE-1@1.3.0',
@@ -93,8 +99,8 @@ export async function runNativeIntegration({ application, services, evidence }: 
       interface: 'unchanged Yours Wallet public CWI through native Chromium extension',
       customerInterface: 'Harness-driven wallet API operations; ToDo UI remains separately evaluated',
       walletIdentity,
-      assertions: [...relay.assertions, ...paid.assertions, ...messagingAssertions, ...synthesisAssertions, ...boundaryAssertions],
-      cleanup: { relay: relay.cleanup, paid: paid.cleanup, messaging: messaging.cleanup, synthesis: synthesis.cleanup }
+      assertions: [...relay.assertions, ...paid.assertions, ...messagingAssertions, ...synthesisAssertions, ...boundaryAssertions, ...(trust?.report.assertions ?? [])],
+      cleanup: { relay: relay.cleanup, paid: paid.cleanup, messaging: messaging.cleanup, synthesis: synthesis.cleanup, ...(trust ? { identityTrust: trust.report.cleanup } : {}) }
     })
   } finally { await payee.destroy(); fs.rmSync(temporary, { recursive: true, force: true }) }
 }

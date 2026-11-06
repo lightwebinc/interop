@@ -21,12 +21,17 @@ export async function verifyNativeWallet(directory: string) {
   const read = (name: string) => JSON.parse(fs.readFileSync(path.join(directory, name), 'utf8'))
   const lock = read('run-lock.json'), plan = lock.plan
   assert.equal(lock.schema, 'tpnil-native-wallet-run-lock@1.0.0')
-  const integrated = plan.id === 'YOURS-5.1.0-GO-ITCVE-1.3.0'
-  const frozen = JSON.parse(fs.readFileSync(fileURLToPath(new URL(integrated ? '../../../../infra/native/integrated/plan.json' : '../../../../infra/native/yours-go/plan.json', import.meta.url)), 'utf8'))
+  const trustedIdentity = plan.id === 'YOURS-5.1.0-GO-ITCVE-1.3.0-TRUSTED-IDENTITY'
+  const integrated = trustedIdentity || plan.id === 'YOURS-5.1.0-GO-ITCVE-1.3.0'
+  const frozen = JSON.parse(fs.readFileSync(fileURLToPath(new URL(trustedIdentity ? '../../../../infra/native/integrated/plan-trusted.json' : integrated ? '../../../../infra/native/integrated/plan.json' : '../../../../infra/native/yours-go/plan.json', import.meta.url)), 'utf8'))
   assert.equal(canonicalJson(plan), canonicalJson(frozen))
-  assert.equal(plan.id, integrated ? 'YOURS-5.1.0-GO-ITCVE-1.3.0' : 'YOURS-5.1.0-GO-ITCVE-1.2.0')
+  assert.equal(plan.id, trustedIdentity ? 'YOURS-5.1.0-GO-ITCVE-1.3.0-TRUSTED-IDENTITY' : integrated ? 'YOURS-5.1.0-GO-ITCVE-1.3.0' : 'YOURS-5.1.0-GO-ITCVE-1.2.0')
   if (integrated) {
     const root = path.resolve(import.meta.dirname, '../../../..')
+    if (trustedIdentity) {
+      assert.equal(plan.identityTrust, 'public-settings-token')
+      assert.equal(sha256Hex(fs.readFileSync(path.join(root, plan.identityTrustProfile))), plan.identityTrustProfileSha256)
+    }
     assert.equal(sha256Hex(fs.readFileSync(path.join(root, plan.compatibilityPatch))), plan.compatibilityPatchSha256)
     assert.equal(sha256Hex(fs.readFileSync(path.join(root, plan.boundaryProfile))), plan.boundaryProfileSha256)
   }

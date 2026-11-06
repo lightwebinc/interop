@@ -13,7 +13,9 @@ import type { TeranodeWalletFundingFixture } from '../services.js'
 const root = '/work'
 const output = '/evidence'
 const integrated = process.env.TPNIL_NATIVE_INTEGRATED === '1'
-const planFile = path.join(root, integrated ? 'infra/native/integrated/plan.json' : 'infra/native/yours-go/plan.json')
+const trustedIdentity = process.env.TPNIL_NATIVE_IDENTITY_TRUST === '1'
+if (trustedIdentity && !integrated) throw new Error('Trusted identity qualification requires integrated native mode')
+const planFile = path.join(root, trustedIdentity ? 'infra/native/integrated/plan-trusted.json' : integrated ? 'infra/native/integrated/plan.json' : 'infra/native/yours-go/plan.json')
 const plan = JSON.parse(fs.readFileSync(planFile, 'utf8'))
 fs.mkdirSync(output, { recursive: true })
 const save = (name: string, value: unknown) => fs.writeFileSync(path.join(output, name), JSON.stringify(value, null, 2) + '\n')
@@ -48,6 +50,7 @@ let failure: unknown
 const startedAt = new Date().toISOString()
 try {
   if (integrated) {
+    if (trustedIdentity && sha256Hex(fs.readFileSync(path.join(root, plan.identityTrustProfile))) !== plan.identityTrustProfileSha256) throw new Error('Trusted identity profile differs from frozen plan')
     if (sha256Hex(fs.readFileSync(path.join(root, plan.compatibilityPatch))) !== plan.compatibilityPatchSha256 || sha256Hex(fs.readFileSync(path.join(root, plan.boundaryProfile))) !== plan.boundaryProfileSha256) throw new Error('Integrated profile inputs differ from frozen plan')
   }
   assertArtifact(path.join(root, 'out/sut-artifacts/yours-wallet-v5.1.0/pw-v5.1.0.zip'), plan.wallet)
