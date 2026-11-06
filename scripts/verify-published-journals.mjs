@@ -13,6 +13,7 @@ import { verifyRuntimeQualification } from '../src/runtime-qualification.mjs';
 import { verifyReferenceQualification } from '../src/reference-qualification.mjs';
 import { verifySynthesisStackQualification } from '../src/synthesis-stack-qualification.mjs';
 import { verifyNativeObservation, verifyWalletRun, verifyWalletRunSeries } from '../src/sut-evidence.mjs';
+import { verifyPublishedIntegrations } from './verify-published-integrations.mjs';
 let nativeWalletQualificationCount = 0, nativeWalletAttemptCount = 0, integrationEngineeringFiles = 0;
 let count = 0, intakeCount = 0, qualificationCount = 0, nativeQualificationCount = 0;
 let componentQualificationCount = 0, runtimeQualificationCount = 0;
@@ -101,6 +102,7 @@ function walk(dir) {
   }
 }
 walk(path.join(ROOT, 'journals'));
+const publishedIntegrations = verifyPublishedIntegrations();
 console.log(JSON.stringify({
   verifiedPublishedSelfTestJournals: count,
   verifiedIntakeReviews: intakeCount,
@@ -116,5 +118,7 @@ console.log(JSON.stringify({
   verifiedNativeWalletQualifications: nativeWalletQualificationCount,
   verifiedNativeWalletFailedAttempts: nativeWalletAttemptCount,
   verifiedIntegrationEngineeringFiles: integrationEngineeringFiles,
+  verifiedPublishedIntegrationArchives: publishedIntegrations.verifiedPublishedIntegrationArchives,
+  verifiedPublishedIntegrationAttempts: publishedIntegrations.verifiedPublishedIntegrationAttempts,
   officialSutRuns: 0
 }));
