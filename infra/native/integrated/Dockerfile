@@ -14,7 +14,7 @@ COPY components/messaging /work/components/messaging
 COPY out/messaging-sources /work/out/messaging-sources
 COPY out/itcve-go-storage-sync out/itcve-go-storage-sync.json /opt/tpnil/
 COPY infra/adapters/storage-sync /work/infra/adapters/storage-sync
-COPY infra/native/integrated/plan.json /work/infra/native/integrated/plan.json
+COPY infra/native/integrated/*.json /work/infra/native/integrated/
 COPY programs/ISI-4/profiles/brc100-boundary-1.0.0 /work/programs/ISI-4/profiles/brc100-boundary-1.0.0
 ENV TPNIL_NATIVE_INTEGRATED=1 TPNIL_MESSAGING_PATHS=/work/out/messaging-sources/paths.json
 RUN dpkg-query -W -f='${Package} ${Version}\n' > /opt/tpnil/os-packages.txt

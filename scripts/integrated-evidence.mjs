@@ -68,5 +68,5 @@ export function verifyIntegrated(directory) {
     }
     if(projections.length===2) assert.deepEqual(projections[0],projections[1],`${lane.id} repetitions differ`)
   }
-  return {schema:'tpnil-integrated-verification@1',verified:true,source:lock.source,profile:'ITCVE-1@1.3.0',lanes:result.lanes.length,findings:result.lanes.flatMap(l=>l.runs.flatMap(r=>r.assertions.filter(a=>a.result!=='PASS').map(a=>({lane:l.id,...a}))))}
+  return {schema:'tpnil-integrated-verification@1',verified:true,source:lock.source,profile:'ITCVE-1@1.3.0',lanes:result.lanes.length,findings:result.lanes.flatMap(l=>l.runs.flatMap(r=>r.assertions.filter(a=>a.result!=='PASS').map(a=>({lane:l.id,resultFile:r.result,...a}))))}
 }

@@ -92,6 +92,7 @@ jobs:
       - name: Verify the complete evidence pack offline
         run: |
           node scripts/verify-integrated-lab.mjs out/integrated-lab
+          RUSTUP_TOOLCHAIN=1.88.0 node scripts/verify-published-integrations.mjs --semantic
           node scripts/test-messaging-verifier.mjs out/integrated-lab/messaging-1
           RUSTUP_TOOLCHAIN=1.88.0 node scripts/test-rust-verifier.mjs out/integrated-lab/rust-1 out/integrated-lab/transport-typescript-1/paid-http.json out/integrated-lab/transport-go-1/paid-http.json out/integrated-lab/overlay-identity-1/rust-certificate-vectors.json
       - name: Retain every attempt

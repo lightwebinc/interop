@@ -110,7 +110,7 @@ export function verifyIntegrationArchive(directory) {
     const bytes = fs.readFileSync(path.join(directory, names[index])); assert.equal(bytes.length, item.size); assert.equal(sha256(bytes), item.sha256, names[index])
   }
   if (attempt) {
-    assert(['OBSERVER_BUILD_ERROR', 'OBSERVER_STARTUP_ERROR', 'OBSERVER_EXECUTION_ERROR'].includes(manifest.claim))
+    assert(['OBSERVER_BUILD_ERROR', 'OBSERVER_STARTUP_ERROR', 'OBSERVER_EXECUTION_ERROR', 'OBSERVER_VERIFICATION_ERROR'].includes(manifest.claim))
     if (manifest.claim === 'OBSERVER_BUILD_ERROR') assert.equal(manifest.walletExecuted, false)
     return { kind, directory, source: manifest.source, files: names.length, claim: manifest.claim }
   }
