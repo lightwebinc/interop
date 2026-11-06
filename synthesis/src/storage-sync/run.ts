@@ -121,10 +121,13 @@ export async function runStorageSyncCase(source: Implementation, destination: Im
     observations.destination = destinationAfter; observations.destinationProjection = projectDataset(destinationAfter)
     checks('mediated-initial-sync', canonicalJson(sourceProjection) === canonicalJson(observations.destinationProjection), `Logical projection source ${digest(sourceProjection)} / destination ${digest(observations.destinationProjection)}.`)
     await wallet.storage.syncToWriter(await wallet.storage.getAuth(), resumedWriter)
-    const replay = projectDataset(await readDataset(resumedWriter))
+    const replayRaw = await readDataset(resumedWriter)
+    observations.replay = replayRaw
+    const replay = projectDataset(replayRaw)
     checks('replay-idempotence', canonicalJson(replay) === canonicalJson(observations.destinationProjection), 'A repeated sync retains exactly one copy of each logical entity and relationship.')
     const isolated = await createFixtureWallet(b, '88'.repeat(32)); wallets.push(isolated)
-    checks('identity-scoped-output-read', (await isolated.listOutputs({ basket: 'tpnil portable tasks' })).totalOutputs === 0, 'An independently authenticated identity cannot list the owner task.')
+    observations.foreignOutputs = await isolated.listOutputs({ basket: 'tpnil portable tasks' })
+    checks('identity-scoped-output-read', (observations.foreignOutputs as { totalOutputs: number }).totalOutputs === 0, 'An independently authenticated identity cannot list the owner task.')
     const foreign = new ObservedStorageClient(isolated, b.storageUrl, 'foreign-identity', transcript, destination)
     let denied = false
     try { await readDataset(foreign, identityKey) } catch { denied = true }
@@ -132,17 +135,21 @@ export async function runStorageSyncCase(source: Implementation, destination: Im
     // Relinquishment is an application write, never a direct database edit.
     await wallet.relinquishCertificate({ type: certificate.type, serialNumber: certificate.serialNumber, certifier: certificate.certifier })
     await wallet.storage.syncToWriter(await wallet.storage.getAuth(), resumedWriter)
-    const updatedSource = projectDataset(await readDataset(reader)), updatedDestination = projectDataset(await readDataset(resumedWriter))
-    observations.incremental = { source: updatedSource, destination: updatedDestination }
-    checks('incremental-tombstone', canonicalJson(updatedSource) === canonicalJson(updatedDestination) && (await resumedWriter.listCertificates({ identityKey }, { certifiers: [certificate.certifier], types: [certificate.type], limit: 10, offset: 0, privileged: false })).totalCertificates === 0, 'Certificate relinquishment and its deletion marker propagate through incremental synchronization.')
+    const updatedSourceRaw = await readDataset(reader), updatedDestinationRaw = await readDataset(resumedWriter)
+    const updatedSource = projectDataset(updatedSourceRaw), updatedDestination = projectDataset(updatedDestinationRaw)
+    observations.incremental = { source: updatedSource, destination: updatedDestination, sourceRaw: updatedSourceRaw, destinationRaw: updatedDestinationRaw }
+    observations.remainingCertificates = await resumedWriter.listCertificates({ identityKey }, { certifiers: [certificate.certifier], types: [certificate.type], limit: 10, offset: 0, privileged: false })
+    checks('incremental-tombstone', canonicalJson(updatedSource) === canonicalJson(updatedDestination) && (observations.remainingCertificates as { totalCertificates: number }).totalCertificates === 0, 'Certificate relinquishment and its deletion marker propagate through incremental synchronization.')
     await wallet.storage.addWalletStorageProvider(resumedWriter)
     observations.setActive = await wallet.storage.setActive(resumedWriter.getSettings().storageIdentityKey)
+    observations.replacementState = { activeEnabled: wallet.storage.isActiveEnabled, activeStore: wallet.storage.getActiveStore(), destination: resumedWriter.getSettings().storageIdentityKey }
     checks('active-provider-replacement', wallet.storage.isActiveEnabled && wallet.storage.getActiveStore() === resumedWriter.getSettings().storageIdentityKey, 'The wallet selects the replacement through WalletStorageManager.setActive.')
     const fresh = await createFixtureWallet(b, '77'.repeat(32)); wallets.push(fresh)
     const outputs = await fresh.listOutputs({ basket: 'tpnil portable tasks', include: 'entire transactions', includeCustomInstructions: true, includeTags: true })
     observations.freshOutputs = outputs
     const outpoint = `${created.txid}.0`
-    checks('fresh-client-task-reconstruction', outputs.totalOutputs === 1 && outputs.outputs[0]?.outpoint === outpoint && Buffer.from((await fresh.decrypt({ ciphertext, protocolID: [2, 'tpnil portability'], keyID: 'task', counterparty: 'self' })).plaintext).toString() === 'TPNIL portable task', 'A fresh wallet reconstructs the same encrypted task and outpoint without the prior client cache.')
+    observations.freshDecryption = await fresh.decrypt({ ciphertext, protocolID: [2, 'tpnil portability'], keyID: 'task', counterparty: 'self' })
+    checks('fresh-client-task-reconstruction', outputs.totalOutputs === 1 && outputs.outputs[0]?.outpoint === outpoint && Buffer.from((observations.freshDecryption as { plaintext: number[] }).plaintext).toString() === 'TPNIL portable task', 'A fresh wallet reconstructs the same encrypted task and outpoint without the prior client cache.')
     observations.postReplacement = await fresh.createAction({ description: 'TPNIL replacement provider action', outputs: [{ satoshis: 2, lockingScript: new P2PKH().lock(PrivateKey.fromHex('99'.repeat(32)).toPublicKey().toAddress()).toHex(), outputDescription: 'Provider replacement payment' }], labels: ['tpnil-replacement'], options: { randomizeOutputs: false, acceptDelayedBroadcast: false } })
     checks('post-replacement-write', Boolean((observations.postReplacement as { txid?: string }).txid), 'A freshly initialized wallet signs and submits a new action using the replacement provider.')
   } catch (error) {

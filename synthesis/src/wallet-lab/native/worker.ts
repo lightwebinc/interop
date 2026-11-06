@@ -12,7 +12,8 @@ import type { TeranodeWalletFundingFixture } from '../services.js'
 
 const root = '/work'
 const output = '/evidence'
-const planFile = path.join(root, 'infra/native/yours-go/plan.json')
+const integrated = process.env.TPNIL_NATIVE_INTEGRATED === '1'
+const planFile = path.join(root, integrated ? 'infra/native/integrated/plan.json' : 'infra/native/yours-go/plan.json')
 const plan = JSON.parse(fs.readFileSync(planFile, 'utf8'))
 fs.mkdirSync(output, { recursive: true })
 const save = (name: string, value: unknown) => fs.writeFileSync(path.join(output, name), JSON.stringify(value, null, 2) + '\n')
@@ -46,6 +47,9 @@ let mongo: ReturnType<typeof spawn> | undefined
 let failure: unknown
 const startedAt = new Date().toISOString()
 try {
+  if (integrated) {
+    if (sha256Hex(fs.readFileSync(path.join(root, plan.compatibilityPatch))) !== plan.compatibilityPatchSha256 || sha256Hex(fs.readFileSync(path.join(root, plan.boundaryProfile))) !== plan.boundaryProfileSha256) throw new Error('Integrated profile inputs differ from frozen plan')
+  }
   assertArtifact(path.join(root, 'out/sut-artifacts/yours-wallet-v5.1.0/pw-v5.1.0.zip'), plan.wallet)
   assertArtifact(path.join(root, 'fixtures/artifacts/todo-ts-236733c-webroot.tgz'), plan.application)
   const installed = JSON.parse(execFileSync('python3', [path.join(root, 'infra/native/yours-go/verify-installed.py')], { encoding: 'utf8', timeout: 30000 }))
@@ -70,7 +74,8 @@ try {
     headless: false,
     task: plan.task,
     amount: plan.amount,
-    nativeQualification: { fundingFixture: fixture, sandbox: true }
+    nativeQualification: { fundingFixture: fixture, sandbox: true },
+    ...(integrated ? { additionalScenario: (await import('./integrated.js')).runNativeIntegration, integratedProfile: 'ITCVE-1@1.3.0', go: { binary: '/opt/tpnil/itcve-go-storage-sync', storageSyncPatch: true } } as const : {})
   })
   verifyEvidenceBundle(output)
   save('network-after.json', await network())

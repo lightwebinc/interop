@@ -106,3 +106,88 @@
  		RawTx:               chunkProvenTxReq.RawTx,
  		InputBEEF:           chunkProvenTxReq.InputBEEF,
  		TxNotes:             historyNotes,
+--- a/pkg/storage/internal/actions/create.go
++++ b/pkg/storage/internal/actions/create.go
+@@ -1050,14 +1050,15 @@
+ 		}
+ 	}
+ 
++	// Response order associates requested outputs with their original metadata.
++	// Only vout determines transaction order; shuffle vout values, not rows.
++	for vout := uint32(0); vout < len32; vout++ {
++		all[vout].Vout = vout
++	}
+ 	if randomizeOutputs {
+ 		c.random.Shuffle(len(all), func(i, j int) {
+-			all[i], all[j] = all[j], all[i]
++			all[i].Vout, all[j].Vout = all[j].Vout, all[i].Vout
+ 		})
+-	}
+-
+-	for vout := uint32(0); vout < len32; vout++ {
+-		all[vout].Vout = vout
+ 	}
+ 
+ 	return all, nil
+--- a/pkg/storage/provider_create_action_test.go
++++ b/pkg/storage/provider_create_action_test.go
+@@ -327,11 +327,25 @@
+ 		// when:
+ 		faucet.TopUp(100_000)
+ 
+-		result, _ := activeStorage.CreateAction(
++		result, err := activeStorage.CreateAction(
+ 			t.Context(),
+ 			testusers.Alice.AuthID(),
+ 			args,
+ 		)
++
++		require.NoError(t, err)
++		// Wire array order preserves caller association while vout is randomized.
++		for i, requested := range args.Outputs {
++			require.Equal(t, wdk.ProvidedByYou, result.Outputs[i].ProvidedBy)
++			require.Equal(t, requested.LockingScript, result.Outputs[i].LockingScript)
++			require.Equal(t, requested.Satoshis, result.Outputs[i].Satoshis)
++		}
++		seenVouts := map[uint32]bool{}
++		for _, output := range result.Outputs {
++			require.False(t, seenVouts[output.Vout])
++			require.Less(t, int(output.Vout), len(result.Outputs))
++			seenVouts[output.Vout] = true
++		}
+ 
+ 		found := slices.IndexFunc(result.Outputs, testutils.CommissionOutputCondition)
+ 		commissionOutputVouts[result.Outputs[found].Vout] = struct{}{}
+--- a/pkg/storage/mappings.go
++++ b/pkg/storage/mappings.go
+@@ -45,7 +45,7 @@
+ func certificateModelFieldsToKeyringResult(fields []entity.CertificateField) (wdk.KeyringMap, error) {
+ 	result := make(wdk.KeyringMap)
+ 	for _, field := range fields {
+-		val := field.FieldValue
++		val := field.MasterKey
+ 		_, err := base64.StdEncoding.DecodeString(val)
+ 		if err != nil {
+ 			return nil, fmt.Errorf("failed to decode string %s, expected valid Base64 string: %w", val, err)
+--- a/pkg/storage/provider_insert_certificate_auth_test.go
++++ b/pkg/storage/provider_insert_certificate_auth_test.go
+@@ -295,3 +295,19 @@
+ 		require.Len(t, certs.Certificates, 1)
+ 	})
+ }
++
++// Regression: encrypted field values are not the subject's encrypted keyring.
++func TestCertificateKeyringUsesStoredMasterKey(t *testing.T) {
++	given, cleanup := testabilities.Given(t)
++	defer cleanup()
++	provider := given.Provider().GORM()
++	certificate := fixtures.DefaultInsertCertAuth(testusers.Alice.ID, primitives.PubKeyHex(testusers.Alice.PubKey(t)))
++	certificate.Fields[0].MasterKey = primitives.Base64String("bWFzdGVyIGtleQ==")
++	_, err := provider.InsertCertificateAuth(t.Context(), testusers.Alice.AuthID(), certificate)
++	require.NoError(t, err)
++	result, err := provider.ListCertificates(t.Context(), testusers.Alice.AuthID(), wdk.ListCertificatesArgs{})
++	require.NoError(t, err)
++	require.Len(t, result.Certificates, 1)
++	assert.Equal(t, primitives.Base64String("bWFzdGVyIGtleQ=="), result.Certificates[0].Keyring[exampleFieldName])
++	assert.Equal(t, exampleFieldValue, result.Certificates[0].Fields[exampleFieldName])
++}

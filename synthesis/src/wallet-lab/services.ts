@@ -179,6 +179,7 @@ export class ControlledWalletServices {
   readonly overlay = new ControlledOverlayServices()
   private readonly verdicts: Array<'ACCEPTED_BY_NETWORK' | 'REJECTED'>
   private readonly webroot: string
+  private readonly externalOverlayLookups = new Map<string, string>()
   private readonly wabPort?: number
   private routeSequence = 0
   private servicePort = 0
@@ -204,6 +205,17 @@ export class ControlledWalletServices {
     this.verdicts = [...(options.submitVerdicts ?? [])]
     this.wabPort = options.wabPort
     this.temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'tpnil-wallet-services-'))
+  }
+
+  /** Add a real loopback lookup provider for a prospective joined profile. */
+  registerOverlayLookup(origin: string, services: string[]): void {
+    const url = new URL(origin)
+    if (url.protocol !== 'http:' || url.hostname !== '127.0.0.1' || !url.port || url.username || url.password || url.search || url.hash || url.pathname !== '/') throw new Error('Overlay provider must be an exact loopback HTTP origin')
+    for (const service of services) {
+      if (!/^ls_[a-z0-9_]+$/.test(service)) throw new Error('Invalid overlay lookup service name')
+      if (this.externalOverlayLookups.has(service) && this.externalOverlayLookups.get(service) !== url.origin) throw new Error('Overlay lookup provider already registered')
+      this.externalOverlayLookups.set(service, url.origin)
+    }
   }
 
   get componentDiagnostics(): string { return this.goServices?.diagnostics ?? '' }
@@ -720,16 +732,24 @@ export class ControlledWalletServices {
         await this.handleGoOverlay(request, response, url.pathname)
         return
       }
-      if (this.components.overlay === 'go' && url.pathname === '/lookup') {
+      if (url.pathname === '/lookup') {
         // Read the question once, then replay it to the selected service.
         const chunks: Buffer[] = []
         let size = 0
         for await (const chunk of request) { size += chunk.length; if (size > 4 * 1024 * 1024) throw new Error('Lookup exceeds limit'); chunks.push(Buffer.from(chunk)) }
         const body = Buffer.concat(chunks)
-        const question = JSON.parse(body.toString()) as { service?: string }
+        const question = JSON.parse(body.toString()) as { service?: string; query?: { service?: string } }
+        const lookupOrigin = this.externalOverlayLookups.get(question.service === 'ls_slap' ? question.query?.service ?? '' : question.service ?? '')
+        if (lookupOrigin !== undefined) {
+          const result = await fetch(`${lookupOrigin}/lookup`, { method: 'POST', headers: { 'content-type': 'application/json' }, body, redirect: 'error', signal: AbortSignal.timeout(15_000) })
+          const answer = await result.json()
+          this.routes.push({ sequence: ++this.routeSequence, method: 'POST', host, pathname: url.pathname, disposition: 'controlled-service', status: result.status })
+          sendJson(response, result.status, answer)
+          return
+        }
         const { Readable } = await import('node:stream')
         const replay = Object.assign(Readable.from([body]), { method: request.method, headers: request.headers, url: request.url }) as IncomingMessage
-        if (question.service === 'ls_users' || question.service === 'ls_tpnil') {
+        if (this.components.overlay === 'go' && (question.service === 'ls_users' || question.service === 'ls_tpnil')) {
           const result = await this.forwardGo(replay, response, '/overlay/lookup')
           if (result !== undefined) {
             const answer = JSON.parse(result.output.toString()) as { outputs?: unknown[] }

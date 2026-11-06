@@ -34,11 +34,23 @@ The TypeScript participant is `@bsv/wallet-toolbox@2.13.0`. The Go participant i
 `go-wallet-toolbox@v0.191.4` plus the exact source patch in
 [`infra/adapters/storage-sync`](../../../../infra/adapters/storage-sync/).
 The patch preserves zero-valued basket policy, output `providedBy`, and translated
-notification transaction IDs. The wire adapter reconciles the upstream Go
+notification transaction IDs. Joined execution additionally requires stable
+requested-output response order with randomized `vout` values and certificate
+keyrings taken from the stored encrypted master keys instead of field ciphertext.
+Both defects were reproduced through actual wallet operations before correction;
+the patch includes upstream-package regression assertions for them. The wire adapter reconciles the upstream Go
 `proveTxId` spelling and TypeScript SQLite boolean encodings. Both unmodified
 wire records and the corresponding canonical request/response are retained.
 The patched binary has its own digest/manifest and is rejected by historical
 ITCVE-1 1.2.0 native admission. It is not relabelled as the unchanged Go release.
+Only the separate, explicit ITCVE-1 1.3.0 native profile admits the pinned patch.
+
+`node scripts/verify-storage-sync.mjs OUTPUT` independently recomputes all eight
+cells from the retained raw initial, replay and incremental datasets, verifies
+the mined funding proof against the pinned fixture, and checks authenticated
+denial, fresh outpoints, replacement writes and cleanup. It also mutates retained
+metadata and proof bytes in disposable copies, rebinds their evidence digests,
+and requires the semantic oracle to reject both corruptions.
 
 Results qualify this controlled storage integration. They do not establish a
 native wallet's storage configuration/replacement UI or full ISI-3 V004/V006
