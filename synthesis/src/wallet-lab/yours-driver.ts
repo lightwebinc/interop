@@ -369,9 +369,9 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     await application.goto(createUrl.toString())
     await application.getByTestId('p0-todo-create-submit').click()
     const created = await waitForTodoOutputs(application, value =>
-      value.outputs.some(output => output.satoshis === amount)
+      value.outputs.some(output => output.satoshis === amount && /^[a-f0-9]{64}[._]\d+$/i.test(output.outpoint))
     )
-    const createdOutput = created.outputs.find(output => output.satoshis === amount)
+    const createdOutput = created.outputs.find(output => output.satoshis === amount && /^[a-f0-9]{64}[._]\d+$/i.test(output.outpoint))
     if (createdOutput === undefined) throw new Error('Created ToDo output is absent from the wallet basket')
     createTxid = extractTxid(createdOutput.outpoint)
     if (created.beef === undefined) throw new Error('Wallet omitted BEEF for the created ToDo output')

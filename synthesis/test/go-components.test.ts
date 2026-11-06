@@ -140,8 +140,9 @@ describe.skipIf(process.env.TPNIL_GO_TESTS !== '1')('native Go / TypeScript comp
           } finally { clearTimeout(streamTimeout); streamAbort.abort() }
           const corrupt = await request(services.serviceUrl, '/submit', 'overlay.itcve.test', Buffer.from([1,2,3]), { 'content-type': 'application/octet-stream', 'x-topics': 'tm_users' })
           expect([400, 422]).toContain(corrupt.status)
-          const unauthorized = await request(services.storageUrl, '/', 'fixture.itcve.test', Buffer.from(JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'listOutputs', params: [{ userId: 1 }] })), { 'content-type': 'application/json' })
+          const unauthorized = await request(services.storageUrl, '/', 'fixture.itcve.test', Buffer.from(JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'listOutputs', params: [{ userId: 1 }] })), { 'content-type': 'application/json', origin: 'chrome-extension://abcdefghijklmnopabcdefghijklmnop' })
           expect([401, 403], unauthorized.bytes.toString()).toContain(unauthorized.status)
+          expect(unauthorized.bytes.toString()).not.toContain('CORS origin denied')
         }
         passed = true
       } catch (error) { failure = error; throw error }

@@ -1,0 +1,49 @@
+◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+◇ injected env (0) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+starting server for www.google.com
+https server started for www.google.com on 44131
+HTTPS_CLIENT_ERROR
+Error: socket hang up
+    at TLSSocket.onSocketClose (node:internal/tls/wrap:1379:23)
+    at TLSSocket.emit (node:events:526:24)
+    at node:net:362:12
+    at Socket.done (node:internal/tls/wrap:780:7)
+    at Socket.wrapper (node:events:639:12)
+    at Socket.emit (node:events:526:24)
+    at TCP.<anonymous> (node:net:362:12) {
+  code: 'ECONNRESET'
+}
+starting server for fonts.googleapis.com
+https server started for fonts.googleapis.com on 43475
+starting server for redirector.gvt1.com
+https server started for redirector.gvt1.com on 43623
+starting server for android.clients.google.com
+https server started for android.clients.google.com on 33971
+starting server for wallet.1sat.app
+https server started for wallet.1sat.app on 41947
+[wallet-lab:evidence] wallet initialized
+starting server for todo.itcve.test
+https server started for todo.itcve.test on 33743
+starting server for api.whatsonchain.com
+https server started for api.whatsonchain.com on 34761
+starting server for i.ibb.co
+https server started for i.ibb.co on 44189
+starting server for api.1sat.app
+https server started for api.1sat.app on 44383
+starting server for proxy-api.mnee.net
+https server started for proxy-api.mnee.net on 44693
+starting server for localhost
+https server started for localhost on 37911
+[wallet-lab:evidence] boundary getVersion: requesting
+[wallet-lab:evidence] boundary getVersion: completed
+[wallet-lab:evidence] boundary getNetwork: requesting
+/work/synthesis/src/wallet-lab/yours-driver.ts:84
+        timer = setTimeout(() => reject(new Error(`${label} timed out after ${timeout} ms`)), timeout)
+                                        ^
+
+Error: wallet boundary getNetwork timed out after 30000 ms
+    at Timeout.<anonymous> (/work/synthesis/src/wallet-lab/yours-driver.ts:84:41)
+    at listOnTimeout (node:internal/timers:685:17)
+    at process.processTimers (node:internal/timers:618:7)
+
+Node.js v24.22.1

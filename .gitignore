@@ -3,6 +3,8 @@ node_modules/
 .DS_Store
 *.log
 !journals/**/evidence/*.log
+!journals/native-wallet-attempts/**/*.log
+!journals/native-wallet-qualification/**/*.log
 .env
 .env.*
 __pycache__/
