@@ -9,7 +9,10 @@ failures are three unchanged upstream Go Message Box findings reproduced twice.
 The separately identified Go compatibility participant passes its complete
 contract. This pack issues `INFRASTRUCTURE_QUALIFICATION_ONLY`.
 
-The new integrated native wallet qualification remains **pending**. The earlier
+The [integrated native run](https://github.com/p2ppsr/interop/actions/runs/42312095022)
+qualifies two fresh unchanged Yours Wallet 5.1.0 identities on the same frozen
+source: **154/154 integration assertions and 96/96 independent Rust assertions
+PASS**. The earlier
 [all-Go native qualification](../journals/native-wallet-qualification/2026-11-06/yours-wallet-5.1.0-all-go/qualification.json)
 remains unchanged: Yours Wallet 5.1.0 has four PASS, two FAIL and two BLOCKED
 ToDo vectors in both repetitions. The new component results do not replace those
@@ -35,8 +38,8 @@ flowchart LR
 
 Component runs exercise reference wallets and real services. The separate native
 driver connects the unchanged wallet's public CWI API to this graph; its
-Board/UHRP/CHIRP/LCH path and temporary trusted-issuer configuration await a
-complete, independently verified native pack.
+Board/UHRP/CHIRP/LCH path and temporary trusted-issuer configuration are covered
+by the independently verified native pack below.
 
 | Component lane | Isolated executions | Assertions | PASS | FAIL | Evaluated operations |
 | --- | ---: | ---: | ---: | ---: | --- |
@@ -104,10 +107,32 @@ attempts remain separate:
 | [42305419944](../journals/integrated-native-attempts/2026-11-06/42305419944/attempt.json) | `OBSERVER_VERIFICATION_ERROR` | Two repetitions recorded 69 integration predicates each, but Message Box hashes used JSON insertion order while the outer evidence bundle sorted keys. The baseline environment verified; the integrated pack did not. Canonical evidence v2 and an actual EvidenceBundle regression address the observer defect. |
 | [42309035783](../journals/integrated-native-attempts/2026-11-06/42309035783/attempt.json) | `OBSERVER_EXECUTION_ERROR` | The first repetition recorded 69 passing component predicates, including all 42 boundary predicates and positive trusted discovery, then rejected an undefined optional argument during evidence serialization. No complete repetition or qualification resulted. The original ZIP, all logs and cleanup evidence are retained; a fresh native run is required. |
 
-Native final result: **pending**. A qualifying addition must identify its exact
-source, original artifact, two clean repetitions, baseline wallet findings,
-integrated assertion counts, trust restoration, isolation, cleanup and independent
-verification. Partial observations above remain unqualified after any later pass.
+The [native qualification](../journals/integrated-native-qualification/2026-11-06/42312095022/qualification.json)
+records `qualifiedEnvironment: true`, matching repetition projections and an
+integrated outcome of `PASS`, with the baseline wallet outcome separately `FAIL`.
+Each fresh identity passes 17 relay/payment predicates, six Message Box predicates,
+four synthesis predicates, 42 boundary predicates and eight public-settings trust
+predicates: 77 per repetition. Rust independently passes 48 checks per repetition,
+including the temporary settings-token creation and retirement transactions.
+
+Both measured trust-cache waits are 121000 milliseconds. The initially absent
+settings token is created through public wallet calls and then spent; the original
+settings and empty basket are restored. Two separate reference preflights also
+cover restoration when an original settings token exists. Native admission
+verifies exact artifacts, Chromium sandbox, controlled CA trust, kernel network
+isolation, mined funding ancestry and terminal cleanup. The original ToDo vectors
+remain V001–V004 PASS, V005–V006 FAIL and V007–V008 BLOCKED in both repetitions.
+
+The [original native ZIP](../journals/integrated-native-qualification/2026-11-06/42312095022/native-integrated.zip)
+is 889,156 bytes, SHA-256
+`0d0dd31ee9df2e513ac51fc4a17537f3f3343c94083b70327ad363fed0fab844`, matching
+GitHub's artifact receipt. The archive retains all job logs, raw API receipts,
+the exact qualification and independent verification. Local replay checks every
+native child oracle and Rust result; all original ZIP members remain unchanged.
+Runtime, pins and oracles were frozen at
+`56a1de95b01308fee612b80a49bfdf1b034a2d66` before execution. Later publication
+commits add evidence and documentation only. Partial observations from earlier
+attempts remain unqualified.
 
 To execute a new component pack, use Node 24.22.1, Go 1.27.3 and Rust 1.88.0 on
 clean committed source. Preparation downloads pinned inputs. Execution needs

@@ -77,3 +77,7 @@ paid HTTP and an independent Rust participant. Its separate native profile
 connects these services to the unchanged wallet's public API and the
 Board/UHRP/CHIRP/LCH graph, retaining raw observations, explicit adapters,
 failure findings and offline verification.
+
+The [integrated results report](docs/integrated-lab-results-2026-11-06.md)
+records executed lanes, native attempts, original CI archives and reproduction
+commands.
