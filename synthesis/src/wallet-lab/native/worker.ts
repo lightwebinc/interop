@@ -86,7 +86,7 @@ try {
       return [fs.readFileSync(`/proc/${pid}/comm`, 'utf8').trim()]
     } catch { return [] }
   })
-  if (processes.some(name => /chrome|chromium|itcve-go-serv/.test(name))) throw new Error('Wallet or Go host process survived teardown')
+  if (processes.some(name => /chrome|chromium|itcve-go-|messagebox-go/.test(name))) throw new Error('Wallet or Go host process survived teardown')
   save('worker.json', { schema: 'tpnil-native-wallet-worker@1.0.0', completed: true, startedAt, endedAt: new Date().toISOString(), platform: process.platform, architecture: process.arch, os: os.release(), node: process.version, planSha256: sha256Hex(fs.readFileSync(planFile)), recordSha256: sha256Hex(fs.readFileSync(path.join(output, 'record.json'))), cleanWalletAndServiceShutdown: true, vectorOutcomes: record.vectors.map(vector => ({ id: vector.id, outcome: vector.outcome })), sandboxSha256: sha256Hex(fs.readFileSync(evidenceFile('native-sandbox.txt'))) })
 } catch (error) {
   failure = error
