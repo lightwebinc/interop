@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add ISI-5 0.1.0, multicast transaction and object delivery, with twelve draft vectors, and its environment ITCVE-2 0.1.0. Retain fifteen component qualifications: fourteen for the multicast harness and one for the BRC-22 submit boundary. Register both in the program index, schemas and repository check.
 - Add ITCVE-1 1.1.0 with independent TypeScript/Go Overlay, ChainTracks and Wallet Storage selection, pinned native dependencies, authenticated mixed-component tests, fault/recovery checks, wallet/Android configuration and CI evidence. Historical profiles and results remain fixed.
 
 ## Unreleased

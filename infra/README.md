@@ -117,3 +117,88 @@ archives, fresh isolated containers, native Chromium sandbox and CA trust,
 Teranode-mined funding ancestry, independent transaction/state oracles and two
 matching repetitions. Use `profile=all-go-native` in the manual Yours workflow.
 The 1.1.0 engineering CLI does not issue this qualification by itself.
+
+## ITCVE-2 component qualifications
+
+These plans qualify the `harness` configuration of
+[ITCVE-2](../itcves/ITCVE-2/0.1.0/README.md) for
+[ISI-5](../programs/ISI-5/0.1.0/README.md). Results are
+`INFRASTRUCTURE_QUALIFICATION_ONLY`; they are not throughput measurements.
+
+### Harness plans
+
+Each `multicast-fabric-*` plan runs the `harness-qualify run` command of
+[`lightwebinc/multicast-test`](https://github.com/lightwebinc/multicast-test)
+at commit `8e553bf81e55484dfb10431ae1e7da63f061dd3c`. The command verifies the
+closure in
+[`tpnil/components.lock.json`](https://github.com/lightwebinc/multicast-test/blob/8e553bf81e55484dfb10431ae1e7da63f061dd3c/tpnil/components.lock.json),
+compiles every image from the pinned sources, and runs the selected scenarios.
+The distroless base of each compiled image resolves by its tag at build time. A
+plan requires one `--- PASS:` line per scenario, so a skipped scenario fails the
+plan.
+
+| Plan | ISI-5 | Standards | Scenarios |
+| --- | --- | --- | --- |
+| `multicast-fabric-tx-frames.json` | V001 | BRC-124, BRC-128, BRC-129 | Delivery to every subscribed shard, shard filtering, Extended Format carriage, mixed formats, payload hash identity |
+| `multicast-fabric-tx-filters.json` | V001 | BRC-124, BRC-127, BRC-129 | Subtree filtering, an egress bridge that re-maps groups, dynamic filtering from subtree group announcements |
+| `multicast-fabric-tx-dedup.json` | V001 | BRC-124 | Deduplication by transaction identifier across listeners, a collision, failure of the shared cache (fail open), cache failover |
+| `multicast-fabric-ssm.json` | V001 | BRC-129 | Source-specific joins and leaves, the any-source fallback |
+| `multicast-fabric-tx-fragmentation.json` | V002 | BRC-130 | Fragmented delivery, filtering, hash verification, loss and abandonment |
+| `multicast-fabric-tx-repair.json` | V003 | BRC-126 | NACK with Extended Format payloads, ACK, MISS, recovery identities, end-to-end repair |
+| `multicast-fabric-tx-rate-limits.json` | V003 | BRC-126 | Burst gaps under rate limits, MISS escalation by tier, multi-endpoint, per-chain and per-group limits |
+| `multicast-fabric-tx-repair-topologies.json` | V003 | BRC-126 | Repair fed by a listener tee without a group join, NACK proxying across domains, repair between fabrics |
+| `multicast-fabric-block-objects.json` | V004 | BRC-131, BRC-132, BRC-134, BRC-135, BRC-144 | Block announcement, subtree data, anchor frames, the header lane, fragment-level recovery |
+| `multicast-fabric-beef-plane.json` | V005 | BRC-148, BRC-149 | BEEF object submission and delivery, topic and version filtering, verbatim carriage, fragmentation and recovery, domain coordination, plane independence, multi-topic records |
+| `multicast-fabric-tx-bundles.json` | V006 | BRC-142 | Coalescing, decoalescing, bundle-unit recovery, re-bucketing |
+| `multicast-fabric-manifest.json` | V006 | BRC-139 | Manifest pipeline, successor signal, adoption safety gates |
+
+Prepare once, then run and verify any plan:
+
+```sh
+git clone https://github.com/lightwebinc/multicast-test.git ws/multicast-test
+git -C ws/multicast-test checkout 8e553bf81e55484dfb10431ae1e7da63f061dd3c
+(cd ws/multicast-test && go run ./tpnil/cmd/harness-qualify prepare)
+node bin/tpnil.mjs run-component-qualification \
+  infra/plans/multicast-fabric-tx-frames.json ws/multicast-test \
+  out/multicast-fabric-tx-frames independent-operator
+node bin/tpnil.mjs verify-component-qualification out/multicast-fabric-tx-frames
+```
+
+Requirements: Linux/amd64, Docker, Go 1.27.3 and passwordless `sudo`, because
+the scenarios create network namespaces.
+
+### Frame conformance vectors
+
+The `multicast-frame-vectors-*` plans (ISI-5 V007) check the corpus
+[`tpnil/vectors/multicast-frames-v1.json`](https://github.com/lightwebinc/multicast-test/blob/388f3e2d40df157ff8c75050b7e7f0a88a5365f3/tpnil/vectors/multicast-frames-v1.json)
+at multicast-test commit `388f3e2d40df157ff8c75050b7e7f0a88a5365f3`, pinned to
+BRCs commit `99ee33ea5980313a5c2b01a02a1e42569d981fd6`. It holds ten vectors
+for BRC-124, BRC-128 to BRC-130, BRC-135, BRC-148 and BRC-149, built from a
+real Extended Format transaction, Atomic BEEF object and block header, and
+seven inputs every decoder must reject. Each plan names the corpus as a
+digest-bound input, and the two oracles share no code:
+
+| Plan | Oracle |
+| --- | --- |
+| `multicast-frame-vectors-reference.json` | The released shard-common decoders, in Go |
+| `multicast-frame-vectors-independent.json` | A verifier written from the BRC text alone with Node.js built-ins, which recomputes SHA-256, SHA-256d, XXH64, group indices and RFC 5952 addresses |
+
+They need a clean clone at that commit and no Docker; the reference oracle
+needs Go 1.27.3.
+
+### BRC-22 submit boundary
+
+`overlay-brc22-submit-boundary-go.json` (ISI-5 V012) runs
+[`tests/tpnil/brc22`](https://github.com/lightwebinc/overlay-bridge/tree/2bf3faca12c0b2b25ff3b941083cea2e529f1fca/tests/tpnil/brc22)
+in `lightwebinc/overlay-bridge` against go-overlay-services v1.3.8. It names the
+[BRC-22 submit boundary vectors](../programs/ISI-5/proposals/brc22-submit-boundary/0.1.0/README.md)
+as a digest-bound input through `${LAB_ROOT}`, so it runs from this repository.
+It needs Go 1.27.3 and no Docker:
+
+```sh
+git clone https://github.com/lightwebinc/overlay-bridge.git ws/overlay-bridge
+git -C ws/overlay-bridge checkout 2bf3faca12c0b2b25ff3b941083cea2e529f1fca
+node bin/tpnil.mjs run-component-qualification \
+  infra/plans/overlay-brc22-submit-boundary-go.json ws/overlay-bridge \
+  out/overlay-brc22-submit-boundary-go independent-operator
+```
