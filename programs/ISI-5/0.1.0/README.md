@@ -25,7 +25,7 @@ The [catalog](catalog.json) defines draft requirements, vector plans, references
 | ISI-5-R007 / ISI-5-V007 | Frame conformance corpus | standard | Two independent oracles pass; SUT adapter pending |
 | ISI-5-R008 / ISI-5-V008 | Submission path through the fabric | laboratory-profile | Draft; not executable |
 | ISI-5-R009 / ISI-5-V009 | Processor objects and proofs through the fabric | laboratory-profile | Draft; not executable |
-| ISI-5-R010 / ISI-5-V010 | Repair under declared loss on the joined path | open-interpretation | Draft; not executable |
+| ISI-5-R010 / ISI-5-V010 | Repair under declared loss on the joined path | laboratory-profile | Draft; not executable |
 | ISI-5-R011 / ISI-5-V011 | Overlay delivery between engines | laboratory-profile | Draft; not executable |
 | ISI-5-R012 / ISI-5-V012 | BRC-22 submission boundary | standard | Runtime observations retained for go-overlay-services; scored vector remains draft |
 

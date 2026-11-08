@@ -324,21 +324,22 @@
       "version": "0.1.0",
       "requirementId": "ISI-5-R010",
       "title": "Repair under declared loss on the joined path",
-      "origin": "open-interpretation",
+      "origin": "laboratory-profile",
       "reference": "itcves/ITCVE-2/0.1.0/README.md",
-      "applicability": "Held out of scoring until a versioned laboratory interpretation fixes the expected result.",
+      "applicability": "Required within the selected draft profile; exceptions require a prospective versioned rule.",
       "executable": false,
       "preconditions": [
         "Digest-locked admitted SUT and dependency closure",
         "ITCVE-2 joined ready condition observed",
-        "Healthy qualified supporting components"
+        "Retransmission endpoint fed upstream of the declared impairment"
       ],
       "steps": [
-        "Apply the declared loss impairment on the fabric segment.",
+        "Apply the declared loss between the fabric and the delivery edge, leaving the retransmission feed and every delivery lane unimpaired.",
         "Repeat the V008 and V009 schedules."
       ],
       "expected": [
-        "Gaps on the fabric segment are detected and repaired, and the V008 and V009 expectations still hold.",
+        "The delivery edge detects every gap and either repairs it or reports it unrecovered; frames sent equal frames delivered plus frames reported unrecovered.",
+        "Within the declared loss, no frame is reported unrecovered, and the V008 and V009 expectations still hold.",
         "No transaction produces a second financial effect."
       ],
       "evidence": [
@@ -347,8 +348,7 @@
         "V008 and V009 evidence"
       ],
       "blockers": [
-        "Declared impairment point on the fabric segment",
-        "Agreed repair criterion for delivery lanes"
+        "Joined configuration with an isolated fabric segment and a declared impairment point"
       ]
     },
     {
