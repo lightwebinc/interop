@@ -89,8 +89,8 @@ jobs:
           node scripts/prepare-storage-sync-go.mjs
           node scripts/prepare-storage-portability-go.mjs
           node scripts/prepare-messaging.mjs
-      - name: Verify retained submissions through actual Go shutdown
-        run: npm test --prefix synthesis -- native-shutdown-submissions.test.ts
+      - name: Verify actual Go shutdown and atomic listener lifecycle
+        run: npm test --prefix synthesis -- native-shutdown-submissions.test.ts wallet-services-listeners.test.ts
       - name: Verify trust and adapter regressions
         run: |
           npm test --prefix components/transport

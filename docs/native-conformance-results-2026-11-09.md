@@ -1,6 +1,6 @@
 # Native conformance evaluation — November 9, 2026
 
-The prospective [ITCVE-1 2.0.0](../itcves/ITCVE-1/2.0.0/README.md) profile
+The [ITCVE-1 2.0.0](../itcves/ITCVE-1/2.0.0/README.md) profile
 evaluates unchanged Yours Wallet 5.1.0 with Go Overlay Services, Go ChainTracks
 and Go Wallet Storage under [ISI-4 4.0.0](../programs/ISI-4/4.0.0/README.md).
 The [frozen plan](../infra/native/conformance/plan-coverage-closure.json) requires two fresh
@@ -12,6 +12,51 @@ The [November 6 results](integrated-lab-results-2026-11-06.md) remain unchanged:
 V001–V004 PASS, V005–V006 FAIL and V007–V008 BLOCKED. New acceptance rules have
 separate program, environment and oracle identities. No result in this report
 establishes complete BRC-100 conformance or certification.
+
+## Latest native observations and component qualification
+
+[Native run 42711700295](https://github.com/p2ppsr/interop/actions/runs/42711700295)
+executes two fresh Linux/amd64 repetitions of unchanged Yours Wallet 5.1.0
+on source `c338a93`. The original frozen base verifier admits the environment,
+cleanup and repetition agreement: **V001–V007 PASS; V008 FAIL**, with
+**180 PASS, 99 FAIL and one BLOCKED out of 280 predicates per repetition**.
+The [unchanged original archive and independent reviews](../journals/integrated-native-attempts/2026-11-09/42711700295/README.md)
+retain all 186 members, exact artifacts and every failed observation.
+Environment admission does not mean wallet conformance passes.
+
+| Executed native scope | Result in each repetition |
+| --- | --- |
+| Original permission decisions and origin isolation | 8/8 PASS |
+| Basket, certificate and one-shot spending decisions; individual/origin revocation | 16/16 PASS |
+| ToDo and API rejection, input quarantine and funded recovery | 6/6 PASS |
+| Source-off replacement storage, cold read/decryption and signed redemption | 9/9 PASS |
+| Pinned BRC-100 clause predicates | 133 PASS / 99 FAIL / 1 BLOCKED |
+| Integrated component graph and identity bindings | 77/77 PASS |
+
+The final shutdown receipts retain all 53 submissions in each repetition:
+20 from source storage and 33 from replacement storage. No provider has an
+added shutdown tail, unauthorized payment or later quarantined-input reuse.
+All trusted permission events bind to the original public CWI request and
+response. Both native identities, signed proof ancestry, source outage and
+successful replacement processing independently verify.
+
+The whole original workflow still fails in its Rust observer. Corpus2 records
+42 PASS / 6 FAIL in repetition1; repetition2 Rust does not execute. Each
+original BEEF already contains its complete ancestors, but the observer
+incorrectly rejects the pinned SDK's shallow representation of a shared
+ancestor before resolving the full transaction elsewhere in the same graph.
+A separately versioned corpus3 reevaluation is required; original corpus2
+results and the failed workflow are not replaced or promoted.
+
+[Foundation run 42711677744](https://github.com/p2ppsr/interop/actions/runs/42711677744)
+qualifies the separate component-only ITCVE-1 3.0.0 profile: **584 PASS and six
+unchanged Go Message Box FAIL observations across 590 assertions, nine lanes
+and 30 isolated executions**. The four-direction storage2 matrix passes88
+predicates; descendant2 passes80 in eight fresh executions. Those80 are
+already included in590, and the separate descendant upload is the same bytes.
+[Original aggregate evidence](../journals/integrated-component-qualification/2026-11-09/42711677744/README.md)
+and [descendant evidence](../journals/descendant-storage-qualification/2026-11-09/42711677744/README.md)
+independently replay against the exact recorded source. All three CI jobs pass.
 
 ## Retained attempts
 
@@ -322,6 +367,32 @@ remain; new environment admission and oracle requirements are frozen separately.
 
 ## Reference evidence and unresolved scope
 
+The earlier oracle3 findings below are historical. The latest native2 run uses
+clause oracle4 and retains99 failures in each repetition:
+
+| Latest observation category | Count |
+| --- | ---: |
+| Malformed input accepted | 73 |
+| Wrapped JavaScript exception | 15 |
+| Public storage/RPC HTTP500 | 4 |
+| Not implemented | 1 |
+| Reserved or uppercase namespace not rejected | 3 |
+| `listActions` return-contract violations | 1 |
+| Missing structured public error fields | 1 |
+| Returned `noSendChange` names unsigned rather than final signed outputs | 1 |
+
+The `listActions` predicate covers negative net satoshis, null labels/inputs,
+an empty output description and absent tags. It is not solely a satoshi-alias
+finding and does not establish invalid transaction conservation. Only
+`control.input.listActions.seekPermission` fails in this latest control set:
+the supported `false` request is denied, while malformed `null` is accepted.
+That acceptance remains FAIL; it does not establish a working positive pair.
+The [source-linked independent review](../journals/integrated-native-attempts/2026-11-09/42711700295/independent-review/clauses-findings.json)
+retains exact IDs, calls, contract locations and controls. These99 predicates
+are not99 independent security defects or exclusively Go storage defects.
+
+### Retained oracle3 reference comparison
+
 Final TypeScript and Go reference reports under oracle 3 each contain
 133 PASS, 98 FAIL and one BLOCKED clause observation. All 11 cryptographic and
 three metadata predicates pass. These are engineering observations through
@@ -344,7 +415,7 @@ a Go storage defect, and assertion counts are not independent security-defect
 counts.
 
 The [read-only clause review](../journals/native-clause-review/2026-11-09/README.md)
-retains exact identifiers and source boundaries. Both native repetitions have
+retains exact identifiers and source boundaries. Both earlier oracle3 native repetitions have
 the same 98 clause failures:
 
 | Observation category | Count | Proven boundary |
@@ -374,7 +445,7 @@ predicates fail, or BLOCKED when those obligations are all that remain.
 | Remaining obligation | Evidence needed to close it |
 | --- | --- |
 | Privileged secondary keyring | An admitted released configuration with an actual distinct secondary keyring and user-presence path; approval/denial, reason validation, independent key/crypto separation, lock/reload and cache expiry. Bundled optional manager code alone does not establish that configuration. Unsupported optional functionality needs a prospective applicability decision. |
-| Permission lifecycle and additional scope | ITCVE-1 1.5 implements basket, certificate and one-shot spending decisions plus individual/origin revocation and isolation; its released-wallet macOS preflight passes all 16 new predicates and awaits separate Linux qualification. Linkage, permission persistence across restart, standing allowances and finite expiry remain additional obligations. The reviewed UI grants default to no expiry; finite-expiry evidence requires a supported configuration rather than private-state manipulation. |
+| Permission lifecycle and additional scope | ITCVE-1 2.0 executes basket, certificate and one-shot spending decisions plus individual/origin revocation and isolation; both latest native Linux repetitions independently pass all16 predicates. Linkage, permission persistence across restart, standing allowances and finite expiry remain additional obligations. The reviewed UI grants default to no expiry; finite-expiry evidence requires a supported configuration rather than private-state manipulation. |
 | Native byte-wire substrate | A released native endpoint, or a prospective applicability decision, followed by all 28 call codes and malformed/truncated/error frames, byte encoding and state/permission parity. A laboratory encoder forwarding to CWI is not a native endpoint. |
 | Basket-length conflict | An explicit versioned interpretation or pinned upstream clarification of the typed 300-byte versus prose 400-byte limits, followed by create/query/persistence cases at 299/300/301/399/400/401 UTF-8 bytes. |
 | Remaining conditional branches | A clause inventory covering transaction batching/defaults, proof-omission trust, consuming-reference conflicts, filter/pagination/include semantics, actual certificate issuance, conflicting required fields, verifier/keyring/signature/revocation behavior and pagination; each applicable branch needs admitted fixtures and independent state/ancestry checks. |
@@ -409,8 +480,8 @@ reference matrix has its own retained output and independent replay:
 
 ```sh
 node scripts/prepare-storage-portability-go.mjs
-node scripts/run-descendant-storage-matrix.mjs NEW_OUTPUT
-node scripts/verify-descendant-storage-matrix.mjs NEW_OUTPUT
+node scripts/run-descendant-storage-matrix.mjs NEW_OUTPUT --exact-history
+node scripts/verify-descendant-storage-matrix.mjs NEW_OUTPUT --exact-history
 ```
 
 Foundation CI runs this matrix and uploads `descendant-storage-sync` separately

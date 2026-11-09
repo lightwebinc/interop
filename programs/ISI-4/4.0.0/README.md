@@ -36,3 +36,5 @@ unexecuted comprehensive obligations remain. Qualified evidence may demonstrate
 reproducible failures and blockers; it is not complete BRC-100 conformance or
 certification. The previous permission observer failures remain in their
 original archives and cannot be promoted by this new evaluation.
+
+[November9 executed results and original evidence](../../../docs/native-conformance-results-2026-11-09.md) record the native2 and component3 scopes separately, including all retained failures.
