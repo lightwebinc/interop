@@ -35,6 +35,14 @@ test('published counts and member inventory must agree with the actual ZIP', () 
   rewriteQualification(directory, value => { value.assertions.PASS = 80; value.members.pop() })
   assert.throws(() => verifyDescendantArchive(directory))
 }))
+test('v1 archive cannot claim the prospective exact-history policy', () => temporary(directory => {
+  rewriteQualification(directory, value => { value.projection = { profile: 'ISI-3/descendant-storage@2.0.0' } })
+  assert.throws(() => verifyDescendantArchive(directory))
+}))
+test('prospective qualification schema cannot reinterpret a v1 archive', () => temporary(directory => {
+  rewriteQualification(directory, value => { value.schema = 'tpnil-descendant-storage-ci-qualification@2' })
+  assert.throws(() => verifyDescendantArchive(directory))
+}))
 test('omitting a provenance file or adding an unlisted file cannot hide an archive', () => temporary((directory, root) => {
   fs.writeFileSync(path.join(directory, 'unlisted.txt'), 'extra')
   assert.throws(() => verifyDescendantArchives({ root }))

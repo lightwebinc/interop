@@ -6,6 +6,8 @@ import { canonicalJson } from '../determinism.js'
 import { canonicalSyncChunk } from './compatibility.js'
 import { entities, projectDataset, type Dataset } from './projection.js'
 import { verifyDescendantDataset } from './descendant-funding.js'
+import { projectDatasetV2 } from './history-projection.js'
+import { descendantProjectionV2Binding, verifyDescendantProjectionRuntime } from './descendant-profile.js'
 
 export const descendantAssertions = ['descendant-only-owner', 'empty-replacement', 'proof-expansion-pagination', 'owner-scoped-export', 'source-export-proof-closure', 'destination-export-proof-closure', 'source-offline', 'cold-list-and-decrypt', 'cold-redemption', 'cleanup'] as const
 const equal = (a: unknown, b: unknown, detail = 'Retained evidence differs') => assert.ok(canonicalJson(a) === canonicalJson(b), detail)
@@ -63,8 +65,8 @@ function readRetainedDataset(report: any, name: string, provider: string, implem
   return dataset
 }
 
-/** Go JSON encodes the same history instant without redundant fractional zeros.
- * Normalize ONLY history.notes[].when; no other array/order/metadata is ignored. */
+/** Frozen v1 behavior. Its millisecond projection is retained for historical
+ * replay only; explicit v2 below preserves every significant fractional digit. */
 function portableProjection(dataset: Dataset): unknown {
   const projected = projectDataset(dataset) as any
   for (const row of projected.provenTxReqs) for (const note of row.history?.notes ?? []) {
@@ -74,7 +76,15 @@ function portableProjection(dataset: Dataset): unknown {
 }
 
 export async function verifyDescendantFundingReport(report: any): Promise<any> {
-  assert.equal(report.schema, 'tpnil-descendant-storage-sync@1')
+  const exactHistory = report.schema === 'tpnil-descendant-storage-sync@2'
+  assert.equal(report.schema, exactHistory ? 'tpnil-descendant-storage-sync@2' : 'tpnil-descendant-storage-sync@1')
+  if (exactHistory) {
+    equal(report.projection, descendantProjectionV2Binding(), 'Explicit descendant v2 projection policy differs')
+    verifyDescendantProjectionRuntime(report.projectionRuntime, report.startedAt)
+  } else {
+    assert.equal(report.projection, undefined, 'A v1 report cannot carry a v2 projection policy')
+    assert.equal(report.projectionRuntime, undefined)
+  }
   equal(report.fixture, JSON.parse(fs.readFileSync(path.resolve(import.meta.dirname, '../../../fixtures/teranode/wab-funding-v1.json'), 'utf8')))
   assert.equal(report.task, 'TPNIL descendant-funded replacement task')
   assert.equal(report.basket, 'tpnil descendant tasks')
@@ -88,7 +98,8 @@ export async function verifyDescendantFundingReport(report: any): Promise<any> {
   const destination = readRetainedDataset(report, 'destinationDataset', 'destination-observer', report.configuration.destination)
   const after = readRetainedDataset(report, 'destinationAfter', 'replacement-after-observer', report.configuration.destination)
   for (const name of ['transactions', 'outputs', 'provenTxs', 'provenTxReqs'] as const) assert.equal(destinationBefore[name]!.length, 0)
-  equal(portableProjection(source), portableProjection(destination), 'Logical dataset or exact proof bytes changed during public sync')
+  const project = exactHistory ? projectDatasetV2 : portableProjection
+  equal(project(source), project(destination), 'Logical dataset or exact proof bytes changed during public sync')
   for (const dataset of [source, destination, after]) {
     const ids = new Set(dataset.transactions!.map(row => row.transactionId))
     for (const row of [...dataset.transactions!, ...dataset.outputs!]) assert.equal(row.userId, dataset.user!.userId)
@@ -184,5 +195,5 @@ export async function verifyDescendantFundingReport(report: any): Promise<any> {
   assert.ok([...report.submissions.source, ...report.submissions.destination].every((row: any) => row.verdict === 'ACCEPTED_BY_NETWORK'), 'This fixture must have no rejected branch')
   assert.equal(report.cleanup.sourceRestored, true); equal(report.cleanup.errors, [])
   assert.ok(timestamp(report.startedAt) < retired && restored <= timestamp(report.endedAt))
-  return { verified: true, result: 'PASS', assertions: descendantAssertions.map(id => ({ id, result: 'PASS' })), identity: report.identity, transactions: [report.payment.txid, report.taskTxid, report.redeemed.txid] }
+  return { verified: true, result: 'PASS', ...(exactHistory ? { projection: report.projection } : {}), assertions: descendantAssertions.map(id => ({ id, result: 'PASS' })), identity: report.identity, transactions: [report.payment.txid, report.taskTxid, report.redeemed.txid] }
 }

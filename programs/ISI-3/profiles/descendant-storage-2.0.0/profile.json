@@ -1,0 +1,26 @@
+{
+  "schema": "tpnil-descendant-storage-profile@2.0.0",
+  "id": "ISI-3/descendant-storage@2.0.0",
+  "status": "EXPERIMENTAL",
+  "reportSchema": "tpnil-descendant-storage-sync@2",
+  "matrixSchema": "tpnil-descendant-storage-matrix@2",
+  "projectionPolicy": "tpnil-storage-history-projection@2.0.0",
+  "storageProjection": {
+    "profile": "ISI-3/storage-http-sync@2.0.0",
+    "projectionPolicy": "tpnil-storage-history-projection@2.0.0",
+    "projectionManifestSha256": "02d213f1215ecdde54b813e04d93b9a8be8464063fbfdefb07c1a3ad4b740062"
+  },
+  "scope": {
+    "changedPath": "provenTxReqs.history.notes[].when",
+    "equivalence": "Only insignificant trailing fractional-second zeros. Significant digits are retained as strings without Date conversion or numeric rounding. Original UTC suffix is preserved.",
+    "runtime": "Explicit UTC process environment, resolved timezone and zero offset observed before services; v1 runtime unchanged.",
+    "unchanged": "Public authenticated sync, exact other logical metadata and proof bytes, owner isolation, pagination, empty replacement, source-off cold read/decrypt/spend, cleanup, four directions and two fresh repetitions.",
+    "rawRecords": "All original timestamp strings and RPC/report bytes retained.",
+    "historical": "V1 default remains millisecond-projection behavior; historical source-bound archives are replayed using their exact frozen source."
+  },
+  "sourceFiles": {
+    "synthesis/src/storage-sync/descendant-funding.ts": "2ae7d3efc8fef1fb6ce412583a0b3e69c676fa3211bbf9ae5f62bde557b070ed",
+    "synthesis/src/storage-sync/descendant-profile.ts": "553dc7046a5c453d8bbd5d2a2571c21c95913fe5b08738c7e323908fdd5fbbda",
+    "synthesis/src/storage-sync/verify-descendant.ts": "a9b6bb00f75dce4918d73f7cc45826614d4c5a45981ee12a76d50e014fc25232"
+  }
+}

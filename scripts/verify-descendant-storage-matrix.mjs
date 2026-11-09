@@ -5,14 +5,23 @@ import { createHash } from 'node:crypto'
 import { register } from '../synthesis/node_modules/tsx/dist/esm/api/index.mjs'
 register()
 const { verifyDescendantFundingReport } = await import('../synthesis/src/storage-sync/verify-descendant.ts')
-const { descendantInputs } = await import('../synthesis/src/storage-sync/descendant-inputs.ts')
+const { descendantInputs, descendantV2Inputs } = await import('../synthesis/src/storage-sync/descendant-inputs.ts')
+const { descendantProjectionV2Binding, verifyDescendantProjectionRuntime } = await import('../synthesis/src/storage-sync/descendant-profile.ts')
 const { validateComponentIdentity } = await import('../synthesis/src/wallet-lab/go-services.ts')
 const { PrivateKey } = await import('../synthesis/node_modules/@bsv/sdk/dist/esm/mod.js')
 const root = path.resolve(import.meta.dirname, '..'), output = path.resolve(process.argv[2] ?? 'out/descendant-storage-sync')
 const sha = bytes => createHash('sha256').update(bytes).digest('hex')
 const matrix = JSON.parse(fs.readFileSync(path.join(output, 'matrix.json')))
-assert.equal(matrix.schema, 'tpnil-descendant-storage-matrix@1'); assert.equal(matrix.claim, 'ENGINEERING_REFERENCE_STORAGE_QUALIFICATION_ONLY')
-assert.deepEqual(Object.keys(matrix.inputs).sort(), [...descendantInputs].sort())
+const flags = process.argv.slice(3)
+assert.ok(flags.length <= 1 && flags.every(value => value === '--exact-history'), 'Usage: verify-descendant-storage-matrix.mjs OUTPUT [--exact-history]')
+const exactHistory = matrix.schema === 'tpnil-descendant-storage-matrix@2'
+assert.equal(matrix.schema, exactHistory ? 'tpnil-descendant-storage-matrix@2' : 'tpnil-descendant-storage-matrix@1'); assert.equal(matrix.claim, 'ENGINEERING_REFERENCE_STORAGE_QUALIFICATION_ONLY')
+if (flags.includes('--exact-history')) assert.equal(exactHistory, true, 'The requested v2 matrix cannot downgrade to v1')
+if (exactHistory) {
+  assert.deepEqual(matrix.projection, descendantProjectionV2Binding())
+  verifyDescendantProjectionRuntime(matrix.projectionRuntime, matrix.startedAt)
+} else { assert.equal(matrix.projection, undefined); assert.equal(matrix.projectionRuntime, undefined) }
+assert.deepEqual(Object.keys(matrix.inputs).sort(), [...(exactHistory ? descendantV2Inputs : descendantInputs)].sort())
 assert.equal(matrix.result, 'PASS'); assert.equal(matrix.runs.length, 8)
 for (const [file, expected] of Object.entries(matrix.inputs)) {
   assert.ok(!file.includes('..') && !path.isAbsolute(file))
@@ -32,6 +41,8 @@ for (const row of matrix.runs) {
   assert.equal(row.report.file, `${row.name}/observations.json`); assert.equal(row.log.file, `${row.name}.log`)
   for (const item of [row.report, row.log]) { const bytes = fs.readFileSync(path.join(output, item.file)); assert.equal(bytes.length, item.bytes); assert.equal(sha(bytes), item.sha256) }
   const report = JSON.parse(fs.readFileSync(path.join(output, row.report.file)))
+  assert.equal(report.schema, exactHistory ? 'tpnil-descendant-storage-sync@2' : 'tpnil-descendant-storage-sync@1')
+  assert.deepEqual(report.projection, matrix.projection)
   assert.equal(report.configuration.source, row.source); assert.equal(report.configuration.destination, row.destination)
   assert.equal(report.identity, PrivateKey.fromHex(row.fixtureOwnerKey).toPublicKey().toString())
   assert.ok(!identities.has(report.identity)); identities.add(report.identity)
@@ -59,4 +70,4 @@ for (const row of matrix.runs) {
   else groups.set(key, projection)
 }
 assert.equal(groups.size, 4)
-console.log(JSON.stringify({ verified: true, result: 'PASS', directions: 4, freshExecutions: 8, independentIdentities: identities.size, assertions: 80, binarySha256: binarySha, sourceCommit: matrix.sourceCommit, claim: matrix.claim }, null, 2))
+console.log(JSON.stringify({ verified: true, result: 'PASS', ...(exactHistory ? { projection: matrix.projection } : {}), directions: 4, freshExecutions: 8, independentIdentities: identities.size, assertions: 80, binarySha256: binarySha, sourceCommit: matrix.sourceCommit, claim: matrix.claim }, null, 2))

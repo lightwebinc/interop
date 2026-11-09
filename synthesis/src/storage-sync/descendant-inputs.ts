@@ -31,3 +31,12 @@ export const descendantInputs = [
   'scripts/run-descendant-storage-matrix.mjs',
   'scripts/verify-descendant-storage-matrix.mjs'
 ] as const
+
+/** V1's admitted inventory stays fixed; v2 adds its complete policy closure. */
+export const descendantV2Inputs = [...descendantInputs,
+  'synthesis/src/storage-sync/history-projection.ts',
+  'synthesis/src/storage-sync/projection-profile.ts',
+  'synthesis/src/storage-sync/descendant-profile.ts',
+  'programs/ISI-3/profiles/storage-http-sync-2.0.0/profile.json',
+  'programs/ISI-3/profiles/descendant-storage-2.0.0/profile.json'
+] as const

@@ -9,6 +9,8 @@ import type { GoServiceOptions } from '../wallet-lab/go-services.js'
 import { createFixtureWallet } from './fixture-wallet.js'
 import { ObservedStorageClient, readDataset, type Implementation, type Transcript } from './run.js'
 import type { Dataset } from './projection.js'
+import { descendantProjectionV2Binding } from './descendant-profile.js'
+import { storageProjectionV2Runtime } from './projection-profile.js'
 
 const root = path.resolve(import.meta.dirname, '../../..')
 const fixture = JSON.parse(fs.readFileSync(path.join(root, 'fixtures/teranode/wab-funding-v1.json'), 'utf8'))
@@ -62,8 +64,10 @@ class DirectObservedClient extends StorageClient {
 }
 
 export async function runDescendantFundingSync(options: {
-  source: Implementation; destination: Implementation; output: string; go?: GoServiceOptions; typescriptDescendantExport?: boolean; ownerKeyHex?: string
+  source: Implementation; destination: Implementation; output: string; go?: GoServiceOptions; typescriptDescendantExport?: boolean; ownerKeyHex?: string; exactHistory?: boolean
 }): Promise<any> {
+  const projectionRuntime = options.exactHistory ? storageProjectionV2Runtime() : undefined
+  const projection = options.exactHistory ? descendantProjectionV2Binding() : undefined
   assert.ok(!fs.existsSync(options.output), 'Evidence output already exists')
   fs.mkdirSync(options.output, { recursive: true })
   const keyHex = options.ownerKeyHex ?? '79'.repeat(32)
@@ -73,7 +77,7 @@ export async function runDescendantFundingSync(options: {
   const source = new ControlledWalletServices({ webroot: directory, components: { storage: options.source }, walletStorageRootKeyHex: '11'.repeat(32), go: options.go, typescriptDescendantExport: options.typescriptDescendantExport })
   const destination = new ControlledWalletServices({ webroot: directory, components: { storage: options.destination }, walletStorageRootKeyHex: '12'.repeat(32), go: options.go, typescriptDescendantExport: options.typescriptDescendantExport })
   const transcript: Transcript[] = [], walletCalls: any[] = []
-  const report: any = { schema: 'tpnil-descendant-storage-sync@1', claim: 'ENGINEERING_OBSERVATION_ONLY', startedAt: new Date().toISOString(), configuration: { source: options.source, destination: options.destination }, fixture, task, basket, mediator: 'unadapted upstream StorageClient with actual WalletStorageManager.syncToWriter', transcript, walletCalls, datasetReads: {}, assertions: [], cleanup: {} }
+  const report: any = { schema: options.exactHistory ? 'tpnil-descendant-storage-sync@2' : 'tpnil-descendant-storage-sync@1', ...(options.exactHistory ? { projection, projectionRuntime } : {}), claim: 'ENGINEERING_OBSERVATION_ONLY', startedAt: new Date().toISOString(), configuration: { source: options.source, destination: options.destination }, fixture, task, basket, mediator: 'unadapted upstream StorageClient with actual WalletStorageManager.syncToWriter', transcript, walletCalls, datasetReads: {}, assertions: [], cleanup: {} }
   const check = (id: string, passed: boolean, detail: string) => report.assertions.push({ id, result: passed ? 'PASS' : 'FAIL', detail })
   let wallet: Wallet | undefined, fresh: Wallet | undefined, foreign: Wallet | undefined, unavailable = false
   const call = async (client: Wallet, stage: string, method: string, args: any) => {

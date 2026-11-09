@@ -31,13 +31,14 @@ function member(directory, name) {
 
 export function verifyDescendantArchive(directory, { root = repository, semantic = false } = {}) {
   const provenance = read(path.join(directory, 'provenance.json'))
-  assert.equal(provenance.schema, 'tpnil-descendant-storage-ci-archive@1')
+  const exactHistory = provenance.schema === 'tpnil-descendant-storage-ci-archive@2'
+  assert.equal(provenance.schema, exactHistory ? 'tpnil-descendant-storage-ci-archive@2' : 'tpnil-descendant-storage-ci-archive@1')
   assert.match(provenance.source, /^[a-f0-9]{40}$/)
   assert.equal(new Set(provenance.files.map(row => row.path)).size, provenance.files.length)
   assert.deepEqual(provenance.files.map(row => safe(row.path)).sort(), files(directory).filter(name => name !== 'provenance.json'))
   for (const row of provenance.files) assert.deepEqual(member(directory, row.path), row)
   const qualification = read(path.join(directory, 'qualification.json'))
-  assert.equal(qualification.schema, 'tpnil-descendant-storage-ci-qualification@1')
+  assert.equal(qualification.schema, exactHistory ? 'tpnil-descendant-storage-ci-qualification@2' : 'tpnil-descendant-storage-ci-qualification@1')
   assert.equal(qualification.claim, 'ENGINEERING_REFERENCE_STORAGE_QUALIFICATION_ONLY')
   assert.equal(qualification.nativeQualification, false)
   assert.equal(qualification.source, provenance.source)
@@ -56,6 +57,16 @@ export function verifyDescendantArchive(directory, { root = repository, semantic
     extractZipSafely(fs.readFileSync(path.join(directory, zip.path)), output)
     assert.deepEqual(qualification.members.slice().sort((a, b) => a.path.localeCompare(b.path)), files(output).map(name => member(output, name)).sort((a, b) => a.path.localeCompare(b.path)))
     const matrix = read(path.join(output, 'matrix.json'))
+    assert.equal(matrix.schema, exactHistory ? 'tpnil-descendant-storage-matrix@2' : 'tpnil-descendant-storage-matrix@1')
+    if (exactHistory) {
+      assert.deepEqual(qualification.projection, matrix.projection)
+      assert.equal(matrix.projection.profile, 'ISI-3/descendant-storage@2.0.0')
+      assert.equal(matrix.projection.projectionPolicy, 'tpnil-storage-history-projection@2.0.0')
+      const profile = 'programs/ISI-3/profiles/descendant-storage-2.0.0/profile.json'
+      const storageProfile = 'programs/ISI-3/profiles/storage-http-sync-2.0.0/profile.json'
+      assert.equal(matrix.projection.projectionManifestSha256, member(output, `source-inputs/${profile}`).sha256)
+      assert.equal(matrix.projection.storageProjection.projectionManifestSha256, member(output, `source-inputs/${storageProfile}`).sha256)
+    } else { assert.equal(qualification.projection, undefined); assert.equal(matrix.projection, undefined) }
     assert.equal(matrix.sourceCommit, provenance.source); assert.equal(matrix.sourceDirty, false)
     assert.equal(matrix.result, 'PASS'); assert.equal(matrix.runs.length, 8)
     assert.deepEqual(qualification.inputs, matrix.inputs)
@@ -69,13 +80,15 @@ export function verifyDescendantArchive(directory, { root = repository, semantic
     assert.equal(new Set(qualification.runs.map(row => `${row.source}-to-${row.destination}`)).size, 4)
     for (const row of matrix.runs) {
       const report = read(path.join(output, safe(row.report.file)))
+      assert.equal(report.schema, exactHistory ? 'tpnil-descendant-storage-sync@2' : 'tpnil-descendant-storage-sync@1')
+      assert.deepEqual(report.projection, matrix.projection)
       for (const component of Object.values(report.components)) if (component.components.storage === 'go') assert.equal(component.go.binarySha256, qualification.binarySha256)
     }
     if (semantic) {
       // Use exact retained Git source, never rewrite the current checkout or
       // disable the matrix verifier's source-byte checks. No service starts.
       const source = path.join(temporary, 'source'); fs.mkdirSync(source)
-      const paths = ['package.json', 'scripts', 'synthesis', 'infra', 'fixtures']
+      const paths = ['package.json', 'scripts', 'synthesis', 'infra', 'fixtures', ...(exactHistory ? ['programs'] : [])]
       const tree = execFileSync('git', ['ls-tree', '-r', '-z', provenance.source, '--', ...paths], { cwd: root }).toString().split('\0').filter(Boolean)
       for (const row of tree) {
         assert.match(row, /^100(?:644|755) blob [a-f0-9]{40}\t/, 'Frozen replay rejects links or non-file Git objects')
@@ -89,7 +102,7 @@ export function verifyDescendantArchive(directory, { root = repository, semantic
       }
       assert.equal(hash(fs.readFileSync(path.join(root, 'synthesis/package-lock.json'))), hash(fs.readFileSync(path.join(source, 'synthesis/package-lock.json'))), 'Install the frozen synthesis dependencies before replay')
       fs.symlinkSync(path.join(root, 'synthesis/node_modules'), path.join(source, 'synthesis/node_modules'), 'dir')
-      const replay = spawnSync(process.execPath, [path.join(source, 'scripts/verify-descendant-storage-matrix.mjs'), output], { cwd: source, encoding: 'utf8', timeout: 120000, maxBuffer: 8 * 1024 * 1024 })
+      const replay = spawnSync(process.execPath, [path.join(source, 'scripts/verify-descendant-storage-matrix.mjs'), output, ...(exactHistory ? ['--exact-history'] : [])], { cwd: source, encoding: 'utf8', timeout: 120000, maxBuffer: 8 * 1024 * 1024 })
       assert.equal(replay.status, 0, `${replay.stderr}\n${replay.stdout}`)
     }
     return { source: provenance.source, workflowRun: provenance.workflowRun, members: qualification.members.length, assertions: qualification.assertions, semantic }
