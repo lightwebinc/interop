@@ -66,7 +66,8 @@ export interface NativeScenarioContext {
 }
 
 export interface YoursRunOptions {
-  integratedProfile?: 'ITCVE-1@1.3.0' | 'ITCVE-1@1.4.0' | 'ITCVE-1@1.5.0'
+  shutdownSubmissionPolicy?: 'tpnil-native-shutdown-submissions@1.0.0'
+  integratedProfile?: 'ITCVE-1@1.3.0' | 'ITCVE-1@1.4.0' | 'ITCVE-1@1.5.0' | 'ITCVE-1@2.0.0'
   go?: import('./go-services.js').GoServiceOptions
   prepareScenario?: (context: NativeScenarioContext) => Promise<void>
   additionalScenario?: (context: NativeScenarioContext) => Promise<void | { vectors: VectorResult[] }>
@@ -153,6 +154,10 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
   const evidence = new EvidenceBundle(outputDirectory)
   if (options.go?.storageSyncPatch && !['ITCVE-1@1.3.0', 'ITCVE-1@1.4.0', 'ITCVE-1@1.5.0'].includes(options.integratedProfile ?? '')) throw new Error('Patched native services require the prospective integrated profile')
   if (options.go?.terminalRejectionReceipts && !['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0'].includes(options.integratedProfile ?? '')) throw new Error('Terminal submission receipts require the prospective conformance profile')
+  if (options.shutdownSubmissionPolicy && options.shutdownSubmissionPolicy !== 'tpnil-native-shutdown-submissions@1.0.0') throw new Error('Unknown shutdown submission policy')
+  if (options.shutdownSubmissionPolicy && options.integratedProfile !== 'ITCVE-1@2.0.0') throw new Error('Shutdown submission receipts require prospective coverage mode')
+  let submissionClosure: ReturnType<ControlledWalletServices['observeSubmissionClosure']> | undefined
+  let initialSubmissionCaptureAt: string | undefined
   const services = new ControlledWalletServices({ webroot, components: options.components, go: options.go })
   const permissions: PermissionObservation[] = []
   const consoleErrors: string[] = []
@@ -731,7 +736,11 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
 
     if (options.nativeQualification !== undefined) {
       evidence.addJson('native-transactions.json', await services.nativeTransactions())
-      evidence.addJson('native-submissions.json', services.submissions.map(item => ({ txid: item.txid, verdict: item.verdict, beefHex: Buffer.from(item.bytes).toString('hex') })))
+      if (options.shutdownSubmissionPolicy) {
+        submissionClosure = services.observeSubmissionClosure()
+        initialSubmissionCaptureAt = new Date().toISOString()
+      }
+      evidence.addJson('native-submissions.json', submissionClosure?.initialSubmissions ?? services.submissions.map(item => ({ txid: item.txid, verdict: item.verdict, beefHex: Buffer.from(item.bytes).toString('hex') })))
     }
     evidence.addJson('routes.json', services.routes)
     evidence.addJson('console-errors.json', consoleErrors)
@@ -803,9 +812,20 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
   } finally {
     if (promptPoll !== undefined) clearInterval(promptPoll)
     const cleanupFailures: unknown[] = []
-    try { await context?.close() } catch (error) { cleanupFailures.push(error) }
-    try { await services.close() } catch (error) { cleanupFailures.push(error) }
-    try { fs.rmSync(profileDirectory, { recursive: true, force: true }) } catch (error) { cleanupFailures.push(error) }
+    if (options.shutdownSubmissionPolicy) {
+      submissionClosure ??= services.observeSubmissionClosure()
+      initialSubmissionCaptureAt ??= new Date().toISOString()
+      const { closeWithSubmissionReceipt } = await import('./native/shutdown-submissions.js')
+      const closed = await closeWithSubmissionReceipt({ directory: outputDirectory, observer: submissionClosure, initialCapturedAt: initialSubmissionCaptureAt,
+        closeBrowser: async () => { if (!context) throw new Error('Native browser context is absent'); await context.close() },
+        closeServices: async () => { await services.close() },
+        removeProfile: () => fs.rmSync(profileDirectory, { recursive: true, force: true }) })
+      cleanupFailures.push(...closed.errors)
+    } else {
+      try { await context?.close() } catch (error) { cleanupFailures.push(error) }
+      try { await services.close() } catch (error) { cleanupFailures.push(error) }
+      try { fs.rmSync(profileDirectory, { recursive: true, force: true }) } catch (error) { cleanupFailures.push(error) }
+    }
     if (options.nativeQualification !== undefined && cleanupFailures.length > 0) throw new AggregateError(cleanupFailures, 'Native wallet cleanup failed')
   }
 }

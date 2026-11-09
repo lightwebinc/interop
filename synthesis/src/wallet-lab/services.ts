@@ -239,6 +239,24 @@ export class ControlledWalletServices {
 
   get submissions(): SubmittedTransaction[] { return this.ownedStorageCounterparts.size === 0 ? this.ownSubmissions : [...this.ownSubmissions, ...[...this.ownedStorageCounterparts.values()].flatMap(service => service.submissions)] }
 
+  /** Read-only prospective observer. Retained provider references survive close()
+   * clearing ownership maps; each provider's actual receipt order is preserved. */
+  observeSubmissionClosure() {
+    const providers: Array<{ id: string; rows: SubmittedTransaction[] }> = []
+    const collect = (service: ControlledWalletServices, id: string) => {
+      providers.push({ id, rows: service.ownSubmissions })
+      for (const [host, counterpart] of service.ownedStorageCounterparts) collect(counterpart, `${id}/${host}`)
+    }
+    collect(this, 'source')
+    const snapshot = (row: SubmittedTransaction) => ({ txid: row.txid, verdict: row.verdict, beefHex: Buffer.from(row.bytes).toString('hex') })
+    const initialProviders = providers.map(provider => ({ id: provider.id, submissions: provider.rows.map(snapshot) }))
+    return {
+      initialProviders,
+      initialSubmissions: initialProviders.flatMap(provider => provider.submissions),
+      readFinalProviders: () => providers.map(provider => ({ id: provider.id, submissions: provider.rows.map(snapshot) }))
+    }
+  }
+
   recordSubmission(submission: SubmittedTransaction): void { this.ownSubmissions.push(submission) }
 
   get storageCounterpartIdentities(): Record<string, unknown> {
