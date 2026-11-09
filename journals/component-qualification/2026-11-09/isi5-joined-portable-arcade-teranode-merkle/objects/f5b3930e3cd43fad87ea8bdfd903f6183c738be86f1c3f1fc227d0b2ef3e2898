@@ -13,7 +13,7 @@
     "bsv-broadcaster-compose": "e8bc97a5e3c971213a0a0c2933c224816ea7329d",
     "merkle-service": "ghcr.io/bsv-blockchain/merkle-service:v0.6.3@sha256:a399bb859889a06073ec5db92d9f7cd9fc680a95310c9f6c6fa5e6c4a9f20905 sha256:dc7afa31a29b3dfb1f0e38e5b746fa8ab0a3d68e292de2f02213af6676df05b0",
     "retry-endpoint": "ghcr.io/lightwebinc/retry-endpoint:1.16.1@sha256:b77cfabe14526c9b28b6f5afada87816073bd0b77a7961f563cd4a1b051b3a52 sha256:7280a7906a0124c9d3cb1170c82c18990ff230d54200d8a16b94ecccf945fe31",
-    "shard-listener": "ghcr.io/lightwebinc/shard-listener:1.36.0@sha256:84c2681b16891b862357d796881635ee0e90276992717607e9490ea426086d81 sha256:7d5521fbb17e7d90d2ccea5740ecd71e9b11507361beeaba03e26d0024b3c28b",
+    "shard-listener": "ghcr.io/lightwebinc/shard-listener:1.36.1@sha256:632fca40b9a1b3f0fe2bf05d871a1a29eed830a59ea2bf2f557f87b2cd37a8b2 sha256:eb0a54f9f895a6b1a6adece2a6af59fce859e7dcfc70e47df4f3d19eeb171f2b",
     "shard-proxy": "ghcr.io/lightwebinc/shard-proxy:1.43.1@sha256:aa8e0ea7500fa8959c2ee3ff9083b0b2d929f0f53116f04f5face6e74b78ddf0 sha256:72a5d1072b993d7e0645f8b5f861496f360378e6dcef91283f72f3b243e70fca",
     "teranode": "ghcr.io/bsv-blockchain/teranode:v0.16.0@sha256:8ff56f976ef406309c49ff7e6c41e193d9dca7537bfe93976ec07b52c6d3a220 sha256:e6474360de07c6716770825adbaedf95970815a728c7a8c3576d4aec56299cf6",
     "teranode-bridge": "ghcr.io/lightwebinc/teranode-bridge:0.13.0@sha256:e53eb55db7011dc60612513fe75e3ca6d2a4ab6488ba5dc07d3dcb5508598631 sha256:833acad32ecd1f93275ae810f19e7238c75d924f72c7706a59411efa35fd4a9d",

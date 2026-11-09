@@ -206,36 +206,36 @@ node bin/tpnil.mjs run-component-qualification \
 ### Joined plans
 
 The `joined` configuration of ITCVE-2 runs from
-[`tpnil/joined`](https://github.com/lightwebinc/multicast-test/tree/ffafe45bda8921a5cfc6cf246adc9ad618e26b8e/tpnil/joined) in `lightwebinc/multicast-test` at commit
-`ffafe45bda8921a5cfc6cf246adc9ad618e26b8e`. Its fixtures come from the run's own regtest chain, so `qualify.sh`
+[`tpnil/joined`](https://github.com/lightwebinc/multicast-test/tree/4b150b526236b5ad2ad7e80e1c3efdb9ea67683b/tpnil/joined) in `lightwebinc/multicast-test` at commit
+`4b150b526236b5ad2ad7e80e1c3efdb9ea67683b`. Its fixtures come from the run's own regtest chain, so `qualify.sh`
 writes the plans for each run, names the fixtures as digest-bound inputs, runs
 them with this repository's runner and verifies every bundle offline. Each
 journal retains its plan.
 
 | Plan | ISI-5 | Source | What it requires |
 | --- | --- | --- | --- |
-| `ISI5-JOINED-PORTABLE-ARCADE-TERANODE-MERKLE` | V008, V009, ready condition | arcade-bridge | Broadcaster's only datahub is the facade; a transaction reaches Teranode through the fabric and is mined; the block's objects reach Merkle Service through the fabric only; Broadcaster's proof matches the block header |
+| `ISI5-JOINED-PORTABLE-ARCADE-TERANODE-MERKLE` | V008, V009, ready condition | arcade-bridge | Broadcaster's only datahub is the facade; a transaction reaches Teranode through the fabric and is mined; a capture of the transaction lane on the fabric network holds exactly the fixture's Extended Format bytes; the subtree and block the proof bridge serves Merkle Service, which it holds only from its lanes, equal the processor's bytes; the block's objects reach Merkle Service through the fabric only; Broadcaster's proof matches the block header |
 | `ISI5-JOINED-PORTABLE-V010-REPAIR-UNDER-LOSS` | V010 | multicast-test | After a lossless warmup, under a declared loss on IPv6 UDP into the delivery edge and through a lossless trailer, every gap is detected and repaired or reported, each transaction crosses its lane once, and the submission and proof paths complete |
 | `ISI5-JOINED-PORTABLE-V011-OVERLAY-DELIVERY` | V011 | overlay-bridge | An object submitted to one host is delivered over the BEEF object plane and admitted by the other; both hosts answer the same lookup; a repeat creates no second admission |
 | `ISI5-JOINED-PORTABLE-STANDING-RESTORE` | Restore condition | arcade-bridge | Broadcaster's discovery and Merkle Service's own libp2p source return |
 
 ```sh
 git clone https://github.com/lightwebinc/multicast-test.git ws/multicast-test
-git -C ws/multicast-test checkout ffafe45bda8921a5cfc6cf246adc9ad618e26b8e
+git -C ws/multicast-test checkout 4b150b526236b5ad2ad7e80e1c3efdb9ea67683b
 cd ws/multicast-test
 tpnil/joined/processor/up.sh "$WORK"
 tpnil/joined/broadcaster/up.sh standing "$WORK"
 tpnil/joined/fabric/up.sh "$WORK"
 tpnil/joined/overlay/up.sh "$WORK"
 RUNNER_ID=independent-operator \
-MULTICAST_TEST_COMMIT=ffafe45bda8921a5cfc6cf246adc9ad618e26b8e \
+MULTICAST_TEST_COMMIT=4b150b526236b5ad2ad7e80e1c3efdb9ea67683b \
 OVERLAY_BRIDGE_COMMIT=56c030a707251ef5f5cae8fd83e63274f49bb932 \
   tpnil/joined/qualify.sh "$WORK"
 ```
 
-Requirements: Linux/amd64, Docker with Compose, about 12 GB of free memory,
-passwordless `sudo` (V010 applies its loss with `tc`), Node.js 24 and
-Go 1.27.3.
+Requirements: Linux/amd64, Docker with Compose, `tcpdump`, about 12 GB of free
+memory, passwordless `sudo` (V010 applies its loss with `tc`, and the joined
+path captures the transaction lane with `tcpdump`), Node.js 24 and Go 1.27.3.
 
 ### Delivery-edge repair
 

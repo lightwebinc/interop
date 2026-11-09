@@ -278,11 +278,11 @@
         "delivered transaction bytes",
         "block and subtree listing",
         "ISI5-JOINED-PORTABLE-ARCADE-TERANODE-MERKLE component qualification",
-        "ISI5-JOINED-PORTABLE-STANDING-RESTORE component qualification"
+        "ISI5-JOINED-PORTABLE-STANDING-RESTORE component qualification",
+        "transaction lane capture and lane object comparison"
       ],
       "blockers": [
-        "Independent oracle for each assertion; retained runs use the fabric publisher's own checks",
-        "Byte-identity observation on the transaction lane"
+        "Independent oracle for each assertion; retained runs use the fabric publisher's own checks"
       ]
     },
     {
@@ -316,11 +316,11 @@
         "processor header",
         "header store record",
         "ISI5-JOINED-PORTABLE-ARCADE-TERANODE-MERKLE component qualification",
-        "ISI5-JOINED-PORTABLE-STANDING-RESTORE component qualification"
+        "ISI5-JOINED-PORTABLE-STANDING-RESTORE component qualification",
+        "subtree and block bytes from the proof bridge and the processor"
       ],
       "blockers": [
-        "Independent oracle for each assertion; retained runs use the fabric publisher's own checks",
-        "Byte-identity observation on the subtree and block lanes"
+        "Independent oracle for each assertion; retained runs use the fabric publisher's own checks"
       ]
     },
     {
