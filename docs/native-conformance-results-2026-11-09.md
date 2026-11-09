@@ -1,9 +1,9 @@
 # Native conformance evaluation — November 9, 2026
 
-The prospective [ITCVE-1 1.4.0](../itcves/ITCVE-1/1.4.0/README.md) profile
+The prospective [ITCVE-1 2.0.0](../itcves/ITCVE-1/2.0.0/README.md) profile
 evaluates unchanged Yours Wallet 5.1.0 with Go Overlay Services, Go ChainTracks
-and Go Wallet Storage under [ISI-4 2.0.0](../programs/ISI-4/2.0.0/README.md).
-The [frozen plan](../infra/native/conformance/plan.json) requires two fresh
+and Go Wallet Storage under [ISI-4 4.0.0](../programs/ISI-4/4.0.0/README.md).
+The [frozen plan](../infra/native/conformance/plan-coverage-closure.json) requires two fresh
 Linux/amd64 native Chromium repetitions, a 900-second bound per repetition,
 the original wallet and compiled ToDo artifacts, controlled mined funding,
 kernel network isolation, browser sandboxing and complete cleanup.
@@ -30,6 +30,9 @@ establishes complete BRC-100 conformance or certification.
 | [Native 42690318194](https://github.com/p2ppsr/interop/actions/runs/42690318194) | Both workers complete and clean up; original permissions, rejection/recovery and all 77 integrated checks independently pass. Source-off cold task recovery works. The parent rejects portability UI casing and unproven signed redemption timing. [Original artifact and independent diagnosis](../journals/integrated-native-attempts/2026-11-09/42690318194/README.md) retain the failed qualification and no Rust execution. |
 | [Foundation 42697115971](https://github.com/p2ppsr/interop/actions/runs/42697115971) | All three jobs pass on frozen `cc3cf75`: 85 core, 250 synthesis with eight gated skips, five Python, 11 Go, three transport, 14 service and one Rust test; audit has zero findings. [Generic component evidence](../journals/integrated-component-qualification/2026-11-09/42697115971/README.md) independently replays 504 PASS / 6 FAIL across 22 executions. [Descendant storage evidence](../journals/descendant-storage-qualification/2026-11-09/42697115971/README.md) independently replays 80 PASS across eight fresh runs; all 187 original members remain unchanged. |
 | [Native 42697283161](https://github.com/p2ppsr/interop/actions/runs/42697283161) | Both workers complete on frozen `cc3cf75`, but three permission outcomes differ because native popup closure races the click observer. [Original archive and full independent review](../journals/integrated-native-attempts/2026-11-09/42697283161/README.md) retain 177 PASS / 102 FAIL / 1 BLOCKED and 180 PASS / 99 FAIL / 1 BLOCKED. Both portability scenarios pass 9/9; all 77 integrated checks pass per repetition. No Rust execution or qualification is claimed. |
+| [Foundation 42705007019](https://github.com/p2ppsr/interop/actions/runs/42705007019) | Two cryptographic mutation tests exceeded their default five-second deadline; a separate actual TS storage fixture failed with `EADDRINUSE`. Neither component matrix executed. [Original failure archive](../journals/integrated-component-attempts/2026-11-09/42705007019/README.md) retains both failures, all logs and the sole Go artifact. |
+| [Native 42705211560](https://github.com/p2ppsr/interop/actions/runs/42705211560) | Canceled during image preparation after the listener-allocation defect was identified. Both native execution steps were skipped and no wallet artifact exists. [Cancellation archive](../journals/native-conformance-attempts/2026-11-09/42705211560/README.md) retains all thirteen original log members and API receipts; no runtime qualification is issued. |
+| [Foundation 42706097914](https://github.com/p2ppsr/interop/actions/runs/42706097914) | Offline-core and Go-components pass; actual TS/Go shutdown tests pass. All 22 component executions ran, retaining 502 PASS / 8 FAIL: six unchanged Go findings and two TS-to-Go storage predicates whose strict timestamp-string comparison differs on equivalent `.660Z`/`.66Z` values. [Original archive and independent replay](../journals/integrated-component-attempts/2026-11-09/42706097914/README.md) preserve the repeatability failure. The descendant matrix did not execute. |
 
 In native 42667035861 each worker reports V001–V005 PASS and V006–V008 FAIL.
 Independent child review confirms permission 8 PASS and clause 132 PASS / 98 FAIL /
@@ -126,8 +129,39 @@ The additional native clause blocker has independent transaction proof:
 reproduces the stale returned TXID exactly. A subsequent call using that returned
 outpoint cannot find its output. The [diagnostic receipt](../journals/integrated-native-attempts/2026-11-09/42667035861/independent-review/no-send-change.json)
 binds both repetitions, raw signed bytes, independent hashes and unchanged
-wallet source. The invalid-input test remains BLOCKED because its positive
-control fails; the laboratory does not rewrite the native return value.
+wallet source. In the original 1.4 oracle3 observations, the invalid-input test remains
+BLOCKED because its positive control fails; the laboratory does not rewrite
+the native return value. The later oracle4 caller fixture and separate returned-
+outpoint predicate are reported independently above.
+
+
+Foundation 42705007019 retains 287 synthesis PASS, two timeout failures and
+nine gated skips. The bounded cryptographic mutation-test deadline is now
+15 seconds with unchanged assertions. Its separate listener startup failure
+exposed a probe/release/rebind race. Controlled HTTP, Go forwarding, TS storage
+and native proxy listeners now atomically acquire their actual ports before
+publishing ready endpoints. Restart preserves the published port and fails
+explicitly if it is occupied. Nineteen focused checks pass, including concurrent
+actual TS/Go services, authentication, routing, restart, occupied-port failure,
+post-close refusal and partial-startup cleanup. Native 42705211560 was canceled
+before wallet execution so this runtime correction requires fresh qualification.
+
+Foundation 42706097914 passes 289 synthesis tests with nine gated skips,
+90 core tests, five Python tests and the actual TS/Go shutdown checks. Its two
+storage differences concern only
+`provenTxReqs[0].history.notes[1].when`: TypeScript retains
+`2026-11-09T21:54:52.660Z`, while pinned Go `time.Time` serializes
+`2026-11-09T21:54:52.66Z`. The original strict-string predicates remain FAIL;
+all other dataset relationships, transaction bytes, proofs and certificate
+removal agree. Fourteen other child oracles independently pass. No descendant
+matrix result is inferred from the skipped step.
+
+A prospective, separately versioned component policy compares these history
+instants without discarding sub-millisecond precision. It changes only the
+specified typed timestamp field, rejects invalid calendar/time strings and
+preserves all significant fractional digits and unrelated metadata. Historical
+storage and descendant policies retain their original source and outcomes.
+The native 2.0 plan and all ten acceptance inputs remain unchanged.
 
 ## Corrected laboratory boundaries
 
@@ -342,7 +376,8 @@ Install the exact locked dependencies and service binaries using the
 [integrated preparation commands](integrated-lab-results-2026-11-06.md).
 The `ISI-4 Yours Wallet controlled-service run` workflow accepts
 `integrated-native-conformance` for the historical 1.4 plan and
-`integrated-native-conformance-coverage` for the separately frozen 1.5 plan.
+`integrated-native-conformance-coverage` for the separately frozen 1.5 plan, and
+`integrated-native-conformance-closure` for the separately frozen 2.0 plan.
 It builds the Linux/amd64 closure on its
 Ubuntu runner. `node scripts/verify-native-integrated.mjs OUTPUT` independently
 checks retained native evidence against its recorded source and frozen plan.
@@ -371,11 +406,14 @@ copies the new source-bound Go binary/manifest only into the prospective image.
 The 1.4 plan remains `YOURS-5.1.0-GO-ITCVE-1.4.0-CONFORMANCE-ANCESTRY-CLOSURE`.
 The optional 1.5 plan is
 [`YOURS-5.1.0-GO-ITCVE-1.5.0-CONFORMANCE-COVERAGE`](../infra/native/conformance/plan-coverage.json).
-Its engineering archive guards run without starting services:
+The 2.0 plan is
+[`YOURS-5.1.0-GO-ITCVE-1-V2.0.0-CONFORMANCE-CLOSURE`](../infra/native/conformance/plan-coverage-closure.json).
+The engineering archive guards run without starting services:
 
 ```sh
 node scripts/verify-descendant-storage-archives.mjs --semantic
 node scripts/verify-native-permission-lifecycle-archive.mjs --semantic
+node scripts/verify-native-permission-click-archive.mjs --semantic
 node scripts/verify-native-portability-archive.mjs
 node journals/native-nosend-change/2026-11-09/oracle4-preflight/replay.mjs
 ```

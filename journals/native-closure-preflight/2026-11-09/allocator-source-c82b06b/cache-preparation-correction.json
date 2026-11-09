@@ -1,0 +1,12 @@
+{
+  "claim": "LOCAL_SNAPSHOT_PREPARATION_ERROR",
+  "source": "c82b06b8d6ba657e3c973f87b58416493b0433e6",
+  "originalLog": "synthesis.log",
+  "result": {
+    "PASS": 291,
+    "FAIL": 2,
+    "SKIP": 8
+  },
+  "cause": "Frozen source cache linked the pinned Go binary but omitted its required .json build manifest; both live Go tests failed ENOENT before Go execution.",
+  "correction": "Link unchanged pinned build manifests and rerun the two affected suites; no source or oracle change."
+}
