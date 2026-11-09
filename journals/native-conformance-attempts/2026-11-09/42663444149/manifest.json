@@ -1,0 +1,93 @@
+{
+  "schema": "tpnil-native-preparation-attempt@1",
+  "runId": 42663444149,
+  "sourceCommit": "8f23d1c638fd97d176e12c6d634e65401c03e82f",
+  "result": "WORKER_PREPARATION_FAILED",
+  "nativeWalletExecuted": false,
+  "failure": {
+    "startedAt": "2026-11-09T17:25:21.608Z",
+    "endedAt": "2026-11-09T17:25:21.609Z",
+    "message": "EACCES: permission denied, open '/work/out/sut-artifacts/yours-wallet-v5.1.0/pw-v5.1.0.zip'"
+  },
+  "cleanup": {
+    "id": "9c3e772d88b2e9865dcfdfb9073046bbc93e66470af39b1ba3beff68f34ecce2",
+    "removed": true,
+    "completedAt": "2026-11-09T17:25:21.714Z"
+  },
+  "hostUserns": {
+    "before": "1",
+    "active": "0",
+    "restored": "1",
+    "restoredSuccessfully": true
+  },
+  "artifactMembers": [
+    {
+      "path": "host-repetition-1-after.json",
+      "bytes": 1218,
+      "sha256": "a1d90560d98378ea057daa863e3ef84a0c17d6fa62ccbb40fda9e02f8f3bd431"
+    },
+    {
+      "path": "host-repetition-1-before.json",
+      "bytes": 1137,
+      "sha256": "af496bbf3f8b131b2d6f9207ad3e391c1a8d2074ce07c63b4666e456bf3f62c7"
+    },
+    {
+      "path": "host-repetition-1-cleanup.json",
+      "bytes": 143,
+      "sha256": "e7e3221214458ee6a7ab6c2eac20b440368d2d8c7cb409a1f3a65f01e5d0c2f7"
+    },
+    {
+      "path": "host-userns.json",
+      "bytes": 88,
+      "sha256": "f8fc484bdb15798dd41f7f7e2d8b9b440371acc6e21f632e955b5741169ebabd"
+    },
+    {
+      "path": "repetition-1/console.log",
+      "bytes": 891,
+      "sha256": "fddfd468989ddb37099fe99279a6c62e98a0dfb0a4658dd0e6755019820807bb"
+    },
+    {
+      "path": "repetition-1/worker-failure.json",
+      "bytes": 195,
+      "sha256": "c8802067f457bef45abba29414c6b6d55213b084512f8912e494493ae8a1dac8"
+    },
+    {
+      "path": "run-lock.json",
+      "bytes": 7722,
+      "sha256": "d76e5d2e650d89c57e020553590538d70cb843f5a518616a535674fc74f90c10"
+    }
+  ],
+  "recovery": "Digest-verified public wallet archive receives mode0644 after atomic cache installation. Reproduced the original0600 cache locally, then verified preparation restored0644 without changing13513123-byte artifact digest.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1119,
+      "sha256": "cc3751f22e76e8a59ede74403ee80d22bf6655fd61ae67e718bce4ce2d4c841e"
+    },
+    {
+      "path": "artifacts.json",
+      "bytes": 750,
+      "sha256": "6091f1bef80027db290c1084183d3ff3cb43dfdde879612703ac84d5e9f22794"
+    },
+    {
+      "path": "jobs.json",
+      "bytes": 4736,
+      "sha256": "e0033f74245271cb11e2b4c169a9bb2e57ddee20ef5393333a2be6638e60d891"
+    },
+    {
+      "path": "logs.zip",
+      "bytes": 58997,
+      "sha256": "48147f8fec282fce033957403496b843d58ac5b78784256393964f5bf0307208"
+    },
+    {
+      "path": "native-go-yours-wallet-5.1.0.zip",
+      "bytes": 6664,
+      "sha256": "258fd709f4a19a1a17af99b2bc611d83e8814580a16af53e63facd0a81de42c0"
+    },
+    {
+      "path": "run.json",
+      "bytes": 11990,
+      "sha256": "c2f69c1dd28aeb5353dbe4052aeaefb51453fa6d013071466c593d351b480796"
+    }
+  ]
+}

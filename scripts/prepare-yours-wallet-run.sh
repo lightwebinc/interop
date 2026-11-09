@@ -25,6 +25,9 @@ if ! test -f "$wallet_archive" || test "$(shasum -a 256 "$wallet_archive" | awk 
   trap - EXIT
 fi
 test "$(shasum -a 256 "$wallet_archive" | awk '{print $1}')" = "$wallet_sha"
+# Docker copies this public, digest-verified artifact as root; the admitted
+# browser worker reads it as an unprivileged user.
+chmod 0644 "$wallet_archive"
 test "$(shasum -a 256 "$app_archive" | awk '{print $1}')" = "$app_sha"
 rm -rf "$wallet_root/unpacked" "$app_root"
 mkdir -p "$wallet_root/unpacked" "$app_root"
