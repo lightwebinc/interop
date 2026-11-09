@@ -2,10 +2,16 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import { createCipheriv, createDecipheriv, createHash, createHmac } from 'node:crypto'
 import { PrivateKey, ProtoWallet, Signature, Transaction } from '@bsv/sdk'
-import { clauseAssertionIds, clauseContract, clauseCoverageGaps, clauseCrypto, clauseOracleId, conforms, invalidClauses, semanticClauseIds, specifiedError } from './conformance-clauses-model.js'
+import { clauseAssertionIds, clauseOracle4AssertionIds, clauseContract, clauseCoverageGaps, clauseOracle4CoverageGaps, clauseCrypto, clauseOracleId, conforms, invalidClauses, semanticClauseIds, specifiedError } from './conformance-clauses-model.js'
+import { clauseOracle4Id, noSendChangeInputId, noSendChangeOutputId } from './conformance-nosend-change.js'
+import { verifyNoSendChangeFixture } from './verify-conformance-nosend-change.js'
 class ClauseBlocked extends Error {}
 
 export async function deriveClauseOutcomes(report: any) {
+  const oracle4 = report.oracle === clauseOracle4Id
+  const assertionIds = oracle4 ? clauseOracle4AssertionIds : clauseAssertionIds
+  let noSendChange: ReturnType<typeof verifyNoSendChangeFixture> | undefined
+  const changeFixture = () => noSendChange ??= verifyNoSendChangeFixture(report)
   const trace = report.trace as any[]
   const one = (id: string) => { const matches = trace.filter(r => r.id === id); assert.equal(matches.length, 1, `${id}: exactly one public call required`); return matches[0] }
   const result = (id: string) => { const row = one(id); assert.ok(!row.error, `${id}: ${row.error?.message}`); assert.ok(row.result !== undefined, `${id}: public result missing`); return row.result }
@@ -15,7 +21,7 @@ export async function deriveClauseOutcomes(report: any) {
     assert.equal(rows.length, 1); assert.ok(rows[0].observations.length > 0, `${method}: no successful response`)
     for (const row of rows[0].observations) assert.ok(conforms(schema.output, row.result), `${method}: returned value violates BRC100 return shape at source line${schema.line}`)
   }
-  for (const fixture of invalidClauses) predicates[fixture.id] = () => {
+  for (const fixture of invalidClauses) predicates[fixture.id] = async () => {
     const row = one(fixture.id)
     assert.equal(row.method, fixture.method)
     if (!conforms(clauseContract.methods[fixture.method]!.input, row.base)) throw new ClauseBlocked('Positive base is malformed; invalid-parameter rejection cannot establish the target clause')
@@ -30,6 +36,12 @@ export async function deriveClauseOutcomes(report: any) {
     assert.equal(row.result, undefined, `Invalid ${fixture.token} was accepted`)
     const control = row.controlId ? one(row.controlId) : undefined
     if (!control || control.result === undefined || control.error) throw new ClauseBlocked(`Positive control failed or was unavailable: ${JSON.stringify(control?.error ?? null)}`)
+    if (oracle4 && fixture.id === noSendChangeInputId) {
+      const anchor = await changeFixture()
+      assert.deepEqual(row.base.options.noSendChange, anchor.outpoints, 'The positive outpoint must match the independently observed signed action and public outputs')
+      const controlTx = Transaction.fromAtomicBEEF(control.result.signableTransaction.tx)
+      assert.ok(controlTx.inputs.some(input => anchor.outpoints.includes(`${input.sourceTXID ?? input.sourceTransaction?.id('hex')}.${input.sourceOutputIndex}`)), 'Positive control must actually use the observed change')
+    }
     if (row.controlUsesFreshReference) {
       assert.ok(['signAction', 'abortAction'].includes(fixture.method))
       const earlier = one(`setup.${fixture.id}`), fresh = one(`setup.fresh.${fixture.id}`)
@@ -40,7 +52,14 @@ export async function deriveClauseOutcomes(report: any) {
       assert.deepEqual({ ...control.args, reference: row.base.reference }, row.base)
     } else assert.deepEqual(control.args, row.base)
     assert.equal(control.method, fixture.method)
-    assert.ok(specifiedError(row.error, undefined, report.oracle === clauseOracleId), `Expected specified rejection for${fixture.token}; observed${JSON.stringify(row.error)}`)
+    assert.ok(specifiedError(row.error, undefined, report.oracle === clauseOracleId || oracle4), `Expected specified rejection for${fixture.token}; observed${JSON.stringify(row.error)}`)
+  }
+  if (oracle4) predicates[noSendChangeOutputId] = async () => {
+    const anchor = await changeFixture()
+    if (anchor.returned === undefined || Array.isArray(anchor.returned) && anchor.returned.length === 0) throw new ClauseBlocked('Optional noSendChange return is absent or empty; final-outpoint behavior was not exercised')
+    assert.ok(Array.isArray(anchor.returned), 'Returned noSendChange must be an outpoint array')
+    assert.equal(new Set(anchor.returned).size, anchor.returned.length, 'Returned change outpoints must be unique')
+    assert.ok(anchor.returned.every((outpoint: unknown) => typeof outpoint === 'string' && anchor.outpoints.includes(outpoint)), 'Returned noSendChange must identify final signed wallet-managed change outputs')
   }
   const peer = new ProtoWallet(PrivateKey.fromHex(clauseCrypto.peerKey))
   const peerIdentity = PrivateKey.fromHex(clauseCrypto.peerKey).toPublicKey().toString()
@@ -207,10 +226,10 @@ export async function deriveClauseOutcomes(report: any) {
     }
   }
   const outcomes: Array<{ id: string; result: 'PASS' | 'FAIL' | 'BLOCKED'; detail: string }> = []
-  for (const id of clauseAssertionIds) {
+  for (const id of assertionIds) {
     if (id === 'coverage.remaining-obligations') { outcomes.push({ id, result: 'BLOCKED', detail: 'Full R008 remains blocked by the explicitly retained obligations in coverageGaps.' }); continue }
     assert.ok(predicates[id], `No independent predicate for${id}`)
-    try { predicates[id]!(); outcomes.push({ id, result: 'PASS', detail: 'Independent predicate satisfied by retained public calls.' }) }
+    try { await predicates[id]!(); outcomes.push({ id, result: 'PASS', detail: 'Independent predicate satisfied by retained public calls.' }) }
     catch (error) { outcomes.push({ id, result: error instanceof ClauseBlocked ? 'BLOCKED' : 'FAIL', detail: error instanceof Error ? error.message : String(error) }) }
   }
   return outcomes
@@ -219,16 +238,17 @@ export async function deriveClauseOutcomes(report: any) {
 export async function verifyNativeClauseConformance(report: any, boundaryReport?: any) {
   assert.equal(report.schema, 'tpnil-native-brc100-clauses@2.0.0')
   assert.equal(report.claim, 'ENGINEERING_OBSERVATION_ONLY'); assert.ok(['unchanged-native-window.CWI', 'reference-toolbox-public-api'].includes(report.substrate))
-  assert.ok(report.oracle === clauseOracleId || report.oracle === undefined && report.substrate === 'reference-toolbox-public-api', 'Native qualification requires the independently versioned clause oracle3.0.0; omitted IDs admit historical reference diagnostics only')
-  assert.deepEqual(report.source, clauseContract.source); assert.deepEqual(report.coverageGaps, clauseCoverageGaps)
+  assert.ok(report.oracle === clauseOracleId || report.oracle === clauseOracle4Id || report.oracle === undefined && report.substrate === 'reference-toolbox-public-api', 'Native qualification requires an independently versioned clause oracle; omitted IDs admit historical reference diagnostics only')
+  const gaps = report.oracle === clauseOracle4Id ? clauseOracle4CoverageGaps : clauseCoverageGaps
+  assert.deepEqual(report.source, clauseContract.source); assert.deepEqual(report.coverageGaps, gaps)
   assert.equal(report.completeBRC100Conformance, false)
   if (boundaryReport) assert.deepEqual(report.positives, JSON.parse(JSON.stringify(Object.keys(clauseContract.methods).map(method => ({ method, observations: boundaryReport.trace.filter((r: any) => r.method === method && r.result !== undefined).map((r: any) => ({ args: r.args, result: r.result })) })))))
-  assert.deepEqual(report.assertions.map((r: any) => r.id), clauseAssertionIds)
+  assert.deepEqual(report.assertions.map((r: any) => r.id), report.oracle === clauseOracle4Id ? clauseOracle4AssertionIds : clauseAssertionIds)
   const assertions = await deriveClauseOutcomes(report)
   assert.deepEqual(report.assertions.map(({ id, result }: any) => ({ id, result })), assertions.map(({ id, result }) => ({ id, result })))
   const result = assertions.some(r => r.result === 'FAIL') ? 'FAIL' : 'BLOCKED'
   assert.equal(report.result, result)
-  return { verified: true, result, assertions, completeBRC100Conformance: false, coverageGaps: clauseCoverageGaps }
+  return { verified: true, result, assertions, completeBRC100Conformance: false, coverageGaps: gaps }
 }
 
 if (process.argv[1] === import.meta.filename) {

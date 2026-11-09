@@ -1,0 +1,137 @@
+{
+  "schema": "tpnil-nosend-oracle4-preflight-review@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "nativeLinuxQualification": false,
+  "reviewedAt": "2026-11-09T20:26:48.027Z",
+  "checkerSources": {
+    "synthesis/src/wallet-lab/native/conformance-nosend-change.ts": "c772060e7e9f24af28ab40e4f0111172d3087aa327c0d548983327ea34069a6a",
+    "synthesis/src/wallet-lab/native/verify-conformance-nosend-change.ts": "f39d67f5968aca97ce4ba1cdc25ad522f774ce5041d4bcb509723ac4109e1c60",
+    "synthesis/src/wallet-lab/native/conformance-clauses.ts": "a62b420a5a42a23ae454ff65ecdea15022895b909806db26584e42518f2d1f7c",
+    "synthesis/src/wallet-lab/native/verify-conformance-clauses.ts": "5237d2957d2e1a47bc8a2dbf6f748d402d5ed6aa19c50b6c07e43be868c03793",
+    "synthesis/src/wallet-lab/native/conformance-clauses-model.ts": "7f923d011527b74d315b26b270e3a25513adb6c5145f50416fc34aa3a1d0841f",
+    "programs/ISI-4/profiles/native-conformance-3.0.0/oracle-4.0.0.json": "b3df2d9a60571f19bb2e48fc19a2b0b60704392aef62b3d8855c136ce1201e3c"
+  },
+  "historicalOracle3": "Original native5 report independently replayed unchanged at132PASS98FAIL2BLOCKED",
+  "entries": [
+    {
+      "filename": "out/nosend-oracle4-typescript-reference-1/reference.json",
+      "sha256": "232dc4b83459b9a870b4c1bcc33f1b6b914b52c8cd50c05a567675ca00c05694",
+      "claim": "ENGINEERING_OBSERVATION_ONLY",
+      "platform": null,
+      "implementation": "typescript",
+      "identity": "037962d45b38e8bcf82fa8efa8432a01f20c9a53e24c7d3f11df197cb8e70926da",
+      "txid": "468a8fce0ed79f30c061277e103e2841e5b9c1bfa8f3abd449ba7f5623967eac",
+      "outpoints": [
+        "468a8fce0ed79f30c061277e103e2841e5b9c1bfa8f3abd449ba7f5623967eac.1",
+        "468a8fce0ed79f30c061277e103e2841e5b9c1bfa8f3abd449ba7f5623967eac.2",
+        "468a8fce0ed79f30c061277e103e2841e5b9c1bfa8f3abd449ba7f5623967eac.3",
+        "468a8fce0ed79f30c061277e103e2841e5b9c1bfa8f3abd449ba7f5623967eac.4",
+        "468a8fce0ed79f30c061277e103e2841e5b9c1bfa8f3abd449ba7f5623967eac.5",
+        "468a8fce0ed79f30c061277e103e2841e5b9c1bfa8f3abd449ba7f5623967eac.6",
+        "468a8fce0ed79f30c061277e103e2841e5b9c1bfa8f3abd449ba7f5623967eac.7",
+        "468a8fce0ed79f30c061277e103e2841e5b9c1bfa8f3abd449ba7f5623967eac.8"
+      ],
+      "returned": [
+        "468a8fce0ed79f30c061277e103e2841e5b9c1bfa8f3abd449ba7f5623967eac.1",
+        "468a8fce0ed79f30c061277e103e2841e5b9c1bfa8f3abd449ba7f5623967eac.2",
+        "468a8fce0ed79f30c061277e103e2841e5b9c1bfa8f3abd449ba7f5623967eac.3",
+        "468a8fce0ed79f30c061277e103e2841e5b9c1bfa8f3abd449ba7f5623967eac.4",
+        "468a8fce0ed79f30c061277e103e2841e5b9c1bfa8f3abd449ba7f5623967eac.5",
+        "468a8fce0ed79f30c061277e103e2841e5b9c1bfa8f3abd449ba7f5623967eac.6",
+        "468a8fce0ed79f30c061277e103e2841e5b9c1bfa8f3abd449ba7f5623967eac.7",
+        "468a8fce0ed79f30c061277e103e2841e5b9c1bfa8f3abd449ba7f5623967eac.8"
+      ],
+      "assertions": [
+        {
+          "id": "input.createAction.options.noSendChange.0",
+          "result": "PASS"
+        },
+        {
+          "id": "output.createAction.noSendChange-final-outpoints",
+          "result": "PASS"
+        }
+      ],
+      "cleanup": {
+        "walletDestroyed": true,
+        "servicesClosed": true,
+        "temporaryDatabaseRemoved": true
+      }
+    },
+    {
+      "filename": "out/nosend-oracle4-go-reference-1/reference.json",
+      "sha256": "60f5b16d6d6bc2936de329bf1253227d00f0234ed242465391de88a9689bf4a7",
+      "claim": "ENGINEERING_OBSERVATION_ONLY",
+      "platform": null,
+      "implementation": "go",
+      "identity": "037962d45b38e8bcf82fa8efa8432a01f20c9a53e24c7d3f11df197cb8e70926da",
+      "txid": "8d40caf778dff7ec4473622b94ed09affb47c767dbabd71f7e7b5a3a22cfd9ed",
+      "outpoints": [
+        "8d40caf778dff7ec4473622b94ed09affb47c767dbabd71f7e7b5a3a22cfd9ed.1",
+        "8d40caf778dff7ec4473622b94ed09affb47c767dbabd71f7e7b5a3a22cfd9ed.2",
+        "8d40caf778dff7ec4473622b94ed09affb47c767dbabd71f7e7b5a3a22cfd9ed.3",
+        "8d40caf778dff7ec4473622b94ed09affb47c767dbabd71f7e7b5a3a22cfd9ed.4",
+        "8d40caf778dff7ec4473622b94ed09affb47c767dbabd71f7e7b5a3a22cfd9ed.5",
+        "8d40caf778dff7ec4473622b94ed09affb47c767dbabd71f7e7b5a3a22cfd9ed.6",
+        "8d40caf778dff7ec4473622b94ed09affb47c767dbabd71f7e7b5a3a22cfd9ed.7",
+        "8d40caf778dff7ec4473622b94ed09affb47c767dbabd71f7e7b5a3a22cfd9ed.8"
+      ],
+      "returned": [
+        "8d40caf778dff7ec4473622b94ed09affb47c767dbabd71f7e7b5a3a22cfd9ed.1",
+        "8d40caf778dff7ec4473622b94ed09affb47c767dbabd71f7e7b5a3a22cfd9ed.2",
+        "8d40caf778dff7ec4473622b94ed09affb47c767dbabd71f7e7b5a3a22cfd9ed.3",
+        "8d40caf778dff7ec4473622b94ed09affb47c767dbabd71f7e7b5a3a22cfd9ed.4",
+        "8d40caf778dff7ec4473622b94ed09affb47c767dbabd71f7e7b5a3a22cfd9ed.5",
+        "8d40caf778dff7ec4473622b94ed09affb47c767dbabd71f7e7b5a3a22cfd9ed.6",
+        "8d40caf778dff7ec4473622b94ed09affb47c767dbabd71f7e7b5a3a22cfd9ed.7",
+        "8d40caf778dff7ec4473622b94ed09affb47c767dbabd71f7e7b5a3a22cfd9ed.8"
+      ],
+      "assertions": [
+        {
+          "id": "input.createAction.options.noSendChange.0",
+          "result": "PASS"
+        },
+        {
+          "id": "output.createAction.noSendChange-final-outpoints",
+          "result": "PASS"
+        }
+      ],
+      "cleanup": {
+        "walletDestroyed": true,
+        "servicesClosed": true,
+        "temporaryDatabaseRemoved": true
+      }
+    },
+    {
+      "filename": "out/nosend-native-engineering-2FNlW2/result.json",
+      "sha256": "b6b452aeefdc4acf220a3df66dfef9dcfdaa07799015551f05e756fba2438eee",
+      "claim": "ENGINEERING_OBSERVATION_ONLY",
+      "platform": "darwin",
+      "implementation": "unchanged-yours5.1.0-with-go",
+      "identity": "022e6a292e2f79355f05b1a1cd5da7abe86812ab649aa8208ce960f0f100ebd8d4",
+      "txid": "318f07f3d3d29140c0ebdfb78fae68f7406a3bf779533152e374f6df83371d3f",
+      "outpoints": [
+        "318f07f3d3d29140c0ebdfb78fae68f7406a3bf779533152e374f6df83371d3f.1",
+        "318f07f3d3d29140c0ebdfb78fae68f7406a3bf779533152e374f6df83371d3f.2"
+      ],
+      "returned": [
+        "54796849b4e4726f71777c7947adc65ced66e56868934aa33ba903f09b2ef0a6.1",
+        "54796849b4e4726f71777c7947adc65ced66e56868934aa33ba903f09b2ef0a6.2"
+      ],
+      "assertions": [
+        {
+          "id": "input.createAction.options.noSendChange.0",
+          "result": "PASS"
+        },
+        {
+          "id": "output.createAction.noSendChange-final-outpoints",
+          "result": "FAIL"
+        }
+      ],
+      "cleanup": {
+        "browser": true,
+        "services": true,
+        "profile": true
+      }
+    }
+  ]
+}

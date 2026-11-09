@@ -1,0 +1,28 @@
+◇ injected env (0) from .env // tip: ⌘ suppress logs { quiet: true }
+◇ injected env (0) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+SNI enabled. Clients not supporting SNI may fail
+https server started on 61876
+creating SNI context for www.google.com
+Got ECONNRESET on CLIENT_TO_PROXY_SOCKET, ignoring.
+HTTPS_CLIENT_ERROR
+Error: socket hang up
+    at TLSSocket.onSocketClose (node:internal/tls/wrap:1379:23)
+    at TLSSocket.emit (node:events:526:24)
+    at node:net:362:12
+    at Socket.done (node:internal/tls/wrap:780:7)
+    at Socket.wrapper (node:events:639:12)
+    at Socket.emit (node:events:526:24)
+    at TCP.<anonymous> (node:net:362:12) {
+  code: 'ECONNRESET'
+}
+creating SNI context for accounts.google.com
+creating SNI context for fonts.googleapis.com
+creating SNI context for android.clients.google.com
+creating SNI context for wallet.1sat.app
+creating SNI context for messagebox.1sat.app
+creating SNI context for api.1sat.app
+creating SNI context for deny.itcve.test
+creating SNI context for api.whatsonchain.com
+creating SNI context for i.ibb.co
+creating SNI context for proxy-api.mnee.net
+{"out":"/Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/nosend-native-engineering-2FNlW2","assertions":[{"id":"input.createAction.options.noSendChange.0","result":"PASS","detail":"Independent predicate satisfied by retained public calls."},{"id":"output.createAction.noSendChange-final-outpoints","result":"FAIL","detail":"Returned noSendChange must identify final signed transaction outputs\n+ actual - expected\n\n  [\n+   '54796849b4e4726f71777c7947adc65ced66e56868934aa33ba903f09b2ef0a6.1',\n+   '54796849b4e4726f71777c7947adc65ced66e56868934aa33ba903f09b2ef0a6.2'\n-   '318f07f3d3d29140c0ebdfb78fae68f7406a3bf779533152e374f6df83371d3f.1',\n-   '318f07f3d3d29140c0ebdfb78fae68f7406a3bf779533152e374f6df83371d3f.2'\n  ]\n"}],"cleanup":{"browser":true,"services":true,"profile":true}}

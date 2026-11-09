@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { PublicKey } from '@bsv/sdk'
+import { noSendChangeOutputId } from './conformance-nosend-change.js'
 
 export type Shape = { kind: string; name?: string; value?: unknown; fields?: Record<string, Shape>; item?: Shape; items?: Shape[]; variants?: Shape[]; key?: Shape; optional?: boolean; line?: number }
 export const clauseContract = JSON.parse(fs.readFileSync(path.resolve(import.meta.dirname, '../../../../programs/ISI-4/profiles/native-conformance-2.0.0/brc100-contract.json'), 'utf8')) as { source: unknown; methods: Record<string, { line: number; input: Shape; output: Shape }> }
@@ -81,6 +82,7 @@ export const semanticClauseIds = [
   'errors.structured', 'coverage.remaining-obligations'
 ]
 export const clauseAssertionIds = [...Object.keys(clauseContract.methods).map(m => `output.${m}`), ...invalidClauses.map(c => c.id), ...semanticClauseIds]
+export const clauseOracle4AssertionIds = [...clauseAssertionIds, noSendChangeOutputId]
 export const clauseCoverageGaps = [
   { id: 'privileged-secondary-keyring', sourceLines: [322, 324], reason: 'Optional privileged mode requires artifact-specific admission and a distinct supported user-presence fixture; normal-key execution does not prove it.' },
   { id: 'all-permission-categories', sourceLines: [326, 326], reason: 'The native permission scenario proves real protocol approval, denial and origin isolation; basket, spending, certificate and linkage revocation/expiry policies require additional category-specific UI scenarios.' },
@@ -88,6 +90,7 @@ export const clauseCoverageGaps = [
   { id: 'basket-length-interpretation', sourceLines: [518, 356], reason: 'The interface alias limits baskets to300 bytes while namespace prose permits400. This profile tests the unambiguous common subset and does not qualify301–400.' },
   { id: 'optional-transaction-and-certificate-paths', sourceLines: [630, 1428], reason: 'The input/output contract corpus does not prove every batching, default, pagination, certificate issuance and conflicting-parameter combination. Coverage remains explicit until corresponding native stateful fixtures execute.' }
 ]
+export const clauseOracle4CoverageGaps = clauseCoverageGaps.map(gap => gap.id === 'all-permission-categories' ? { ...gap, reason: 'Supported basket, certificate, one-shot spending and visible revocation cases have separately frozen mandatory scenarios in this profile. Additional linkage semantics and finite-expiry admission remain separate obligations; no private permission-state mutation is permitted.' } : { ...gap })
 export function specifiedError(error: any, token?: string, includeRequired = true): boolean {
   if (!error || error.name === 'TypeError' || typeof error.message !== 'string' || /timed? ?out|timeout|unsupported|not implemented|not yet implemented|network|fetch failed|closed|detached|context.*destroyed|target.*closed|connection|insufficient funds|unique constraint|permission denied|permission required|not authori[sz]ed|unauthorized/i.test(error.message)) return false
   if (includeRequired && /cannot read (?:properties|property)|cannot (?:convert|set|destructure).*?(?:null|undefined)|(?:object null|undefined|null).*?not iterable|is not a function/i.test(error.message)) return false

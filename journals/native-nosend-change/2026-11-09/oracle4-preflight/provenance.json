@@ -1,0 +1,87 @@
+{
+  "schema": "tpnil-nosend-change-engineering-archive@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "files": {
+    "typescript-reference.json.gz": {
+      "source": "out/nosend-oracle4-typescript-reference-1/reference.json",
+      "size": 4405,
+      "sha256": "127d99aafc2c7e2e42499b93f09d06f12ce1a7fbdfbd53c1e3dbf86add621637",
+      "originalSize": 35029,
+      "originalSha256": "232dc4b83459b9a870b4c1bcc33f1b6b914b52c8cd50c05a567675ca00c05694"
+    },
+    "go-reference.json.gz": {
+      "source": "out/nosend-oracle4-go-reference-1/reference.json",
+      "size": 5419,
+      "sha256": "5c634db1f4c09128b66736145331f9c216ca9b785f38ef7288ba84c03058cac7",
+      "originalSize": 37695,
+      "originalSha256": "60f5b16d6d6bc2936de329bf1253227d00f0234ed242465391de88a9689bf4a7"
+    },
+    "native-macos-engineering.json.gz": {
+      "source": "out/nosend-native-engineering-2FNlW2/result.json",
+      "size": 7836,
+      "sha256": "8b7f7b253137e365a492e4ad53836f79c48e36c174d0d4c96bad646a3ea8aef5",
+      "originalSize": 53075,
+      "originalSha256": "b6b452aeefdc4acf220a3df66dfef9dcfdaa07799015551f05e756fba2438eee"
+    },
+    "preflight-review.json": {
+      "source": "out/nosend-oracle4-preflight-review.json",
+      "size": 6630,
+      "sha256": "dab74408606d0ac98b37f3404d45d151cd772543038699c867ab2340115d2eda",
+      "originalSize": 6630,
+      "originalSha256": "dab74408606d0ac98b37f3404d45d151cd772543038699c867ab2340115d2eda"
+    },
+    "native-macos-probe.ts": {
+      "source": "out/probe-native-nosend-oracle4-20261109.ts",
+      "size": 7682,
+      "sha256": "c4c4e35d473d3f1870d1c85070cf403bf348eab730b975d34ed4041a7f00c7f4",
+      "originalSize": 7682,
+      "originalSha256": "c4c4e35d473d3f1870d1c85070cf403bf348eab730b975d34ed4041a7f00c7f4"
+    },
+    "native-macos-attempt.log": {
+      "source": "out/nosend-native-engineering-attempt-1.log",
+      "size": 1969,
+      "sha256": "db02d1a6ac4c1526d0ee3c0ae3ab2607387cd0f3e2058c422a674fff2e8232e1",
+      "originalSize": 1969,
+      "originalSha256": "db02d1a6ac4c1526d0ee3c0ae3ab2607387cd0f3e2058c422a674fff2e8232e1"
+    },
+    "failed-unit-attempt-1.json": {
+      "source": "out/nosend-oracle4-preflight-failure-1.json",
+      "size": 4964,
+      "sha256": "bd181a77d8e7b7fb44cf56ab38d5a1102269c8df77749767e8b6b2ca84ccab94",
+      "originalSize": 4964,
+      "originalSha256": "bd181a77d8e7b7fb44cf56ab38d5a1102269c8df77749767e8b6b2ca84ccab94"
+    },
+    "failed-unit-attempt-2.log": {
+      "source": "out/nosend-oracle4-preflight-failure-2.log",
+      "size": 2832,
+      "sha256": "5b90294d91d755be4d8514b9540e94e2ac0e898ef2884a8779d4b98678d8643a",
+      "originalSize": 2832,
+      "originalSha256": "5b90294d91d755be4d8514b9540e94e2ac0e898ef2884a8779d4b98678d8643a"
+    },
+    "final-typescript-tests.log": {
+      "source": "out/nosend-oracle4-final-tests.log",
+      "size": 285,
+      "sha256": "f2480c58d40c7af6f85893b7febe6c65b5077a907596cc5df89508a6c3ef13b6",
+      "originalSize": 285,
+      "originalSha256": "f2480c58d40c7af6f85893b7febe6c65b5077a907596cc5df89508a6c3ef13b6"
+    },
+    "final-go-tests.log": {
+      "source": "out/nosend-oracle4-final-go-tests.log",
+      "size": 282,
+      "sha256": "51ddb6d5b2d3439def01bce55cc898e278fed194ddeb4a48cddb51d4944d2eb7",
+      "originalSize": 282,
+      "originalSha256": "51ddb6d5b2d3439def01bce55cc898e278fed194ddeb4a48cddb51d4944d2eb7"
+    },
+    "historical-oracle3-replay.log": {
+      "source": "out/nosend-oracle4-historical-oracle3-replay.log",
+      "size": 112,
+      "sha256": "495cb12716dcfff14d0e8aac8025854b54010debd2c701e28edfb87314dfd1a5",
+      "originalSize": 112,
+      "originalSha256": "495cb12716dcfff14d0e8aac8025854b54010debd2c701e28edfb87314dfd1a5"
+    }
+  },
+  "nativeRuntime": "Unchanged Yours Wallet5.1.0 on macOS arm64 through public CWI and visible approvals; controlled Go service. This engineering attempt lacks Linux qualification isolation and a pre-run full observer source freeze.",
+  "originalPredicate": "The native observation used the initial oracle4 candidate comparing the full returned set to all independently observed final change outputs. Its original FAIL and detail remain unchanged.",
+  "finalReplay": "The separate retained checker-source digests identify the final optional-subset oracle. Original evidence is replayed without modifying it; both interpretations reject the observed stale transaction IDs.",
+  "historicalRetention": "Native5 oracle3 remains132PASS98FAIL2BLOCKED. Native6 uses frozen oracle3 and is not requalified by this journal."
+}
