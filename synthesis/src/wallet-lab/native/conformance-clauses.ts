@@ -1,5 +1,6 @@
 import { createCipheriv, createHash } from 'node:crypto'
-import { MasterCertificate, PrivateKey, ProtoWallet } from '@bsv/sdk'
+import { PrivateKey, ProtoWallet } from '@bsv/sdk'
+import { issueFixtureCertificateForSubject } from '../certificate-fixture.js'
 import type { BoundaryWallet } from '../boundary-corpus.js'
 import type { EvidenceBundle } from '../evidence.js'
 import { clauseContract, clauseCoverageGaps, clauseCrypto, clauseOracleId, conforms, invalidClauses, type Shape } from './conformance-clauses-model.js'
@@ -66,7 +67,7 @@ export async function runNativeClauseConformance({ wallet, evidence, boundaryRep
   if (typeof identity !== 'string') throw Error('Clause corpus requires observed native identity')
   let certificateIndex = 40
   async function certificateFixture() {
-    const certificate = await MasterCertificate.issueCertificateForSubject(new ProtoWallet(PrivateKey.fromHex('36'.repeat(32))), identity, { name: 'TPNIL clause identity', private: 'Unrevealed clause field' }, Buffer.alloc(32, 17).toString('base64'), async () => `${'00'.repeat(32)}.0`, Buffer.alloc(32, certificateIndex++).toString('base64'))
+    const certificate = await issueFixtureCertificateForSubject(new ProtoWallet(PrivateKey.fromHex('36'.repeat(32))), identity, { name: 'TPNIL clause identity', private: 'Unrevealed clause field' }, Buffer.alloc(32, 17).toString('base64'), async () => `${'00'.repeat(32)}.0`, Buffer.alloc(32, certificateIndex++).toString('base64'))
     return JSON.parse(JSON.stringify({ ...certificate, acquisitionProtocol: 'direct', keyringRevealer: 'certifier', keyringForSubject: certificate.masterKeyring }))
   }
   const cert = await certificateFixture()

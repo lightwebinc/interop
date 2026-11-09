@@ -1,0 +1,73 @@
+{
+  "schema": "tpnil-integration-attempt@1",
+  "claim": "OBSERVER_VERIFICATION_ERROR",
+  "failureClassification": "INVALID_POSITIVE_FIXTURE",
+  "source": "8f23d1c638fd97d176e12c6d634e65401c03e82f",
+  "workflowRun": 42663404897,
+  "run": "https://github.com/p2ppsr/interop/actions/runs/42663404897",
+  "artifactId": 13694339770,
+  "artifactSha256": "e11689bb5e3982ffe88ebeaaaa66dd68fe3c4774cead1ecc9f16e7242e11c472",
+  "artifactSize": 1804113,
+  "stage": "component-repetition-verification",
+  "qualificationIssued": false,
+  "nativeWalletExecuted": false,
+  "referenceWalletExecuted": true,
+  "observedAssertions": {
+    "total": 510,
+    "PASS": 501,
+    "FAIL": 9
+  },
+  "cause": "The SDK2.7.1 external fixture issuer omitted a leading zero from a random certificate revelation key; strict SDK4.0.1 correctly rejected the actual 31-byte key.",
+  "files": [
+    {
+      "name": "README.md",
+      "size": 2700,
+      "sha256": "3358a546582d49f7e3364640cbbd06ad38c586c6c816241a04c74efecf75f391"
+    },
+    {
+      "name": "artifacts.json",
+      "size": 1450,
+      "sha256": "04b4cb78da2546b57d8c94ae09c571217e6ee4d7907f95f0f6ae02ac54a423d3"
+    },
+    {
+      "name": "failed-step.log",
+      "size": 77648,
+      "sha256": "add8d330b7e48684b702fff857368ada6bd2de7ca7fc2acd9692e75806c9693e"
+    },
+    {
+      "name": "field-key-diagnosis.json",
+      "size": 560,
+      "sha256": "ecfe2c23bd6da73462843b6b63096d55263b2105720ada71a7e0f3bc9ae09a82"
+    },
+    {
+      "name": "foundation-logs.zip",
+      "size": 91056,
+      "sha256": "dc5ef0a00e43c8050df4d4b4bbcdc0e383c5288829e7116ad125bccc85e93d0b"
+    },
+    {
+      "name": "independent-replay.json",
+      "size": 2692,
+      "sha256": "8aa840b8594e320290e80830a1c71e7051d6c83e8424ccc6d1e12f056dc330ba"
+    },
+    {
+      "name": "integrated-lab.zip",
+      "size": 1804113,
+      "sha256": "e11689bb5e3982ffe88ebeaaaa66dd68fe3c4774cead1ecc9f16e7242e11c472"
+    },
+    {
+      "name": "jobs.json",
+      "size": 11236,
+      "sha256": "143e98cd58eed07c5694a22a8a51a708e74b7a43ce0230a7323bb1619d4ff655"
+    },
+    {
+      "name": "observed-results.json",
+      "size": 6431,
+      "sha256": "c1030b172da5ba7a9397ae238e98e2e8596c4ae8ac452134a3ac0ccefd70e1a0"
+    },
+    {
+      "name": "run.json",
+      "size": 11968,
+      "sha256": "f3e495e221a78d209d15b6a2bae52ee78550e6d6818add5e108f466bbe0560fa"
+    }
+  ]
+}

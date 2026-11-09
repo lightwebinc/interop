@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict'
-import { BigNumber, MasterCertificate, P2PKH, Point, Schnorr, PrivateKey, ProtoWallet, PublicKey, Signature, Transaction, Utils, VerifiableCertificate } from '@bsv/sdk'
+import { BigNumber, P2PKH, Point, Schnorr, PrivateKey, ProtoWallet, PublicKey, Signature, Transaction, Utils, VerifiableCertificate } from '@bsv/sdk'
+import { issueFixtureCertificateForSubject } from './certificate-fixture.js'
 
 export interface BoundaryWallet { [method: string]: (args: any) => Promise<any> }
 export interface BoundaryCorpusOptions {
@@ -112,7 +113,7 @@ export async function runWalletBoundaryCorpus({ wallet: implementation, funder, 
     assert.equal((await wallet.listOutputs!({ basket: 'tpnil boundary tokens' })).totalOutputs, 0)
   })
   const issuer = new ProtoWallet(PrivateKey.fromHex('36'.repeat(32)))
-  const certificate = identity ? await MasterCertificate.issueCertificateForSubject(issuer, identity, { name: 'TPNIL boundary identity', private: 'Unrevealed fixture field' }, Buffer.alloc(32, 17).toString('base64'), async () => `${'00'.repeat(32)}.0`, Buffer.alloc(32, 18).toString('base64')) : undefined
+  const certificate = identity ? await issueFixtureCertificateForSubject(issuer, identity, { name: 'TPNIL boundary identity', private: 'Unrevealed fixture field' }, Buffer.alloc(32, 17).toString('base64'), async () => `${'00'.repeat(32)}.0`, Buffer.alloc(32, 18).toString('base64')) : undefined
   const key = certificate && { type: certificate.type, serialNumber: certificate.serialNumber, certifier: certificate.certifier }
   await check('acquireCertificate.signed-fields', async () => {
     assert.ok(certificate); assert.ok(await certificate.verify())

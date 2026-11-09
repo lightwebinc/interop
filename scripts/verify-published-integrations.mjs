@@ -166,7 +166,7 @@ export function verifyArchiveSemantics(bundle, { root = repository } = {}) {
 
 export function verifyPublishedIntegrations({ root = repository, semantic = false } = {}) {
   const bundles = []
-  for (const category of ['integrated-component-qualification', 'integrated-native-qualification', 'integrated-native-attempts']) {
+  for (const category of ['integrated-component-qualification', 'integrated-native-qualification', 'integrated-native-attempts', 'integrated-component-attempts']) {
     const directory = path.join(root, 'journals', category)
     if (!fs.existsSync(directory)) continue
     const files = filesUnder(directory), covered = []

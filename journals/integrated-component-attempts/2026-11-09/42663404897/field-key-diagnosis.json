@@ -1,0 +1,20 @@
+{
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "source": "8f23d1c638fd97d176e12c6d634e65401c03e82f",
+  "reports": [
+    {
+      "repetition": 1,
+      "fieldRevelationKeyBytes": 32,
+      "upstreamSdk": "@bsv/sdk@4.0.1",
+      "fields": {
+        "name": "TPNIL boundary identity"
+      }
+    },
+    {
+      "repetition": 2,
+      "fieldRevelationKeyBytes": 31,
+      "upstreamSdk": "@bsv/sdk@4.0.1",
+      "error": "Failed to decrypt selectively revealed certificate fields using keyring: Certificate field revelation key must be a 32-byte array"
+    }
+  ]
+}
