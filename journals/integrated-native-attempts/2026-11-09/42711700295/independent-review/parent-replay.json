@@ -1,0 +1,23 @@
+{
+  "schema": "tpnil-native-parent-independent-replay@1",
+  "claim": "INDEPENDENT_REPLAY_REQUIRES_JOINED_REVIEW",
+  "run": "42711700295",
+  "source": "c338a93c97ffebeeef318e679ff82b7dbf309dd5",
+  "startedAt": "2026-11-09T22:50:57.676Z",
+  "endedAt": "2026-11-09T22:51:05.880Z",
+  "status": 1,
+  "signal": null,
+  "originalMembersUnchanged": {
+    "before": 186,
+    "after": 186,
+    "verified": true
+  },
+  "logSha256": "70bf1d9a69f977ddcb658e3c5992c4e5f8a2db9897cc9957720dcd5382fdadde",
+  "outputs": {
+    "qualification.json": {
+      "sha256": "8a98103995b918aec867f414c36bc8ff71645ce1004e1ced3f4706257ea82ad7",
+      "originalExists": true,
+      "byteEqualOriginal": true
+    }
+  }
+}
