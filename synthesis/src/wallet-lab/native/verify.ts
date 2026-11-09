@@ -17,6 +17,14 @@ export function verifyHostReceipt(observation: Record<string, any>, image: strin
   assert.ok(Object.keys(observation.networks).every(name => name === 'none'))
 }
 
+/** Compare the complete projections returned by independent child verification,
+ * including each assertion identity and outcome rather than vector totals. */
+export function verifyConformanceRepetitionAgreement(semanticProjections: readonly string[]): void {
+  assert.equal(semanticProjections.length, 2, 'Conformance requires two independently verified semantic projections')
+  assert.ok(semanticProjections.every(projection => typeof projection === 'string' && projection.length > 0))
+  assert.equal(semanticProjections[0], semanticProjections[1], 'Conformance repetitions differ in per-assertion identities or outcomes')
+}
+
 export async function verifyNativeWallet(directory: string) {
   const read = (name: string) => JSON.parse(fs.readFileSync(path.join(directory, name), 'utf8'))
   const lock = read('run-lock.json'), plan = lock.plan
@@ -45,6 +53,7 @@ export async function verifyNativeWallet(directory: string) {
   const userns = read('host-userns.json')
   assert.equal(userns.active, '0'); assert.equal(userns.restored, userns.before); assert.equal(userns.restoredSuccessfully, true)
   const results = []
+  const conformanceSemanticProjections: string[] = []
   const containers = new Set<string>()
   for (let index = 1; index <= 2; index++) {
     const before = read(`host-repetition-${index}-before.json`), after = read(`host-repetition-${index}-after.json`), cleanup = read(`host-repetition-${index}-cleanup.json`)
@@ -185,11 +194,13 @@ export async function verifyNativeWallet(directory: string) {
       const prospective = await verifyNativeConformance(path.join(rep, 'evidence'), vectors)
       assert.deepEqual(record.vectors, prospective.vectors)
       vectors = prospective.vectors
+      conformanceSemanticProjections.push(prospective.semanticProjection)
     }
     results.push({ record, vectors, recordSha256: worker.recordSha256, independent: { funding: funding.id('hex'), ...(conformance ? { preScenarioReserves: nativeFundingRoots.slice(1), recoveryScope: 'unaffected-preexisting-funds' } : {}), create: create.id('hex'), redemption: spend.id('hex'), valueConserved: true, fee: inputs - outputs } })
   }
   assert.equal(canonicalJson(results[0]!.vectors.map(vector => vector.outcome)), canonicalJson(results[1]!.vectors.map(vector => vector.outcome)))
   assert.equal(canonicalJson(results[0]!.record.semanticProjection), canonicalJson(results[1]!.record.semanticProjection))
+  if (conformance) verifyConformanceRepetitionAgreement(conformanceSemanticProjections)
   return { schema: conformance ? 'tpnil-native-wallet-qualification@2.0.0' : 'tpnil-native-wallet-qualification@1.0.0', claim: 'EXPERIMENTAL_CONFORMANCE_RESULT', itcve: plan.itcve, program: plan.program, lane: plan.lane, planSha256: lock.planSha256, source: lock.source, image: lock.image, qualifiedEnvironment: true, artifact: plan.wallet, vectors: results[0]!.vectors, outcome: aggregateOutcome(results[0]!.vectors), repetitionMatch: true, repetitions: results.map((result, index) => ({ runId: `repetition-${index + 1}`, recordSha256: result.recordSha256, independent: result.independent })) }
 }
 if (process.argv[1]?.endsWith('/native/verify.ts')) {
