@@ -1,0 +1,184 @@
+[
+  {
+    "repetition": 1,
+    "sides": [
+      {
+        "side": "source",
+        "provenTxRows": 0,
+        "union": {
+          "transactions": 13,
+          "proofs": 1,
+          "containsPinnedMinedTransaction": true,
+          "missingAncestorTxids": [],
+          "structurallyValid": true,
+          "pinnedRootVerified": true
+        },
+        "nonemptyInputs": [
+          {
+            "table": "provenTxReqs",
+            "txid": "75efff1ac381cbc090b2ca52955b6d2e839d7ef025e5506b86d376e1f96f1dd6",
+            "bytes": 1069,
+            "sha256": "9bc9ad8b0e274ffe6d74674185262262f1aef21cfe64b4eaa02b61047fa83f4f",
+            "proofs": [
+              {
+                "height": 1,
+                "root": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9"
+              }
+            ],
+            "transactions": [
+              {
+                "txid": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9",
+                "txidOnly": false,
+                "hasProof": true
+              },
+              {
+                "txid": "d1f21b52e894445586ab4b6ea0401ab1c17098a48d566d95dcff2769838254f7",
+                "txidOnly": false,
+                "hasProof": false
+              },
+              {
+                "txid": "24a8c69a9f05ff9d43aa46bca6ddb32f97ad91e396935f0b996b5027e3aecc6d",
+                "txidOnly": false,
+                "hasProof": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "side": "destination",
+        "provenTxRows": 0,
+        "union": {
+          "transactions": 13,
+          "proofs": 1,
+          "containsPinnedMinedTransaction": true,
+          "missingAncestorTxids": [],
+          "structurallyValid": true,
+          "pinnedRootVerified": true
+        },
+        "nonemptyInputs": [
+          {
+            "table": "provenTxReqs",
+            "txid": "75efff1ac381cbc090b2ca52955b6d2e839d7ef025e5506b86d376e1f96f1dd6",
+            "bytes": 1069,
+            "sha256": "9bc9ad8b0e274ffe6d74674185262262f1aef21cfe64b4eaa02b61047fa83f4f",
+            "proofs": [
+              {
+                "height": 1,
+                "root": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9"
+              }
+            ],
+            "transactions": [
+              {
+                "txid": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9",
+                "txidOnly": false,
+                "hasProof": true
+              },
+              {
+                "txid": "d1f21b52e894445586ab4b6ea0401ab1c17098a48d566d95dcff2769838254f7",
+                "txidOnly": false,
+                "hasProof": false
+              },
+              {
+                "txid": "24a8c69a9f05ff9d43aa46bca6ddb32f97ad91e396935f0b996b5027e3aecc6d",
+                "txidOnly": false,
+                "hasProof": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "repetition": 2,
+    "sides": [
+      {
+        "side": "source",
+        "provenTxRows": 0,
+        "union": {
+          "transactions": 13,
+          "proofs": 1,
+          "containsPinnedMinedTransaction": true,
+          "missingAncestorTxids": [],
+          "structurallyValid": true,
+          "pinnedRootVerified": true
+        },
+        "nonemptyInputs": [
+          {
+            "table": "provenTxReqs",
+            "txid": "d217a9590ebf19f98abfcc992e943f6668778db1276ee89b15fc4bfb6d3f3049",
+            "bytes": 1069,
+            "sha256": "278e826110e716fe8a565a45c2ceb83c459a8683b940f47de0f106871ab752e2",
+            "proofs": [
+              {
+                "height": 1,
+                "root": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9"
+              }
+            ],
+            "transactions": [
+              {
+                "txid": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9",
+                "txidOnly": false,
+                "hasProof": true
+              },
+              {
+                "txid": "45cd1ad907ada2d752a6a9d202daa2376317cadd7c5985ec6775ad508ceb9219",
+                "txidOnly": false,
+                "hasProof": false
+              },
+              {
+                "txid": "7c7463c5197975b9d4621a2e6406a7a1c24420c28f5f740aac77eac39e1aaf38",
+                "txidOnly": false,
+                "hasProof": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "side": "destination",
+        "provenTxRows": 0,
+        "union": {
+          "transactions": 13,
+          "proofs": 1,
+          "containsPinnedMinedTransaction": true,
+          "missingAncestorTxids": [],
+          "structurallyValid": true,
+          "pinnedRootVerified": true
+        },
+        "nonemptyInputs": [
+          {
+            "table": "provenTxReqs",
+            "txid": "d217a9590ebf19f98abfcc992e943f6668778db1276ee89b15fc4bfb6d3f3049",
+            "bytes": 1069,
+            "sha256": "278e826110e716fe8a565a45c2ceb83c459a8683b940f47de0f106871ab752e2",
+            "proofs": [
+              {
+                "height": 1,
+                "root": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9"
+              }
+            ],
+            "transactions": [
+              {
+                "txid": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9",
+                "txidOnly": false,
+                "hasProof": true
+              },
+              {
+                "txid": "45cd1ad907ada2d752a6a9d202daa2376317cadd7c5985ec6775ad508ceb9219",
+                "txidOnly": false,
+                "hasProof": false
+              },
+              {
+                "txid": "7c7463c5197975b9d4621a2e6406a7a1c24420c28f5f740aac77eac39e1aaf38",
+                "txidOnly": false,
+                "hasProof": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

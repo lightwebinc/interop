@@ -1,0 +1,821 @@
+{
+  "schema": "tpnil-native-proof-closure-diagnostic@1",
+  "run": "42680240116",
+  "claim": "READ_ONLY_DIAGNOSTIC_NOT_QUALIFICATION",
+  "results": [
+    {
+      "repetition": 1,
+      "fixture": {
+        "atomicBeefHex": "01010101f92c04a4c91f3bf86d4c180f010ffb83e794eb4f2cc092aed958e1c0b9061cf80100beef010101010002f92c04a4c91f3bf86d4c180f010ffb83e794eb4f2cc092aed958e1c0b9061cf80101000000010000000000000000000000000000000000000000000000000000000000000000ffffffff1a030100002f746572616e6f64652f2e5e3c1121ea0660a4599f7fffffffff0100f2052a010000001976a9144af543ce73e607e0ae1752bc90901bf73cc16a2488ac000000000100",
+        "atomicBeefSha256": "a05ce3c06d577a24781a2956416311af9445065d43a761b186b5fc17471da7d4",
+        "blockHeaderHex": "0100000006226e46111a0b59caaf126043eb5bbf28c34f3a5e332a1fc7b2b73cf188910ff92c04a4c91f3bf86d4c180f010ffb83e794eb4f2cc092aed958e1c0b9061cf86db1b06affff7f2000000000",
+        "chain": "regtest",
+        "fundingBlockHash": "6ebffaae4ded7763885b0db4343bfd50586cbaadafdecd5dd5d02e165d059a63",
+        "fundingHeight": 1,
+        "generatedAt": "2026-09-21T04:24:16.663Z",
+        "image": {
+          "indexDigest": "sha256:7d10ceb40e02c4694d9684521e0f3566d90f1ea6217b06368647bc7dc201edd1",
+          "linuxAmd64Digest": "sha256:b520a42cd4123b27c7fe3e70f76f1b5eff0beaef51234c82224511e93b825e4a",
+          "linuxArm64Digest": "sha256:ce0082d5926460d1cbb78be4198e1e55c58cd971e5b311c761ad85af45affb67",
+          "reference": "ghcr.io/bsv-blockchain/teranode:v0.15.9"
+        },
+        "maturityDepth": 100,
+        "merkleRoot": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9",
+        "outputIndex": 0,
+        "payment": {
+          "address": "mnMJ7YvuDkeTL3UKYtUnB4VgHxicP4yHdj",
+          "derivationPrefix": "dHBuaWwtd2FsbGV0LWxhYg==",
+          "derivationSuffix": "d2FiLWZ1bmRpbmctMDAx",
+          "protocol": "wallet payment",
+          "publicKey": "02c7b07af6ad7d5f05c5c074fab5dc0644a4d1df05f165797d8fa67d71b7c4d13b",
+          "senderIdentityKey": "02466d7fcae563e5cb09a0d1870bb580344804617879a14949cf22285f1bae3f27"
+        },
+        "profile": "TPNIL-TERANODE-REGTEST-1",
+        "profileSha256": "a78b57500264612b2926244854772a8cf1f220c8ad9c8a2adca6714a2e4ae77d",
+        "publicWalletNetwork": "main",
+        "rawHex": "01000000010000000000000000000000000000000000000000000000000000000000000000ffffffff1a030100002f746572616e6f64652f2e5e3c1121ea0660a4599f7fffffffff0100f2052a010000001976a9144af543ce73e607e0ae1752bc90901bf73cc16a2488ac00000000",
+        "rawSha256": "5a2c5f873757f7b3c4aa14d6e9f2f27a0bfb91791bb3245a1b6a1210bc1b4e6f",
+        "satoshis": 5000000000,
+        "schema": "tpnil-teranode-wallet-funding@1.0.0",
+        "source": {
+          "commit": "2ef9915ffeec252a34b45755f11453ecc1f265f0",
+          "repository": "https://github.com/bsv-blockchain/teranode-quickstart.git"
+        },
+        "startingHeight": 0,
+        "txid": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9"
+      },
+      "sides": [
+        {
+          "side": "source",
+          "signedTransactions": [
+            {
+              "txid": "8664797b30ea9aa3687b64743051981523814a8ddb1bab86032db4845a4896ce",
+              "verified": true
+            },
+            {
+              "txid": "6707233bbb083e471f72a068f381a64aaaa1b1986b80ed7ca76c0ac68ec20ebd",
+              "verified": true
+            },
+            {
+              "txid": "bbcb5139174c13a757a87f69cc9d42a72a93119bc2df9a2e95ddfcdbc0c8e1d1",
+              "verified": true
+            },
+            {
+              "txid": "a84a08afac81fe82fc80be4da8722ec1fc738de6682c77c8e5b8ca2b8a14e414",
+              "verified": true
+            },
+            {
+              "txid": "a802c55f351cbf954fc5fe88bcaa87be801b32dcf602f84789233d244b4ebe6a",
+              "verified": true
+            },
+            {
+              "txid": "75efff1ac381cbc090b2ca52955b6d2e839d7ef025e5506b86d376e1f96f1dd6",
+              "verified": true
+            },
+            {
+              "txid": "58f32bd0060219a2f933508eaf0c07af196cafbc1287da2ee783fb3ee3830baf",
+              "verified": true
+            },
+            {
+              "txid": "73f85fee38811d10429257466d5c0ecab235c67ab7103f90dfaf0fbff0756910",
+              "verified": true
+            },
+            {
+              "txid": "24a8c69a9f05ff9d43aa46bca6ddb32f97ad91e396935f0b996b5027e3aecc6d",
+              "verified": true
+            },
+            {
+              "txid": "4e003d9da26141cdb563aef832a5e9cbe372d005142fc42eeddb40f26584e0b0",
+              "verified": true
+            },
+            {
+              "txid": "322d79afa2885f9dc03f1b248424fd787ba1ac338760a3b2b99469ea77b4ffe1",
+              "verified": true
+            },
+            {
+              "txid": "d1f21b52e894445586ab4b6ea0401ab1c17098a48d566d95dcff2769838254f7",
+              "verified": true
+            }
+          ],
+          "provenTxRows": 0,
+          "inputBeef": [
+            {
+              "table": "provenTxReqs",
+              "txid": "8664797b30ea9aa3687b64743051981523814a8ddb1bab86032db4845a4896ce",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "6707233bbb083e471f72a068f381a64aaaa1b1986b80ed7ca76c0ac68ec20ebd",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "bbcb5139174c13a757a87f69cc9d42a72a93119bc2df9a2e95ddfcdbc0c8e1d1",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "a84a08afac81fe82fc80be4da8722ec1fc738de6682c77c8e5b8ca2b8a14e414",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "a802c55f351cbf954fc5fe88bcaa87be801b32dcf602f84789233d244b4ebe6a",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "75efff1ac381cbc090b2ca52955b6d2e839d7ef025e5506b86d376e1f96f1dd6",
+              "bytes": 1069,
+              "sha256": "9bc9ad8b0e274ffe6d74674185262262f1aef21cfe64b4eaa02b61047fa83f4f",
+              "proofs": [
+                {
+                  "height": 1,
+                  "root": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9"
+                }
+              ],
+              "transactions": [
+                {
+                  "txid": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9",
+                  "txidOnly": false,
+                  "hasProof": true
+                },
+                {
+                  "txid": "d1f21b52e894445586ab4b6ea0401ab1c17098a48d566d95dcff2769838254f7",
+                  "txidOnly": false,
+                  "hasProof": false
+                },
+                {
+                  "txid": "24a8c69a9f05ff9d43aa46bca6ddb32f97ad91e396935f0b996b5027e3aecc6d",
+                  "txidOnly": false,
+                  "hasProof": false
+                }
+              ]
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "58f32bd0060219a2f933508eaf0c07af196cafbc1287da2ee783fb3ee3830baf",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "73f85fee38811d10429257466d5c0ecab235c67ab7103f90dfaf0fbff0756910",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "24a8c69a9f05ff9d43aa46bca6ddb32f97ad91e396935f0b996b5027e3aecc6d",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "4e003d9da26141cdb563aef832a5e9cbe372d005142fc42eeddb40f26584e0b0",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "322d79afa2885f9dc03f1b248424fd787ba1ac338760a3b2b99469ea77b4ffe1",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "d1f21b52e894445586ab4b6ea0401ab1c17098a48d566d95dcff2769838254f7",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            }
+          ],
+          "union": {
+            "transactions": 13,
+            "proofs": 1,
+            "containsPinnedMinedTransaction": true,
+            "missingAncestorTxids": [],
+            "structurallyValid": true,
+            "pinnedRootVerified": true
+          }
+        },
+        {
+          "side": "destination",
+          "signedTransactions": [
+            {
+              "txid": "8664797b30ea9aa3687b64743051981523814a8ddb1bab86032db4845a4896ce",
+              "verified": true
+            },
+            {
+              "txid": "6707233bbb083e471f72a068f381a64aaaa1b1986b80ed7ca76c0ac68ec20ebd",
+              "verified": true
+            },
+            {
+              "txid": "bbcb5139174c13a757a87f69cc9d42a72a93119bc2df9a2e95ddfcdbc0c8e1d1",
+              "verified": true
+            },
+            {
+              "txid": "a84a08afac81fe82fc80be4da8722ec1fc738de6682c77c8e5b8ca2b8a14e414",
+              "verified": true
+            },
+            {
+              "txid": "a802c55f351cbf954fc5fe88bcaa87be801b32dcf602f84789233d244b4ebe6a",
+              "verified": true
+            },
+            {
+              "txid": "75efff1ac381cbc090b2ca52955b6d2e839d7ef025e5506b86d376e1f96f1dd6",
+              "verified": true
+            },
+            {
+              "txid": "58f32bd0060219a2f933508eaf0c07af196cafbc1287da2ee783fb3ee3830baf",
+              "verified": true
+            },
+            {
+              "txid": "73f85fee38811d10429257466d5c0ecab235c67ab7103f90dfaf0fbff0756910",
+              "verified": true
+            },
+            {
+              "txid": "24a8c69a9f05ff9d43aa46bca6ddb32f97ad91e396935f0b996b5027e3aecc6d",
+              "verified": true
+            },
+            {
+              "txid": "4e003d9da26141cdb563aef832a5e9cbe372d005142fc42eeddb40f26584e0b0",
+              "verified": true
+            },
+            {
+              "txid": "322d79afa2885f9dc03f1b248424fd787ba1ac338760a3b2b99469ea77b4ffe1",
+              "verified": true
+            },
+            {
+              "txid": "d1f21b52e894445586ab4b6ea0401ab1c17098a48d566d95dcff2769838254f7",
+              "verified": true
+            }
+          ],
+          "provenTxRows": 0,
+          "inputBeef": [
+            {
+              "table": "provenTxReqs",
+              "txid": "8664797b30ea9aa3687b64743051981523814a8ddb1bab86032db4845a4896ce",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "6707233bbb083e471f72a068f381a64aaaa1b1986b80ed7ca76c0ac68ec20ebd",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "bbcb5139174c13a757a87f69cc9d42a72a93119bc2df9a2e95ddfcdbc0c8e1d1",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "a84a08afac81fe82fc80be4da8722ec1fc738de6682c77c8e5b8ca2b8a14e414",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "a802c55f351cbf954fc5fe88bcaa87be801b32dcf602f84789233d244b4ebe6a",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "75efff1ac381cbc090b2ca52955b6d2e839d7ef025e5506b86d376e1f96f1dd6",
+              "bytes": 1069,
+              "sha256": "9bc9ad8b0e274ffe6d74674185262262f1aef21cfe64b4eaa02b61047fa83f4f",
+              "proofs": [
+                {
+                  "height": 1,
+                  "root": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9"
+                }
+              ],
+              "transactions": [
+                {
+                  "txid": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9",
+                  "txidOnly": false,
+                  "hasProof": true
+                },
+                {
+                  "txid": "d1f21b52e894445586ab4b6ea0401ab1c17098a48d566d95dcff2769838254f7",
+                  "txidOnly": false,
+                  "hasProof": false
+                },
+                {
+                  "txid": "24a8c69a9f05ff9d43aa46bca6ddb32f97ad91e396935f0b996b5027e3aecc6d",
+                  "txidOnly": false,
+                  "hasProof": false
+                }
+              ]
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "58f32bd0060219a2f933508eaf0c07af196cafbc1287da2ee783fb3ee3830baf",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "73f85fee38811d10429257466d5c0ecab235c67ab7103f90dfaf0fbff0756910",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "24a8c69a9f05ff9d43aa46bca6ddb32f97ad91e396935f0b996b5027e3aecc6d",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "4e003d9da26141cdb563aef832a5e9cbe372d005142fc42eeddb40f26584e0b0",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "322d79afa2885f9dc03f1b248424fd787ba1ac338760a3b2b99469ea77b4ffe1",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "d1f21b52e894445586ab4b6ea0401ab1c17098a48d566d95dcff2769838254f7",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            }
+          ],
+          "union": {
+            "transactions": 13,
+            "proofs": 1,
+            "containsPinnedMinedTransaction": true,
+            "missingAncestorTxids": [],
+            "structurallyValid": true,
+            "pinnedRootVerified": true
+          }
+        }
+      ],
+      "conclusion": "The synchronized raw transactions plus retained inputBEEF reconstruct a complete, independently signed and pinned-root-verified proof graph. Native destination storage nevertheless cannot retrieve the mined ancestor by txid; proof bytes are retained but operational proof indexing/materialization is incomplete."
+    },
+    {
+      "repetition": 2,
+      "fixture": {
+        "atomicBeefHex": "01010101f92c04a4c91f3bf86d4c180f010ffb83e794eb4f2cc092aed958e1c0b9061cf80100beef010101010002f92c04a4c91f3bf86d4c180f010ffb83e794eb4f2cc092aed958e1c0b9061cf80101000000010000000000000000000000000000000000000000000000000000000000000000ffffffff1a030100002f746572616e6f64652f2e5e3c1121ea0660a4599f7fffffffff0100f2052a010000001976a9144af543ce73e607e0ae1752bc90901bf73cc16a2488ac000000000100",
+        "atomicBeefSha256": "a05ce3c06d577a24781a2956416311af9445065d43a761b186b5fc17471da7d4",
+        "blockHeaderHex": "0100000006226e46111a0b59caaf126043eb5bbf28c34f3a5e332a1fc7b2b73cf188910ff92c04a4c91f3bf86d4c180f010ffb83e794eb4f2cc092aed958e1c0b9061cf86db1b06affff7f2000000000",
+        "chain": "regtest",
+        "fundingBlockHash": "6ebffaae4ded7763885b0db4343bfd50586cbaadafdecd5dd5d02e165d059a63",
+        "fundingHeight": 1,
+        "generatedAt": "2026-09-21T04:24:16.663Z",
+        "image": {
+          "indexDigest": "sha256:7d10ceb40e02c4694d9684521e0f3566d90f1ea6217b06368647bc7dc201edd1",
+          "linuxAmd64Digest": "sha256:b520a42cd4123b27c7fe3e70f76f1b5eff0beaef51234c82224511e93b825e4a",
+          "linuxArm64Digest": "sha256:ce0082d5926460d1cbb78be4198e1e55c58cd971e5b311c761ad85af45affb67",
+          "reference": "ghcr.io/bsv-blockchain/teranode:v0.15.9"
+        },
+        "maturityDepth": 100,
+        "merkleRoot": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9",
+        "outputIndex": 0,
+        "payment": {
+          "address": "mnMJ7YvuDkeTL3UKYtUnB4VgHxicP4yHdj",
+          "derivationPrefix": "dHBuaWwtd2FsbGV0LWxhYg==",
+          "derivationSuffix": "d2FiLWZ1bmRpbmctMDAx",
+          "protocol": "wallet payment",
+          "publicKey": "02c7b07af6ad7d5f05c5c074fab5dc0644a4d1df05f165797d8fa67d71b7c4d13b",
+          "senderIdentityKey": "02466d7fcae563e5cb09a0d1870bb580344804617879a14949cf22285f1bae3f27"
+        },
+        "profile": "TPNIL-TERANODE-REGTEST-1",
+        "profileSha256": "a78b57500264612b2926244854772a8cf1f220c8ad9c8a2adca6714a2e4ae77d",
+        "publicWalletNetwork": "main",
+        "rawHex": "01000000010000000000000000000000000000000000000000000000000000000000000000ffffffff1a030100002f746572616e6f64652f2e5e3c1121ea0660a4599f7fffffffff0100f2052a010000001976a9144af543ce73e607e0ae1752bc90901bf73cc16a2488ac00000000",
+        "rawSha256": "5a2c5f873757f7b3c4aa14d6e9f2f27a0bfb91791bb3245a1b6a1210bc1b4e6f",
+        "satoshis": 5000000000,
+        "schema": "tpnil-teranode-wallet-funding@1.0.0",
+        "source": {
+          "commit": "2ef9915ffeec252a34b45755f11453ecc1f265f0",
+          "repository": "https://github.com/bsv-blockchain/teranode-quickstart.git"
+        },
+        "startingHeight": 0,
+        "txid": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9"
+      },
+      "sides": [
+        {
+          "side": "source",
+          "signedTransactions": [
+            {
+              "txid": "4f7ae0fc8b2dc86c34370485417225c855936027cc23247a5835e2150b8321c3",
+              "verified": true
+            },
+            {
+              "txid": "d5858332e33d6f4e6cede59cab4988a5f281be6ddc1738c4d76b64feeed013ef",
+              "verified": true
+            },
+            {
+              "txid": "fc220f15afc7ffcf8442ad93cdf1ae9bdb7a8669d643355c63c4980edac430af",
+              "verified": true
+            },
+            {
+              "txid": "3e495a0ceb4da1b721125b44517c0e7b95942d34492077805086941ff871707d",
+              "verified": true
+            },
+            {
+              "txid": "bae5f5df56f1656f10e8c4394b3aa1633006a2a23c50f00d1e2991b5a5adfe7c",
+              "verified": true
+            },
+            {
+              "txid": "d217a9590ebf19f98abfcc992e943f6668778db1276ee89b15fc4bfb6d3f3049",
+              "verified": true
+            },
+            {
+              "txid": "b5e223545355e43bffce9aa8d7105077be25b95b73c7b0cab8e904d109dfba11",
+              "verified": true
+            },
+            {
+              "txid": "795cb69cb40b06513833ed86d0f6d6fd6d1ce40006bf75e4e8b75e308b15afd3",
+              "verified": true
+            },
+            {
+              "txid": "7c7463c5197975b9d4621a2e6406a7a1c24420c28f5f740aac77eac39e1aaf38",
+              "verified": true
+            },
+            {
+              "txid": "e45f553428f21e5d60cd8a4ecc685d6bf88107e80a742540bd4868aa0ae3aff2",
+              "verified": true
+            },
+            {
+              "txid": "b0c8fb73addaffd263b86675f2d8a193758640fcee769b0e50911c6e1ca30318",
+              "verified": true
+            },
+            {
+              "txid": "45cd1ad907ada2d752a6a9d202daa2376317cadd7c5985ec6775ad508ceb9219",
+              "verified": true
+            }
+          ],
+          "provenTxRows": 0,
+          "inputBeef": [
+            {
+              "table": "provenTxReqs",
+              "txid": "4f7ae0fc8b2dc86c34370485417225c855936027cc23247a5835e2150b8321c3",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "d5858332e33d6f4e6cede59cab4988a5f281be6ddc1738c4d76b64feeed013ef",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "fc220f15afc7ffcf8442ad93cdf1ae9bdb7a8669d643355c63c4980edac430af",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "3e495a0ceb4da1b721125b44517c0e7b95942d34492077805086941ff871707d",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "bae5f5df56f1656f10e8c4394b3aa1633006a2a23c50f00d1e2991b5a5adfe7c",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "d217a9590ebf19f98abfcc992e943f6668778db1276ee89b15fc4bfb6d3f3049",
+              "bytes": 1069,
+              "sha256": "278e826110e716fe8a565a45c2ceb83c459a8683b940f47de0f106871ab752e2",
+              "proofs": [
+                {
+                  "height": 1,
+                  "root": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9"
+                }
+              ],
+              "transactions": [
+                {
+                  "txid": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9",
+                  "txidOnly": false,
+                  "hasProof": true
+                },
+                {
+                  "txid": "45cd1ad907ada2d752a6a9d202daa2376317cadd7c5985ec6775ad508ceb9219",
+                  "txidOnly": false,
+                  "hasProof": false
+                },
+                {
+                  "txid": "7c7463c5197975b9d4621a2e6406a7a1c24420c28f5f740aac77eac39e1aaf38",
+                  "txidOnly": false,
+                  "hasProof": false
+                }
+              ]
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "b5e223545355e43bffce9aa8d7105077be25b95b73c7b0cab8e904d109dfba11",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "795cb69cb40b06513833ed86d0f6d6fd6d1ce40006bf75e4e8b75e308b15afd3",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "7c7463c5197975b9d4621a2e6406a7a1c24420c28f5f740aac77eac39e1aaf38",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "e45f553428f21e5d60cd8a4ecc685d6bf88107e80a742540bd4868aa0ae3aff2",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "b0c8fb73addaffd263b86675f2d8a193758640fcee769b0e50911c6e1ca30318",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "45cd1ad907ada2d752a6a9d202daa2376317cadd7c5985ec6775ad508ceb9219",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            }
+          ],
+          "union": {
+            "transactions": 13,
+            "proofs": 1,
+            "containsPinnedMinedTransaction": true,
+            "missingAncestorTxids": [],
+            "structurallyValid": true,
+            "pinnedRootVerified": true
+          }
+        },
+        {
+          "side": "destination",
+          "signedTransactions": [
+            {
+              "txid": "4f7ae0fc8b2dc86c34370485417225c855936027cc23247a5835e2150b8321c3",
+              "verified": true
+            },
+            {
+              "txid": "d5858332e33d6f4e6cede59cab4988a5f281be6ddc1738c4d76b64feeed013ef",
+              "verified": true
+            },
+            {
+              "txid": "fc220f15afc7ffcf8442ad93cdf1ae9bdb7a8669d643355c63c4980edac430af",
+              "verified": true
+            },
+            {
+              "txid": "3e495a0ceb4da1b721125b44517c0e7b95942d34492077805086941ff871707d",
+              "verified": true
+            },
+            {
+              "txid": "bae5f5df56f1656f10e8c4394b3aa1633006a2a23c50f00d1e2991b5a5adfe7c",
+              "verified": true
+            },
+            {
+              "txid": "d217a9590ebf19f98abfcc992e943f6668778db1276ee89b15fc4bfb6d3f3049",
+              "verified": true
+            },
+            {
+              "txid": "b5e223545355e43bffce9aa8d7105077be25b95b73c7b0cab8e904d109dfba11",
+              "verified": true
+            },
+            {
+              "txid": "795cb69cb40b06513833ed86d0f6d6fd6d1ce40006bf75e4e8b75e308b15afd3",
+              "verified": true
+            },
+            {
+              "txid": "7c7463c5197975b9d4621a2e6406a7a1c24420c28f5f740aac77eac39e1aaf38",
+              "verified": true
+            },
+            {
+              "txid": "e45f553428f21e5d60cd8a4ecc685d6bf88107e80a742540bd4868aa0ae3aff2",
+              "verified": true
+            },
+            {
+              "txid": "b0c8fb73addaffd263b86675f2d8a193758640fcee769b0e50911c6e1ca30318",
+              "verified": true
+            },
+            {
+              "txid": "45cd1ad907ada2d752a6a9d202daa2376317cadd7c5985ec6775ad508ceb9219",
+              "verified": true
+            }
+          ],
+          "provenTxRows": 0,
+          "inputBeef": [
+            {
+              "table": "provenTxReqs",
+              "txid": "4f7ae0fc8b2dc86c34370485417225c855936027cc23247a5835e2150b8321c3",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "d5858332e33d6f4e6cede59cab4988a5f281be6ddc1738c4d76b64feeed013ef",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "fc220f15afc7ffcf8442ad93cdf1ae9bdb7a8669d643355c63c4980edac430af",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "3e495a0ceb4da1b721125b44517c0e7b95942d34492077805086941ff871707d",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "bae5f5df56f1656f10e8c4394b3aa1633006a2a23c50f00d1e2991b5a5adfe7c",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "d217a9590ebf19f98abfcc992e943f6668778db1276ee89b15fc4bfb6d3f3049",
+              "bytes": 1069,
+              "sha256": "278e826110e716fe8a565a45c2ceb83c459a8683b940f47de0f106871ab752e2",
+              "proofs": [
+                {
+                  "height": 1,
+                  "root": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9"
+                }
+              ],
+              "transactions": [
+                {
+                  "txid": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9",
+                  "txidOnly": false,
+                  "hasProof": true
+                },
+                {
+                  "txid": "45cd1ad907ada2d752a6a9d202daa2376317cadd7c5985ec6775ad508ceb9219",
+                  "txidOnly": false,
+                  "hasProof": false
+                },
+                {
+                  "txid": "7c7463c5197975b9d4621a2e6406a7a1c24420c28f5f740aac77eac39e1aaf38",
+                  "txidOnly": false,
+                  "hasProof": false
+                }
+              ]
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "b5e223545355e43bffce9aa8d7105077be25b95b73c7b0cab8e904d109dfba11",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "795cb69cb40b06513833ed86d0f6d6fd6d1ce40006bf75e4e8b75e308b15afd3",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "7c7463c5197975b9d4621a2e6406a7a1c24420c28f5f740aac77eac39e1aaf38",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "e45f553428f21e5d60cd8a4ecc685d6bf88107e80a742540bd4868aa0ae3aff2",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "b0c8fb73addaffd263b86675f2d8a193758640fcee769b0e50911c6e1ca30318",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            },
+            {
+              "table": "provenTxReqs",
+              "txid": "45cd1ad907ada2d752a6a9d202daa2376317cadd7c5985ec6775ad508ceb9219",
+              "bytes": 6,
+              "sha256": "64e7f3c3875cc2c7d6ac840c3fcf8dd0814b4b58d6316c0040bdb17ac2405643",
+              "proofs": [],
+              "transactions": []
+            }
+          ],
+          "union": {
+            "transactions": 13,
+            "proofs": 1,
+            "containsPinnedMinedTransaction": true,
+            "missingAncestorTxids": [],
+            "structurallyValid": true,
+            "pinnedRootVerified": true
+          }
+        }
+      ],
+      "conclusion": "The synchronized raw transactions plus retained inputBEEF reconstruct a complete, independently signed and pinned-root-verified proof graph. Native destination storage nevertheless cannot retrieve the mined ancestor by txid; proof bytes are retained but operational proof indexing/materialization is incomplete."
+    }
+  ]
+}

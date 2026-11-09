@@ -1,0 +1,91 @@
+{
+  "schema": "tpnil-integration-attempt@1",
+  "source": "3f9cbead7c05a17b663f9c2c52b93abdf04eac69",
+  "workflowRun": 42680240116,
+  "artifactId": 13703078875,
+  "claim": "OBSERVER_VERIFICATION_ERROR",
+  "walletExecuted": true,
+  "workflowConclusion": "failure",
+  "files": [
+    {
+      "name": "README.md",
+      "size": 3032,
+      "sha256": "00db1c8291797ba43fcfadb2caba5782bb9ea7af389abee1f03d8355a79521aa"
+    },
+    {
+      "name": "artifacts.json",
+      "size": 753,
+      "sha256": "e45517daa7a126a259040874b71319b3f38a8dc8026f634a8fb885e259949d03"
+    },
+    {
+      "name": "assessment.json",
+      "size": 26563,
+      "sha256": "c688835d37b69d88e42470a268589525138bb51a13766c83b92b36feaa7cad28"
+    },
+    {
+      "name": "failed-step.log",
+      "size": 8610,
+      "sha256": "10fecf8ec19f6517a8ff18be13e7b40c3722acc2e3f976ddffd140c6b3d60c39"
+    },
+    {
+      "name": "independent-review/audit-proof-closure.mjs",
+      "size": 3290,
+      "sha256": "0e12a264f357e18d0aa6071fef303df36bcdb4afe414f08de79f621a1634ca27"
+    },
+    {
+      "name": "independent-review/independent-parts.json",
+      "size": 13156,
+      "sha256": "51532af1a33bf900a77d2dd832a78c9ff0521a86a4b279ed0e476d0930ca45f9"
+    },
+    {
+      "name": "independent-review/independent-parts.log",
+      "size": 1393,
+      "sha256": "8ae3b0fd047d9c2be7fad3b2976a8abaa2768f16b1432d2f8514e6c0e9db5356"
+    },
+    {
+      "name": "independent-review/independent-parts.mjs",
+      "size": 14129,
+      "sha256": "ca7115a268c5cbdbc1e8e5dc72a0d4171e5f6b04aa9f52a2e0be5464f46846ac"
+    },
+    {
+      "name": "independent-review/portability-diagnosis.json",
+      "size": 11079,
+      "sha256": "3789ddd48d8a13fddfb4b4116615cf599ee0d4d6a40e0ce7327411d6b087a7ae"
+    },
+    {
+      "name": "independent-review/proof-closure.json",
+      "size": 34844,
+      "sha256": "9426fda10cfc3290846be9124bbbded024827b6ed1e8ab51aa503776ac8aa1e2"
+    },
+    {
+      "name": "independent-review/proof-closure.log",
+      "size": 5849,
+      "sha256": "23679d5e81f67caf2c14ac92b40ce6e572dde01795757f0352f1c1289872d6fe"
+    },
+    {
+      "name": "independent-verification.txt",
+      "size": 2119,
+      "sha256": "54f0b5ceb868fba50618e26030dc2874916be8cf565668c47b4777c664873dd0"
+    },
+    {
+      "name": "jobs.json",
+      "size": 4736,
+      "sha256": "f5e64aeffc999c124628d039c8bfa5e2c4f9fa1f1d5395d9002298ae596b866b"
+    },
+    {
+      "name": "native-integrated.zip",
+      "size": 1470368,
+      "sha256": "264ba858b5618574c3aea189425d22c5cbb47c91a1ae361b618609cc17d38e49"
+    },
+    {
+      "name": "native-logs.zip",
+      "size": 59299,
+      "sha256": "71434305f627479f67b14578c84ccfc024e69ec8691ba3d1788d36b2d054efa4"
+    },
+    {
+      "name": "run.json",
+      "size": 11971,
+      "sha256": "e0e68ac8127dfbe8282c44aebb99e4538842ec5491b3d2834e7bf1b9dbdd32fd"
+    }
+  ]
+}
