@@ -9,16 +9,23 @@ import { verifyNativePortability } from './verify-conformance-portability.js'
 import { verifyNativeClauseConformance } from './verify-conformance-clauses.js'
 import { validateComponentIdentity } from '../go-services.js'
 
-export async function verifyNativeConformance(evidenceDirectory: string, baselineVectors: VectorResult[], lifecycleOracle?: string, portabilityOracle?: string, clauseOracle = 'tpnil-brc100-clause-oracle@3.0.0', profile: 'ITCVE-1@1.4.0' | 'ITCVE-1@1.5.0' = 'ITCVE-1@1.4.0') {
+export async function verifyNativeConformance(evidenceDirectory: string, baselineVectors: VectorResult[], lifecycleOracle?: string, portabilityOracle?: string, clauseOracle = 'tpnil-brc100-clause-oracle@3.0.0', profile: 'ITCVE-1@1.4.0' | 'ITCVE-1@1.5.0' | 'ITCVE-1@2.0.0' = 'ITCVE-1@1.4.0') {
   const read = (name: string) => JSON.parse(fs.readFileSync(path.join(evidenceDirectory, 'conformance', `${name}.json`), 'utf8'))
   const report = read('result')
-  const coverage = profile === 'ITCVE-1@1.5.0'
-  assert.equal(report.schema, coverage ? 'tpnil-native-conformance@3.0.0' : 'tpnil-native-conformance@2.0.0'); assert.equal(report.profile, profile); assert.equal(report.program, coverage ? 'ISI-4@3.0.0' : 'ISI-4@2.0.0')
+  const closure = profile === 'ITCVE-1@2.0.0'
+  const coverage = closure || profile === 'ITCVE-1@1.5.0'
+  assert.equal(report.schema, closure ? 'tpnil-native-conformance@4.0.0' : coverage ? 'tpnil-native-conformance@3.0.0' : 'tpnil-native-conformance@2.0.0'); assert.equal(report.profile, profile); assert.equal(report.program, closure ? 'ISI-4@4.0.0' : coverage ? 'ISI-4@3.0.0' : 'ISI-4@2.0.0')
   assert.equal(clauseOracle, coverage ? 'tpnil-brc100-clause-oracle@4.0.0' : 'tpnil-brc100-clause-oracle@3.0.0')
   assert.equal(read('clauses').oracle, clauseOracle, 'Clause report selected a different oracle from the frozen plan')
   assert.deepEqual(read('baseline-vectors'), baselineVectors, 'Original ToDo observations were altered by the prospective scenario')
   const integrated = JSON.parse(fs.readFileSync(path.join(evidenceDirectory, 'integrated/result.json'), 'utf8'))
   assert.equal(typeof integrated.walletIdentity, 'string', 'Native conformance requires the joined wallet identity')
+  assert.equal(read('permissions').schema, closure ? 'tpnil-native-permission-conformance@2' : 'tpnil-native-permission-conformance@1')
+  assert.equal(read('permissions').oracle, closure ? 'tpnil-native-permission-oracle@2.0.0' : undefined)
+  if (coverage) {
+    assert.equal(read('permission-lifecycle').schema, closure ? 'tpnil-native-permission-lifecycle@2.0.0' : 'tpnil-native-permission-lifecycle@1.0.0')
+    assert.equal(read('permission-lifecycle').oracle, closure ? 'tpnil-native-permission-lifecycle-oracle@2.0.0' : 'tpnil-native-permission-lifecycle-oracle@1.0.0')
+  }
   const permission = verifyNativePermissionConformance(read('permissions'), name => fs.readFileSync(path.join(evidenceDirectory, name)), integrated.walletIdentity)
   const permissionLifecycle = coverage ? await (await import('./verify-conformance-permission-lifecycle.js')).verifyNativePermissionLifecycle(read('permission-lifecycle'), name => fs.readFileSync(path.join(evidenceDirectory, name)), integrated.walletIdentity) : undefined
   const lifecycle = await verifyConformanceLifecycle(read('lifecycle'))

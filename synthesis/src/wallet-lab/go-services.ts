@@ -73,21 +73,21 @@ export function selectComponents(value: ComponentSelection = {}): Required<Compo
   }
   return { overlay: 'typescript', chaintracks: 'typescript', storage: 'typescript', ...value }
 }
-export function validateComponentIdentity(value: Record<string, unknown>, profile?: 'ITCVE-1@1.3.0' | 'ITCVE-1@1.4.0' | 'ITCVE-1@1.5.0'): void {
+export function validateComponentIdentity(value: Record<string, unknown>, profile?: 'ITCVE-1@1.3.0' | 'ITCVE-1@1.4.0' | 'ITCVE-1@1.5.0' | 'ITCVE-1@2.0.0'): void {
   const components = selectComponents(value.components as ComponentSelection)
   if (!Object.values(components).includes('go')) throw new Error('Go profile omitted Go selection')
   const go = value.go as Record<string, unknown> | undefined
   if (go?.schema !== 'tpnil-go-services@1.0.0' || canonicalJson(go.components) !== canonicalJson(components) ||
       typeof go.binarySha256 !== 'string' || !/^[a-f0-9]{64}$/.test(go.binarySha256) ||
-      (!['ITCVE-1@1.3.0', 'ITCVE-1@1.4.0', 'ITCVE-1@1.5.0'].includes(profile ?? '') && go.compatibilityPatch !== undefined) ||
-      (['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0'].includes(profile ?? '') ? go.fixtureSubmissionPolicy !== 'terminal-rejection-v1' : go.fixtureSubmissionPolicy !== undefined) ||
+      (!['ITCVE-1@1.3.0', 'ITCVE-1@1.4.0', 'ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(profile ?? '') && go.compatibilityPatch !== undefined) ||
+      (['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(profile ?? '') ? go.fixtureSubmissionPolicy !== 'terminal-rejection-v1' : go.fixtureSubmissionPolicy !== undefined) ||
       go.goModSha256 !== componentLock.moduleFiles['go.mod'] || go.goSumSha256 !== componentLock.moduleFiles['go.sum'] ||
       canonicalJson(go.dependencies) !== canonicalJson(componentLock))
     throw new Error('Go service component identity is incomplete or differs from lock')
-  if (profile === 'ITCVE-1@1.3.0' || ['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0'].includes(profile ?? '')) {
+  if (profile === 'ITCVE-1@1.3.0' || ['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(profile ?? '')) {
     const manifest = go.compatibilityPatch as Record<string, unknown> | undefined
-    const portability = ['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0'].includes(profile ?? '') && manifest?.schema === 'tpnil-storage-portability-go-build@1.0.0'
-    if (profile === 'ITCVE-1@1.5.0' && !portability) throw new Error('Native coverage requires the ancestry export compatibility build')
+    const portability = ['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(profile ?? '') && manifest?.schema === 'tpnil-storage-portability-go-build@1.0.0'
+    if (['ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(profile ?? '') && !portability) throw new Error('Native coverage requires the ancestry export compatibility build')
     const bytes = fs.readFileSync(fileURLToPath(new URL(portability ? '../../../infra/adapters/storage-portability/patch.lock.json' : '../../../infra/adapters/storage-sync/patch.lock.json', import.meta.url)))
     const lock = JSON.parse(bytes.toString())
     if (manifest?.schema !== (portability ? 'tpnil-storage-portability-go-build@1.0.0' : 'tpnil-storage-sync-go-build@1.0.0') || manifest.binarySha256 !== go.binarySha256 || (portability && manifest.parentPatchLockSha256 !== lock.parentSha256) || manifest.patchLockSha256 !== createHash('sha256').update(bytes).digest('hex') || manifest.patchSha256 !== lock.patchSha256 || manifest.toolchain !== componentLock.toolchain || canonicalJson(manifest.upstream) !== canonicalJson({ module: lock.module, version: lock.version, sum: lock.sum }))

@@ -81,3 +81,14 @@ failure findings and offline verification.
 The [integrated results report](docs/integrated-lab-results-2026-11-06.md)
 records executed lanes, native attempts, original CI archives and reproduction
 commands.
+
+[ITCVE-1 1.5.0](itcves/ITCVE-1/1.5.0/README.md) adds separately frozen native
+conformance criteria: visible category permissions and revocation, rejected-action
+recovery, source-off counterpart replacement with complete descendant ancestry,
+and a source-linked clause corpus. The [November 9 results report](docs/native-conformance-results-2026-11-09.md)
+retains each failed attempt, engineering preflight and component qualification.
+Its Linux run retains matching portability results but differing permission
+observations and does not qualify. [ITCVE-1 2.0.0](itcves/ITCVE-1/2.0.0/README.md)
+separately introduces trusted click capture and shutdown-final submission
+evidence. Its native qualification remains pending; complete BRC-100 conformance
+remains unproven. Historical profiles and findings remain unchanged.

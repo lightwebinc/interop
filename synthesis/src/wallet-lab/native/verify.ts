@@ -29,13 +29,18 @@ export async function verifyNativeWallet(directory: string) {
   const read = (name: string) => JSON.parse(fs.readFileSync(path.join(directory, name), 'utf8'))
   const lock = read('run-lock.json'), plan = lock.plan
   assert.equal(lock.schema, 'tpnil-native-wallet-run-lock@1.0.0')
-  const coverage = plan.itcve === 'ITCVE-1@1.5.0'
+  const closure = plan.itcve === 'ITCVE-1@2.0.0'
+  const coverage = closure || plan.itcve === 'ITCVE-1@1.5.0'
   const conformance = coverage || plan.itcve === 'ITCVE-1@1.4.0'
   if (conformance) assert.equal(plan.clauseOracle, coverage ? 'tpnil-brc100-clause-oracle@4.0.0' : 'tpnil-brc100-clause-oracle@3.0.0')
-  if (coverage) assert.equal(plan.permissionLifecycleOracle, 'tpnil-native-permission-lifecycle-oracle@1.0.0')
+  if (coverage) {
+    assert.equal(plan.permissionOracle, closure ? 'tpnil-native-permission-oracle@2.0.0' : undefined)
+    assert.equal(plan.permissionLifecycleOracle, closure ? 'tpnil-native-permission-lifecycle-oracle@2.0.0' : 'tpnil-native-permission-lifecycle-oracle@1.0.0')
+    if (closure) assert.equal(plan.shutdownSubmissionPolicy, 'tpnil-native-shutdown-submissions@1.0.0')
+  }
   const trustedIdentity = conformance || plan.id === 'YOURS-5.1.0-GO-ITCVE-1.3.0-TRUSTED-IDENTITY'
   const integrated = trustedIdentity || plan.id === 'YOURS-5.1.0-GO-ITCVE-1.3.0'
-  const frozen = JSON.parse(fs.readFileSync(fileURLToPath(new URL(coverage ? '../../../../infra/native/conformance/plan-coverage.json' : conformance ? '../../../../infra/native/conformance/plan.json' : trustedIdentity ? '../../../../infra/native/integrated/plan-trusted.json' : integrated ? '../../../../infra/native/integrated/plan.json' : '../../../../infra/native/yours-go/plan.json', import.meta.url)), 'utf8'))
+  const frozen = JSON.parse(fs.readFileSync(fileURLToPath(new URL(closure ? '../../../../infra/native/conformance/plan-coverage-closure.json' : coverage ? '../../../../infra/native/conformance/plan-coverage.json' : conformance ? '../../../../infra/native/conformance/plan.json' : trustedIdentity ? '../../../../infra/native/integrated/plan-trusted.json' : integrated ? '../../../../infra/native/integrated/plan.json' : '../../../../infra/native/yours-go/plan.json', import.meta.url)), 'utf8'))
   assert.equal(canonicalJson(plan), canonicalJson(frozen))
   assert.equal(plan.id, conformance ? frozen.id : trustedIdentity ? 'YOURS-5.1.0-GO-ITCVE-1.3.0-TRUSTED-IDENTITY' : integrated ? 'YOURS-5.1.0-GO-ITCVE-1.3.0' : 'YOURS-5.1.0-GO-ITCVE-1.2.0')
   if (integrated) {
@@ -67,7 +72,7 @@ export async function verifyNativeWallet(directory: string) {
     assert.equal(after.state.ExitCode, 0); assert.equal(after.state.OOMKilled, false); assert.equal(cleanup.removed, true)
     const rep = path.join(directory, `repetition-${index}`)
     const record = verifyEvidenceBundle(rep)
-    assert.equal(record.itcve, coverage ? 'ITCVE-1@1.5.0' : conformance ? 'ITCVE-1@1.4.0' : integrated ? 'ITCVE-1@1.3.0' : 'ITCVE-1@1.1.0')
+    assert.equal(record.itcve, closure ? 'ITCVE-1@2.0.0' : coverage ? 'ITCVE-1@1.5.0' : conformance ? 'ITCVE-1@1.4.0' : integrated ? 'ITCVE-1@1.3.0' : 'ITCVE-1@1.1.0')
     const evidence = (name: string) => JSON.parse(fs.readFileSync(path.join(rep, 'evidence', name), 'utf8'))
     const installed = read(`repetition-${index}/installed-artifacts.json`)
     assert.equal(installed.exactArchiveContents, true)
@@ -158,7 +163,7 @@ export async function verifyNativeWallet(directory: string) {
     let inputs = 0; for (const input of spend.inputs) { const sourceOutput = input.sourceTransaction?.outputs[input.sourceOutputIndex!]; assert.ok(sourceOutput?.satoshis !== undefined); inputs += sourceOutput.satoshis }
     const outputs = spend.outputs.reduce((sum, item) => sum + (item.satoshis ?? 0), 0); assert.ok(inputs >= outputs)
     let vectors: VectorResult[] = structuredClone(conformance ? evidence('conformance/baseline-vectors.json') : record.vectors)
-    if (conformance) { assert.equal(record.program, coverage ? 'ISI-4@3.0.0' : 'ISI-4@2.0.0'); assert.equal(record.profile, 'production-wallet-native-conformance') }
+    if (conformance) { assert.equal(record.program, closure ? 'ISI-4@4.0.0' : coverage ? 'ISI-4@3.0.0' : 'ISI-4@2.0.0'); assert.equal(record.profile, 'production-wallet-native-conformance') }
     for (const vector of vectors.slice(0, 4)) assert.equal(vector.outcome, 'PASS')
     const permission = evidence('permissions.json')
     const explicitDenial = (value: { rejected?: boolean; independentlyPrompted?: boolean; message?: string }) =>
@@ -218,6 +223,17 @@ export async function verifyNativeWallet(directory: string) {
         if (Array.isArray(anchor?.result?.tx) && typeof anchor.result.txid === 'string') rows.push({ role: 'clause-nosend-anchor', txid: anchor.result.txid, atomicBeef: anchor.result.tx })
         const { verifyCoverageNativeTransactions } = await import('./verify-conformance-coverage-transactions.js')
         await verifyCoverageNativeTransactions(rows, { storageTransactions, declaredNativePayments: [...nativeFundingOutpoints, ...(corpusPayment ? [corpusPayment] : [])], fixture })
+        if (closure) {
+          const { verifyNativeShutdownSubmissions } = await import('./verify-shutdown-submissions.js')
+          await verifyNativeShutdownSubmissions(fs.readFileSync(path.join(rep, 'shutdown-submissions.json')), {
+            worker, recordBytes: fs.readFileSync(path.join(rep, 'record.json')),
+            globalSubmissionsBytes: fs.readFileSync(path.join(rep, 'evidence/native-submissions.json')),
+            permissionReportBytes: fs.readFileSync(path.join(rep, 'evidence/conformance/permission-lifecycle.json')),
+            counterpartsBytes: fs.readFileSync(path.join(rep, 'evidence/conformance/service-counterparts.json')),
+            expectedIdentity: evidence('integrated/result.json').walletIdentity,
+            readEvidence: (name: string) => fs.readFileSync(path.join(rep, 'evidence', name)), storageTransactions
+          })
+        }
       }
       const { verifyNativeConformance } = await import('./verify-conformance.js')
       const prospective = await verifyNativeConformance(path.join(rep, 'evidence'), vectors, plan.lifecycleOracle, plan.portabilityOracle, plan.clauseOracle, plan.itcve)

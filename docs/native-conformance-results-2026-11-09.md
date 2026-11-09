@@ -26,9 +26,10 @@ establishes complete BRC-100 conformance or certification.
 | [Native 42674638927](https://github.com/p2ppsr/interop/actions/runs/42674638927) | CI and frozen replay pass, but publication review identifies two observer defects. [Unchanged original artifact and independent review](../journals/integrated-native-attempts/2026-11-09/42674638927/README.md) retain V001–V005 PASS and V006–V008 FAIL; this run is not accepted as completed native conformance qualification. |
 | [Foundation 42680171419](https://github.com/p2ppsr/interop/actions/runs/42680171419) | All three jobs pass on `3f9cbea`: 155 synthesis with eight gated skips, 76 core, five Python, 11 Go, three transport, 14 service and one Rust test; dependency audit has zero findings. [Original artifact and independent replay](../journals/integrated-component-qualification/2026-11-09/42680171419/README.md) retain 504 PASS and six unchanged Go FAIL observations. |
 | [Native 42680240116](https://github.com/p2ppsr/interop/actions/runs/42680240116) | Both workers complete; replacement storage cannot retrieve a synchronized mined ancestor, and the producer/oracle dataset disagreement prevents qualification. [Original artifact and diagnosis](../journals/integrated-native-attempts/2026-11-09/42680240116/README.md) retain V001–V005 PASS and V006–V008 FAIL. |
-
-| [Foundation42689603169](https://github.com/p2ppsr/interop/actions/runs/42689603169) | All three jobs pass on `d02414f`. [Generic component archive](../journals/integrated-component-qualification/2026-11-09/42689603169/README.md) retains504PASS/6FAIL; the separate [descendant storage archive](../journals/descendant-storage-qualification/2026-11-09/42689603169/README.md) independently verifies80PASS across eight clean runs and four TS/Go directions. |
-| [Native42690318194](https://github.com/p2ppsr/interop/actions/runs/42690318194) | Both workers complete and clean up; original permissions, rejection/recovery and all77 integrated checks independently pass. Source-off cold task recovery works. The parent rejects portability UI casing and unproven signed redemption timing. [Original artifact and independent diagnosis](../journals/integrated-native-attempts/2026-11-09/42690318194/README.md) retain the failed qualification and no Rust execution. |
+| [Foundation 42689603169](https://github.com/p2ppsr/interop/actions/runs/42689603169) | All three jobs pass on `d02414f`. [Generic component archive](../journals/integrated-component-qualification/2026-11-09/42689603169/README.md) retains504 PASS / 6 FAIL; the separate [descendant storage archive](../journals/descendant-storage-qualification/2026-11-09/42689603169/README.md) independently verifies 80 PASS across eight clean runs and four TS/Go directions. |
+| [Native 42690318194](https://github.com/p2ppsr/interop/actions/runs/42690318194) | Both workers complete and clean up; original permissions, rejection/recovery and all 77 integrated checks independently pass. Source-off cold task recovery works. The parent rejects portability UI casing and unproven signed redemption timing. [Original artifact and independent diagnosis](../journals/integrated-native-attempts/2026-11-09/42690318194/README.md) retain the failed qualification and no Rust execution. |
+| [Foundation 42697115971](https://github.com/p2ppsr/interop/actions/runs/42697115971) | All three jobs pass on frozen `cc3cf75`: 85 core, 250 synthesis with eight gated skips, five Python, 11 Go, three transport, 14 service and one Rust test; audit has zero findings. [Generic component evidence](../journals/integrated-component-qualification/2026-11-09/42697115971/README.md) independently replays 504 PASS / 6 FAIL across 22 executions. [Descendant storage evidence](../journals/descendant-storage-qualification/2026-11-09/42697115971/README.md) independently replays 80 PASS across eight fresh runs; all 187 original members remain unchanged. |
+| [Native 42697283161](https://github.com/p2ppsr/interop/actions/runs/42697283161) | Both workers complete on frozen `cc3cf75`, but three permission outcomes differ because native popup closure races the click observer. [Original archive and full independent review](../journals/integrated-native-attempts/2026-11-09/42697283161/README.md) retain 177 PASS / 102 FAIL / 1 BLOCKED and 180 PASS / 99 FAIL / 1 BLOCKED. Both portability scenarios pass 9/9; all 77 integrated checks pass per repetition. No Rust execution or qualification is claimed. |
 
 In native 42667035861 each worker reports V001–V005 PASS and V006–V008 FAIL.
 Independent child review confirms permission 8 PASS and clause 132 PASS / 98 FAIL /
@@ -78,22 +79,46 @@ reported outcomes match, but this does not qualify the disputed portability
 observations. Both workers and containers cleanly shut down and the host setting
 is restored. The original 124 artifact members remain unchanged.
 
-In native42690318194, both repetitions report V001–V006 PASS and V007–V008
-FAIL, with identical263-predicate reports:162PASS,99FAIL,2BLOCKED. Independent
+In native 42690318194, both repetitions report V001–V006 PASS and V007–V008
+FAIL, with identical 263-predicate reports: 162 PASS, 99 FAIL, 2 BLOCKED. Independent
 partial verification confirms the original eight permissions, all six ToDo/API
-rejection-and-recovery checks, and all77 integrated checks per repetition. Cold
+rejection-and-recovery checks, and all 77 integrated checks per repetition. Cold
 Lock/Unlock and task reconstruction now succeed from replacement storage while
 the source listener is unavailable. Each exported dataset independently closes
-its12 signed transactions to the pinned mined root.
+its 12 signed transactions to the pinned mined root.
 
 Qualification still fails: the rendered native status is `IN USE`, whereas the
-frozen oracle2 requires `In use`. The final replacement snapshot also contains
+frozen oracle 2 requires `In use`. The final replacement snapshot also contains
 an unsigned redemption reservation. The original absence read and snapshot
 precede completion; later signed storage bytes cannot prove completion during
-the source outage. All132 original artifact members, full failed parent replay,
+the source outage. All 132 original artifact members, full failed parent replay,
 partial reviews and diagnosis remain unchanged. Rust did not execute. These
 observations justify a prospective oracle correction, not retrospective passing
 results for the original run.
+
+In native 42697283161, both complete 280-predicate reports independently
+recompute, but three V005 outcomes differ. Repetition 1 has 177 PASS, 102 FAIL
+and one BLOCKED; repetition 2 has 180 PASS, 99 FAIL and one BLOCKED. The differing
+IDs are `permissions.origin-grant-isolation`, `permissions.deny-pending-request`
+and `permission-lifecycle.basket-denial`. Deny closes the popup before
+Playwright's click command resolves; the observer records a transport error and
+an empty completion timestamp instead of retaining the original bounded public
+call observation. Those cases remain failed observations. A new trusted-click
+observer must record the actual matched button event and the wallet's own result
+separately; popup closure alone cannot establish a decision.
+
+Both portability scenarios independently pass all nine checks: 12 source and
+initial replacement signed transactions close to the pinned mined proof, and
+the final replacement contains 13 signed transactions including redemption.
+The actual signed spend, exact successful authenticated processing receipt,
+final public read and complete snapshot precede source restoration. All six
+rejection/recovery and 77 integrated checks pass per repetition. Clause oracle4
+retains 133 PASS, 99 FAIL and one BLOCKED each; the valid noSendChange input
+passes and the stale returned value fails separately. Rust does not execute
+because the parent rejects repetition agreement first. Both module and final
+ledger lengths are 53, with no post-module receipts; the captured evidence does
+not extend through shutdown. All 176 original members and failed verification
+remain unchanged, and all processes/containers clean up.
 
 The additional native clause blocker has independent transaction proof:
 `noSendChange` identifies an unsigned transaction's output while `tx` and
@@ -195,32 +220,58 @@ survives actual remote acquisition, proof and strict SDK disclosure in the
 [regression evidence](../journals/certificate-fixture-reference/2026-11-09/README.md).
 The correction changes the issuer fixture, not the storage or wallet SUT.
 
-The separately frozen [ITCVE1.5 profile](../itcves/ITCVE-1/1.5.0/README.md)
-and [ISI4 version3 criteria](../programs/ISI-4/3.0.0/README.md) add16 native
-category/revocation predicates and one returned-change predicate, for280
-conformance predicates. Historical1.4 plans and evidence remain unchanged.
-Portability oracle3 retains complete authenticated dataset polls and requires a
+The separately frozen [ITCVE-1 1.5 profile](../itcves/ITCVE-1/1.5.0/README.md)
+and [ISI-4 version 3 criteria](../programs/ISI-4/3.0.0/README.md) add 16 native
+category/revocation predicates and one returned-change predicate, for 280
+conformance predicates. Historical 1.4 plans and evidence remain unchanged.
+[Portability oracle 3 preflights](../journals/native-portability-reference/2026-11-09/signed-completion-v3/README.md) retain both failed attempts and the successful native engineering observation. The oracle retains complete authenticated dataset polls and requires a
 signed task spend with valid ancestry and successful replacement processing
 before the final read, final snapshot and source restoration. Exact rendered
 active-status lines permit case and whitespace normalization only.
 
-The new permission lifecycle uses native basket, certificate and one-shot
+The [new permission lifecycle](../journals/native-permission-lifecycle/2026-11-09/README.md) uses native basket, certificate and one-shot
 spending prompts, Settings individual revocation and origin-wide revocation.
 Subsequent native requests prove denied access, restored access and isolation
 of unrelated grants and the other origin. Independent certificate decryption,
 actual signed payments, exact matching submission receipts and full global
 receipt windows supply effects beyond UI text. No private permission store is
-edited, and the scenario introduces no funding.
+edited, and the scenario introduces no funding. Permission denial observations
+are bounded by the retained ledger: the module checks its full receipt window,
+and publication review also checks the final captured global tail for matching
+denied payments. The frozen driver captures that global ledger before browser
+and service shutdown, so it does not establish absence through shutdown. A
+future shutdown-final receipt needs separate runtime evidence; no later
+observation is invented for this run.
 
-[Clause oracle4 engineering evidence](../journals/native-nosend-change/2026-11-09/oracle4-preflight/README.md)
+[Clause oracle 4 engineering evidence](../journals/native-nosend-change/2026-11-09/oracle4-preflight/README.md)
 establishes a valid caller input from final signed transaction bytes and matching
 labelled public action outputs. The released wallet passes this input case but
 returns a stale unsigned-transaction outpoint, which separately fails the new
 return predicate. TypeScript and Go references pass both. Optional absent/empty
 returns remain BLOCKED for that unexercised branch; a valid nonempty subset is
-allowed. No returned value is silently repaired and no oracle3 BLOCKED result
+allowed. No returned value is silently repaired and no oracle 3 BLOCKED result
 is rewritten. These macOS/reference checks are engineering evidence; the new
 Linux native profile still requires its own complete retained qualification.
+
+[ITCVE-1 2.0.0](../itcves/ITCVE-1/2.0.0/README.md) and
+[ISI-4 4.0.0](../programs/ISI-4/4.0.0/README.md) separately version the stronger
+observation boundary after native 42697283161. Permission oracle2 records the
+trusted matching DOM button event, exact pending-request nonce and original
+public CWI response. Playwright completion or transport errors remain separate;
+a closed popup cannot supply missing user-decision evidence. Both original
+protocol and category-permission controllers opt in explicitly; prior schemas,
+profile1.5 and its frozen acceptance bytes remain unchanged.
+
+The new shutdown-final receipt is captured after awaited browser, controlled
+service and temporary-profile cleanup. It binds the original module/global
+ledgers and complete retained provider inventory, preserves their exact prefixes,
+and includes every provider suffix with explicit provenance. It does not invent
+a chronological order between providers. Independent verification rejects
+delayed matching denied payments, missing providers or truncated prefixes; only
+the separately verified approved five-satoshi transaction within its exact grant
+window is exempt. This requires new native execution, not a reinterpretation of
+the earlier pre-shutdown snapshot. The 280 conformance predicate identifiers
+remain; new environment admission and oracle requirements are frozen separately.
 
 ## Reference evidence and unresolved scope
 
@@ -276,7 +327,7 @@ predicates fail, or BLOCKED when those obligations are all that remain.
 | Remaining obligation | Evidence needed to close it |
 | --- | --- |
 | Privileged secondary keyring | An admitted released configuration with an actual distinct secondary keyring and user-presence path; approval/denial, reason validation, independent key/crypto separation, lock/reload and cache expiry. Bundled optional manager code alone does not establish that configuration. Unsupported optional functionality needs a prospective applicability decision. |
-| Other permission categories | Supported UI exists for basket, spending and certificate prompts plus single/all grant revocation; dedicated fresh-origin approval/denial, cache, revocation, restart and scope scenarios remain laboratory work. Linkage needs its applicable public flow. The reviewed UI grants default to no expiry; finite-expiry evidence requires a supported configuration rather than private-state manipulation. |
+| Permission lifecycle and additional scope | ITCVE-1 1.5 implements basket, certificate and one-shot spending decisions plus individual/origin revocation and isolation; its released-wallet macOS preflight passes all 16 new predicates and awaits separate Linux qualification. Linkage, permission persistence across restart, standing allowances and finite expiry remain additional obligations. The reviewed UI grants default to no expiry; finite-expiry evidence requires a supported configuration rather than private-state manipulation. |
 | Native byte-wire substrate | A released native endpoint, or a prospective applicability decision, followed by all 28 call codes and malformed/truncated/error frames, byte encoding and state/permission parity. A laboratory encoder forwarding to CWI is not a native endpoint. |
 | Basket-length conflict | An explicit versioned interpretation or pinned upstream clarification of the typed 300-byte versus prose 400-byte limits, followed by create/query/persistence cases at 299/300/301/399/400/401 UTF-8 bytes. |
 | Remaining conditional branches | A clause inventory covering transaction batching/defaults, proof-omission trust, consuming-reference conflicts, filter/pagination/include semantics, actual certificate issuance, conflicting required fields, verifier/keyring/signature/revocation behavior and pagination; each applicable branch needs admitted fixtures and independent state/ancestry checks. |
@@ -290,7 +341,9 @@ closing coverage does not erase earlier failures.
 Install the exact locked dependencies and service binaries using the
 [integrated preparation commands](integrated-lab-results-2026-11-06.md).
 The `ISI-4 Yours Wallet controlled-service run` workflow accepts
-`integrated-native-conformance`; it builds the Linux/amd64 closure on its
+`integrated-native-conformance` for the historical 1.4 plan and
+`integrated-native-conformance-coverage` for the separately frozen 1.5 plan.
+It builds the Linux/amd64 closure on its
 Ubuntu runner. `node scripts/verify-native-integrated.mjs OUTPUT` independently
 checks retained native evidence against its recorded source and frozen plan.
 Use the corresponding recorded revision for historical attempts; the prospective
@@ -315,7 +368,17 @@ node scripts/verify-descendant-storage-matrix.mjs NEW_OUTPUT
 Foundation CI runs this matrix and uploads `descendant-storage-sync` separately
 from the historical integrated component artifact. Native image construction
 copies the new source-bound Go binary/manifest only into the prospective image.
-The new plan is `YOURS-5.1.0-GO-ITCVE-1.4.0-CONFORMANCE-ANCESTRY-CLOSURE`.
+The 1.4 plan remains `YOURS-5.1.0-GO-ITCVE-1.4.0-CONFORMANCE-ANCESTRY-CLOSURE`.
+The optional 1.5 plan is
+[`YOURS-5.1.0-GO-ITCVE-1.5.0-CONFORMANCE-COVERAGE`](../infra/native/conformance/plan-coverage.json).
+Its engineering archive guards run without starting services:
+
+```sh
+node scripts/verify-descendant-storage-archives.mjs --semantic
+node scripts/verify-native-permission-lifecycle-archive.mjs --semantic
+node scripts/verify-native-portability-archive.mjs
+node journals/native-nosend-change/2026-11-09/oracle4-preflight/replay.mjs
+```
 
 No paid devices, new subscriptions, production routes, production credentials
 or public-mainnet spending are involved. Standard public GitHub runner compute
