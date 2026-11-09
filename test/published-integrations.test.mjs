@@ -33,6 +33,23 @@ test('published archive integrity binds every byte and complete file set without
   fs.appendFileSync(path.join(directory, 'qualification.json'), ' ')
   assert.throws(() => verifyIntegrationArchive(directory))
 }))
+test('native conformance publication binds the new schema and preserves its incomplete-conformance claim', () => temporary(directory => {
+  const source = 'ab'.repeat(20)
+  fs.writeFileSync(path.join(directory, 'native-integrated.zip'), zip([{ name: 'result.json', body: '{}' }]))
+  const qualification = { schema: 'tpnil-native-integrated-qualification@2', claim: 'EXPERIMENTAL_CONFORMANCE_RESULT', profile: 'ITCVE-1@1.4.0', program: 'ISI-4@2.0.0', source, qualifiedEnvironment: true, completeBRC100Conformance: false }
+  const publish = () => {
+    fs.writeFileSync(path.join(directory, 'qualification.json'), JSON.stringify(qualification))
+    fs.writeFileSync(path.join(directory, 'provenance.json'), JSON.stringify({ schema: 'tpnil-integrated-native-archive@1', source, files: ['qualification.json', 'native-integrated.zip'].map(name => { const bytes = fs.readFileSync(path.join(directory, name)); return { path: name, size: bytes.length, sha256: hash(bytes) } }) }))
+  }
+  publish(); assert.equal(verifyIntegrationArchive(directory).kind, 'native')
+  qualification.completeBRC100Conformance = true; publish(); assert.throws(() => verifyIntegrationArchive(directory))
+  qualification.completeBRC100Conformance = false
+  qualification.schema = 'tpnil-native-integrated-qualification@1'; publish(); assert.throws(() => verifyIntegrationArchive(directory))
+  qualification.schema = 'tpnil-native-integrated-qualification@2'
+  qualification.program = 'ISI-4@1.0.0'; publish(); assert.throws(() => verifyIntegrationArchive(directory))
+  qualification.program = 'ISI-4@2.0.0'
+  qualification.profile = 'ITCVE-1@1.3.0'; publish(); assert.throws(() => verifyIntegrationArchive(directory))
+}))
 test('unlisted files and duplicate inventory entries cannot verify', () => temporary(directory => {
   const provenance = bundle(directory)
   fs.writeFileSync(path.join(directory, 'unlisted.txt'), 'extra'); assert.throws(() => verifyIntegrationArchive(directory)); fs.unlinkSync(path.join(directory, 'unlisted.txt'))

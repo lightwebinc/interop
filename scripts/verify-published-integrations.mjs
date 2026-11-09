@@ -115,11 +115,17 @@ export function verifyIntegrationArchive(directory) {
     return { kind, directory, source: manifest.source, files: names.length, claim: manifest.claim }
   }
   const qualification = readJson(path.join(directory, 'qualification.json'))
-  assert.equal(qualification.source, manifest.source); assert.equal(qualification.profile, 'ITCVE-1@1.3.0')
+  assert.equal(qualification.source, manifest.source)
+  const conformance = kind === 'native' && qualification.profile === 'ITCVE-1@1.4.0'
+  assert.equal(qualification.profile, conformance ? 'ITCVE-1@1.4.0' : 'ITCVE-1@1.3.0')
   const archive = kind === 'component' ? 'integrated-lab.zip' : 'native-integrated.zip'
   assert(names.includes(archive))
   if (kind === 'component') { assert.equal(qualification.schema, 'tpnil-integrated-component-qualification@1'); assert.equal(qualification.claim, 'INFRASTRUCTURE_QUALIFICATION_ONLY') }
-  else { assert.equal(qualification.schema, 'tpnil-native-integrated-qualification@1'); assert.equal(qualification.claim, 'EXPERIMENTAL_CONFORMANCE_RESULT'); assert.equal(qualification.qualifiedEnvironment, true) }
+  else {
+    assert.equal(qualification.schema, conformance ? 'tpnil-native-integrated-qualification@2' : 'tpnil-native-integrated-qualification@1')
+    assert.equal(qualification.claim, 'EXPERIMENTAL_CONFORMANCE_RESULT'); assert.equal(qualification.qualifiedEnvironment, true)
+    if (conformance) { assert.equal(qualification.program, 'ISI-4@2.0.0'); assert.equal(qualification.completeBRC100Conformance, false) }
+  }
   if (qualification.workflowRun !== undefined) assert.equal(qualification.workflowRun, manifest.workflowRun)
   if (qualification.artifact !== undefined) {
     const entry = manifest.files.find(item => item.path === archive)
