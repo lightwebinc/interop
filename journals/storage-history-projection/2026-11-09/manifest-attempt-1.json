@@ -1,0 +1,26 @@
+{
+  "schema": "tpnil-storage-sync-profile@2.0.0",
+  "id": "ISI-3/storage-http-sync@2.0.0",
+  "status": "EXPERIMENTAL",
+  "projectionPolicy": "tpnil-storage-history-projection@2.0.0",
+  "normalization": {
+    "path": "provenTxReqs.history.notes[].when",
+    "accepted": "Four-digit Gregorian calendar date, uppercase T, hour00-23/minute00-59/second00-59, optional decimal fractional digits, UTC suffix Z or +00:00. Leap-second spelling and unknown offset -00:00 are rejected, matching the pinned Go time parser domain.",
+    "equivalence": "Only insignificant trailing fractional zeros are removed; an all-zero fraction is omitted. Every significant digit and original UTC suffix is retained.",
+    "otherMetadata": "All other metadata, ordering, relationship and transaction/proof comparisons retain v1 semantics.",
+    "rawRecords": "Preserved byte-for-byte; projection never edits input."
+  },
+  "sourceFiles": {
+    "synthesis/src/storage-sync/history-projection.ts": "b48883ea782171df9de7e3bafd512419a95e31ddb5b37adf6e6f46548d0e1f81",
+    "synthesis/src/storage-sync/projection.ts": "ab251c8a1abd30aef5c246f6434fd786310b8ef69813f94005626652c479dc48"
+  },
+  "goProvenance": {
+    "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+    "version": "v0.191.4",
+    "moduleSum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
+    "path": "pkg/wdk/history_notes.go",
+    "sha256": "b2c723d248eb4f0d3b95d7c9f9b058c755287c2f5ebbb38e6ccb1e4d7b9e75ea",
+    "type": "HistoryNote.When time.Time",
+    "serialization": "HistoryNote.MarshalJSON delegates When to json.Marshal, which may omit insignificant fractional zeros."
+  }
+}

@@ -5,15 +5,31 @@ import os from 'node:os'
 import { createHash } from 'node:crypto'
 import { MerklePath, Transaction } from '@bsv/sdk'
 import { projectDataset } from './projection.js'
+import { projectDatasetV2 } from './history-projection.js'
+import { storageProjectionV2Binding, storageProjectionProfilePath } from './projection-profile.js'
 
 const digest = (filename: string) => createHash('sha256').update(fs.readFileSync(filename)).digest('hex')
 const read = (filename: string) => JSON.parse(fs.readFileSync(filename, 'utf8'))
 const fixture = read(path.resolve(import.meta.dirname, '../../../fixtures/teranode/wab-funding-v1.json'))
 
+function projectionForReport(report: any, kind: 'run' | 'matrix') {
+  const version2 = report.schema === `tpnil-storage-sync-${kind}@2.0.0`
+  assert.equal(report.schema, `tpnil-storage-sync-${kind}@${version2 ? '2.0.0' : '1.0.0'}`)
+  const binding = version2 ? storageProjectionV2Binding() : {}
+  for (const name of ['profile', 'projectionPolicy', 'projectionManifestSha256'] as const) assert.equal(report[name], (binding as Record<string, unknown>)[name], `Storage projection binding differs: ${name}`)
+  return { project: version2 ? projectDatasetV2 : projectDataset, version2 }
+}
+
 /** Recompute predicates from raw records; reported PASS labels are never an oracle. */
 export function verifyStorageCase(directory: string) {
   const result = read(path.join(directory, 'result.json'))
-  assert.equal(result.schema, 'tpnil-storage-sync-run@1.0.0')
+  const { project, version2 } = projectionForReport(result, 'run')
+  if (version2) {
+    const runtime = result.projectionRuntime
+    assert.deepEqual(Object.keys(runtime).sort(), ['declaredTimezone', 'observedAt', 'offsetMinutes', 'resolvedTimezone'])
+    assert.equal(runtime.declaredTimezone, 'UTC'); assert.equal(runtime.resolvedTimezone, 'UTC'); assert.equal(runtime.offsetMinutes, 0)
+    assert.ok(Number.isFinite(Date.parse(runtime.observedAt)) && Date.parse(runtime.observedAt) <= Date.parse(result.startedAt))
+  } else assert.equal(result.projectionRuntime, undefined)
   for (const item of result.evidence) {
     assert.ok(['observations.json', 'transcript.json'].includes(item.path))
     assert.equal(digest(path.join(directory, item.path)), item.sha256)
@@ -26,16 +42,16 @@ export function verifyStorageCase(directory: string) {
   assert.equal(o.source.certificates.length, 1)
   assert.equal(o.source.certificateFields.length, 2)
   assert.ok(trace.some((r: any) => r.method === 'processSyncChunk' && r.committedResponseLost === true && r.response && /injected loss/.test(r.error)))
-  const source = projectDataset(o.source), destination = projectDataset(o.destination)
+  const source = project(o.source), destination = project(o.destination)
   assert.deepEqual(destination, source, 'Initial raw logical datasets differ')
   assert.deepEqual(o.sourceProjection, source)
   assert.deepEqual(o.destinationProjection, destination)
-  assert.deepEqual(projectDataset(o.replay), destination, 'Replay altered logical state')
+  assert.deepEqual(project(o.replay), destination, 'Replay altered logical state')
   assert.equal(o.foreignOutputs.totalOutputs, 0)
   assert.deepEqual(o.foreignOutputs.outputs, [])
   assert.ok(trace.some((r: any) => r.provider === 'foreign-identity' && r.method === 'getSyncChunk' && /unauthorized|identity|not auth|invalid/i.test(r.error ?? '')), 'No authenticated foreign-dataset denial')
-  const updated = projectDataset(o.incremental.sourceRaw)
-  assert.deepEqual(projectDataset(o.incremental.destinationRaw), updated, 'Incremental raw datasets differ')
+  const updated = project(o.incremental.sourceRaw)
+  assert.deepEqual(project(o.incremental.destinationRaw), updated, 'Incremental raw datasets differ')
   assert.deepEqual(o.incremental.source, updated)
   assert.deepEqual(o.incremental.destination, updated)
   assert.equal(o.incremental.sourceRaw.certificates.length, 1)
@@ -71,7 +87,12 @@ export function verifyStorageCase(directory: string) {
 
 export function verifyStorageMatrix(directory: string) {
   const matrix = read(path.join(directory, 'result.json'))
-  assert.equal(matrix.schema, 'tpnil-storage-sync-matrix@1.0.0')
+  const { version2 } = projectionForReport(matrix, 'matrix')
+  if (version2) {
+    const inputs = read(path.join(directory, 'inputs.json'))
+    assert.deepEqual(inputs.files, matrix.frozenInputs)
+    for (const name of [storageProjectionProfilePath, 'synthesis/src/storage-sync/history-projection.ts', 'synthesis/src/storage-sync/projection-profile.ts', 'synthesis/src/storage-sync/projection.ts']) assert.equal(matrix.frozenInputs[name], digest(path.resolve(import.meta.dirname, '../../..', name)), `Frozen projection input differs: ${name}`)
+  }
   assert.equal(matrix.runs.length, 8)
   const seen = new Set<string>()
   for (const source of ['typescript', 'go']) for (const destination of ['typescript', 'go']) {
@@ -81,6 +102,8 @@ export function verifyStorageMatrix(directory: string) {
       assert.ok(!seen.has(name)); seen.add(name)
       const stored = matrix.runs.filter((r: any) => r.name === name)
       assert.equal(stored.length, 1)
+      const cell = read(path.join(directory, name, 'result.json'))
+      assert.equal(cell.schema, version2 ? 'tpnil-storage-sync-run@2.0.0' : 'tpnil-storage-sync-run@1.0.0')
       const actual = verifyStorageCase(path.join(directory, name))
       assert.equal(actual.components.source, source); assert.equal(actual.components.destination, destination)
       assert.deepEqual(stored[0].assertions.map(({ id, result }: any) => ({ id, result })).sort((a: any, b: any) => a.id.localeCompare(b.id)), actual.assertions)
@@ -94,17 +117,27 @@ export function verifyStorageMatrix(directory: string) {
 export function verifyStorageTamperRejection(directory: string) {
   const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'tpnil-storage-oracle-'))
   const original = path.join(directory, 'typescript-to-go-1')
+  const { project, version2 } = projectionForReport(read(path.join(original, 'result.json')), 'run')
+  const mutations = ['providedBy', 'proof', ...(version2 ? ['history-instant', 'history-calendar'] : [])]
   try {
-    for (const mutation of ['providedBy', 'proof']) {
+    for (const mutation of mutations) {
       const copy = path.join(temporary, mutation); fs.mkdirSync(copy)
       for (const name of ['observations.json', 'transcript.json', 'result.json']) fs.copyFileSync(path.join(original, name), path.join(copy, name))
       const o = read(path.join(copy, 'observations.json'))
-      if (mutation === 'providedBy') { o.destination.outputs[0].providedBy = 'tampered'; o.destinationProjection = projectDataset(o.destination) }
-      else {
+      if (mutation === 'providedBy') { o.destination.outputs[0].providedBy = 'tampered'; o.destinationProjection = project(o.destination) }
+      else if (mutation.startsWith('history-')) {
+        const row = o.destination.provenTxReqs[0], history = typeof row.history === 'string' ? JSON.parse(row.history) : row.history
+        assert.ok(history.notes.length > 0)
+        const originalWhen = history.notes[0].when
+        history.notes[0].when = mutation === 'history-calendar' ? '2026-02-30T00:00:00Z' : originalWhen.replace(/(?:\.\d+)?Z$/, originalWhen.endsWith('.123456789Z') ? '.123456788Z' : '.123456789Z')
+        assert.notEqual(history.notes[0].when, originalWhen)
+        row.history = typeof row.history === 'string' ? JSON.stringify(history) : history
+        if (mutation === 'history-instant') o.destinationProjection = project(o.destination)
+      } else {
         // Change both equal projections, so source/destination equality alone cannot detect it.
         for (const dataset of [o.source, o.destination, o.replay, o.incremental.sourceRaw, o.incremental.destinationRaw]) dataset.provenTxs[0].merklePath[6] ^= 1
-        o.sourceProjection = projectDataset(o.source); o.destinationProjection = projectDataset(o.destination)
-        o.incremental.source = projectDataset(o.incremental.sourceRaw); o.incremental.destination = projectDataset(o.incremental.destinationRaw)
+        o.sourceProjection = project(o.source); o.destinationProjection = project(o.destination)
+        o.incremental.source = project(o.incremental.sourceRaw); o.incremental.destination = project(o.incremental.destinationRaw)
       }
       fs.writeFileSync(path.join(copy, 'observations.json'), JSON.stringify(o))
       const result = read(path.join(copy, 'result.json'))
@@ -113,7 +146,7 @@ export function verifyStorageTamperRejection(directory: string) {
       assert.throws(() => verifyStorageCase(copy), `Rebound ${mutation} corruption escaped the independent oracle`)
     }
   } finally { fs.rmSync(temporary, { recursive: true, force: true }) }
-  return { rejected: ['providedBy-with-rebound-digest', 'proof-with-rebound-digest'] }
+  return { rejected: mutations.map(mutation => `${mutation}-with-rebound-digest`) }
 }
 if (process.argv[1] === import.meta.filename) {
   const directory = path.resolve(process.argv[2]!)

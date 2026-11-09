@@ -1,0 +1,9 @@
+typescript-to-typescript-1: PASS
+typescript-to-typescript-2: PASS
+typescript-to-go-1: PASS
+typescript-to-go-2: PASS
+go-to-typescript-1: FAIL
+go-to-typescript-2: FAIL
+go-to-go-1: FAIL
+go-to-go-2: FAIL
+Storage matrix: FAIL; 8 runs retained in /Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/storage-history-v2-matrix-20261109-1
