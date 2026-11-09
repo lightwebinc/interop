@@ -1,0 +1,803 @@
+{
+  "schema": "tpnil-native-permission-lifecycle-engineering-archive@1",
+  "claim": "NATIVE_MACOS_ENGINEERING_PREFLIGHT_ONLY",
+  "date": "2026-11-09",
+  "platform": "darwin",
+  "architecture": "arm64",
+  "wallet": "unchanged yours-wallet-v5.1.0 release artifact",
+  "storage": "explicit prospective Go storage-portability compatibility build",
+  "result": "PASS",
+  "assertions": {
+    "originalPermissions": 8,
+    "permissionLifecycle": 16
+  },
+  "lifecycleStartedAt": "2026-11-09T20:48:51.039Z",
+  "lifecycleEndedAt": "2026-11-09T20:49:10.595Z",
+  "cleanup": {
+    "browser": true,
+    "services": true,
+    "profile": true
+  },
+  "sourceBinding": "go-reference/source contains the exact three permission source files copied before final engineering execution. The retained runner uses the public extension UI and CWI. Other current shared lab service inputs are pinned by the eventual source freeze; this local archive is not a clean CI source admission or native Linux qualification.",
+  "priorAttempts": [
+    {
+      "number": 1,
+      "originalOutput": "out/native-permission-lifecycle-lTGIVa",
+      "classification": "OBSERVER_BOOTSTRAP_ERROR"
+    },
+    {
+      "number": 2,
+      "originalOutput": "out/native-permission-lifecycle-ZymugU",
+      "classification": "OBSERVER_SETUP_PROMPT_ERROR"
+    },
+    {
+      "number": 3,
+      "originalOutput": "out/native-permission-lifecycle-ddPdQN",
+      "classification": "DRAFT_NATIVE_MACOS_ENGINEERING_PASS"
+    },
+    {
+      "number": 4,
+      "originalOutput": "out/native-permission-lifecycle-eitcgx",
+      "classification": "DRAFT_GO_NATIVE_MACOS_ENGINEERING_PASS"
+    },
+    {
+      "number": 5,
+      "originalOutput": "out/native-permission-lifecycle-axyb7r",
+      "classification": "NATIVE_ONBOARDING_OBSERVATION_TIMEOUT"
+    },
+    {
+      "number": 6,
+      "originalOutput": "out/native-permission-lifecycle-lMSjcf",
+      "classification": "GO_ENGINEERING_PASS_BEFORE_RECEIPT_WINDOW_HARDENING"
+    }
+  ],
+  "replayInputs": [
+    "synthesis/package.json",
+    "synthesis/package-lock.json",
+    "synthesis/src/determinism.ts",
+    "synthesis/src/wallet-lab/native/conformance-permissions-model.ts",
+    "synthesis/src/wallet-lab/native/verify-conformance-permissions.ts",
+    "synthesis/src/wallet-lab/native/conformance-permission-lifecycle-model.ts",
+    "synthesis/src/wallet-lab/native/verify-conformance-permission-lifecycle.ts",
+    "fixtures/teranode/wab-funding-v1.json"
+  ],
+  "archiveMembers": [
+    {
+      "path": "attempt-1/result.json",
+      "size": 7843,
+      "sha256": "76a1ef0ad982c074e7bc990e891f567771299cd914777d38b75e9a208b6c516f"
+    },
+    {
+      "path": "attempt-1/execution.log",
+      "size": 1719,
+      "sha256": "ac99dee6b444232f4305a064bbac8326349af2f8a3e840e182cb590852263bb0"
+    },
+    {
+      "path": "attempt-2/evidence/conformance/permission-lifecycle-setup-basket-0.png",
+      "size": 7764,
+      "sha256": "cff1f83f05586bf3028bcff0627fe29cdde1e53cd10bfc658f9bc5d5b9f01bef"
+    },
+    {
+      "path": "attempt-2/evidence/conformance/permission-lifecycle.json",
+      "size": 6846,
+      "sha256": "3f5c1a577bedc7c00733e476dda045fe0f38bc42a1fa314df26e3e61e7308ca9"
+    },
+    {
+      "path": "attempt-2/evidence/conformance/permissions-alternate-approve.png",
+      "size": 10487,
+      "sha256": "47b55844c23dd7f05a3f86d361a61b69009678043f3793630d63df59644cfb11"
+    },
+    {
+      "path": "attempt-2/evidence/conformance/permissions-alternate-deny.png",
+      "size": 10402,
+      "sha256": "566ada4e3e3e7bce6d9c219e1a6d15707187690caa29721487b85cc76b1eb435"
+    },
+    {
+      "path": "attempt-2/evidence/conformance/permissions-primary-approve.png",
+      "size": 14030,
+      "sha256": "e522cc578a94d42ed81f8cd6f937593e8d5ac75f105c9eded6b4cf9eb0a30725"
+    },
+    {
+      "path": "attempt-2/evidence/conformance/permissions.json",
+      "size": 8440,
+      "sha256": "7c2bfa3d2ab7d22f5cd42c08e672c3a89d1cd0a878cf353e2a159d118b54932f"
+    },
+    {
+      "path": "attempt-2/result.json",
+      "size": 61656,
+      "sha256": "1857ee2ca97d26f242332880249776798ddd6e14e3ec207e39be83786e30f162"
+    },
+    {
+      "path": "attempt-2/execution.log",
+      "size": 3532,
+      "sha256": "d80c1f99aa45bfe4b9b3b44890513ce14ef8a6a64b603c6dc2273f0438c4646a"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-alternate-basket-allow-0.png",
+      "size": 14789,
+      "sha256": "b1acb45fd55441d91a1ef0cdb18b2ca1fe0c047aaea720169a11b9e460844a63"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-basket-after-all-deny-0.png",
+      "size": 6416,
+      "sha256": "ca102bcfdca4a384c6bd8362ca179ba947d3369888657e7c7571787492a215a8"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-basket-after-single-deny-0.png",
+      "size": 9571,
+      "sha256": "d6c585daf60e5d02f959ca5004259f20f475749907db1b6f63e965503e47e6d3"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-basket-allow-0.png",
+      "size": 8810,
+      "sha256": "968db7efab6ff0cc43bf9d9b7a3fdc2963d46243cee079b6c8b62b18d17f8cfd"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-basket-deny-0.png",
+      "size": 8893,
+      "sha256": "6d19f752b3f702c4cfb29836a731bb83951242ef544696dd22b39a57e47e6e56"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-basket-recovery-allow-0.png",
+      "size": 13136,
+      "sha256": "6e3f780dd7e1f1e7fd3f00da14c4a4e9866f526e77aa429991c93cc365ccfc79"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-certificate-after-all-deny-0.png",
+      "size": 7331,
+      "sha256": "ec1ad1cc5f289c21f2aa4f25e2d597710d62b7ad5a6e2ab5b476a4266342be41"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-certificate-allow-0.png",
+      "size": 8275,
+      "sha256": "7caa3565634eca85de281f798525f270806d4ad3c1495b1a361dd596b8a979b6"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-certificate-deny-0.png",
+      "size": 12324,
+      "sha256": "50b9bb36c3c21c5f0387bf8fa03411be41db9c592ddd9c1d2f44d86ca1f2075e"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-origin-after.png",
+      "size": 38713,
+      "sha256": "c70fa5dbdf191d7a52ad36e5eb235fc16e75759ce60d46306be7eeb7c4b69c5a"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-origin-before.png",
+      "size": 24736,
+      "sha256": "b0943d3560581d27e5ddbfb5693cbeb35369a21e40f40d0916301d81f92f66f4"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-origin-confirm.png",
+      "size": 27222,
+      "sha256": "7fe2de197d03e0c4c26abb685f24e590eefccd7149a4626392743f7a0a57e688"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-setup-basket-0.png",
+      "size": 10646,
+      "sha256": "b0c6ea3a95666ac70e0a12fccb5f17770a8fe26d6a7ad552c49b2020352c9e85"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-setup-basket-1.png",
+      "size": 10675,
+      "sha256": "39b8b5e86275e00af03f2d51e299450fa9c92e530f15d03d6d92fd6402ded1c5"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-setup-basket-2.png",
+      "size": 14281,
+      "sha256": "ff71dc0c09cd72614407dfa25c85ecef60e7a0a3ede8c541bb8b4f1ff1d347d2"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-setup-certificate-0.png",
+      "size": 7494,
+      "sha256": "facd055ab81784d0507584b13c69bccf82fd718cfbd39cc94567951eeefba633"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-single-after.png",
+      "size": 36800,
+      "sha256": "5320238253eb00d7b13965f65ee4e459392e060cbe30321af26fa6d4df5bf9e0"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-single-before.png",
+      "size": 24748,
+      "sha256": "796a60ef5e0d068d876ea5469c048fd4e4e3aa198572da03ad42c5bb826d82d8"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-spending-allow-0.png",
+      "size": 12757,
+      "sha256": "2b80bf17d4ec4abd0fdff3e5291e369f2b51b2b705df5764bed3c560a2cd7822"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-spending-deny-0.png",
+      "size": 8782,
+      "sha256": "de289eda0481d5cd9d9dded3fea2e8efb5abe1e6692a1abf00c03547aa4ed55f"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle-spending-second-deny-0.png",
+      "size": 7873,
+      "sha256": "6cf5132d42450d83264134bfb726569bd6a74a4b938bf4c90274792c4cf2a930"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permission-lifecycle.json",
+      "size": 80536,
+      "sha256": "dd6e232668582552d0c16ded4625c30f0527b6e48d8d0f419ae2dc3538fd3a27"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permissions-alternate-approve.png",
+      "size": 15361,
+      "sha256": "b75cb34f0fd92e824b8413f7cd92a4b16186845697cd85af0364f59055356f3e"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permissions-alternate-deny.png",
+      "size": 9440,
+      "sha256": "71c8cbbcfa01348ce8c101e387909c99b80f10c6d4b1a683dc1b892e20875f92"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permissions-primary-approve.png",
+      "size": 15449,
+      "sha256": "02b6c79fa50a3e84920b337589d08788e5fb05a788b7c104a4bed3f714007d25"
+    },
+    {
+      "path": "attempt-3/evidence/conformance/permissions.json",
+      "size": 8439,
+      "sha256": "027742a2844dc021096e82614e0702c8f0026593097c468eabcfda031466752e"
+    },
+    {
+      "path": "attempt-3/result.json",
+      "size": 313735,
+      "sha256": "fbb490cf36380c1964cf9c7e3bc6225680bbbffc300a5226e78fd6701e41981e"
+    },
+    {
+      "path": "attempt-3/execution.log",
+      "size": 3983,
+      "sha256": "90d72b36efedfd93c3935c0d215bced9f1dd3516ef6f2c0d8e228c13bfe691af"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-alternate-basket-allow-0.png",
+      "size": 12979,
+      "sha256": "40589da89b76e41ae695aaf1d67c685b6c603efa90f246048d470a3217c887e4"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-basket-after-all-deny-0.png",
+      "size": 13115,
+      "sha256": "dbcef2cf235a2f0e380f343177bac1d860dc828b896f48b8d3e723b6a7321984"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-basket-after-single-deny-0.png",
+      "size": 7470,
+      "sha256": "dd78e59987134d832942496aa5306e1a06b1f46b6e320c068c4d3e88ecb548d6"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-basket-allow-0.png",
+      "size": 14613,
+      "sha256": "d48c37c74dd24cc18370ec3b23577a91224b7a375a511daeb960c0c6c6945807"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-basket-deny-0.png",
+      "size": 8850,
+      "sha256": "8f44c6422f4f00b8de04d21592ebe5c077c4b106b7aa6503ba362f552ad980bc"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-basket-recovery-allow-0.png",
+      "size": 12835,
+      "sha256": "7525ff1530089187400609014e5570fe33fcf778d3dbd4a9fca61d961fff772e"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-certificate-after-all-deny-0.png",
+      "size": 11756,
+      "sha256": "1fb1656dd492aeb90afc039399ab6c7b0784ea952b55f8f16f2224aaf0fc9a05"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-certificate-allow-0.png",
+      "size": 11540,
+      "sha256": "525f91f52f879f968905fd18f92d2d61e3b0f614df34f71657174a5656cb1abd"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-certificate-deny-0.png",
+      "size": 13313,
+      "sha256": "fbb2612ae711af5ca4f1e707b18febe43c4baf855f3f988ede3172717fb466aa"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-origin-after.png",
+      "size": 38540,
+      "sha256": "71ff40cf96f183a2d0fbf86d9a9bac4765509eceadf1e664173198f41d4f9185"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-origin-before.png",
+      "size": 24707,
+      "sha256": "0f074580ce717d380310ab8b1cdbccab7165ee44e87c90ea06488c2633cb7241"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-origin-confirm.png",
+      "size": 29531,
+      "sha256": "6c0d69cb057425984f1b8c4a6252569163baf059597efba910226eee3c3ed6c0"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-setup-basket-0.png",
+      "size": 12972,
+      "sha256": "965534999fa853656812234a5f5ee7b9dd8296a655ff6d4a2686a55cb6347821"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-setup-basket-1.png",
+      "size": 8169,
+      "sha256": "8ff51ac7f575bc8ba00e90f8921bc9f80cf4aff841184b781075cba21133ba65"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-setup-basket-2.png",
+      "size": 14384,
+      "sha256": "8553ec16a015871df924a35a81f6ef6b7e820b1ecd25964f1c1261e6b9c51be6"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-setup-certificate-0.png",
+      "size": 11183,
+      "sha256": "0323bd6ec51d1932b2e11d2a242411c5cf24ea804b777cf1a8d2bdcc26254690"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-single-after.png",
+      "size": 30406,
+      "sha256": "c21b649dce9b2192cb5a754216cce1b24fc92404f4453fca28b6bdbc4aae1454"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-single-before.png",
+      "size": 24699,
+      "sha256": "3ff18f5b6802ce1be0872832ccb95751cb0f6d4d3575297c300901598564d97d"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-spending-allow-0.png",
+      "size": 8755,
+      "sha256": "741b389fbb0d08e002f6ebf8f236712509771b139dc621fd427c158999781b6c"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-spending-deny-0.png",
+      "size": 13555,
+      "sha256": "410170eacd13f9ec0225810b7957a7040eac4287a9a2ec423828e095a50c741d"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle-spending-second-deny-0.png",
+      "size": 8764,
+      "sha256": "3b056e035f8a029b7929c4ad614fa5d95df80a669b12a28812b5363812b8817e"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permission-lifecycle.json",
+      "size": 75162,
+      "sha256": "35c9c2ad852fe4ac055877744e6dc9740751567ea3f1a39a10a8f21e64c52f64"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permissions-alternate-approve.png",
+      "size": 7289,
+      "sha256": "e6f3d13e83fe63f8bc56bf9fa7134d34c0646289bc9002a7d5e3393a0d5b4e6e"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permissions-alternate-deny.png",
+      "size": 15094,
+      "sha256": "6bdf28b96169d19f650d0953cccdafb87c5f5fd39cf65ca0c6b59f6a31c652cf"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permissions-primary-approve.png",
+      "size": 14837,
+      "sha256": "8c8bc50240bb3e5f592f1fa4c0ed26b1d28da6bc5755b72282389adefc915282"
+    },
+    {
+      "path": "attempt-4/evidence/conformance/permissions.json",
+      "size": 8439,
+      "sha256": "0c10caffbf134bb100d24bfd0444949163306346ad4150ac2b6b7afee9b32137"
+    },
+    {
+      "path": "attempt-4/result.json",
+      "size": 313015,
+      "sha256": "46887465466a5902958c57f2504f4379eebf690b04bd068be6a46b376b1101dc"
+    },
+    {
+      "path": "attempt-4/execution.log",
+      "size": 3877,
+      "sha256": "fa5bbb12bf9f47625d9d0b425fad42ab9d562a3416f3ac53b39857de1d490a8f"
+    },
+    {
+      "path": "attempt-5/result.json",
+      "size": 918,
+      "sha256": "c5a7e8c34b72d3d13e3c0a7f4219b8debb330ee6ce3de924fab96683dfe1b114"
+    },
+    {
+      "path": "attempt-5/source/conformance-permission-lifecycle-model.ts",
+      "size": 2924,
+      "sha256": "a1651ea59cbbeac02c30cd6f1c3c6e818ca0cb701ac02359b4e1d21c15d4e674"
+    },
+    {
+      "path": "attempt-5/source/conformance-permission-lifecycle.ts",
+      "size": 16646,
+      "sha256": "1c2a778d96356ed850fda49db70cf906252d6266c83e19621d9f271789dcc86d"
+    },
+    {
+      "path": "attempt-5/source/verify-conformance-permission-lifecycle.ts",
+      "size": 20875,
+      "sha256": "f9ba8550de654e4922dfb0939ec273a723a403737cfdbbb8f7ae1494e8597984"
+    },
+    {
+      "path": "attempt-5/execution.log",
+      "size": 1480,
+      "sha256": "1e222860fb490914acaf02317077508676a4282b6bef0b2bf80c6113acf25750"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-alternate-basket-allow-0.png",
+      "size": 10129,
+      "sha256": "585e950fab9a99b8a792ea79bdac709335f967fc4e41f265334c4c0adc66867b"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-basket-after-all-deny-0.png",
+      "size": 8865,
+      "sha256": "004f150857924d4d776b6fb51d9893ea0c86a238ea3ee1468bb4738dcedfbdf4"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-basket-after-single-deny-0.png",
+      "size": 12066,
+      "sha256": "c05d22a132b3b252c1966c8f7631027b953c7e9e04c78c95887eaef3bbff07a1"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-basket-allow-0.png",
+      "size": 7898,
+      "sha256": "74f501a3d9c79b355a2fefa4e472fa0a13848e077688777e971cfbfc9b4a5918"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-basket-deny-0.png",
+      "size": 8007,
+      "sha256": "249f86fc326eee03a38fb5db2cc451247e16a7e76128a0fd4d849fc6dedb4654"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-basket-recovery-allow-0.png",
+      "size": 13307,
+      "sha256": "2a4cd1c039a8739f19d350390460c9cd09710ab88fcd45758eec7f7a404cf52d"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-certificate-after-all-deny-0.png",
+      "size": 7683,
+      "sha256": "46063eb283ef46dac96838e44b1053827000a303b8bf6b8fa0b4d43cde21711d"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-certificate-allow-0.png",
+      "size": 8103,
+      "sha256": "0e373386e3fbeb0e419dd683ce2c48f4aab50c285e7357c86715ae1954cae333"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-certificate-deny-0.png",
+      "size": 6839,
+      "sha256": "0f94493a9ae5e77eccbc395e679384867682467cb846b018dd3f8ed03a6b5b82"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-origin-after.png",
+      "size": 38629,
+      "sha256": "185a24fd5486e4237d43d89b5082ee13545f0ec55fb0930e0587ee17368a65e5"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-origin-before.png",
+      "size": 24748,
+      "sha256": "796a60ef5e0d068d876ea5469c048fd4e4e3aa198572da03ad42c5bb826d82d8"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-origin-confirm.png",
+      "size": 29365,
+      "sha256": "784d0256180471e2074a1a766a762a4bfecb0c6fedc669f9dba6cca837400ce5"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-setup-basket-0.png",
+      "size": 13611,
+      "sha256": "d39e3aa7591986a846a915e0af48cba6c173c3ca696a6918c7c4853031e66b7f"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-setup-basket-1.png",
+      "size": 12707,
+      "sha256": "0e8395c2077e9e9950e41ea2d2dae9051ca9be7019aceccf820337e585900c15"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-setup-basket-2.png",
+      "size": 11050,
+      "sha256": "5378f0888bb2ce8ee7e8c60120f44bd320e821772f8a94c4e0c1da0091f43223"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-setup-certificate-0.png",
+      "size": 39724,
+      "sha256": "758b464a6b6956805604ce9870a032f814ae0f058e466d3adb66021fac031162"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-single-after.png",
+      "size": 31760,
+      "sha256": "501c950fe5b5aebf4f38bef8c9207c2f11af75a8268d2c557a0eb2f0f5ba2e3c"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-single-before.png",
+      "size": 24748,
+      "sha256": "796a60ef5e0d068d876ea5469c048fd4e4e3aa198572da03ad42c5bb826d82d8"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-spending-allow-0.png",
+      "size": 7756,
+      "sha256": "ccc8d6ba85b00a4a3375dc82787e4326df7924f551aa7cfb559d17eeed7dc2b7"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-spending-deny-0.png",
+      "size": 13418,
+      "sha256": "bd9fba6fa2385852279c1c31ac3940f144cb208a809fbd5e57bca1a9724ffc32"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle-spending-second-deny-0.png",
+      "size": 9054,
+      "sha256": "6f57082d639e6ce11bbeb63811eea0e8b4f202c84f013c3fe0b587b0d4dc21c1"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permission-lifecycle.json",
+      "size": 74913,
+      "sha256": "429d03915b710f1e38738650f10e27ed6853866ac896dc77392c5d3e2d5055c9"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permissions-alternate-approve.png",
+      "size": 13915,
+      "sha256": "bde63c27d8ecd00913cf99fb7461cd9873ed5688e0f704f71315c2654283b2af"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permissions-alternate-deny.png",
+      "size": 9645,
+      "sha256": "f4209d443a2b8e6f14c1ff30ad3a2021cece261f5b8ee0538d09425c86a26628"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permissions-primary-approve.png",
+      "size": 11244,
+      "sha256": "315bcf0caf61839a02952b17c347ccd3d21b771fa2dfe7f1b3027e735418e28b"
+    },
+    {
+      "path": "attempt-6/evidence/conformance/permissions.json",
+      "size": 8439,
+      "sha256": "a19d89b5ff9c0a999af39f7aa637314b20cac994cb1b357c96edebbff039e6d3"
+    },
+    {
+      "path": "attempt-6/result.json",
+      "size": 312608,
+      "sha256": "10f99d6fd6e45d0c7a37d2b250c89b49b18ab8f3a4597190d10e81b184c63039"
+    },
+    {
+      "path": "attempt-6/source/conformance-permission-lifecycle-model.ts",
+      "size": 2924,
+      "sha256": "a1651ea59cbbeac02c30cd6f1c3c6e818ca0cb701ac02359b4e1d21c15d4e674"
+    },
+    {
+      "path": "attempt-6/source/conformance-permission-lifecycle.ts",
+      "size": 16646,
+      "sha256": "1c2a778d96356ed850fda49db70cf906252d6266c83e19621d9f271789dcc86d"
+    },
+    {
+      "path": "attempt-6/source/verify-conformance-permission-lifecycle.ts",
+      "size": 20875,
+      "sha256": "f9ba8550de654e4922dfb0939ec273a723a403737cfdbbb8f7ae1494e8597984"
+    },
+    {
+      "path": "attempt-6/execution.log",
+      "size": 3290,
+      "sha256": "1778d771464379799790d62a5265c9ca1df5cf39d66db9a246e4574b842b295c"
+    }
+  ],
+  "files": [
+    {
+      "path": "engineering-runner.ts",
+      "size": 7260,
+      "sha256": "dd933402737436035260a4534374db742e539224778e80d0faa450e05b60fb61"
+    },
+    {
+      "path": "focused-tests.log",
+      "size": 377,
+      "sha256": "421ae09d75b988f2594012e288025440e725ea461a1f5b579ca46ad0cf807796"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-alternate-basket-allow-0.png",
+      "size": 8901,
+      "sha256": "4d4225e21d859ff85c35b0bfcc647bb4d76e9c685e30b2433f935b5570b6b742"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-basket-after-all-deny-0.png",
+      "size": 8606,
+      "sha256": "d3b92a7fe858d7c70c61631bb56bdde68ea7795d9c26db8e10b3567c2f300907"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-basket-after-single-deny-0.png",
+      "size": 13310,
+      "sha256": "ad45af588cd3e616180cdab9bdf83a29607eb9b45b11838d6ff845c89e1df322"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-basket-allow-0.png",
+      "size": 13966,
+      "sha256": "19c21a17fb1e914ceb99c9795a0237c8cc4b324888d78a90f7b21d0e3a661832"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-basket-deny-0.png",
+      "size": 7986,
+      "sha256": "81a569e2ff27f886f3a0fde3c1dd8f693f4c8d9053b39b319902204c26eaecf0"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-basket-recovery-allow-0.png",
+      "size": 13977,
+      "sha256": "1191dbbefb1b537ddcab491d7db180719d6f709b88f489c1c831777a94b6d553"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-certificate-after-all-deny-0.png",
+      "size": 9981,
+      "sha256": "4a4fd2d06c5b2472b330ca7f3c31f02733fe9624c08806b8c1536eb4515facbe"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-certificate-allow-0.png",
+      "size": 12577,
+      "sha256": "4b4e458f14c25d9a3bb02ef022e56a012d24f23f49f867045d6fff8888ae680a"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-certificate-deny-0.png",
+      "size": 6802,
+      "sha256": "6d2c72ea89056a9303be02662963c4520625d81514999ba3fc1d2e9769b1388a"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-origin-after.png",
+      "size": 38670,
+      "sha256": "35cc5fa0c675032b8804a91d3e80bba01a45d738e5527cea4fdd9a9bc2f2a0de"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-origin-before.png",
+      "size": 24748,
+      "sha256": "796a60ef5e0d068d876ea5469c048fd4e4e3aa198572da03ad42c5bb826d82d8"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-origin-confirm.png",
+      "size": 27661,
+      "sha256": "2e4bd6715c8e14ea8d3e917cd5156673f4b19696087e85f80a1f69fc0bb4788c"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-setup-basket-0.png",
+      "size": 7834,
+      "sha256": "0c75baec91b5c55f0f665052049fb9fcee3b5158a752363076cfa573cc8a8fcb"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-setup-basket-1.png",
+      "size": 9212,
+      "sha256": "eb548751f1dbdf6676982762429abdc967f2d7947562d09d8846710d5e09de2b"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-setup-basket-2.png",
+      "size": 11068,
+      "sha256": "7552facd6cd5d845fd0df0c1684e39d86ec965865a883d2c082ba6a38f04c6d2"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-setup-certificate-0.png",
+      "size": 10998,
+      "sha256": "33def69cb2b19671834d457c6a41ec89c927321f4760c869072448131118a28d"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-single-after.png",
+      "size": 32577,
+      "sha256": "9c729b8282ea30cebc95c0c028cda713dfa038c60d6117df1efb33662b67d514"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-single-before.png",
+      "size": 24707,
+      "sha256": "0f074580ce717d380310ab8b1cdbccab7165ee44e87c90ea06488c2633cb7241"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-spending-allow-0.png",
+      "size": 7794,
+      "sha256": "e906ba32b7bec6741293ad174891796d547ae831dfbc010a6d820fb496294065"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-spending-deny-0.png",
+      "size": 13588,
+      "sha256": "0fded2b8b7ae4599f5b932d7a9372364208762e9c8181003071b573930ebe346"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle-spending-second-deny-0.png",
+      "size": 12029,
+      "sha256": "1740650593c865be0682450f3e6b59d8cdd5b702df93bb65723e5200370b8cd2"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permission-lifecycle.json",
+      "size": 74895,
+      "sha256": "c9c36d38dd08b099dddfe1f6dafd05db9525c8300455a9967b7ea66f6630539c"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permissions-alternate-approve.png",
+      "size": 10071,
+      "sha256": "de8fd837892b58a1c1b7e33ad8cbfe321ecf113fd950816a5efe73300713a538"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permissions-alternate-deny.png",
+      "size": 9451,
+      "sha256": "e3bea032bfcf3958eb0621e63ac55bf20a1159430d1099522f3831cb86915a9c"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permissions-primary-approve.png",
+      "size": 9891,
+      "sha256": "1786e4e6aa89084bfb20ad46795334762d0d0ad94c3691e083ac271156f551ec"
+    },
+    {
+      "path": "go-reference/evidence/conformance/permissions.json",
+      "size": 8438,
+      "sha256": "a6b3e549c76b6dcad9c1888766d89654a58b9970355c03e0fcd167e4c630f183"
+    },
+    {
+      "path": "go-reference/execution.log",
+      "size": 3925,
+      "sha256": "258d6997271556d5760b766f04c3d690ad01d9d62b243d2c775d6464c984fb5f"
+    },
+    {
+      "path": "go-reference/go-component-build-manifest.json",
+      "size": 760,
+      "sha256": "eaa1ef577e8151be2e4580d5cba711fa270764ec59d5e10cd7a85e75a41524f0"
+    },
+    {
+      "path": "go-reference/result.json",
+      "size": 312894,
+      "sha256": "4690a433c1b94e45377c1e525b985d93d7296ec907e22fb688dc5d93539d50c1"
+    },
+    {
+      "path": "go-reference/source/conformance-permission-lifecycle-model.ts",
+      "size": 2924,
+      "sha256": "a1651ea59cbbeac02c30cd6f1c3c6e818ca0cb701ac02359b4e1d21c15d4e674"
+    },
+    {
+      "path": "go-reference/source/conformance-permission-lifecycle.ts",
+      "size": 16646,
+      "sha256": "1c2a778d96356ed850fda49db70cf906252d6266c83e19621d9f271789dcc86d"
+    },
+    {
+      "path": "go-reference/source/verify-conformance-permission-lifecycle.ts",
+      "size": 22230,
+      "sha256": "bee6aba4f6a4fe9a220b2a9dd79e3e97070cbd5561db4ecdb9609770b0e50314"
+    },
+    {
+      "path": "prior-attempts.zip",
+      "size": 1019461,
+      "sha256": "e72b39a4fa76d9580a7dc9071d325e80c2ae4b76d69fba1b5497478872631549"
+    },
+    {
+      "path": "replay-source/fixtures/teranode/wab-funding-v1.json",
+      "size": 2563,
+      "sha256": "7c4fd4d2c98f8c80b4ac41614b09c9baed91c087b1a418e0f15edc6b8e55560a"
+    },
+    {
+      "path": "replay-source/synthesis/package-lock.json",
+      "size": 119650,
+      "sha256": "14b17cdddc06c8d10788d32ea6ba9938e64631e533160f731fc55aa77b0a5790"
+    },
+    {
+      "path": "replay-source/synthesis/package.json",
+      "size": 1329,
+      "sha256": "82f8d5d3acafc8590e63ac38557688be25e9b037a678093be64560d165dfe40c"
+    },
+    {
+      "path": "replay-source/synthesis/src/determinism.ts",
+      "size": 2484,
+      "sha256": "429d62abc8127234e231cb84238e47349f9aa3c6569d7d9298f63233f7096599"
+    },
+    {
+      "path": "replay-source/synthesis/src/wallet-lab/native/conformance-permission-lifecycle-model.ts",
+      "size": 2924,
+      "sha256": "a1651ea59cbbeac02c30cd6f1c3c6e818ca0cb701ac02359b4e1d21c15d4e674"
+    },
+    {
+      "path": "replay-source/synthesis/src/wallet-lab/native/conformance-permissions-model.ts",
+      "size": 2826,
+      "sha256": "fa9f7c47e657ce7723e377cab04ee5706fe612bc078e63c34b3752a9e108e8c3"
+    },
+    {
+      "path": "replay-source/synthesis/src/wallet-lab/native/verify-conformance-permission-lifecycle.ts",
+      "size": 22230,
+      "sha256": "bee6aba4f6a4fe9a220b2a9dd79e3e97070cbd5561db4ecdb9609770b0e50314"
+    },
+    {
+      "path": "replay-source/synthesis/src/wallet-lab/native/verify-conformance-permissions.ts",
+      "size": 7856,
+      "sha256": "71b98743c4ca12702df299006c15994865c12513b83f3331f4d52b076c622e38"
+    },
+    {
+      "path": "typecheck.log",
+      "size": 52,
+      "sha256": "381be222d640c62a1491f0cd300dd4b3d77f00d5b62028c59702bba3119afc8f"
+    }
+  ],
+  "limitations": [
+    "No Linux/native repetition qualification or full BRC100 conformance claim.",
+    "No finite expiry, privileged key, alternate keyring, physical USB, grouped standing-budget or counterparty-pact claim.",
+    "Actual failed observations remain unchanged; passing later preflight does not convert them."
+  ]
+}
