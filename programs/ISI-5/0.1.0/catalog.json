@@ -276,10 +276,12 @@
         "fabric-only configuration record",
         "facade and lane delivery counts",
         "delivered transaction bytes",
-        "block and subtree listing"
+        "block and subtree listing",
+        "ISI5-JOINED-PORTABLE-ARCADE-TERANODE-MERKLE component qualification",
+        "ISI5-JOINED-PORTABLE-STANDING-RESTORE component qualification"
       ],
       "blockers": [
-        "Joined configuration admission under ITCVE-2",
+        "Independent oracle for each assertion; retained runs use the fabric publisher's own checks",
         "Byte-identity observation on the transaction lane"
       ]
     },
@@ -312,10 +314,12 @@
         "Merkle Service announcement counters",
         "BRC-74 merkle path",
         "processor header",
-        "header store record"
+        "header store record",
+        "ISI5-JOINED-PORTABLE-ARCADE-TERANODE-MERKLE component qualification",
+        "ISI5-JOINED-PORTABLE-STANDING-RESTORE component qualification"
       ],
       "blockers": [
-        "Joined configuration admission under ITCVE-2",
+        "Independent oracle for each assertion; retained runs use the fabric publisher's own checks",
         "Byte-identity observation on the subtree and block lanes"
       ]
     },
@@ -345,10 +349,12 @@
       "evidence": [
         "impairment declaration",
         "gap and repair counters",
-        "V008 and V009 evidence"
+        "V008 and V009 evidence",
+        "ISI5-JOINED-PORTABLE-V010-REPAIR-UNDER-LOSS component qualification",
+        "MULTICAST-LISTENER-NACK-REPAIR component qualification"
       ],
       "blockers": [
-        "Joined configuration with an isolated fabric segment and a declared impairment point"
+        "Independent oracle for each assertion; retained runs use the fabric publisher's own checks"
       ]
     },
     {
@@ -374,17 +380,18 @@
         "The publishing host answers with the topic-keyed admittance of BRC-22, and its bridge publishes the record on the BEEF object plane.",
         "The receiving bridge takes the record from its BEEF lane and submits it, and the receiving engine admits it on the topic.",
         "Lookups on both hosts return the output, and each returned BEEF resolves to the submitted transaction.",
-        "The repeated submission returns an empty admittance, and the receiving engine still holds one output."
+        "The repeated submission creates no second admission: each host still holds exactly one output for the fixture. BRC-22 does not define the answer to a repeat, so an empty admittance and the first admittance replayed are both accepted."
       ],
       "evidence": [
         "BRC-22 request and response",
         "BEEF bytes",
         "lookup results from both hosts",
-        "bridge publish and submit counts"
+        "bridge publish and submit counts",
+        "ISI5-JOINED-PORTABLE-V011-OVERLAY-DELIVERY component qualification"
       ],
       "blockers": [
-        "Joined configuration admission under ITCVE-2",
-        "Unmodified reference engines in both overlay roles"
+        "Independent oracle for each assertion; retained runs use the fabric publisher's own checks",
+        "The library's own BRC-22 route wraps its answer (V012 brc22.response.topic-keyed), so the retained run's hosts serve BRC-22 and BRC-24 themselves in front of the unmodified engine"
       ]
     },
     {

@@ -23,10 +23,10 @@ The [catalog](catalog.json) defines draft requirements, vector plans, references
 | ISI-5-R005 / ISI-5-V005 | BEEF object plane | standard | Component qualification passes; scored vector remains draft |
 | ISI-5-R006 / ISI-5-V006 | Bundling and shard manifests | standard | Component qualification passes; scored vector remains draft |
 | ISI-5-R007 / ISI-5-V007 | Frame conformance corpus | standard | Two independent oracles pass; SUT adapter pending |
-| ISI-5-R008 / ISI-5-V008 | Submission path through the fabric | laboratory-profile | Draft; not executable |
-| ISI-5-R009 / ISI-5-V009 | Processor objects and proofs through the fabric | laboratory-profile | Draft; not executable |
-| ISI-5-R010 / ISI-5-V010 | Repair under declared loss on the joined path | laboratory-profile | Draft; not executable |
-| ISI-5-R011 / ISI-5-V011 | Overlay delivery between engines | laboratory-profile | Draft; not executable |
+| ISI-5-R008 / ISI-5-V008 | Submission path through the fabric | laboratory-profile | Component qualification passes on the joined configuration; scored vector remains draft |
+| ISI-5-R009 / ISI-5-V009 | Processor objects and proofs through the fabric | laboratory-profile | Component qualification passes on the joined configuration; scored vector remains draft |
+| ISI-5-R010 / ISI-5-V010 | Repair under declared loss on the joined path | laboratory-profile | Component qualification passes on the joined configuration; scored vector remains draft |
+| ISI-5-R011 / ISI-5-V011 | Overlay delivery between engines | laboratory-profile | Component qualification passes on the joined configuration; scored vector remains draft |
 | ISI-5-R012 / ISI-5-V012 | BRC-22 submission boundary | standard | Runtime observations retained for go-overlay-services; scored vector remains draft |
 
 V001 to V007 run in ITCVE-2's `harness` configuration and V008 to V011 in its
@@ -61,6 +61,8 @@ PASS requires every applicable mandatory vector to execute successfully in two c
 | Twelve harness plans, 55 scenarios | `infra/plans/multicast-fabric-*.json` | `journals/component-qualification/2026-11-07/` |
 | Frame corpus, two independent oracles | `infra/plans/multicast-frame-vectors-*.json` | `journals/component-qualification/2026-11-07/` |
 | BRC-22 runtime observations | `infra/plans/overlay-brc22-submit-boundary-go.json` | `journals/component-qualification/2026-11-08/` |
+| Joined configuration: V008 and V009 with the ready condition, V010, V011, the restore condition | Written per run by `qualify.sh`; each journal retains its plan | `journals/component-qualification/2026-11-09/isi5-joined-portable-*` |
+| Delivery-edge repair (V010) | `infra/plans/multicast-listener-nack-repair.json` | `journals/component-qualification/2026-11-09/multicast-listener-nack-repair` |
 
 The first harness attempt is retained under
 [`attempt-1/`](../../../journals/component-qualification/2026-11-07/attempt-1/README.md).
@@ -77,4 +79,4 @@ subject to the conflict rules in [governance](../../../GOVERNANCE.md).
 
 ## Changelog
 
-0.1.0: initial program and draft vectors; harness component qualifications and BRC-22 runtime observations retained; no SUT conformance result issued.
+0.1.0: initial program and draft vectors; harness and joined component qualifications and BRC-22 runtime observations retained; V011's repeat expectation made engine-neutral; no SUT conformance result issued.
