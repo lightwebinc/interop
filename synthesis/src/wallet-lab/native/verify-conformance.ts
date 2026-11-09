@@ -14,7 +14,9 @@ export async function verifyNativeConformance(evidenceDirectory: string, baselin
   const report = read('result')
   assert.equal(report.schema, 'tpnil-native-conformance@2.0.0'); assert.equal(report.profile, 'ITCVE-1@1.4.0'); assert.equal(report.program, 'ISI-4@2.0.0')
   assert.deepEqual(read('baseline-vectors'), baselineVectors, 'Original ToDo observations were altered by the prospective scenario')
-  const permission = verifyNativePermissionConformance(read('permissions'), name => fs.readFileSync(path.join(evidenceDirectory, name)))
+  const integrated = JSON.parse(fs.readFileSync(path.join(evidenceDirectory, 'integrated/result.json'), 'utf8'))
+  assert.equal(typeof integrated.walletIdentity, 'string', 'Native conformance requires the joined wallet identity')
+  const permission = verifyNativePermissionConformance(read('permissions'), name => fs.readFileSync(path.join(evidenceDirectory, name)), integrated.walletIdentity)
   const lifecycle = await verifyConformanceLifecycle(read('lifecycle'))
   assert.equal(read('lifecycle').schema, 'tpnil-native-conformance-lifecycle@2')
   assert.deepEqual(read('lifecycle').serviceIdentity, JSON.parse(fs.readFileSync(path.join(evidenceDirectory, 'service-components.json'), 'utf8')))
@@ -35,7 +37,6 @@ export async function verifyNativeConformance(evidenceDirectory: string, baselin
     assert.deepEqual(actual[offset + 4], { id: `ISI-4-V00${offset + 5}`, outcome, assertions: expected })
   }
   assert.equal(report.outcome, aggregateOutcome(report.vectors))
-  const integrated = JSON.parse(fs.readFileSync(path.join(evidenceDirectory, 'integrated/result.json'), 'utf8'))
   for (const name of ['lifecycle', 'portability', 'clauses']) assert.equal(read(name).identity, integrated.walletIdentity, `${name} belongs to the joined native wallet`)
   assert.deepEqual(read('portability').components.replacement, identities['replacement-wallet.itcve.test'])
   // All vectors retain their evidence references and raw per-predicate outcomes.

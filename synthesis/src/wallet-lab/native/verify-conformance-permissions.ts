@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
-import { PublicKey } from '@bsv/sdk'
+import { KeyDeriver, PrivateKey, PublicKey } from '@bsv/sdk'
 import { permissionArgs, permissionAssertionIds, permissionProtocol, permissionSteps, type PermissionConformanceReport, type PermissionStepObservation } from './conformance-permissions-model.js'
 
 export type PermissionEvidenceReader = (name: string) => Uint8Array
@@ -64,10 +64,19 @@ export function evaluateNativePermissionConformance(report: PermissionConformanc
   })
 }
 
-export function verifyNativePermissionConformance(report: PermissionConformanceReport, readEvidence: PermissionEvidenceReader) {
+export function verifyNativePermissionConformance(report: PermissionConformanceReport, readEvidence: PermissionEvidenceReader, joinedWalletIdentity?: string) {
   const assertions = evaluateNativePermissionConformance(report, readEvidence)
   assert.deepEqual(report.assertions.map(({ id, result }) => ({ id, result })), assertions.map(({ id, result }) => ({ id, result })))
   const result = assertions.every(row => row.result === 'PASS') ? 'PASS' : 'FAIL'
   assert.equal(report.result, result)
+  if (joinedWalletIdentity !== undefined) {
+    assert.equal(PublicKey.fromString(joinedWalletIdentity).toString(), joinedWalletIdentity, 'Joined native wallet identity must be a canonical public key')
+    // The public "anyone" private key is 1. Derive the subject's child from that
+    // counterparty, so this join needs no native-wallet secret or extra call.
+    const expectedKey = new KeyDeriver(PrivateKey.fromHex('01')).derivePublicKey([...permissionProtocol], 'origin-isolation', joinedWalletIdentity, false).toString()
+    for (const row of report.steps) if (row.outcome.status === 'fulfilled') {
+      assert.equal(row.outcome.value.publicKey, expectedKey, `Permission result ${row.id} must belong to the joined native wallet`)
+    }
+  }
   return { verified: true, vector: report.vector, result, assertions, nativeArtifactQualification: 'Requires unchanged-wallet artifact and native-environment admission from the enclosing profile.' }
 }
