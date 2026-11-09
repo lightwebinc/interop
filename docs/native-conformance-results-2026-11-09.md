@@ -116,6 +116,13 @@ non-string members fail. Historical schemas retain their original order-sensitiv
 results. Captured-trace replay and a fresh Go reference experiment are engineering
 checks; a new frozen native execution must establish the corrected result.
 
+The prospective submission-binding policy retains complete indexed submission
+and authenticated `processAction` windows. It selects the unique customer
+transaction by its ToDo protocol/amount or pre-derived lifecycle script, never
+by the desired verdict. The independent parent binds those windows to the global
+receipt ledger and signed ancestry. Scoped fixture faults wait across unrelated
+traffic; historical unscoped policies and reports remain unchanged.
+
 V007 uses supported Wallet Backup controls to add, synchronize and activate a
 second independent Go storage provider. The source listener stops while the
 wallet locks, unlocks and reconstructs the ToDo state from the replacement.
@@ -125,6 +132,31 @@ The driver neither extracts the wallet private key nor copies a database. The
 prospective driver waits for the actual task checkbox and a canonical, new
 outpoint whose same-response BEEF proves the amount, script and protocol.
 Pending observations remain in the trace; they cannot initiate replacement.
+
+The [ancestry export compatibility profile](../infra/adapters/storage-portability/README.md)
+now supplies each exported owner request with its complete reachable public
+ancestor graph from source storage. It does not change the source database or
+fetch missing transactions from a network. The Go build layers on the retained
+older patch; the TypeScript adapter is separately identified and opt-in. Its
+declared wire conversions restrict broadcast flags to booleans or exact 0/1
+and scope notification identifiers to the exported owner's records. Both preserve
+owner filtering, metadata, item limits and tested rough-size pagination.
+
+[Portability oracle 2](../programs/ISI-4/profiles/native-conformance-2.0.0/portability-oracle-2.0.0.json)
+constructs proof graphs only from each retained dataset, verifies the exact
+mined root and every owned signed transaction, and still requires actual cold
+read/decrypt/redemption while the source is unavailable. It cannot borrow the
+task's separately captured BEEF to fill a missing export. Schema 1 retains its
+original guard and failures. The [two final reference runs](../journals/native-portability-reference/2026-11-09/ancestry-closure-v2/README.md)
+pass 9/9 each. The separate descendant-funded matrix passes all four TS/Go
+directions twice with eight distinct fixture identities: 80/80 predicates,
+including empty replacements, private owner boundaries, tiny-page traversal,
+dataset-only proof verification and fresh-wallet recovery/redemption. These
+engineering results require a fresh native qualification before a native claim.
+
+This is a fresh-counterpart replacement contract. It does not establish repair
+of a previously synchronized incomplete counterpart whose equal-time merge rules
+skip unchanged rows. Existing historical profiles remain separately reproducible.
 
 V008 executes 232 source-linked predicates with
 [`tpnil-brc100-clause-oracle@3.0.0`](../programs/ISI-4/profiles/native-conformance-2.0.0/oracle-3.0.0.json):
@@ -223,6 +255,20 @@ python3 scripts/verify-native-clause-journal.py
 python3 scripts/verify-native-clause-journal.py journals/native-clause-reference/2026-11-09/oracle-3.0.0
 node scripts/verify-published-integrations.mjs --semantic
 ```
+
+After preparing the locked synthesis dependencies and Go toolchain, the new
+reference matrix has its own retained output and independent replay:
+
+```sh
+node scripts/prepare-storage-portability-go.mjs
+node scripts/run-descendant-storage-matrix.mjs NEW_OUTPUT
+node scripts/verify-descendant-storage-matrix.mjs NEW_OUTPUT
+```
+
+Foundation CI runs this matrix and uploads `descendant-storage-sync` separately
+from the historical integrated component artifact. Native image construction
+copies the new source-bound Go binary/manifest only into the prospective image.
+The new plan is `YOURS-5.1.0-GO-ITCVE-1.4.0-CONFORMANCE-ANCESTRY-CLOSURE`.
 
 No paid devices, new subscriptions, production routes, production credentials
 or public-mainnet spending are involved. Standard public GitHub runner compute
