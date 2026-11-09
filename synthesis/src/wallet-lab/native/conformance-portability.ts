@@ -152,7 +152,7 @@ export function nativePortabilityControls(application: Page, walletPage: Page, p
     async createTask() {
       const url = new URL('https://todo.itcve.test/'); url.searchParams.set('p0Task', portableTask); url.searchParams.set('p0Amount', String(amount)); url.searchParams.set('p0OpenCreate', '1')
       await application.goto(url.href); await application.getByTestId('p0-todo-create-submit').click()
-      await application.getByLabel(`${portableTask} ${amount} satoshis`).waitFor({ state: 'visible', timeout: 45_000 })
+      await application.getByLabel(`${portableTask} ${amount} satoshis`, { exact: true }).waitFor({ state: 'visible', timeout: 45_000 })
       ui.push({ stage: 'native-task-visible', at: new Date().toISOString(), text: await application.locator('body').innerText() })
     },
     async addAndSync(url) {
@@ -192,7 +192,7 @@ export function nativePortabilityControls(application: Page, walletPage: Page, p
         return { mechanism: 'native-settings-lock-unlock', locked: true, unlocked: true, contextDropped: consoleMessages.length > 0, consoleMessages, applicationCacheCleared: true, taskVisible: true, at: new Date().toISOString() }
       } finally { for (const worker of workers) worker.off('console', listener) }
     },
-    async redeemTask() { await application.getByLabel(`${portableTask} ${amount} satoshis`).click(); await application.getByTestId('p0-todo-complete-submit').click() }
+    async redeemTask() { await application.getByLabel(`${portableTask} ${amount} satoshis`, { exact: true }).click(); await application.getByTestId('p0-todo-complete-submit').click() }
   }
 }
 
