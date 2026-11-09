@@ -10,12 +10,16 @@ on:
       - 'scripts/native-reevaluation.mjs'
       - 'scripts/reevaluate-native-integrated.mjs'
       - 'scripts/verify-native-reevaluation.mjs'
+      - 'scripts/prepare-messaging.mjs'
+      - 'scripts/messaging-preparation.mjs'
 permissions:
   contents: read
 jobs:
   retained-native-evidence:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
+    env:
+      TPNIL_MESSAGING_PATHS: ${{ github.workspace }}/out/messaging-native-verifier/paths.json
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
@@ -30,6 +34,7 @@ jobs:
           npm ci --ignore-scripts --prefix components/transport
           npm ci --ignore-scripts --prefix integrations/services
           npm rebuild better-sqlite3 --prefix integrations/services
+          node scripts/prepare-messaging.mjs --native-verifier-only
           rustup toolchain install 1.88.0 --profile minimal
           RUSTUP_TOOLCHAIN=1.88.0 cargo fetch --locked --manifest-path components/rust/Cargo.toml
       - name: Verify shared-ancestor and adversarial graph regressions
@@ -53,5 +58,13 @@ jobs:
         with:
           name: native-integrated-reevaluation
           path: out/native-integrated-reevaluation
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Retain exact verifier dependency preparation
+        if: always()
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        with:
+          name: native-reevaluation-preparation
+          path: out/messaging-native-verifier/verifier-preparation.json
           if-no-files-found: warn
           retention-days: 90

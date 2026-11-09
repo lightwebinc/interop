@@ -456,6 +456,61 @@ These are coverage obligations in addition to observed failures. New criteria
 and any changed wallet artifact require a separately frozen qualification;
 closing coverage does not erase earlier failures.
 
+## Retained reevaluation attempts
+
+The first separate CI reevaluation,
+[42720214271](https://github.com/p2ppsr/interop/actions/runs/42720214271),
+fails because its clean runner lacks the frozen TypeScript Message Box package
+needed by `verify-native-messaging.mjs`. Local preparation already contained
+that package. Native base admission, original Rust corpus2 replay and transport
+verification complete before the missing dependency stops execution. Rust3
+does not execute and no completed reevaluation result is issued.
+
+The [failed attempt archive](../journals/integrated-native-attempts/2026-11-09/42720214271/README.md)
+retains all192 partial members, the original ZIP, API/job logs and two independent
+reviews. All186 nested original native members remain unchanged. This attempt
+starts zero native sessions. Dependency preparation is corrected separately;
+the original evidence, native criteria and Rust3 predicates remain unchanged.
+
+## Reevaluate retained native evidence
+
+The separate [frozen reevaluation plan](../infra/native/conformance/reevaluation-42711700295-rust-3.0.0.json)
+binds the original native9 archive, its source and qualification hashes,
+two repetitions, all four original reports per repetition, and the new
+[Rust graph oracle3](../components/rust/graph-oracle-3.0.0.json). The evaluator
+replays the original frozen base and every integrated child oracle before
+running the indexed Rust observer. It forces Cargo offline, verifies all186
+original members unchanged, and writes separate derived results. A committed
+plan/source mismatch or incomplete repetition prevents acceptance.
+
+On the pinned Node runtime, from a clean committed checkout:
+
+```sh
+npm ci --ignore-scripts --prefix synthesis
+npm ci --ignore-scripts --prefix components/transport
+npm ci --ignore-scripts --prefix integrations/services
+npm rebuild better-sqlite3 --prefix integrations/services
+node scripts/prepare-messaging.mjs --native-verifier-only
+export TPNIL_MESSAGING_PATHS="$PWD/out/messaging-native-verifier/paths.json"
+rustup toolchain install 1.88.0 --profile minimal
+RUSTUP_TOOLCHAIN=1.88.0 cargo fetch --locked --manifest-path components/rust/Cargo.toml
+RUSTUP_TOOLCHAIN=1.88.0 CARGO_NET_OFFLINE=true node scripts/reevaluate-native-integrated.mjs infra/native/conformance/reevaluation-42711700295-rust-3.0.0.json NEW_OUTPUT
+RUSTUP_TOOLCHAIN=1.88.0 CARGO_NET_OFFLINE=true node scripts/verify-native-reevaluation.mjs NEW_OUTPUT
+```
+
+This starts no wallet, browser, Go service or funded transaction. The result
+identifies original native source and evaluator source separately; it cannot
+replace the original failed workflow or claim a fresh native repetition.
+The broader native conformance result remains FAIL.
+
+Future native execution can explicitly select
+`integrated-native-conformance-closure-rust-v3`. Its
+[compatibility manifest](../infra/native/conformance/rust-graph-3.0.0.json)
+binds the unchanged native2 plan, Rust3 policy and exact execution-source
+selector, runner, verifier and workflow. A missing or altered binding fails;
+old choices retain corpus2. The new option is source-tested here; the retained
+reevaluation does not claim that another native session executed under it.
+
 ## Reproduction and cost boundary
 
 Install the exact locked dependencies and service binaries using the
