@@ -1,0 +1,9 @@
+# Native 42705211560: cancelled before wallet execution
+
+[CI run 42705211560](https://github.com/p2ppsr/interop/actions/runs/42705211560) used frozen source `3505d92a01fe7aeef7bb90fa1ed52f6eda003c54`, ITCVE-1 2.0.0 and ISI-4 4.0.0. Artifact preparation, the native browser image and the integrated service image completed. The conformance image build was deliberately cancelled at **2026-11-09 21:53:22 UTC** after a separate Foundation check exposed a shared service listener allocation race.
+
+The [Foundation failure](../../../integrated-component-attempts/2026-11-09/42705007019/README.md) records `EADDRINUSE` during actual TypeScript counterpart startup. The allocator temporarily bound and released a port before creating its real listener. A prospective correction must keep the real listener bound while publishing its endpoint and must pass fresh qualification. Native8 does not itself demonstrate this defect; cancellation avoided executing a superseded configuration.
+
+Both native execution steps are explicitly **skipped** in the original jobs API. The artifact API contains **zero artifacts**. The final upload step fails because `out/native-go-wallet` does not exist. No wallet repetition, integrated predicate, Rust execution, cleanup qualification or conformance result is claimed. Preparation success does not establish native execution or acceptance.
+
+The [independent review](independent-review.json) binds the original run/jobs/artifacts APIs and all **13 log members**. The original all-job log ZIP is **60,153 bytes**, SHA256 `535349cc9154cbae121a557715962367198893f9dad5a0840171cbfe49c2f79e`; ZIP integrity passes. [Acquisition](acquisition.json) records the download provenance. The [manifest](manifest.json) hashes every retained payload, including this explanation. Original bytes remain unchanged.

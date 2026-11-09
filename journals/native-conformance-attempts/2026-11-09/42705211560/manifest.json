@@ -1,0 +1,45 @@
+{
+  "schema": "tpnil-native-preparation-attempt@1",
+  "runId": 42705211560,
+  "sourceCommit": "3505d92a01fe7aeef7bb90fa1ed52f6eda003c54",
+  "result": "PREPARATION_CANCELLED",
+  "nativeWalletExecuted": false,
+  "failure": "Conformance image build cancelled before both native execution steps after a separate Foundation allocator defect was found; zero native artifacts. Upload failure reflects absent output, not a wallet result.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1825,
+      "sha256": "46eb9c3e8f3b63eb640d0b08755077d802c446f0ce681dbba7cfeb1c8df7f31f"
+    },
+    {
+      "path": "acquisition.json",
+      "bytes": 1574,
+      "sha256": "5486d35a6c7b38d7c1cddcf3557be4b89aef9c229a868baad515d82a38033711"
+    },
+    {
+      "path": "artifacts.json",
+      "bytes": 32,
+      "sha256": "244563f989470892c537c9a4622920af0d228ee4528f7d00c64a06d6cd95856c"
+    },
+    {
+      "path": "independent-review.json",
+      "bytes": 4845,
+      "sha256": "854ecd88898bd03f25a3f4a50727f2e19cd5e5202994575d1b2d14ad5097e3fb"
+    },
+    {
+      "path": "jobs.json",
+      "bytes": 4740,
+      "sha256": "378b8be096401e8aa00a62c6acb8c144cade0d6f53bc515c2fb98dca63c14b43"
+    },
+    {
+      "path": "logs.zip",
+      "bytes": 60153,
+      "sha256": "535349cc9154cbae121a557715962367198893f9dad5a0840171cbfe49c2f79e"
+    },
+    {
+      "path": "run.json",
+      "bytes": 11989,
+      "sha256": "ad3cad84cb2ec0fb144410053d20947126f1dbaefba82be2501ef2f858db4bfe"
+    }
+  ]
+}

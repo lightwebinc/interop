@@ -1,0 +1,124 @@
+{
+  "schema": "tpnil-native-preparation-review@1",
+  "source": "3505d92a01fe7aeef7bb90fa1ed52f6eda003c54",
+  "runId": 42705211560,
+  "profile": "ITCVE-1@2.0.0",
+  "program": "ISI-4@4.0.0",
+  "reviewedAt": "2026-11-09T21:56:17.052032+00:00",
+  "workflowConclusion": "cancelled",
+  "observedImageBuild": {
+    "name": "Build the prospective conformance image",
+    "status": "completed",
+    "conclusion": "cancelled",
+    "number": 8,
+    "started_at": "2026-11-09T21:49:36Z",
+    "completed_at": "2026-11-09T21:53:22Z"
+  },
+  "nativeExecutionSteps": [
+    {
+      "name": "Execute two clean isolated native repetitions and verify results",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 9,
+      "started_at": "2026-11-09T21:53:22Z",
+      "completed_at": "2026-11-09T21:53:22Z"
+    },
+    {
+      "name": "Execute and independently verify the integrated native wallet graph",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 10,
+      "started_at": "2026-11-09T21:53:22Z",
+      "completed_at": "2026-11-09T21:53:22Z"
+    }
+  ],
+  "nativeWalletExecuted": false,
+  "nativeRepetitions": 0,
+  "rustExecuted": false,
+  "artifacts": 0,
+  "qualificationIssued": false,
+  "cleanupQualificationClaimed": false,
+  "uploadStep": {
+    "name": "Retain every attempt and qualification receipt",
+    "status": "completed",
+    "conclusion": "failure",
+    "number": 11,
+    "started_at": "2026-11-09T21:53:22Z",
+    "completed_at": "2026-11-09T21:53:22Z"
+  },
+  "uploadFailure": "No files were found with the provided path: out/native-go-wallet. No artifacts will be uploaded.",
+  "cancellationReason": "Foundation42705007019 exposed an actual EADDRINUSE failure in the shared listener allocator before native8 execution. The superseded image build was cancelled for a separately recorded allocator correction and fresh native attempt. Native8 does not itself demonstrate that listener failure.",
+  "foundationEvidence": "journals/integrated-component-attempts/2026-11-09/42705007019",
+  "logZip": {
+    "bytes": 60153,
+    "sha256": "535349cc9154cbae121a557715962367198893f9dad5a0840171cbfe49c2f79e",
+    "integrity": "PASS",
+    "members": [
+      {
+        "path": "0_all-go-native.txt",
+        "bytes": 121360,
+        "sha256": "5b59195780f37c78f32e6a4bacf2955ccd6853622bfc95bdd1303035e17ecd31"
+      },
+      {
+        "path": "all-go-native/system.txt",
+        "bytes": 905,
+        "sha256": "ab84c576c9e0a558c04597115a0fd4603db2892646657a1484cfb9419de8473a"
+      },
+      {
+        "path": "all-go-native/1_Set up job.txt",
+        "bytes": 2443,
+        "sha256": "2771653b2b08cee51f34369a9c534f741fce6ffc83f95ec24c849a310fdad92a"
+      },
+      {
+        "path": "all-go-native/2_Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt",
+        "bytes": 7268,
+        "sha256": "cbddfdd728e5f04fae724d2a69586e030a7146f144faa9e942f44e65d9082c9e"
+      },
+      {
+        "path": "all-go-native/3_Run actions_setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020.txt",
+        "bytes": 1546,
+        "sha256": "5f396668ed9272eae493cec8ad4dd927164038f271b486abb509e7e6e8677c31"
+      },
+      {
+        "path": "all-go-native/4_Run actions_setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e.txt",
+        "bytes": 5768,
+        "sha256": "d996375c4e3c607db449df48c0194c53f322543addedde0836a24b8064746ffd"
+      },
+      {
+        "path": "all-go-native/5_Prepare and verify immutable artifacts and Go host.txt",
+        "bytes": 2436,
+        "sha256": "e9617b8b6d14563f9a2429ae4cef23594e204c45c4f61d9c51a4e35d428948e2"
+      },
+      {
+        "path": "all-go-native/6_Build the frozen native browser closure.txt",
+        "bytes": 26545,
+        "sha256": "5044f784e5c537259801df29ebf6caa481c5c08cd2478c0b76857b2b7991fb47"
+      },
+      {
+        "path": "all-go-native/7_Install the pinned integrated service closure.txt",
+        "bytes": 60384,
+        "sha256": "93c3a2417c6ac1aa0c28a65fc54f97a2a082c704063d10a6b14e82110a31aeae"
+      },
+      {
+        "path": "all-go-native/8_Build the prospective conformance image.txt",
+        "bytes": 11967,
+        "sha256": "cbedcfbd6003afa6ac741a270a207b1b1aef56ac7d955e6703b743506652f212"
+      },
+      {
+        "path": "all-go-native/11_Retain every attempt and qualification receipt.txt",
+        "bytes": 1051,
+        "sha256": "941e6ee4e931b8c01d20ac3dd5ded6ddb5936f0fbaf78b9c0f822b7aab003667"
+      },
+      {
+        "path": "all-go-native/22_Post Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt",
+        "bytes": 1528,
+        "sha256": "69e225a59cf88ae1ae19d41f0c05a2bee5191f5dd31553fd657e73296720955e"
+      },
+      {
+        "path": "all-go-native/23_Complete job.txt",
+        "bytes": 454,
+        "sha256": "5177bd2d3117abd174f8f4f7d73cb2f0310aa7579bcbdbc17ca486c938ee831c"
+      }
+    ]
+  }
+}
