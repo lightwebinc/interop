@@ -102,7 +102,8 @@ V008 executes 232 source-linked predicates with
 [`tpnil-brc100-clause-oracle@3.0.0`](../programs/ISI-4/profiles/native-conformance-2.0.0/oracle-3.0.0.json):
 28 return contracts, 181 invalid-input leaves, 11 cryptographic predicates,
 seven namespace rules, three metadata predicates, structured errors and an
-explicit remaining-coverage gate. Invalid probes require successful controls;
+explicit remaining-coverage gate. A rejected invalid probe requires a successful positive control to earn PASS;
+direct acceptance of a known malformed value remains FAIL even if its control fails;
 timeouts, denied permission, insufficient funds and JavaScript engine errors
 cannot stand in for specified validation errors. Every observation retains
 its public call arguments, result or error, source locator and causal controls.
@@ -137,6 +138,25 @@ TypeScript client behavior shared by both reference paths is not automatically
 a Go storage defect, and assertion counts are not independent security-defect
 counts.
 
+The two native repetitions each retain the same 98 clause failures:
+
+| Observation category | Count | Proven boundary |
+| --- | ---: | --- |
+| Malformed input accepted | 73 | Native public CWI return; three have failed positive controls and therefore establish acceptance only, not a valid-control pair |
+| Wrapped JavaScript engine exception | 15 | Native CWI error message, not a specified argument-validation error |
+| Storage HTTP 500 | 4 | Captured storage/RPC error exposed through CWI |
+| Not-implemented reference operation | 1 | Native `signAction` recovery/control path |
+| Reserved namespace accepted | 3 | Actual native namespace operations |
+| Negative net action amount versus positive alias | 1 | Pinned return-contract interpretation; transaction conservation remains independently checked |
+| Structured error fields absent | 1 | Native CWI transport observation |
+
+The failed-control malformed acceptances are `listActions.seekPermission`,
+`acquireCertificate.certifierUrl` and `acquireCertificate.privileged`. These
+cannot establish that their positive configurations work. The clause oracle
+never counts a rejection as PASS without a working control. Native public-CWI
+behavior is the default attribution; these totals do not assign unproven causes
+to Go storage or identify 98 independent defects.
+
 Five broader obligations remain explicit: secondary privileged keys, remaining
 permission categories and grant lifecycle, native byte-wire applicability,
 conflicting basket-length limits in the pinned source, and remaining
@@ -147,7 +167,7 @@ predicates fail, or BLOCKED when those obligations are all that remain.
 | Remaining obligation | Evidence needed to close it |
 | --- | --- |
 | Privileged secondary keyring | An admitted released configuration with an actual distinct secondary keyring and user-presence path; approval/denial, reason validation, independent key/crypto separation, lock/reload and cache expiry. Bundled optional manager code alone does not establish that configuration. Unsupported optional functionality needs a prospective applicability decision. |
-| Other permission categories | Fresh-origin basket, spending, certificate and linkage approval/denial, cached grants, supported single/all revocation, restart and scope tests. The reviewed UI grants default to no expiry; finite-expiry evidence requires a supported configuration rather than private-state manipulation. |
+| Other permission categories | Supported UI exists for basket, spending and certificate prompts plus single/all grant revocation; dedicated fresh-origin approval/denial, cache, revocation, restart and scope scenarios remain laboratory work. Linkage needs its applicable public flow. The reviewed UI grants default to no expiry; finite-expiry evidence requires a supported configuration rather than private-state manipulation. |
 | Native byte-wire substrate | A released native endpoint, or a prospective applicability decision, followed by all 28 call codes and malformed/truncated/error frames, byte encoding and state/permission parity. A laboratory encoder forwarding to CWI is not a native endpoint. |
 | Basket-length conflict | An explicit versioned interpretation or pinned upstream clarification of the typed 300-byte versus prose 400-byte limits, followed by create/query/persistence cases at 299/300/301/399/400/401 UTF-8 bytes. |
 | Remaining conditional branches | A clause inventory covering transaction batching/defaults, proof-omission trust, consuming-reference conflicts, filter/pagination/include semantics, actual certificate issuance, conflicting required fields, verifier/keyring/signature/revocation behavior and pagination; each applicable branch needs admitted fixtures and independent state/ancestry checks. |
