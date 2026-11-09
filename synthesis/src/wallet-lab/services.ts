@@ -10,6 +10,8 @@ import { Proxy } from 'http-mitm-proxy'
 import { GoServices, selectComponents, type ComponentSelection, type GoServiceOptions } from './go-services.js'
 import type { RouteObservation } from './model.js'
 import { ControlledOverlayServices, type OverlayObservation, type UmpRecord } from './overlay-services.js'
+import { applyTypeScriptDescendantExport } from '../storage-sync/descendant-export.js'
+import { SubmissionVerdicts, type SubmissionTarget } from './submission-verdicts.js'
 
 export interface HeaderRecord {
   version: number
@@ -57,6 +59,8 @@ export interface ControlledServicesOptions {
   webroot: string
   components?: ComponentSelection
   go?: GoServiceOptions
+  /** Prospective, source-bound TypeScript sync export compatibility adapter. */
+  typescriptDescendantExport?: boolean
   walletStorageRootKeyHex?: string
   submitVerdicts?: Array<'ACCEPTED_BY_NETWORK' | 'REJECTED'>
   wabPort?: number
@@ -168,6 +172,8 @@ function sendJson(response: ServerResponse, status: number, value: unknown): voi
 export class ControlledWalletServices {
   readonly components: Required<ComponentSelection>
   private readonly goOptions?: GoServiceOptions
+  private readonly typescriptDescendantExport: boolean
+  private typescriptStorageAdapter?: Record<string, unknown>
   private goServices?: GoServices
   private goStorageServer?: http.Server
   readonly headers = new Map<number, HeaderRecord>([[0, genesisHeader]])
@@ -181,7 +187,7 @@ export class ControlledWalletServices {
   readonly identityKey: string
   readonly storageRootKeyHex: string
   readonly overlay = new ControlledOverlayServices()
-  private readonly verdicts: Array<'ACCEPTED_BY_NETWORK' | 'REJECTED'>
+  private readonly verdicts: SubmissionVerdicts
   private readonly webroot: string
   private readonly externalOverlayLookups = new Map<string, string>()
   private readonly externalStorageCounterparts = new Map<string, number>()
@@ -206,17 +212,18 @@ export class ControlledWalletServices {
   constructor(options: ControlledServicesOptions) {
     this.components = selectComponents(options.components)
     this.goOptions = options.go
+    this.typescriptDescendantExport = options.typescriptDescendantExport === true
     this.webroot = path.resolve(options.webroot)
     this.storageRootKeyHex = options.walletStorageRootKeyHex ?? '11'.repeat(32)
     this.identityKey = PrivateKey.fromHex(this.storageRootKeyHex).toPublicKey().toString()
-    this.verdicts = [...(options.submitVerdicts ?? [])]
+    this.verdicts = new SubmissionVerdicts([...(options.submitVerdicts ?? [])])
     this.wabPort = options.wabPort
     this.temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'tpnil-wallet-services-'))
   }
 
   /** Prospective native replacement route; authentication remains end to end. */
   createStorageCounterpart(webroot: string, walletStorageRootKeyHex: string): ControlledWalletServices {
-    return new ControlledWalletServices({ webroot, walletStorageRootKeyHex, components: { storage: this.components.storage }, ...(this.goOptions ? { go: { ...this.goOptions } } : {}) })
+    return new ControlledWalletServices({ webroot, walletStorageRootKeyHex, components: { storage: this.components.storage }, ...(this.goOptions ? { go: { ...this.goOptions } } : {}), ...(this.typescriptDescendantExport ? { typescriptDescendantExport: true } : {}) })
   }
 
   registerStorageCounterpart(host: string, endpoint: string, owner?: ControlledWalletServices): void {
@@ -267,7 +274,7 @@ export class ControlledWalletServices {
   get componentDiagnostics(): string { return this.goServices?.diagnostics ?? '' }
 
   get componentIdentity(): Record<string, unknown> {
-    return { components: this.components, ...(this.goServices === undefined ? {} : { go: this.goServices.identity }) }
+    return { components: this.components, ...(this.goServices === undefined ? {} : { go: this.goServices.identity }), ...(this.typescriptStorageAdapter === undefined ? {} : { typescriptStorageAdapter: this.typescriptStorageAdapter }) }
   }
 
   get proxyUrl(): string {
@@ -319,15 +326,12 @@ export class ControlledWalletServices {
     this.headers.set(header.height, { ...header })
   }
 
-  enqueueVerdict(verdict: 'ACCEPTED_BY_NETWORK' | 'REJECTED'): void {
-    this.verdicts.push(verdict)
+  enqueueVerdict(verdict: 'ACCEPTED_BY_NETWORK' | 'REJECTED', target?: SubmissionTarget): void {
+    this.verdicts.enqueue(verdict, target, this.ownSubmissions.map(row => row.txid))
   }
 
   discardQueuedVerdict(verdict: 'ACCEPTED_BY_NETWORK' | 'REJECTED'): boolean {
-    const index = this.verdicts.indexOf(verdict)
-    if (index < 0) return false
-    this.verdicts.splice(index, 1)
-    return true
+    return this.verdicts.discard(verdict)
   }
 
   private async connectRemoteWallet(rootKeyHex: string): Promise<Wallet> {
@@ -617,7 +621,7 @@ export class ControlledWalletServices {
     this.storageSetup.services.postBeef = (async (beef: { toBinaryAtomic: (txid: string) => number[] }, txids: string[]) =>
       txids.map(txid => {
         const bytes = Uint8Array.from(beef.toBinaryAtomic(txid))
-        const verdict = this.verdicts.shift() ?? 'ACCEPTED_BY_NETWORK'
+        const verdict = this.verdicts.consume(txid, bytes)
         this.ownSubmissions.push({ txid, bytes, verdict })
         this.routes.push({
           sequence: ++this.routeSequence,
@@ -636,6 +640,7 @@ export class ControlledWalletServices {
               txidResults: [{ txid, status: 'error', serviceError: false }]
             }
       })) as unknown as typeof this.storageSetup.services.postBeef
+    if (this.typescriptDescendantExport) this.typescriptStorageAdapter = applyTypeScriptDescendantExport(this.storageSetup.activeStorage)
     this.storageServer = new StorageServer(this.storageSetup.activeStorage, {
       host: '127.0.0.1',
       port: this.storagePort,
@@ -773,7 +778,7 @@ export class ControlledWalletServices {
       let size = 0
       for await (const chunk of request) { size += chunk.length; if (size > 4 * 1024 * 1024) throw new Error('Submission exceeds limit'); chunks.push(Buffer.from(chunk)) }
       const tx = Transaction.fromHex(Buffer.concat(chunks).toString('utf8'))
-      const verdict = this.verdicts.shift() ?? 'ACCEPTED_BY_NETWORK'
+      const verdict = this.verdicts.consume(tx.id('hex'), tx.toUint8Array())
       this.ownSubmissions.push({ txid: tx.id('hex'), bytes: tx.toUint8Array(), verdict })
       sendJson(response, verdict === 'REJECTED' ? 400 : 200, { txid: tx.id('hex'), verdict })
       return
@@ -959,7 +964,7 @@ export class ControlledWalletServices {
         const beef = Beef.fromBinary(bytes)
         const txid = beef.atomicTxid
         if (txid === undefined) throw new Error('Atomic transaction id is absent')
-        const verdict = this.verdicts.shift() ?? 'ACCEPTED_BY_NETWORK'
+        const verdict = this.verdicts.consume(txid, bytes)
         this.ownSubmissions.push({ txid, bytes, verdict })
         sendJson(response, verdict === 'REJECTED' ? 400 : 200, {
           txid,
@@ -1005,7 +1010,7 @@ export class ControlledWalletServices {
       const bytes = Uint8Array.from(Utils.toArray(body.rawTx, 'hex'))
       const beef = Beef.fromBinary(bytes)
       const txid = beef.atomicTxid ?? Transaction.fromBEEF(bytes).id('hex')
-      const verdict = this.verdicts.shift() ?? 'ACCEPTED_BY_NETWORK'
+      const verdict = this.verdicts.consume(txid, bytes)
       this.ownSubmissions.push({ txid, bytes, verdict })
       sendJson(response, verdict === 'REJECTED' ? 400 : 200, {
         txid,

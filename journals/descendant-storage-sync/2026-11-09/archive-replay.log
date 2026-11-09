@@ -1,0 +1,13 @@
+◇ injected env (0) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+◇ injected env (0) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+{
+  "verified": true,
+  "result": "PASS",
+  "directions": 4,
+  "freshExecutions": 8,
+  "independentIdentities": 8,
+  "assertions": 80,
+  "binarySha256": "34631e87e732e0bb1c14f0494539472ffc250cb4e2ca5419bf731a59a1763268",
+  "sourceCommit": "6d455a113652e349c0f35f8758cce457fc32baac",
+  "claim": "ENGINEERING_REFERENCE_STORAGE_QUALIFICATION_ONLY"
+}
