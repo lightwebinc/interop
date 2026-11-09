@@ -34,7 +34,7 @@
     "scripts/reevaluate-native-integrated.mjs": "e8271f6cba048065dfd9195d4103724459476a98120a4aebb5497488209216a8",
     "scripts/verify-native-reevaluation.mjs": "40fd325e9a93b9e0b5109608f51e33cde6d4defb1c2c7de13cb45666912d2af8",
     "scripts/native-reevaluation.mjs": "ac4834dab879226e812d231f61e8e70701d91e75995d3936792c06ed451211a1",
-    "scripts/frozen-component-replay.mjs": "e39d1ac25cbe3ce0b10272e9e94447e2cb0c87c2b44e30e26532beaa1f4f7978",
+    "scripts/frozen-component-replay.mjs": "6857f635a3e09084bc5d6ad817170f826d499de8d9749d8b248be046e92902b5",
     "scripts/verify-published-integrations.mjs": "6d0296a15c0f1f23202352b0ed5f52cbbb97fb62e282ee71b301aecabee96a8d"
   }
 }
