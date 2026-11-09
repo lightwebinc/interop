@@ -4,14 +4,16 @@ import os from 'node:os';
 import { spawnSync, execFileSync } from 'node:child_process';
 import { randomBytes, createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { nativeRustBinding, nativeRustV3Flag, nativeRustV3Variant } from './native-rust-compatibility.mjs';
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const [image, outputArgument] = process.argv.slice(2);
 if (!image || !outputArgument) throw new Error('Usage: run-native-go-wallet IMAGE NEW_OUTPUT');
-if (process.argv.length > 5 || ![undefined, '--integrated', '--integrated-trusted', '--conformance', '--conformance-coverage', '--conformance-closure'].includes(process.argv[4])) throw new Error('Unknown native qualification profile flag');
+if (process.argv.length > 5 || ![undefined, '--integrated', '--integrated-trusted', '--conformance', '--conformance-coverage', '--conformance-closure', nativeRustV3Flag].includes(process.argv[4])) throw new Error('Unknown native qualification profile flag');
 const output = path.resolve(outputArgument);
 if (fs.existsSync(output)) throw new Error('Native qualification output already exists');
 fs.mkdirSync(output, { recursive: true });
-const closure = process.argv[4] === '--conformance-closure';
+const rustV3 = process.argv[4] === nativeRustV3Flag;
+const closure = rustV3 || process.argv[4] === '--conformance-closure';
 const coverage = closure || process.argv[4] === '--conformance-coverage';
 const conformance = coverage || process.argv[4] === '--conformance';
 const trustedIdentity = conformance || process.argv[4] === '--integrated-trusted';
@@ -25,8 +27,9 @@ const save = (name, value) => fs.writeFileSync(path.join(output, name), JSON.str
 const source = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim();
 const dirty = execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }).trim();
 if (dirty) throw new Error('Qualification requires committed source');
+const rustCompatibility = rustV3 ? await nativeRustBinding(plan,sha(fs.readFileSync(planFile)),source) : undefined;
 if (process.platform !== 'linux' || process.arch !== 'x64') throw new Error('This admitted lane requires native Linux/amd64 execution');
-save('run-lock.json', { schema: 'tpnil-native-wallet-run-lock@1.0.0', source, plan, planSha256: sha(fs.readFileSync(planFile)), image: { id: imageInfo.Id, os: imageInfo.Os, architecture: imageInfo.Architecture, layers: imageInfo.RootFS.Layers }, runner: { os: os.release(), node: process.version, platform: process.platform, architecture: process.arch }, startedAt: new Date().toISOString() });
+save('run-lock.json', { schema: 'tpnil-native-wallet-run-lock@1.0.0', source, plan, planSha256: sha(fs.readFileSync(planFile)), ...(rustCompatibility ? {executionVariant:nativeRustV3Variant,rustCompatibility} : {}), image: { id: imageInfo.Id, os: imageInfo.Os, architecture: imageInfo.Architecture, layers: imageInfo.RootFS.Layers }, runner: { os: os.release(), node: process.version, platform: process.platform, architecture: process.arch }, startedAt: new Date().toISOString() });
 function receipt(info) {
   return { id: info.Id, image: info.Image, user: info.Config.User, networkMode: info.HostConfig.NetworkMode, networks: info.NetworkSettings.Networks, privileged: info.HostConfig.Privileged, capAdd: info.HostConfig.CapAdd, capDrop: info.HostConfig.CapDrop, readonly: info.HostConfig.ReadonlyRootfs, pidMode: info.HostConfig.PidMode, init: info.HostConfig.Init, mounts: info.Mounts.map(mount => ({ destination: mount.Destination, rw: mount.RW, type: mount.Type })), state: info.State };
 }

@@ -4,8 +4,10 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
 import { createRequire } from 'node:module'
-import { corpusSources, corpusV3Sources, corpusV3ManifestInputs, evaluateRustCorpus, rustCorpusPolicy, validateRustGraphManifest } from '../scripts/rust-corpus.mjs'
-const root=path.resolve(import.meta.dirname,'..'), sha=bytes=>createHash('sha256').update(bytes).digest('hex')
+import os from 'node:os'
+import { verifyRust } from '../../../scripts/verify-rust.mjs'
+import { corpusSources, corpusV3Sources, corpusV3ManifestInputs, evaluateRustCorpus, rustCorpusPolicy, validateRustGraphManifest } from '../../../scripts/rust-corpus.mjs'
+const root=path.resolve(import.meta.dirname,'../../..'), sha=bytes=>createHash('sha256').update(bytes).digest('hex')
 const read=file=>fs.readFileSync(path.join(root,file))
 const require=createRequire(path.join(root,'components/transport/package.json'))
 const {Transaction}=require('@bsv/sdk')
@@ -46,4 +48,14 @@ test('explicit corpus3 changes only joined spend operation and subject binding',
     }else assert.deepEqual(fresh[i],old[i])
   }
   assert.equal(changed,2)
+})
+test('removing native compatibility fields cannot relabel corpus3 as default2, or corpus2 as explicit3',()=>{
+  const directory=fs.mkdtempSync(path.join(os.tmpdir(),'tpnil-rust-policy-'))
+  try{
+    fs.writeFileSync(path.join(directory,'calls.json'),'[]')
+    fs.writeFileSync(path.join(directory,'result.json'),JSON.stringify({schema:'tpnil-component-result@1',corpus:'tpnil-rust-corpus@3'}))
+    assert.throws(()=>verifyRust(directory,[]),/tpnil-rust-corpus@/)
+    fs.writeFileSync(path.join(directory,'result.json'),JSON.stringify({schema:'tpnil-component-result@1',corpus:'tpnil-rust-corpus@2'}))
+    assert.throws(()=>verifyRust(directory,[],{corpus:'tpnil-rust-corpus@3'}),/tpnil-rust-corpus@/)
+  }finally{fs.rmSync(directory,{recursive:true,force:true})}
 })

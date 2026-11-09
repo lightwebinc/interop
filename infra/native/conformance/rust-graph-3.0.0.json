@@ -1,0 +1,25 @@
+{
+  "schema": "tpnil-native-rust-compatibility@3.0.0",
+  "variant": "integrated-native-conformance-closure-rust-v3",
+  "nativePlan": {
+    "path": "infra/native/conformance/plan-coverage-closure.json",
+    "sha256": "eb08ea9808a3cd314d9060c16c466f47cbb36c64ebd3506064085276596432c6",
+    "profile": "ITCVE-1@2.0.0",
+    "program": "ISI-4@4.0.0"
+  },
+  "rustCorpus": "tpnil-rust-corpus@3",
+  "graphOracle": {
+    "id": "tpnil-rust-graph-oracle@3.0.0",
+    "manifest": "components/rust/graph-oracle-3.0.0.json",
+    "manifestSha256": "28abfaa934e8246d2b6adb8e567f8ad8e3ef08e49dc9f7dcebebd5b7b4bf9063",
+    "operation": "spends-indexed-v3",
+    "cargoFeature": "graph-oracle-v3"
+  },
+  "scope": "Explicit future native entry point selecting Rust observer3 after the unchanged native2 execution. The native plan and all ten acceptance inputs are unchanged. Existing closure/default callers retain corpus2; archived evidence reevaluation uses its separate plan and never this future execution binding.",
+  "sources": {
+    "scripts/native-rust-compatibility.mjs": "efa50ae09099e3cffa28e36150853e440682cb4769e9ef32a379ca6a9d7c570f",
+    "scripts/run-native-go-wallet.mjs": "805e762aff9f6cdc41a0b2f9d017ec030cd8d2475579542521576d48b228ad00",
+    "scripts/verify-native-integrated.mjs": "58fdcadc8b916bd2cb34adebcf9d85fc4f5d06a6e126075a9943f2b02b28037b",
+    ".github/workflows/isi4-yours-wallet.yml": "3e606139aa322ec92961a3ad8f97247bd238b87ed495a3c20916c978c4136139"
+  }
+}

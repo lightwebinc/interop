@@ -4,6 +4,7 @@ import path from 'node:path'
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import { spawnSync } from 'node:child_process'
+import { selectNativeRustCorpus } from './native-rust-compatibility.mjs'
 const root=path.resolve(import.meta.dirname,'..'), output=path.resolve(process.argv[2]??'out/native-integrated')
 const digest=file=>createHash('sha256').update(fs.readFileSync(file)).digest('hex')
 const read=file=>JSON.parse(fs.readFileSync(path.join(output,file),'utf8'))
@@ -22,6 +23,7 @@ if(process.argv[1]&&path.resolve(process.argv[1])===import.meta.filename) {
 const admission=spawnSync(process.execPath,['--import',path.join(root,'synthesis/node_modules/tsx/dist/loader.mjs'),path.join(root,'synthesis/src/wallet-lab/native/verify.ts'),output],{stdio:'inherit',timeout:60_000})
 assert.equal(admission.status,0,'Native artifact, isolation, trust, funding and cleanup admission failed')
 const base=read('qualification.json'),lock=read('run-lock.json')
+const rustPolicy=await selectNativeRustCorpus(lock)
 assert.equal(base.qualifiedEnvironment,true)
 const closure=base.itcve==='ITCVE-1@2.0.0'
 const coverage=closure||base.itcve==='ITCVE-1@1.5.0'
@@ -72,8 +74,8 @@ for(let index=1;index<=2;index++) {
   if(trustedIdentity) execute('verify-native-trust.mjs',[directory])
   const rustDirectory=path.join(output,`rust-repetition-${index}`)
   const rustInputs=['paid-http.json','messaging.json','synthesis-transactions.json',...(trustedIdentity?['identity-trust.json']:[])].map(file=>path.join(directory,file))
-  if(!fs.existsSync(path.join(rustDirectory,'result.json'))) execute('run-rust.mjs',[rustDirectory,...rustInputs])
-  execute('verify-rust.mjs',[rustDirectory,...rustInputs])
+  if(!fs.existsSync(path.join(rustDirectory,'result.json'))) execute('run-rust.mjs',[rustDirectory,...rustInputs,...rustPolicy.cliFlags])
+  execute('verify-rust.mjs',[rustDirectory,...rustInputs,...rustPolicy.cliFlags])
   const rustReport=read(`rust-repetition-${index}/result.json`)
   assert.equal(rustReport.outcome,'PASS')
   repetitions.push({index,identity,assertions:semantic(report.assertions),recordSha256:digest(path.join(output,`repetition-${index}/record.json`)),rustSha256:digest(path.join(rustDirectory,'result.json'))})
@@ -88,6 +90,7 @@ if(conformance) {
   result.outcome=[base.outcome,result.integrationOutcome].includes('FAIL')?'FAIL':base.outcome==='BLOCKED'?'BLOCKED':result.integrationOutcome
   result.completeBRC100Conformance=false
 }
+if(rustPolicy.binding) result.rustCompatibility=rustPolicy.binding
 const target=path.join(output,'integrated-qualification.json')
 if(fs.existsSync(target)) assert.deepEqual(JSON.parse(fs.readFileSync(target)),result)
 else fs.writeFileSync(target,JSON.stringify(result,null,2)+'\n',{flag:'wx'})

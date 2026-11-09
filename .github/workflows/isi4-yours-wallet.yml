@@ -14,6 +14,7 @@ on:
           - integrated-native-conformance
           - integrated-native-conformance-coverage
           - integrated-native-conformance-closure
+          - integrated-native-conformance-closure-rust-v3
 permissions:
   contents: read
 jobs:
@@ -105,6 +106,7 @@ jobs:
           if [ "$TPNIL_NATIVE_PROFILE" = integrated-native-conformance ]; then native_flag=--conformance; native_image=tpnil-native-conformance:${{ github.sha }}; fi
           if [ "$TPNIL_NATIVE_PROFILE" = integrated-native-conformance-coverage ]; then native_flag=--conformance-coverage; native_image=tpnil-native-conformance:${{ github.sha }}; fi
           if [ "$TPNIL_NATIVE_PROFILE" = integrated-native-conformance-closure ]; then native_flag=--conformance-closure; native_image=tpnil-native-conformance:${{ github.sha }}; fi
+          if [ "$TPNIL_NATIVE_PROFILE" = integrated-native-conformance-closure-rust-v3 ]; then native_flag=--conformance-closure-rust-v3; native_image=tpnil-native-conformance:${{ github.sha }}; fi
           node scripts/run-native-go-wallet.mjs "$native_image" out/native-go-wallet "$native_flag"
           node scripts/verify-native-integrated.mjs out/native-go-wallet
       - name: Retain every attempt and qualification receipt
