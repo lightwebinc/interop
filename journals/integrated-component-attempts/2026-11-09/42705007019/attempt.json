@@ -1,0 +1,70 @@
+{
+  "schema": "tpnil-integration-attempt@1",
+  "claim": "OBSERVER_EXECUTION_ERROR",
+  "failureClassification": "REGRESSION_TEST_TIMEOUT_AND_FIXTURE_PORT_COLLISION",
+  "source": "3505d92a01fe7aeef7bb90fa1ed52f6eda003c54",
+  "workflowRun": 42705007019,
+  "run": "https://github.com/p2ppsr/interop/actions/runs/42705007019",
+  "workflowConclusion": "failure",
+  "stage": "offline-regression-and-integrated-setup-tests",
+  "acceptance": "NOT_ACCEPTED",
+  "qualificationIssued": false,
+  "nativeWalletExecuted": false,
+  "componentMatrixExecuted": false,
+  "descendantMatrixExecuted": false,
+  "observedAssertions": {
+    "component": null,
+    "descendant": null
+  },
+  "cause": "Offline tests exceeded the 5000 ms bound; separately, the targeted TypeScript counterpart listener hit EADDRINUSE. Both matrices were skipped and their artifacts are absent. All original failures remain preserved.",
+  "artifactId": 13712413042,
+  "artifactSha256": "3801e4d0d3ea634279800531f9adabfa1503b9479bd3103664274138bc0abfbe",
+  "artifactSize": 63363,
+  "files": [
+    {
+      "name": "README.md",
+      "size": 2859,
+      "sha256": "921bcd5171bffd51d3c372b7903e0cbfd88f2f4d07890820d71dfc79c5030a2f"
+    },
+    {
+      "name": "artifacts.json",
+      "size": 742,
+      "sha256": "967153f9b57432424c70ff5e4b64e0faf7df3ab3dfbb31fe7974b2107dc814c5"
+    },
+    {
+      "name": "foundation-logs.zip",
+      "size": 88091,
+      "sha256": "05ed470cd77a02dc44a7d63db059e06a4b25f676fab3e39fa57ce86a33f8e8c2"
+    },
+    {
+      "name": "integrated-components-original.log",
+      "size": 43679,
+      "sha256": "0ea50de1dc2b5b3c62c97d3f68dc2ecd9f471077f1e4ec72bc6b0f64b1cd576d"
+    },
+    {
+      "name": "itcve-go-components.zip",
+      "size": 63363,
+      "sha256": "3801e4d0d3ea634279800531f9adabfa1503b9479bd3103664274138bc0abfbe"
+    },
+    {
+      "name": "jobs.json",
+      "size": 13059,
+      "sha256": "aae61d80f67484bb594d1e024891a7591be3cc6c3a29156b2ef02d605cae68e2"
+    },
+    {
+      "name": "observed-results.json",
+      "size": 14222,
+      "sha256": "22c065c63b820d7f40df5e54926b8271782ddca6e7c362def93389eb9b3ca83f"
+    },
+    {
+      "name": "offline-core-original.log",
+      "size": 71608,
+      "sha256": "5a458d8a2fb5306abb320569ffe8dc0f7e235041ca084d4a1c15b34acaa504c2"
+    },
+    {
+      "name": "run.json",
+      "size": 11962,
+      "sha256": "b1bd33233dfd1c6444a1c1204e547eab2a0a0073f28942a1f511baa4b71d3cac"
+    }
+  ]
+}
