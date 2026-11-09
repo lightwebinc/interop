@@ -1,0 +1,35 @@
+◇ injected env (0) from .env // tip: ⌘ suppress logs { quiet: true }
+◇ injected env (0) from .env // tip: ⌘ override existing { override: true }
+SNI enabled. Clients not supporting SNI may fail
+https server started on 61589
+creating SNI context for www.google.com
+creating SNI context for accounts.google.com
+HTTPS_CLIENT_ERROR
+Error: socket hang up
+    at TLSSocket.onSocketClose (node:internal/tls/wrap:1379:23)
+    at TLSSocket.emit (node:events:526:24)
+    at node:net:362:12
+    at Socket.done (node:internal/tls/wrap:780:7)
+    at Socket.wrapper (node:events:639:12)
+    at Socket.emit (node:events:526:24)
+    at TCP.<anonymous> (node:net:362:12) {
+  code: 'ECONNRESET'
+}
+creating SNI context for fonts.googleapis.com
+creating SNI context for android.clients.google.com
+creating SNI context for wallet.1sat.app
+creating SNI context for messagebox.1sat.app
+creating SNI context for api.1sat.app
+creating SNI context for todo.itcve.test
+creating SNI context for api.whatsonchain.com
+creating SNI context for i.ibb.co
+creating SNI context for proxy-api.mnee.net
+creating SNI context for localhost
+BOOTSTRAP CALL getPublicKey
+BOOTSTRAP CALL getPublicKey
+BOOTSTRAP CALL internalizeAction
+creating SNI context for deny.itcve.test
+creating SNI context for alternate.itcve.test
+ORIGINAL PASS
+LIFECYCLE {"verified":true,"result":"PASS","assertions":[{"id":"permission-lifecycle.basket-denial","result":"PASS","detail":"Independent public permission lifecycle predicate verified."},{"id":"permission-lifecycle.basket-grant","result":"PASS","detail":"Independent public permission lifecycle predicate verified."},{"id":"permission-lifecycle.basket-cache","result":"PASS","detail":"Independent public permission lifecycle predicate verified."},{"id":"permission-lifecycle.certificate-denial","result":"PASS","detail":"Independent public permission lifecycle predicate verified."},{"id":"permission-lifecycle.certificate-grant","result":"PASS","detail":"Independent public permission lifecycle predicate verified."},{"id":"permission-lifecycle.certificate-cache","result":"PASS","detail":"Independent public permission lifecycle predicate verified."},{"id":"permission-lifecycle.spending-denial","result":"PASS","detail":"Independent public permission lifecycle predicate verified."},{"id":"permission-lifecycle.spending-grant","result":"PASS","detail":"Independent public permission lifecycle predicate verified."},{"id":"permission-lifecycle.spending-one-shot","result":"PASS","detail":"Independent public permission lifecycle predicate verified."},{"id":"permission-lifecycle.single-revocation-ui","result":"PASS","detail":"Independent public permission lifecycle predicate verified."},{"id":"permission-lifecycle.single-revocation-enforcement","result":"PASS","detail":"Independent public permission lifecycle predicate verified."},{"id":"permission-lifecycle.single-revocation-isolation","result":"PASS","detail":"Independent public permission lifecycle predicate verified."},{"id":"permission-lifecycle.origin-revocation-ui","result":"PASS","detail":"Independent public permission lifecycle predicate verified."},{"id":"permission-lifecycle.origin-revocation-enforcement","result":"PASS","detail":"Independent public permission lifecycle predicate verified."},{"id":"permission-lifecycle.origin-isolation","result":"PASS","detail":"Independent public permission lifecycle predicate verified."},{"id":"permission-lifecycle.cleanup","result":"PASS","detail":"Independent public permission lifecycle predicate verified."}]}
+OUTPUT /Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/native-permission-click-v2-WgTjhk

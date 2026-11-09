@@ -1,3 +1,5 @@
+import type { PermissionClickReceipt } from './permission-click.js'
+export const permissionOracleV2 = 'tpnil-native-permission-oracle@2.0.0' as const
 // SPDX-License-Identifier: Apache-2.0
 export const permissionProtocol = [2, 'tpnil native permission v1'] as const
 export const permissionOrigins = { primary: 'https://deny.itcve.test', alternate: 'https://alternate.itcve.test' } as const
@@ -27,17 +29,19 @@ export interface PermissionStepObservation {
   pageUrl: string
   method: 'getPublicKey'
   args: ReturnType<typeof permissionArgs>
+  requestNonce?: string
   startedAt: string
   endedAt: string
-  outcome: { status: 'fulfilled'; value: { publicKey: string }; settledAt: string } | { status: 'rejected'; error: { name: string; message: string }; settledAt: string } | { status: 'timeout' | 'observer-error'; message: string }
+  outcome: ({ status: 'fulfilled'; value: { publicKey: string }; settledAt: string } | { status: 'rejected'; error: { name: string; message: string }; settledAt: string } | { status: 'timeout' | 'observer-error'; message: string }) & { requestNonce?: string }
   prompts: Array<{
     url: string; body: string; observedAt: string; pendingBeforeDecision: boolean
     decision: PermissionDecision; button: string; clickedAt: string; clickCompletedAt: string
-    screenshot: { name: string; sha256: string; size: number }
+    screenshot: { name: string; sha256: string; size: number }; trustedClick?: PermissionClickReceipt
   }>
 }
 export interface PermissionConformanceReport {
-  schema: 'tpnil-native-permission-conformance@1'
+  schema: 'tpnil-native-permission-conformance@1' | 'tpnil-native-permission-conformance@2'
+  oracle?: typeof permissionOracleV2
   claim: 'ENGINEERING_OBSERVATION_ONLY'
   vector: 'ISI-4-V005'
   interface: 'unchanged native wallet public CWI and visible permission UI'

@@ -1,10 +1,11 @@
-import { createHash } from 'node:crypto'
+import { observePermissionClick } from './permission-click.js'
+import { createHash, randomUUID } from 'node:crypto'
 import { P2PKH, PrivateKey, ProtoWallet } from '@bsv/sdk'
 import type { Page } from 'playwright'
 import type { NativeScenarioContext } from '../yours-driver.js'
 import { issueFixtureCertificateForSubject } from '../certificate-fixture.js'
 import { permissionArgs } from './conformance-permissions-model.js'
-import { lifecyclePermissionConfig as config, permissionLifecycleOracle, type LifecyclePermissionDecision, type LifecyclePermissionStep, type NativePermissionLifecycleReport } from './conformance-permission-lifecycle-model.js'
+import { lifecyclePermissionConfig as config, permissionLifecycleOracle, permissionLifecycleOracleV2, type LifecyclePermissionDecision, type LifecyclePermissionStep, type NativePermissionLifecycleReport } from './conformance-permission-lifecycle-model.js'
 import { evaluateNativePermissionLifecycle } from './verify-conformance-permission-lifecycle.js'
 
 const now = () => new Date().toISOString()
@@ -14,12 +15,12 @@ const clean = (value: any): any => JSON.parse(JSON.stringify(value))
 /** Caller suspends its automatic prompt handler. This controller operates only
  * matching visible prompts and Settings controls; no extension messaging or
  * private permission-store access is used. */
-export async function runNativePermissionLifecycle(context: NativeScenarioContext): Promise<NativePermissionLifecycleReport> {
+export async function runNativePermissionLifecycle(context: NativeScenarioContext, { trustedClick = false }: { trustedClick?: boolean } = {}): Promise<NativePermissionLifecycleReport> {
   const { application, services, evidence, extensionId } = context
   const pages = new Map<string, Page>(), ownedPrompts = new Set<Page>(), screenshots = new Map<string, Uint8Array>()
   let settings: Page | undefined
   const report: NativePermissionLifecycleReport = {
-    schema: 'tpnil-native-permission-lifecycle@1.0.0', oracle: permissionLifecycleOracle, claim: 'ENGINEERING_OBSERVATION_ONLY',
+    schema: trustedClick ? 'tpnil-native-permission-lifecycle@2.0.0' : 'tpnil-native-permission-lifecycle@1.0.0', oracle: trustedClick ? permissionLifecycleOracleV2 : permissionLifecycleOracle, claim: 'ENGINEERING_OBSERVATION_ONLY',
     interface: 'unchanged native CWI and visible Settings Permissions UI', extensionId, identity: '', startedAt: now(), endedAt: '',
     configuration: config, steps: [], ui: [], submissions: [], transactions: [], submissionWindow: { startIndex: services.submissions.length, endIndex: services.submissions.length, entries: [] }, errors: [], assertions: [], result: 'FAIL',
     cleanup: { applicationPagesClosed: false, ownedPromptsClosed: false, settingsPageClosed: false }
@@ -42,16 +43,16 @@ export async function runNativePermissionLifecycle(context: NativeScenarioContex
   }
   const request = async (id: string, origin: string, method: string, args: any, decision?: LifecyclePermissionDecision, setup = false) => {
     const page = await originPage(origin)
-    const row: LifecyclePermissionStep = { id, origin, pageUrl: page.url(), method, args: clean(args), startedAt: now(), endedAt: '', prompts: [], outcome: { status: 'observer-error', message: 'Request did not start' }, submissionStart: services.submissions.length, submissionEnd: services.submissions.length }
+    const row: LifecyclePermissionStep = { id, ...(trustedClick ? { requestNonce: randomUUID() } : {}), origin, pageUrl: page.url(), method, args: clean(args), startedAt: now(), endedAt: '', prompts: [], outcome: { status: 'observer-error', message: 'Request did not start' }, submissionStart: services.submissions.length, submissionEnd: services.submissions.length }
     report.steps.push(row)
     try {
-      await page.evaluate(({ id, method, args }) => {
+      await page.evaluate(({ id, method, args, requestNonce }) => {
         const state = ((window as any).__tpnilPermissionLifecycle ??= {})
-        state[id] = { status: 'pending' }
+        state[id] = { ...(requestNonce ? { requestNonce } : {}), status: 'pending' }
         void Promise.resolve().then(() => (window as any).CWI[method](args)).then(value => {
-          state[id] = { status: 'fulfilled', value, settledAt: new Date().toISOString() }
-        }, error => { state[id] = { status: 'rejected', error: { name: error instanceof Error ? error.name : 'Error', message: error instanceof Error ? error.message : String(error) }, settledAt: new Date().toISOString() } })
-      }, { id, method, args: row.args })
+          state[id] = { ...(requestNonce ? { requestNonce } : {}), status: 'fulfilled', value, settledAt: new Date().toISOString() }
+        }, error => { state[id] = { ...(requestNonce ? { requestNonce } : {}), status: 'rejected', error: { name: error instanceof Error ? error.name : 'Error', message: error instanceof Error ? error.message : String(error) }, settledAt: new Date().toISOString() } })
+      }, { id, method, args: row.args, requestNonce: row.requestNonce ?? null })
       const handled = new Set<string>(), deadline = Date.now() + config.requestTimeoutMs
       for (;;) {
         const state = await page.evaluate(id => (window as any).__tpnilPermissionLifecycle[id], id)
@@ -75,10 +76,15 @@ export async function runNativePermissionLifecycle(context: NativeScenarioContex
           ownedPrompts.add(popup); handled.add(promptKey)
           if (!decision) throw new Error(`Unexpected fresh permission prompt during ${id}`)
           const observedAt = now(), pendingBeforeDecision = await page.evaluate(id => (window as any).__tpnilPermissionLifecycle[id].status === 'pending', id)
-          const observation = { url: popup.url(), body, observedAt, pendingBeforeDecision, decision, button: groupedSetup ? (decision === 'allow' ? 'Allow Selected' : 'Deny All') : decision === 'allow' ? 'Allow' : 'Deny', clickedAt: now(), clickCompletedAt: '', screenshot: await screenshot(popup, `conformance/permission-lifecycle-${id}-${row.prompts.length}.png`) }
+          const observation: LifecyclePermissionStep['prompts'][number] = { url: popup.url(), body, observedAt, pendingBeforeDecision, decision, button: groupedSetup ? (decision === 'allow' ? 'Allow Selected' : 'Deny All') : decision === 'allow' ? 'Allow' : 'Deny', clickedAt: now(), clickCompletedAt: '', screenshot: await screenshot(popup, `conformance/permission-lifecycle-${id}-${row.prompts.length}.png`) }
           observation.clickedAt = now(); row.prompts.push(observation)
-          await popup.getByRole('button', { name: observation.button, exact: true }).click({ timeout: 5000 })
-          observation.clickCompletedAt = now()
+          if (trustedClick) {
+            observation.trustedClick = await observePermissionClick(popup, observation.button, row.requestNonce!)
+            observation.clickedAt = observation.trustedClick.attemptStartedAt; observation.clickCompletedAt = observation.trustedClick.completedAt
+          } else {
+            await popup.getByRole('button', { name: observation.button, exact: true }).click({ timeout: 5000 })
+            observation.clickCompletedAt = now()
+          }
         }
         await pause(25)
       }

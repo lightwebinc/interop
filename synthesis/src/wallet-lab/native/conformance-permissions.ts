@@ -1,8 +1,9 @@
+import { observePermissionClick } from './permission-click.js'
 // SPDX-License-Identifier: Apache-2.0
-import { createHash } from 'node:crypto'
+import { createHash, randomUUID } from 'node:crypto'
 import type { BrowserContext, Page } from 'playwright'
 import type { EvidenceBundle } from '../evidence.js'
-import { permissionArgs, permissionProtocol, permissionSteps, type PermissionConformanceReport, type PermissionStepObservation } from './conformance-permissions-model.js'
+import { permissionArgs, permissionOracleV2, permissionProtocol, permissionSteps, type PermissionConformanceReport, type PermissionStepObservation } from './conformance-permissions-model.js'
 import { evaluateNativePermissionConformance } from './verify-conformance-permissions.js'
 
 const now = () => new Date().toISOString()
@@ -12,14 +13,14 @@ const callTimeoutMs = 30_000
 /** The caller suspends its usual prompt automation for this entire scenario.
  * Every request uses the unchanged application's public CWI; only matching,
  * visible protocol prompts are operated by this controller. */
-export async function runNativePermissionConformance({ context, evidence, extensionId }: {
-  context: BrowserContext; evidence: EvidenceBundle; extensionId: string
+export async function runNativePermissionConformance({ context, evidence, extensionId, trustedClick = false }: {
+  context: BrowserContext; evidence: EvidenceBundle; extensionId: string; trustedClick?: boolean
 }): Promise<PermissionConformanceReport> {
   const pages = new Map<string, Page>(), ownedPrompts = new Set<Page>(), screenshots = new Map<string, Uint8Array>()
-  const report: PermissionConformanceReport = { schema: 'tpnil-native-permission-conformance@1', claim: 'ENGINEERING_OBSERVATION_ONLY', vector: 'ISI-4-V005', interface: 'unchanged native wallet public CWI and visible permission UI', extensionId, steps: [], assertions: [], result: 'FAIL', cleanup: { applicationPagesClosed: false, ownedPromptsClosed: false } }
+  const report: PermissionConformanceReport = { schema: trustedClick ? 'tpnil-native-permission-conformance@2' : 'tpnil-native-permission-conformance@1', ...(trustedClick ? { oracle: permissionOracleV2 } : {}), claim: 'ENGINEERING_OBSERVATION_ONLY', vector: 'ISI-4-V005', interface: 'unchanged native wallet public CWI and visible permission UI', extensionId, steps: [], assertions: [], result: 'FAIL', cleanup: { applicationPagesClosed: false, ownedPromptsClosed: false } }
   try {
     for (const expected of permissionSteps) {
-      const row = { id: expected.id, origin: expected.origin, pageUrl: `${expected.origin}/`, method: 'getPublicKey', args: permissionArgs(expected.seekPermission), startedAt: now(), endedAt: '', prompts: [], outcome: { status: 'observer-error', message: 'Request did not start' } } as PermissionStepObservation
+      const row = { id: expected.id, ...(trustedClick ? { requestNonce: randomUUID() } : {}), origin: expected.origin, pageUrl: `${expected.origin}/`, method: 'getPublicKey', args: permissionArgs(expected.seekPermission), startedAt: now(), endedAt: '', prompts: [], outcome: { status: 'observer-error', message: 'Request did not start' } } as PermissionStepObservation
       report.steps.push(row)
       try {
         const handledForStep = new Set<Page>()
@@ -31,13 +32,13 @@ export async function runNativePermissionConformance({ context, evidence, extens
           await page.waitForFunction(() => typeof (window as any).CWI?.getPublicKey === 'function', undefined, { timeout: callTimeoutMs })
         }
         row.pageUrl = page.url()
-        await page.evaluate(({ id, args }) => {
+        await page.evaluate(({ id, args, requestNonce }) => {
           const state = ((window as any).__tpnilPermissionProbe ??= {})
-          state[id] = { status: 'pending' }
+          state[id] = { ...(requestNonce ? { requestNonce } : {}), status: 'pending' }
           void Promise.resolve().then(() => (window as any).CWI.getPublicKey(args)).then(value => {
-            state[id] = { status: 'fulfilled', value, settledAt: new Date().toISOString() }
-          }, error => { state[id] = { status: 'rejected', error: { name: error instanceof Error ? error.name : 'Error', message: error instanceof Error ? error.message : String(error) }, settledAt: new Date().toISOString() } })
-        }, { id: expected.id, args: row.args })
+            state[id] = { ...(requestNonce ? { requestNonce } : {}), status: 'fulfilled', value, settledAt: new Date().toISOString() }
+          }, error => { state[id] = { ...(requestNonce ? { requestNonce } : {}), status: 'rejected', error: { name: error instanceof Error ? error.name : 'Error', message: error instanceof Error ? error.message : String(error) }, settledAt: new Date().toISOString() } })
+        }, { id: expected.id, args: row.args, requestNonce: row.requestNonce ?? null })
         const deadline = Date.now() + callTimeoutMs
         for (;;) {
           const state = await page.evaluate(id => (window as any).__tpnilPermissionProbe[id], expected.id)
@@ -56,10 +57,15 @@ export async function runNativePermissionConformance({ context, evidence, extens
             const bytes = await popup.screenshot({ type: 'png', timeout: 5000 }), name = `conformance/permissions-${expected.id}.png`
             evidence.addBytes(name, bytes); screenshots.set(name, bytes)
             const button = expected.decision === 'allow' ? 'Allow' : 'Deny'
-            const observation = { url: popup.url(), body, observedAt, pendingBeforeDecision: pending, decision: expected.decision, button, clickedAt: now(), clickCompletedAt: '', screenshot: { name, sha256: createHash('sha256').update(bytes).digest('hex'), size: bytes.length } }
+            const observation: PermissionStepObservation['prompts'][number] = { url: popup.url(), body, observedAt, pendingBeforeDecision: pending, decision: expected.decision, button, clickedAt: now(), clickCompletedAt: '', screenshot: { name, sha256: createHash('sha256').update(bytes).digest('hex'), size: bytes.length } }
             row.prompts.push(observation)
-            await popup.getByRole('button', { name: button, exact: true }).click({ timeout: 5000 })
-            observation.clickCompletedAt = now()
+            if (trustedClick) {
+              observation.trustedClick = await observePermissionClick(popup, button, row.requestNonce!)
+              observation.clickedAt = observation.trustedClick.attemptStartedAt; observation.clickCompletedAt = observation.trustedClick.completedAt
+            } else {
+              await popup.getByRole('button', { name: button, exact: true }).click({ timeout: 5000 })
+              observation.clickCompletedAt = now()
+            }
           }
           await pause(25)
         }

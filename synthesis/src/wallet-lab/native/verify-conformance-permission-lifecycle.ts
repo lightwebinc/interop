@@ -1,3 +1,4 @@
+import { verifyPermissionClick, verifyPermissionCallNonces } from './permission-click.js'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -5,7 +6,7 @@ import { createHash } from 'node:crypto'
 import { Beef, Certificate, KeyDeriver, P2PKH, PrivateKey, ProtoWallet, PublicKey, SymmetricKey, Transaction, Utils, VerifiableCertificate } from '@bsv/sdk'
 import { canonicalJson } from '../../determinism.js'
 import { permissionArgs, permissionProtocol } from './conformance-permissions-model.js'
-import { lifecyclePermissionConfig as config, permissionLifecycleAssertionIds, permissionLifecycleOracle, type LifecyclePermissionStep, type NativePermissionLifecycleReport } from './conformance-permission-lifecycle-model.js'
+import { lifecyclePermissionConfig as config, permissionLifecycleAssertionIds, permissionLifecycleOracle, permissionLifecycleOracleV2, type LifecyclePermissionStep, type NativePermissionLifecycleReport } from './conformance-permission-lifecycle-model.js'
 
 const fixture = JSON.parse(fs.readFileSync(path.resolve(import.meta.dirname, '../../../../fixtures/teranode/wab-funding-v1.json'), 'utf8'))
 const time = (value: string) => { const parsed = Date.parse(value); assert.ok(Number.isFinite(parsed)); return parsed }
@@ -24,6 +25,7 @@ export function assertNoDeniedPermissionPayment(submissions: Array<{ txid: strin
 }
 
 export async function evaluateNativePermissionLifecycle(report: NativePermissionLifecycleReport, readEvidence: (name: string) => Buffer, expectedIdentity: string) {
+  const trustedClick = report.schema === 'tpnil-native-permission-lifecycle@2.0.0'
   const step = (id: string) => { const row = report.steps.find(row => row.id === id); assert.ok(row, `Missing native observation ${id}`); return row }
   const success = (id: string) => { const row = step(id); assert.equal(row.outcome.status, 'fulfilled', `${id}: ${row.outcome.error?.message ?? row.outcome.message ?? row.outcome.status}`); return row.outcome.value }
   const rejected = (id: string) => { const row = step(id); assert.equal(row.outcome.status, 'rejected'); assert.match(row.outcome.error?.message ?? '', /permission.*denied|denied by user|the user has denied the request for permission|no protocol permission token found/i); assert.ok(!forbiddenError.test(row.outcome.error!.message)); return row }
@@ -48,8 +50,12 @@ export async function evaluateNativePermissionLifecycle(report: NativePermission
       assert.ok(Number.isSafeInteger(fee) && fee >= 0); assert.equal(amount, row.args.outputs[0].satoshis + fee, 'Spending UI amount must equal the exact customer output plus its displayed fee')
     }
     assert.equal(observed.pendingBeforeDecision, true); assert.equal(observed.decision, decision); assert.equal(observed.button, decision === 'allow' ? 'Allow' : 'Deny')
+    if (trustedClick) verifyPermissionClick(observed.trustedClick, observed, row)
+    else {
+      assert.equal(observed.trustedClick, undefined)
     assert.ok(time(row.startedAt) <= time(observed.observedAt) && time(observed.observedAt) <= time(observed.clickedAt) && time(observed.clickedAt) <= time(observed.clickCompletedAt) && time(observed.clickCompletedAt) <= time(row.endedAt))
     assert.ok(row.outcome.settledAt && time(row.outcome.settledAt) >= time(observed.clickedAt))
+    }
     image(observed.screenshot, `conformance/permission-lifecycle-${id}-0.png`)
   }
   const mined = async (bytes: number[]) => {
@@ -154,7 +160,8 @@ export async function evaluateNativePermissionLifecycle(report: NativePermission
     image(row.before, 'conformance/permission-lifecycle-origin-before.png'); image(row.confirmation, 'conformance/permission-lifecycle-origin-confirm.png'); image(row.after, 'conformance/permission-lifecycle-origin-after.png')
   }
   const common = () => {
-    assert.equal(report.schema, 'tpnil-native-permission-lifecycle@1.0.0'); assert.equal(report.oracle, permissionLifecycleOracle)
+    if (trustedClick) { assert.equal(report.oracle, permissionLifecycleOracleV2); verifyPermissionCallNonces(report.steps) }
+    else { assert.equal(report.schema, 'tpnil-native-permission-lifecycle@1.0.0'); assert.equal(report.oracle, permissionLifecycleOracle) }
     assert.equal(report.claim, 'ENGINEERING_OBSERVATION_ONLY'); assert.equal(report.interface, 'unchanged native CWI and visible Settings Permissions UI')
     equal(report.configuration, config); assert.equal(PublicKey.fromString(expectedIdentity).toString(), expectedIdentity); assert.equal(report.identity, expectedIdentity)
     assert.equal(step('identity').method, 'getPublicKey'); equal(step('identity').args, { identityKey: true }); assert.equal(success('identity').publicKey, expectedIdentity); assert.match(report.extensionId, /^[a-p]{32}$/)

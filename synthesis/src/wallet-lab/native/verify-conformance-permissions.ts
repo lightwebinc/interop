@@ -1,8 +1,9 @@
+import { verifyPermissionClick, verifyPermissionCallNonces } from './permission-click.js'
 // SPDX-License-Identifier: Apache-2.0
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import { KeyDeriver, PrivateKey, PublicKey } from '@bsv/sdk'
-import { permissionArgs, permissionAssertionIds, permissionProtocol, permissionSteps, type PermissionConformanceReport, type PermissionStepObservation } from './conformance-permissions-model.js'
+import { permissionArgs, permissionAssertionIds, permissionOracleV2, permissionProtocol, permissionSteps, type PermissionConformanceReport, type PermissionStepObservation } from './conformance-permissions-model.js'
 
 export type PermissionEvidenceReader = (name: string) => Uint8Array
 const explicitPermissionError = (value: PermissionStepObservation) => value.outcome.status === 'rejected'
@@ -12,7 +13,9 @@ const time = (value: string) => { const parsed = Date.parse(value); assert.ok(Nu
 
 /** Recompute permission findings from public responses, visible controls and request ordering. */
 export function evaluateNativePermissionConformance(report: PermissionConformanceReport, readEvidence: PermissionEvidenceReader) {
-  assert.equal(report.schema, 'tpnil-native-permission-conformance@1')
+  const trustedClick = report.schema === 'tpnil-native-permission-conformance@2'
+  if (trustedClick) { assert.equal(report.oracle, permissionOracleV2); verifyPermissionCallNonces(report.steps) }
+  else { assert.equal(report.schema, 'tpnil-native-permission-conformance@1'); assert.equal(report.oracle, undefined) }
   assert.equal(report.claim, 'ENGINEERING_OBSERVATION_ONLY')
   assert.equal(report.vector, 'ISI-4-V005')
   assert.equal(report.interface, 'unchanged native wallet public CWI and visible permission UI')
@@ -39,9 +42,13 @@ export function evaluateNativePermissionConformance(report: PermissionConformanc
     const after = (label: string) => { const index = lines.indexOf(label); assert.ok(index >= 0); return lines[index + 1] }
     assert.equal(after('Origin'), new URL(row.origin).host); assert.equal(after('Protocol'), permissionProtocol[1]); assert.match(after('Security')!, /^Level 2\b/); assert.equal(after('Counterparty'), 'anyone')
     assert.equal(observed.pendingBeforeDecision, true); assert.equal(observed.decision, decision); assert.equal(observed.button, decision === 'allow' ? 'Allow' : 'Deny')
+    if (trustedClick) verifyPermissionClick(observed.trustedClick, observed, row)
+    else {
+      assert.equal(observed.trustedClick, undefined)
     assert.ok(time(row.startedAt) <= time(observed.observedAt) && time(observed.observedAt) <= time(observed.clickedAt) && time(observed.clickedAt) <= time(observed.clickCompletedAt) && time(observed.clickCompletedAt) <= time(row.endedAt))
     assert.ok(row.outcome.status === 'fulfilled' || row.outcome.status === 'rejected')
     if (row.outcome.status === 'fulfilled' || row.outcome.status === 'rejected') assert.ok(time(row.outcome.settledAt) >= time(observed.clickedAt), 'Request settled before the UI decision')
+    }
     assert.equal(observed.screenshot.name, `conformance/permissions-${id}.png`)
     const bytes = readEvidence(observed.screenshot.name)
     assert.equal(bytes.length, observed.screenshot.size); assert.ok(bytes.length > 8)

@@ -1,3 +1,5 @@
+import type { PermissionClickReceipt } from './permission-click.js'
+export const permissionLifecycleOracleV2 = 'tpnil-native-permission-lifecycle-oracle@2.0.0' as const
 export const permissionLifecycleOracle = 'tpnil-native-permission-lifecycle-oracle@1.0.0' as const
 export const permissionLifecycleAssertionIds = [
   'basket-denial', 'basket-grant', 'basket-cache',
@@ -16,13 +18,13 @@ export const lifecyclePermissionConfig = {
 } as const
 export type LifecyclePermissionDecision = 'allow' | 'deny'
 export interface LifecyclePermissionStep {
-  id: string; origin: string; pageUrl: string; method: string; args: any; startedAt: string; endedAt: string
-  outcome: { status: 'fulfilled' | 'rejected' | 'timeout' | 'observer-error'; value?: any; error?: { name: string; message: string }; message?: string; settledAt?: string }
-  prompts: Array<{ url: string; body: string; observedAt: string; pendingBeforeDecision: boolean; decision: LifecyclePermissionDecision; button: string; clickedAt: string; clickCompletedAt: string; screenshot: { name: string; sha256: string; size: number } }>
+  id: string; requestNonce?: string; origin: string; pageUrl: string; method: string; args: any; startedAt: string; endedAt: string
+  outcome: { requestNonce?: string; status: 'fulfilled' | 'rejected' | 'timeout' | 'observer-error'; value?: any; error?: { name: string; message: string }; message?: string; settledAt?: string }
+  prompts: Array<{ url: string; body: string; observedAt: string; pendingBeforeDecision: boolean; decision: LifecyclePermissionDecision; button: string; clickedAt: string; clickCompletedAt: string; screenshot: { name: string; sha256: string; size: number }; trustedClick?: PermissionClickReceipt }>
   submissionStart: number; submissionEnd: number
 }
 export interface NativePermissionLifecycleReport {
-  schema: 'tpnil-native-permission-lifecycle@1.0.0'; oracle: typeof permissionLifecycleOracle
+  schema: 'tpnil-native-permission-lifecycle@1.0.0' | 'tpnil-native-permission-lifecycle@2.0.0'; oracle: typeof permissionLifecycleOracle | typeof permissionLifecycleOracleV2
   claim: 'ENGINEERING_OBSERVATION_ONLY'; interface: 'unchanged native CWI and visible Settings Permissions UI'
   extensionId: string; identity: string; startedAt: string; endedAt: string; configuration: typeof lifecyclePermissionConfig
   certificate?: any; paymentScript?: string; setupOutpoint?: string; steps: LifecyclePermissionStep[]; ui: any[]
