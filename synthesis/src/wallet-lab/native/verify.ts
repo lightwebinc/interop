@@ -3,7 +3,7 @@ import path from 'node:path'
 import assert from 'node:assert/strict'
 import { fileURLToPath } from 'node:url'
 import { createHash } from 'node:crypto'
-import { Beef, LockingScript, P2PKH, PublicKey, PushDrop, Transaction, Utils } from '@bsv/sdk'
+import { Beef, LockingScript, P2PKH, PrivateKey, ProtoWallet, PublicKey, PushDrop, Transaction, Utils } from '@bsv/sdk'
 import { canonicalJson, sha256Hex } from '../../determinism.js'
 import { aggregateOutcome, type VectorResult } from '../model.js'
 import { verifyEvidenceBundle } from '../evidence.js'
@@ -101,12 +101,32 @@ export async function verifyNativeWallet(directory: string) {
     const transactions = new Map<string, Transaction>()
     function add(tx: Transaction, depth = 0) { assert.ok(depth < 32); if (transactions.has(tx.id('hex'))) return; transactions.set(tx.id('hex'), tx); for (const input of tx.inputs) if (input.sourceTransaction) add(input.sourceTransaction, depth + 1) }
     add(funding)
+    const reserveReport = conformance ? evidence('conformance/funding-reserves.json') : undefined
+    if (reserveReport) for (const payment of reserveReport.payments) add(Transaction.fromAtomicBEEF(payment.beef))
     const created = evidence('created-output.json')
     const create = Transaction.fromAtomicBEEF(Beef.fromBinary([...fs.readFileSync(path.join(rep, 'evidence/create.beef'))]).toBinaryAtomic(record.observations.createTxid!)); add(create)
-    for (const item of evidence('native-transactions.json')) { const tx = Transaction.fromHex(item.rawTxHex); assert.equal(tx.id('hex'), item.txid); if (!transactions.has(item.txid)) transactions.set(item.txid, tx) }
+    const storageTransactions = new Map<string, Transaction>()
+    for (const item of evidence('native-transactions.json')) { const tx = Transaction.fromHex(item.rawTxHex); assert.equal(tx.id('hex'), item.txid); storageTransactions.set(item.txid, tx); if (!transactions.has(item.txid)) transactions.set(item.txid, tx); else assert.equal(transactions.get(item.txid)!.toHex(), tx.toHex()) }
     for (const tx of transactions.values()) for (const input of tx.inputs) if (!input.sourceTransaction) input.sourceTransaction = transactions.get(input.sourceTXID!)
     function ancestry(tx: Transaction, target: string, depth = 0): boolean { assert.ok(depth < 32); return tx.inputs.some(input => input.sourceTXID === target || (input.sourceTransaction !== undefined && ancestry(input.sourceTransaction, target, depth + 1))) }
-    assert.ok(ancestry(funding, fixture.txid)); assert.ok(ancestry(create, funding.id('hex')))
+    const nativeFundingRoots = [funding.id('hex')]
+    if (conformance) {
+      const { verifyConformanceReserves } = await import('./verify-conformance-reserves.js')
+      const identity = evidence('integrated/result.json').walletIdentity
+      assert.equal(reserveReport.storageSnapshot.implementation, plan.components.storage)
+      const scenario = evidence('conformance/scenario-start.json')
+      assert.equal(scenario.stage, 'before-all-customer-scenarios')
+      const reserves = await verifyConformanceReserves(reserveReport, { policy: plan.fundingReserves, identity, initialFundingTxid: funding.id('hex'),
+        scenarioStartedAt: scenario.startedAt, workerStartedAt: worker.startedAt, submissions: evidence('native-submissions.json'),
+        firstCustomerTxid: create.id('hex'), transactions, storageTransactions, fixture })
+      nativeFundingRoots.push(...reserves.roots)
+      const sender = new ProtoWallet(PrivateKey.fromHex('22'.repeat(32)))
+      const expectedKey = await sender.getPublicKey({ protocolID: [2, '3241645161d8'], keyID: `${Buffer.from('tpnil-wallet-lab').toString('base64')} ${Buffer.from('funding-001').toString('base64')}`, counterparty: identity, forSelf: false })
+      assert.equal(source.publicKey, expectedKey.publicKey, 'Initial funding payment belongs to another native identity')
+    }
+    const { spendsOnlyDeclaredNativePayments, verifyBoundaryFundingRoot } = await import('./verify-conformance-reserves.js')
+    const nativeFundingOutpoints = nativeFundingRoots.map(txid => `${txid}.0`)
+    assert.ok(ancestry(funding, fixture.txid)); assert.ok(conformance ? spendsOnlyDeclaredNativePayments(create, nativeFundingOutpoints) : ancestry(create, funding.id('hex')))
     assert.ok(await funding.verify(tracker)); assert.ok(await create.verify(tracker))
     const script = new P2PKH().lock(PublicKey.fromString(source.publicKey).toAddress())
     assert.equal(funding.outputs[0]?.lockingScript.toHex(), script.toHex()); assert.equal(funding.outputs[0]?.satoshis, 10000)
@@ -153,7 +173,8 @@ export async function verifyNativeWallet(directory: string) {
       if (typeof metadata.result?.txid === 'string') {
         const transaction = transactions.get(metadata.result.txid)
         assert.ok(transaction, 'Native storage omitted the clause metadata transaction')
-        assert.ok(ancestry(transaction, funding.id('hex')), 'Clause metadata does not descend from this native wallet funding')
+        const corpusPayment = await verifyBoundaryFundingRoot(evidence('integrated/boundary.json'), { identity: evidence('integrated/result.json').walletIdentity, fixture, storageTransactions, submissions: evidence('native-submissions.json'), metadataTxid: transaction.id('hex') })
+        assert.ok(spendsOnlyDeclaredNativePayments(transaction, [...nativeFundingOutpoints, ...(corpusPayment ? [corpusPayment] : [])]), 'Clause metadata has an input outside the exact initial reserves or independently verified method-corpus payment')
         assert.ok(await transaction.verify(tracker), 'Clause metadata signature or mined ancestry is invalid')
         for (const [index, satoshis] of [2, 3, 4].entries()) {
           assert.equal(transaction.outputs[index]?.satoshis, satoshis)
@@ -165,7 +186,7 @@ export async function verifyNativeWallet(directory: string) {
       assert.deepEqual(record.vectors, prospective.vectors)
       vectors = prospective.vectors
     }
-    results.push({ record, vectors, recordSha256: worker.recordSha256, independent: { funding: funding.id('hex'), create: create.id('hex'), redemption: spend.id('hex'), valueConserved: true, fee: inputs - outputs } })
+    results.push({ record, vectors, recordSha256: worker.recordSha256, independent: { funding: funding.id('hex'), ...(conformance ? { preScenarioReserves: nativeFundingRoots.slice(1), recoveryScope: 'unaffected-preexisting-funds' } : {}), create: create.id('hex'), redemption: spend.id('hex'), valueConserved: true, fee: inputs - outputs } })
   }
   assert.equal(canonicalJson(results[0]!.vectors.map(vector => vector.outcome)), canonicalJson(results[1]!.vectors.map(vector => vector.outcome)))
   assert.equal(canonicalJson(results[0]!.record.semanticProjection), canonicalJson(results[1]!.record.semanticProjection))

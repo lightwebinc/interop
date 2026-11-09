@@ -118,3 +118,53 @@ it('rejects rebound storage receipts for another identity, request, transaction 
     await expect(verifyConformanceLifecycle(report)).rejects.toThrow()
   }
 })
+
+function failedRecoveryReport() {
+  const observed = policyReport(), recovered = observed.cases[2]
+  delete recovered.result; delete observed.trace[12].result
+  recovered.error = { name: 'Error', message: 'failed to process createAction: failed to create transaction: funding failed: not enough funds' }
+  observed.trace[12].error = structuredClone(recovered.error)
+  recovered.submissions = []; recovered.storageReceipts = []; recovered.unconsumedVerdictRemoved = true
+  recovered.outputs = structuredClone(observed.cases[1].outputs); recovered.actions = structuredClone(observed.cases[1].actions)
+  observed.trace[13].result = structuredClone(recovered.outputs); observed.trace[14].result = structuredClone(recovered.actions)
+  observed.transactions = observed.transactions.filter((row: any) => row.phase !== 'recovered')
+  observed.assertions[2].result = 'FAIL'; observed.result = 'FAIL'
+  return observed
+}
+
+it('retains a complete pre-broadcast recovery failure without inventing a submission or relaxing PASS', async () => {
+  const observed = failedRecoveryReport(), verified = await verifyConformanceLifecycle(observed)
+  expect(verified.result).toBe('FAIL')
+  expect(verified.assertions.map((row: any) => row.result)).toEqual(['PASS', 'PASS', 'FAIL'])
+  expect(verified.transactions).toHaveLength(2)
+  observed.assertions[2].result = 'PASS'; observed.result = 'PASS'
+  await expect(verifyConformanceLifecycle(observed)).rejects.toThrow(/verdicts differ/)
+})
+
+it('requires the failed public call, unused verdict cleanup and absence of fake proof for an unsubmitted operation', async () => {
+  for (const mutate of [
+    (report: any) => { delete report.cases[2].error; delete report.trace[12].error },
+    (report: any) => { report.cases[2].unconsumedVerdictRemoved = false },
+    (report: any) => { report.transactions.push({ phase: 'recovered', txid: 'ab'.repeat(32), beef: [] }) },
+    (report: any) => { report.cases[2].storageReceipts = [report.cases[0].storageReceipts[0]] }
+  ]) {
+    const observed = failedRecoveryReport(); mutate(observed)
+    await expect(verifyConformanceLifecycle(observed)).rejects.toThrow()
+  }
+})
+
+it('independently retains both exact native run42667035861 recovery failures', async () => {
+  const directory = path.resolve(import.meta.dirname, '../../journals/native-funding-reserve-reference/2026-11-09')
+  const summary = JSON.parse(fs.readFileSync(path.join(directory, 'summary.json'), 'utf8'))
+  const bytes = fs.readFileSync(path.join(directory, summary.archive.path))
+  expect(bytes.length).toBe(summary.archive.size); expect(sha(bytes)).toBe(summary.archive.sha256)
+  const archived = JSON.parse(gunzipSync(bytes, { maxOutputLength: 32 * 1024 * 1024 }).toString())
+  for (const repetition of [1, 2]) {
+    const row = archived.files.find((row: any) => row.path === `native-42667035861/repetition-${repetition}-lifecycle.json`)
+    expect(Buffer.byteLength(row.content)).toBe(row.size); expect(sha(Buffer.from(row.content))).toBe(row.sha256)
+    const report = JSON.parse(row.content), verified = await verifyConformanceLifecycle(report)
+    expect(report.cases[2].submissions).toEqual([])
+    expect(report.cases[2].error.message).toContain('funding failed: not enough funds')
+    expect(verified.assertions.map((row: any) => row.result)).toEqual(['PASS', 'PASS', 'FAIL'])
+  }
+})

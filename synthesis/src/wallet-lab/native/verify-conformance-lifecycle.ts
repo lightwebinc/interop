@@ -30,7 +30,9 @@ export async function verifyConformanceLifecycle(report: any): Promise<any> {
   assert.deepEqual(report.initial.outputs, report.trace[1].result); assert.deepEqual(report.initial.actions, report.trace[2].result)
   assert.equal(report.initial.outputs.totalOutputs, 0); assert.deepEqual(report.initial.outputs.outputs, [])
   assert.equal(report.initial.actions.totalActions, 0); assert.deepEqual(report.initial.actions.actions, [])
-  const states: any[] = [], transactions: Transaction[] = [], serviceResults: any[] = []
+  const states: any[] = [], transactions: (Transaction | undefined)[] = [], serviceResults: any[] = []
+  assert.ok(Array.isArray(report.transactions))
+  assert.ok(report.transactions.every((row: any) => ['accepted', 'rejected', 'recovered'].includes(row.phase)))
   for (const [index, entry] of report.cases.entries()) {
     const key = report.trace[3 + index * 4], write = report.trace[4 + index * 4], outputs = report.trace[5 + index * 4], actions = report.trace[6 + index * 4]
     assert.deepEqual(key.args, { protocolID: [2, 'tpnil lifecycle'], keyID: entry.phase, counterparty: 'self', forSelf: true })
@@ -46,7 +48,20 @@ export async function verifyConformanceLifecycle(report: any): Promise<any> {
     assert.equal(entry.actions.actions.length, entry.actions.totalActions); assert.ok(entry.actions.totalActions < 1000)
     const rows = projection(entry.outputs.outputs); assert.equal(new Set(rows.map(row => row.outpoint)).size, rows.length)
     states.push(rows)
-    assert.equal(entry.submissions.length, 1, 'Exactly one causal submission is required for each scheduled verdict')
+    assert.ok(Array.isArray(entry.submissions))
+    assert.ok(entry.submissions.length <= 1, 'Exactly one causal submission is required for each observed scheduled verdict')
+    const proof = report.transactions.filter((row: any) => row.phase === entry.phase)
+    if (entry.submissions.length === 0) {
+      // A real public operation may fail before it reaches the broadcaster. That
+      // is a retained FAIL observation, not an incomplete or invented transaction.
+      assert.equal(entry.result, undefined, 'An operation without a submission cannot claim a successful result')
+      assert.equal(typeof entry.error?.message, 'string'); assert.ok(entry.error.message.length > 0)
+      assert.equal(entry.unconsumedVerdictRemoved, true, 'Unused fixture verdict must be removed before the next operation')
+      assert.deepEqual(proof, [], 'An unsubmitted operation cannot have transaction proof')
+      if (storageReceiptMode) assert.deepEqual(entry.storageReceipts, [], 'An unsubmitted operation cannot have a processAction receipt')
+      transactions.push(undefined); serviceResults.push(undefined)
+      continue
+    }
     const submission = entry.submissions[0]
     assert.equal(submission.verdict, entry.scheduledVerdict); assert.equal(sha256Hex(Uint8Array.from(submission.bytes)), submission.sha256)
     let submitted: Transaction
@@ -71,7 +86,6 @@ export async function verifyConformanceLifecycle(report: any): Promise<any> {
       assert.equal(response.error, undefined); assert.ok(response.result)
       serviceResults.push(response.result)
     }
-    const proof = report.transactions.filter((row: any) => row.phase === entry.phase)
     assert.equal(proof.length, 1); assert.equal(proof[0].txid, submission.txid)
     const tx = Transaction.fromAtomicBEEF(proof[0].beef)
     assert.equal(tx.toHex(), submitted.toHex()); assert.equal(tx.outputs[0]?.lockingScript.toHex(), lockingScript); assert.equal(tx.outputs[0]?.satoshis, 2)
@@ -81,20 +95,21 @@ export async function verifyConformanceLifecycle(report: any): Promise<any> {
     assert.ok(inputValue >= tx.outputs.reduce((n, output) => n + (output.satoshis ?? Number.MAX_SAFE_INTEGER), 0), 'Value conservation failed')
     transactions.push(tx)
   }
-  assert.equal(new Set(transactions.map(tx => tx.id('hex'))).size, 3)
+  const submittedTransactions = transactions.filter((tx): tx is Transaction => tx !== undefined)
+  assert.equal(new Set(submittedTransactions.map(tx => tx.id('hex'))).size, submittedTransactions.length)
   const [accepted, rejected, recovered] = report.cases
-  const acceptedOutpoint = `${transactions[0]!.id('hex')}.0`, rejectedTxid = transactions[1]!.id('hex'), recoveredOutpoint = `${transactions[2]!.id('hex')}.0`
+  const acceptedOutpoint = transactions[0] && `${transactions[0].id('hex')}.0`, rejectedTxid = transactions[1]?.id('hex'), recoveredOutpoint = transactions[2] && `${transactions[2].id('hex')}.0`
   const usable = (row: any) => row?.spendable === true && row.satoshis === 2
-  const acceptedPass = !accepted.error && accepted.result?.txid === transactions[0]!.id('hex') && states[0].length === 1 && states[0][0].outpoint === acceptedOutpoint && usable(states[0][0])
+  const acceptedPass = Boolean(transactions[0] && !accepted.error && accepted.result?.txid === transactions[0].id('hex') && states[0].length === 1 && states[0][0].outpoint === acceptedOutpoint && usable(states[0][0]))
   const rejectedActionAbsent = !rejected.actions.actions.some((row: any) => row.txid === rejectedTxid)
   const terminalError = storageReceiptMode
     ? serviceResults[1]?.notDelayedResults?.some((row: any) => row.txid === rejectedTxid && row.status === 'invalidTx') && serviceResults[1]?.sendWithResults?.some((row: any) => row.txid === rejectedTxid && row.status === 'failed')
     : rejected.error?.txid === rejectedTxid && rejected.error?.reviewActionResults?.some((row: any) => row.txid === rejectedTxid && row.status === 'invalidTx') && rejected.error?.sendWithResults?.some((row: any) => row.txid === rejectedTxid && row.status === 'failed')
-  const rejectedPass = errorIsRejection(rejected.error) && terminalError && rejectedActionAbsent && canonicalJson(states[1]) === canonicalJson(states[0])
+  const rejectedPass = Boolean(transactions[1] && errorIsRejection(rejected.error) && terminalError && rejectedActionAbsent && canonicalJson(states[1]) === canonicalJson(states[0]))
   const recoveredRow = states[2].find((row: any) => row.outpoint === recoveredOutpoint)
-  const recoveredPass = !recovered.error && recovered.result?.txid === transactions[2]!.id('hex') && states[2].length === states[0].length + 1 && usable(recoveredRow) && canonicalJson(states[2].filter((row: any) => row.outpoint !== recoveredOutpoint)) === canonicalJson(states[0]) && !transactions[2]!.inputs.some(input => input.sourceTXID === rejectedTxid)
+  const recoveredPass = Boolean(transactions[2] && !recovered.error && recovered.result?.txid === transactions[2].id('hex') && states[2].length === states[0].length + 1 && usable(recoveredRow) && canonicalJson(states[2].filter((row: any) => row.outpoint !== recoveredOutpoint)) === canonicalJson(states[0]) && !transactions[2].inputs.some(input => input.sourceTXID === rejectedTxid))
   const assertions = ['accepted-service-verdict-observed', 'rejection-preserves-wallet-state', 'post-rejection-recovery'].map((id, i) => ({ id, result: [acceptedPass, rejectedPass, recoveredPass][i] ? 'PASS' : 'FAIL' }))
   assert.deepEqual(report.assertions, assertions, 'Reported lifecycle verdicts differ from independent observations')
   assert.equal(report.result, assertions.every(row => row.result === 'PASS') ? 'PASS' : 'FAIL')
-  return { verified: true, result: report.result, assertions, transactions: transactions.map(tx => tx.id('hex')) }
+  return { verified: true, result: report.result, assertions, transactions: submittedTransactions.map(tx => tx.id('hex')) }
 }

@@ -67,6 +67,7 @@ export interface NativeScenarioContext {
 export interface YoursRunOptions {
   integratedProfile?: 'ITCVE-1@1.3.0' | 'ITCVE-1@1.4.0'
   go?: import('./go-services.js').GoServiceOptions
+  prepareScenario?: (context: NativeScenarioContext) => Promise<void>
   additionalScenario?: (context: NativeScenarioContext) => Promise<void | { vectors: VectorResult[] }>
   nativeQualification?: { fundingFixture: TeranodeWalletFundingFixture; sandbox: true }
   components?: ComponentSelection
@@ -390,6 +391,12 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     evidence.addJson('boundary.json', boundary)
     evidence.addJson('artifact.json', { wallet: options.walletArtifact, application: options.applicationArtifact })
     progress('controlled funding internalized')
+
+    if (options.prepareScenario !== undefined) {
+      await options.prepareScenario({ application, context, extensionId, password: 'TPNIL-Fixture-Only-2026!', services, evidence, baselineVectors: structuredClone(vectors), manualPrompt: async () => { throw new Error('Preparation does not own manual permission UI') } })
+      evidence.addJson('conformance/scenario-start.json', { startedAt: new Date().toISOString(), stage: 'before-all-customer-scenarios' })
+      progress('declared initial conformance reserves internalized before customer scenarios')
+    }
 
     const createUrl = new URL('https://todo.itcve.test/')
     createUrl.searchParams.set('p0Task', task)
