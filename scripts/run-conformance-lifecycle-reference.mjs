@@ -12,7 +12,7 @@ const language = process.argv[2], output = path.resolve(process.argv[3] ?? '')
 if (!['typescript', 'go'].includes(language) || !process.argv[3] || fs.existsSync(output)) throw new Error('Usage: node scripts/run-conformance-lifecycle-reference.mjs typescript|go NEW_OUTPUT')
 fs.mkdirSync(output, { recursive: true })
 const binary = path.resolve(process.env.TPNIL_LIFECYCLE_GO_BINARY ?? path.join(root, 'out/itcve-go-lifecycle'))
-const services = new ControlledWalletServices({ webroot: output, components: { storage: language }, ...(language === 'go' ? { go: { binary, terminalRejectionReceipts: process.env.TPNIL_LIFECYCLE_LEGACY_RECEIPTS !== '1' } } : {}) })
+const services = new ControlledWalletServices({ webroot: output, components: { storage: language }, ...(language === 'go' ? { go: { binary, storageSyncPatch: process.env.TPNIL_LIFECYCLE_STORAGE_SYNC_PATCH === '1', terminalRejectionReceipts: process.env.TPNIL_LIFECYCLE_LEGACY_RECEIPTS !== '1' } } : {}) })
 let wallet
 const result = { schema: 'tpnil-lifecycle-reference-attempt@1', claim: 'ENGINEERING_OBSERVATION_ONLY', storage: language, ...(language === 'go' ? { binarySha256: createHash('sha256').update(fs.readFileSync(binary)).digest('hex') } : {}), cleanup: false }
 try {
@@ -25,7 +25,10 @@ try {
   const observedWallet = stripErrors ? new Proxy(wallet, { get: (target, method) => typeof target[method] !== 'function' ? target[method] : async (...args) => {
     try { return await target[method](...args) } catch (error) { throw new Error(error.message) }
   } }) : wallet
-  const report = await runConformanceLifecycle(observedWallet, services, process.env.TPNIL_LIFECYCLE_STORAGE_RECEIPTS === '1' ? { receiptMode: 'storage-rpc' } : {})
+  const report = await runConformanceLifecycle(observedWallet, services, {
+    ...(process.env.TPNIL_LIFECYCLE_STORAGE_RECEIPTS === '1' ? { receiptMode: 'storage-rpc' } : {}),
+    ...(process.env.TPNIL_LIFECYCLE_ORACLE ? { oracle: process.env.TPNIL_LIFECYCLE_ORACLE } : {})
+  })
   fs.writeFileSync(path.join(output, 'lifecycle.json'), JSON.stringify(report, null, 2) + '\n')
   result.verification = await verifyConformanceLifecycle(report)
   fs.writeFileSync(path.join(output, 'verification.json'), JSON.stringify(result.verification, null, 2) + '\n')

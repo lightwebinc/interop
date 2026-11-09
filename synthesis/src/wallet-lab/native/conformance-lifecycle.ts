@@ -4,16 +4,26 @@ import type { ControlledWalletServices } from '../services.js'
 
 export const lifecycleAssertionIds = ['accepted-service-verdict-observed', 'rejection-preserves-wallet-state', 'post-rejection-recovery']
 export const lifecycleBasket = 'tpnil conformance lifecycle'
+export const lifecycleOracleId = 'tpnil-native-lifecycle-oracle@3.0.0'
 const label = 'tpnil-conformance-lifecycle'
 const snapshot = (value: any): any => JSON.parse(JSON.stringify(value))
 const errorSnapshot = (error: unknown): any => error instanceof Error
   ? snapshot({ ...error, name: error.name, message: error.message }) : { message: String(error) }
-const projection = (value: any) => canonicalJson((value?.outputs ?? []).map((row: any) => ({ ...row, outpoint: row.outpoint.replace('_', '.') })).sort((a: any, b: any) => a.outpoint.localeCompare(b.outpoint)))
+const metadataValid = (value: any) => (value?.outputs ?? []).every((row: any) => ['labels', 'tags'].every(field => row[field] === undefined || Array.isArray(row[field]) && row[field].every((item: any) => typeof item === 'string') && new Set(row[field]).size === row[field].length))
+const projection = (value: any, metadataSets: boolean) => canonicalJson((value?.outputs ?? []).map((row: any) => {
+  const normalized = { ...row, outpoint: row.outpoint.replace('_', '.') }
+  // BRC100 line29 defines only transaction labels and output tags as sets.
+  // Preserve every raw value; ordering of all other arrays remains significant.
+  if (metadataSets) for (const field of ['labels', 'tags']) if (Array.isArray(row[field])) normalized[field] = [...row[field]].sort()
+  return normalized
+}).sort((a: any, b: any) => a.outpoint.localeCompare(b.outpoint)))
 
 /** Public wallet operations and controlled service responses are retained separately.
  * No storage mutation, action abort or output relinquishment repairs the rejection. */
-export async function runConformanceLifecycle(wallet: any, services: ControlledWalletServices, options: { receiptMode?: 'storage-rpc' } = {}): Promise<any> {
-  const report: any = { schema: options.receiptMode ? 'tpnil-native-conformance-lifecycle@2' : 'tpnil-native-conformance-lifecycle@1', ...(options.receiptMode ? { terminalReceiptSource: 'authenticated-public-go-storage-rpc' } : {}), claim: 'ENGINEERING_OBSERVATION_ONLY', basket: lifecycleBasket, label, trace: [], cases: [], assertions: [] }
+export async function runConformanceLifecycle(wallet: any, services: ControlledWalletServices, options: { receiptMode?: 'storage-rpc'; oracle?: typeof lifecycleOracleId } = {}): Promise<any> {
+  if (options.oracle !== undefined && (options.oracle !== lifecycleOracleId || options.receiptMode !== 'storage-rpc')) throw new Error('Lifecycle v3 requires its explicit oracle and public storage receipt mode')
+  const metadataSets = options.oracle === lifecycleOracleId
+  const report: any = { schema: metadataSets ? 'tpnil-native-conformance-lifecycle@3' : options.receiptMode ? 'tpnil-native-conformance-lifecycle@2' : 'tpnil-native-conformance-lifecycle@1', ...(metadataSets ? { oracle: lifecycleOracleId } : {}), ...(options.receiptMode ? { terminalReceiptSource: 'authenticated-public-go-storage-rpc' } : {}), claim: 'ENGINEERING_OBSERVATION_ONLY', basket: lifecycleBasket, label, trace: [], cases: [], assertions: [] }
   if (options.receiptMode) report.serviceIdentity = snapshot(services.componentIdentity)
   const call = async (method: string, args: any) => {
     const entry: any = { sequence: report.trace.length, method, args: snapshot(args) }; report.trace.push(entry)
@@ -66,9 +76,9 @@ export async function runConformanceLifecycle(wallet: any, services: ControlledW
   const terminalError = options.receiptMode
     ? Boolean(rejected.error && /review|reject|invalid|broadcast/i.test(rejected.error.message) && !/timeout|fetch failed|network error|HTTP 50[023]/i.test(rejected.error.message) && serviceResult?.notDelayedResults?.some((row: any) => row.txid === rejectedTxid && row.status === 'invalidTx') && serviceResult?.sendWithResults?.some((row: any) => row.txid === rejectedTxid && row.status === 'failed'))
     : rejected.error?.txid === rejectedTxid && rejected.error?.reviewActionResults?.some((row: any) => row.txid === rejectedTxid && row.status === 'invalidTx') && rejected.error?.sendWithResults?.some((row: any) => row.txid === rejectedTxid && row.status === 'failed')
-  const acceptedPass = verdictMatches(accepted) && !accepted.error && accepted.result?.txid === accepted.submissions[0]?.txid && accepted.outputs.totalOutputs === 1 && accepted.outputs.outputs[0]?.outpoint.replace('_', '.') === output(accepted)
-  const rejectedPass = verdictMatches(rejected) && terminalError && rejectedActionAbsent && rejected.outputs.totalOutputs === accepted.outputs.totalOutputs && projection(rejected.outputs) === projection(accepted.outputs)
-  const recoveredPass = verdictMatches(recovered) && !recovered.error && recovered.result?.txid === recovered.submissions[0]?.txid && recovered.outputs.totalOutputs === accepted.outputs.totalOutputs + 1 && projection({ outputs: recovered.outputs.outputs.filter((row: any) => row.outpoint.replace('_', '.') !== output(recovered)) }) === projection(accepted.outputs)
+  const acceptedPass = verdictMatches(accepted) && !accepted.error && accepted.result?.txid === accepted.submissions[0]?.txid && accepted.outputs.totalOutputs === 1 && accepted.outputs.outputs[0]?.outpoint.replace('_', '.') === output(accepted) && (!metadataSets || metadataValid(accepted.outputs))
+  const rejectedPass = verdictMatches(rejected) && terminalError && rejectedActionAbsent && rejected.outputs.totalOutputs === accepted.outputs.totalOutputs && projection(rejected.outputs, metadataSets) === projection(accepted.outputs, metadataSets) && (!metadataSets || metadataValid(accepted.outputs) && metadataValid(rejected.outputs))
+  const recoveredPass = verdictMatches(recovered) && !recovered.error && recovered.result?.txid === recovered.submissions[0]?.txid && recovered.outputs.totalOutputs === accepted.outputs.totalOutputs + 1 && projection({ outputs: recovered.outputs.outputs.filter((row: any) => row.outpoint.replace('_', '.') !== output(recovered)) }, metadataSets) === projection(accepted.outputs, metadataSets) && (!metadataSets || metadataValid(accepted.outputs) && metadataValid(recovered.outputs))
   report.assertions = lifecycleAssertionIds.map((id, index) => ({ id, result: [acceptedPass, rejectedPass, recoveredPass][index] ? 'PASS' : 'FAIL' }))
   report.result = report.assertions.every((row: any) => row.result === 'PASS') ? 'PASS' : 'FAIL'
   return report

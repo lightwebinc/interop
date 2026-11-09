@@ -6,15 +6,25 @@ import { canonicalJson, sha256Hex } from '../../determinism.js'
 
 const fixture = JSON.parse(fs.readFileSync(path.resolve(import.meta.dirname, '../../../../fixtures/teranode/wab-funding-v1.json'), 'utf8'))
 const tracker = { currentHeight: async () => fixture.fundingHeight + fixture.maturityDepth, isValidRootForHeight: async (root: string, height: number) => root === fixture.merkleRoot && height === fixture.fundingHeight }
-const normalize = (row: any) => ({ ...row, outpoint: row.outpoint.replace('_', '.') })
-const projection = (rows: any[]) => rows.map(normalize).sort((a, b) => a.outpoint.localeCompare(b.outpoint))
+const projection = (rows: any[], sets: boolean) => rows.map(row => {
+  const result = { ...row, outpoint: row.outpoint.replace('_', '.') }
+  if (sets) for (const name of ['labels', 'tags']) if (Array.isArray(row[name])) result[name] = row[name].slice().sort()
+  return result
+}).sort((a, b) => a.outpoint.localeCompare(b.outpoint))
+const validMetadataSets = (rows: any[]) => rows.every(row => ['labels', 'tags'].every(name => {
+  const values = row[name]
+  return values === undefined || Array.isArray(values) && values.every(value => typeof value === 'string') && values.length === new Set(values).size
+}))
 const errorIsRejection = (error: any) => typeof error?.message === 'string' && /review|reject|invalid|broadcast/i.test(error.message) && !/timeout|fetch failed|network error|HTTP 50[023]/i.test(error.message)
 
 /** Recompute every outcome from trace, exact outpoints, action status and signed
  * transactions; asserted booleans and output counts alone cannot establish PASS. */
 export async function verifyConformanceLifecycle(report: any): Promise<any> {
-  assert.ok(['tpnil-native-conformance-lifecycle@1', 'tpnil-native-conformance-lifecycle@2'].includes(report.schema))
-  const storageReceiptMode = report.schema === 'tpnil-native-conformance-lifecycle@2'
+  assert.ok(['tpnil-native-conformance-lifecycle@1', 'tpnil-native-conformance-lifecycle@2', 'tpnil-native-conformance-lifecycle@3'].includes(report.schema))
+  const metadataSets = report.schema === 'tpnil-native-conformance-lifecycle@3'
+  if (metadataSets) assert.equal(report.oracle, 'tpnil-native-lifecycle-oracle@3.0.0')
+  else assert.equal(report.oracle, undefined, 'Historical lifecycle reports cannot select a new oracle')
+  const storageReceiptMode = report.schema !== 'tpnil-native-conformance-lifecycle@1'
   if (storageReceiptMode) {
     assert.equal(report.terminalReceiptSource, 'authenticated-public-go-storage-rpc')
     assert.equal(report.serviceIdentity.components.storage, 'go')
@@ -46,7 +56,7 @@ export async function verifyConformanceLifecycle(report: any): Promise<any> {
     assert.deepEqual(outputs.result, entry.outputs); assert.deepEqual(actions.result, entry.actions)
     assert.equal(entry.outputs.outputs.length, entry.outputs.totalOutputs); assert.ok(entry.outputs.totalOutputs < 1000)
     assert.equal(entry.actions.actions.length, entry.actions.totalActions); assert.ok(entry.actions.totalActions < 1000)
-    const rows = projection(entry.outputs.outputs); assert.equal(new Set(rows.map(row => row.outpoint)).size, rows.length)
+    const rows = projection(entry.outputs.outputs, metadataSets); assert.equal(new Set(rows.map(row => row.outpoint)).size, rows.length)
     states.push(rows)
     assert.ok(Array.isArray(entry.submissions))
     assert.ok(entry.submissions.length <= 1, 'Exactly one causal submission is required for each observed scheduled verdict')
@@ -100,14 +110,14 @@ export async function verifyConformanceLifecycle(report: any): Promise<any> {
   const [accepted, rejected, recovered] = report.cases
   const acceptedOutpoint = transactions[0] && `${transactions[0].id('hex')}.0`, rejectedTxid = transactions[1]?.id('hex'), recoveredOutpoint = transactions[2] && `${transactions[2].id('hex')}.0`
   const usable = (row: any) => row?.spendable === true && row.satoshis === 2
-  const acceptedPass = Boolean(transactions[0] && !accepted.error && accepted.result?.txid === transactions[0].id('hex') && states[0].length === 1 && states[0][0].outpoint === acceptedOutpoint && usable(states[0][0]))
+  const acceptedPass = Boolean(transactions[0] && !accepted.error && accepted.result?.txid === transactions[0].id('hex') && states[0].length === 1 && states[0][0].outpoint === acceptedOutpoint && usable(states[0][0]) && (!metadataSets || validMetadataSets(states[0])))
   const rejectedActionAbsent = !rejected.actions.actions.some((row: any) => row.txid === rejectedTxid)
   const terminalError = storageReceiptMode
     ? serviceResults[1]?.notDelayedResults?.some((row: any) => row.txid === rejectedTxid && row.status === 'invalidTx') && serviceResults[1]?.sendWithResults?.some((row: any) => row.txid === rejectedTxid && row.status === 'failed')
     : rejected.error?.txid === rejectedTxid && rejected.error?.reviewActionResults?.some((row: any) => row.txid === rejectedTxid && row.status === 'invalidTx') && rejected.error?.sendWithResults?.some((row: any) => row.txid === rejectedTxid && row.status === 'failed')
-  const rejectedPass = Boolean(transactions[1] && errorIsRejection(rejected.error) && terminalError && rejectedActionAbsent && canonicalJson(states[1]) === canonicalJson(states[0]))
+  const rejectedPass = Boolean(transactions[1] && errorIsRejection(rejected.error) && terminalError && rejectedActionAbsent && canonicalJson(states[1]) === canonicalJson(states[0]) && (!metadataSets || validMetadataSets(states[0]) && validMetadataSets(states[1])))
   const recoveredRow = states[2].find((row: any) => row.outpoint === recoveredOutpoint)
-  const recoveredPass = Boolean(transactions[2] && !recovered.error && recovered.result?.txid === transactions[2].id('hex') && states[2].length === states[0].length + 1 && usable(recoveredRow) && canonicalJson(states[2].filter((row: any) => row.outpoint !== recoveredOutpoint)) === canonicalJson(states[0]) && !transactions[2].inputs.some(input => input.sourceTXID === rejectedTxid))
+  const recoveredPass = Boolean(transactions[2] && !recovered.error && recovered.result?.txid === transactions[2].id('hex') && states[2].length === states[0].length + 1 && usable(recoveredRow) && canonicalJson(states[2].filter((row: any) => row.outpoint !== recoveredOutpoint)) === canonicalJson(states[0]) && !transactions[2].inputs.some(input => input.sourceTXID === rejectedTxid) && (!metadataSets || validMetadataSets(states[0]) && validMetadataSets(states[2])))
   const assertions = ['accepted-service-verdict-observed', 'rejection-preserves-wallet-state', 'post-rejection-recovery'].map((id, i) => ({ id, result: [acceptedPass, rejectedPass, recoveredPass][i] ? 'PASS' : 'FAIL' }))
   assert.deepEqual(report.assertions, assertions, 'Reported lifecycle verdicts differ from independent observations')
   assert.equal(report.result, assertions.every(row => row.result === 'PASS') ? 'PASS' : 'FAIL')

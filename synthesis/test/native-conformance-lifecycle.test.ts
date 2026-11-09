@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto'
 import { gunzipSync } from 'node:zlib'
 import { expect, it } from 'vitest'
 import { verifyConformanceLifecycle } from '../src/wallet-lab/native/verify-conformance-lifecycle.js'
+import { lifecycleOracleId, runConformanceLifecycle } from '../src/wallet-lab/native/conformance-lifecycle.js'
 import { EvidenceBundle } from '../src/wallet-lab/evidence.js'
 
 const directory = path.resolve(import.meta.dirname, '../../journals/native-lifecycle-reference/2026-11-09')
@@ -167,4 +168,130 @@ it('independently retains both exact native run42667035861 recovery failures', a
     expect(report.cases[2].error.message).toContain('funding failed: not enough funds')
     expect(verified.assertions.map((row: any) => row.result)).toEqual(['PASS', 'PASS', 'FAIL'])
   }
+})
+
+const setDirectory = path.join(directory, 'metadata-sets')
+const setSummary = JSON.parse(fs.readFileSync(path.join(setDirectory, 'summary.json'), 'utf8'))
+const setBytes = fs.readFileSync(path.join(setDirectory, setSummary.archive.path))
+expect(setBytes.length).toBe(setSummary.archive.size); expect(sha(setBytes)).toBe(setSummary.archive.sha256)
+const setFiles = new Map<string, string>()
+for (const row of JSON.parse(gunzipSync(setBytes, { maxOutputLength: 16 * 1024 * 1024 }).toString()).files) {
+  expect(setFiles.has(row.path)).toBe(false); expect(Buffer.byteLength(row.content)).toBe(row.size); expect(sha(Buffer.from(row.content))).toBe(row.sha256)
+  setFiles.set(row.path, row.content)
+}
+const nativeMetadataReport = (repetition = 1) => JSON.parse(setFiles.get(`native-42674638927/repetition-${repetition}-lifecycle.json`)!)
+
+// Replay the actual captured public calls through the producer. This is an
+// observer regression; it is deliberately not represented as new native proof.
+async function replayCapturedLifecycle(observed: any, oracle?: typeof lifecycleOracleId) {
+  let position = 0, currentCase = 0
+  const services: any = { submissions: [], storageProcessActionReceipts: [], componentIdentity: observed.serviceIdentity,
+    enqueueVerdict: (verdict: string) => { expect(verdict).toBe(observed.cases[currentCase].scheduledVerdict) },
+    discardQueuedVerdict: () => { throw new Error('Captured native recovery did submit') } }
+  const wallet = new Proxy({}, { get: (_target, method) => async (args: any) => {
+    const row = observed.trace[position++]
+    expect(method).toBe(row.method); expect(args).toEqual(row.args)
+    if (method === 'createAction') {
+      const entry = observed.cases[currentCase++]
+      services.submissions.push(...structuredClone(entry.submissions).map((item: any) => ({ ...item, bytes: Uint8Array.from(item.bytes) })))
+      services.storageProcessActionReceipts.push(...structuredClone(entry.storageReceipts))
+    }
+    if (row.error) throw Object.assign(new Error(row.error.message), row.error)
+    return structuredClone(row.result)
+  } })
+  const result = await runConformanceLifecycle(wallet, services, { receiptMode: 'storage-rpc', ...(oracle ? { oracle } : {}) })
+  expect(position).toBe(observed.trace.length); expect(currentCase).toBe(3)
+  return result
+}
+
+it('preserves both native4 historical FAILs while explicit v3 producer and independent oracle correct only metadata set order', async () => {
+  for (const repetition of [1, 2]) {
+    const original = nativeMetadataReport(repetition), before = JSON.stringify(original)
+    expect((await verifyConformanceLifecycle(original)).assertions.map((row: any) => row.result)).toEqual(['PASS', 'PASS', 'FAIL'])
+    const legacy = await replayCapturedLifecycle(original)
+    expect(legacy.schema).toBe('tpnil-native-conformance-lifecycle@2'); expect(legacy.oracle).toBeUndefined()
+    expect((await verifyConformanceLifecycle(legacy)).result).toBe('FAIL')
+    const current = await replayCapturedLifecycle(original, lifecycleOracleId)
+    expect(current.schema).toBe('tpnil-native-conformance-lifecycle@3'); expect(current.oracle).toBe(lifecycleOracleId)
+    expect((await verifyConformanceLifecycle(current)).assertions.map((row: any) => row.result)).toEqual(['PASS', 'PASS', 'PASS'])
+    expect(current.trace).toEqual(original.trace); expect(current.cases).toEqual(original.cases)
+    expect(JSON.stringify(original)).toBe(before)
+    const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'tpnil-lifecycle-v3-'))
+    try {
+      const bundle = new EvidenceBundle(temporary); bundle.addJson('lifecycle.json', current); bundle.flush()
+      expect((await verifyConformanceLifecycle(JSON.parse(fs.readFileSync(path.join(temporary, 'evidence/lifecycle.json'), 'utf8')))).result).toBe('PASS')
+    } finally { fs.rmSync(temporary, { recursive: true, force: true }) }
+    const archivedDiagnostic = JSON.parse(setFiles.get(`captured-native-v3-diagnostic/repetition-${repetition}-diagnostic.json`)!)
+    expect(archivedDiagnostic.trace).toEqual(original.trace); expect(archivedDiagnostic.cases).toEqual(original.cases)
+    expect((await verifyConformanceLifecycle(archivedDiagnostic)).result).toBe('PASS')
+  }
+  const freshReference = JSON.parse(setFiles.get('go-reference-v3/lifecycle.json')!)
+  expect(freshReference.schema).toBe('tpnil-native-conformance-lifecycle@3')
+  expect((await verifyConformanceLifecycle(freshReference)).assertions.map((row: any) => row.result)).toEqual(['PASS', 'PASS', 'PASS'])
+})
+
+const changeRecoveredRow = (report: any, mutate: (row: any) => void) => {
+  const acceptedOutpoint = report.cases[0].outputs.outputs[0].outpoint
+  mutate(report.cases[2].outputs.outputs.find((row: any) => row.outpoint === acceptedOutpoint))
+  report.trace[13].result = structuredClone(report.cases[2].outputs)
+}
+
+it('v3 rejects lost, changed or duplicated labels/tags and exact non-set metadata changes', async () => {
+  const original = nativeMetadataReport(), current = await replayCapturedLifecycle(original, lifecycleOracleId)
+  for (const mutate of [
+    (row: any) => { row.labels.pop() },
+    (row: any) => { row.labels[0] = 'different-label' },
+    (row: any) => { row.labels.push(row.labels[0]) },
+    (row: any) => { row.tags = [] },
+    (row: any) => { row.tags[0] = 'different-tag' },
+    (row: any) => { row.tags.push(row.tags[0]) },
+    (row: any) => { row.labels[0] = 7 },
+    (row: any) => { row.customInstructions = 'changed instructions' },
+    (row: any) => { row.spendable = false },
+    (row: any) => { row.satoshis = 3 },
+    (row: any) => { row.outpoint = `${'ab'.repeat(32)}.0` }
+  ]) {
+    const changed = structuredClone(current); changeRecoveredRow(changed, mutate)
+    await expect(verifyConformanceLifecycle(changed)).rejects.toThrow(/verdicts differ/)
+    // A genuine observation of this loss is a retained FAIL, not an invented PASS.
+    changed.assertions[2].result = 'FAIL'; changed.result = 'FAIL'
+    expect((await verifyConformanceLifecycle(changed)).result).toBe('FAIL')
+  }
+})
+
+it('v3 supports only the two named set fields and preserves every unrelated array order', async () => {
+  const current = await replayCapturedLifecycle(nativeMetadataReport(), lifecycleOracleId)
+  // Add a consistent second observed tag to exercise a multi-member set. These
+  // mutated diagnostics are not claimed as original native observations.
+  for (const [index, phase] of current.cases.entries()) {
+    const row = phase.outputs.outputs[0]; row.tags.push('diagnostic extra tag')
+    row.extraOrderedMetadata = ['first', 'second']
+    if (index > 0) { row.tags.reverse(); row.labels.reverse() }
+    current.trace[5 + index * 4].result = structuredClone(phase.outputs)
+  }
+  expect((await verifyConformanceLifecycle(current)).result).toBe('PASS')
+  changeRecoveredRow(current, row => { row.extraOrderedMetadata.reverse() })
+  await expect(verifyConformanceLifecycle(current)).rejects.toThrow(/verdicts differ/)
+})
+
+it('v3 rejects duplicate or non-string members even when every state returns the same invalid collection', async () => {
+  for (const field of ['labels', 'tags']) for (const member of ['duplicate', 'non-string']) {
+    const current = await replayCapturedLifecycle(nativeMetadataReport(), lifecycleOracleId)
+    for (const [index, phase] of current.cases.entries()) {
+      const values = phase.outputs.outputs[0][field]
+      values.push(member === 'duplicate' ? values[0] : 7)
+      current.trace[5 + index * 4].result = structuredClone(phase.outputs)
+    }
+    await expect(verifyConformanceLifecycle(current)).rejects.toThrow(/verdicts differ/)
+    current.result = 'FAIL'; for (const row of current.assertions) row.result = 'FAIL'
+    expect((await verifyConformanceLifecycle(current)).assertions.map((row: any) => row.result)).toEqual(['FAIL', 'FAIL', 'FAIL'])
+  }
+})
+
+it('v3 never silently selects its comparison for a historical schema or wrong oracle ID', async () => {
+  const current = await replayCapturedLifecycle(nativeMetadataReport(), lifecycleOracleId)
+  current.oracle = 'tpnil-native-lifecycle-oracle@2.0.0'
+  await expect(verifyConformanceLifecycle(current)).rejects.toThrow()
+  const historical = nativeMetadataReport(); historical.oracle = lifecycleOracleId
+  await expect(verifyConformanceLifecycle(historical)).rejects.toThrow(/Historical/)
 })

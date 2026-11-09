@@ -55,10 +55,11 @@
   "identityTrustProfile": "infra/native/integrated/trust-profile.json",
   "identityTrustProfileSha256": "44956caee43df56ff307b9d259074f964e68a5092242a211961347acb58d30a6",
   "conformanceInputs": {
-    "itcves/ITCVE-1/1.4.0/profile.json": "a9cccd76b22ef506c9bca7f5c2440d98ee94d8aaed943c9df2965d84d2bb1229",
+    "itcves/ITCVE-1/1.4.0/profile.json": "3788ba9db2b020747f92297fa8d78b06a9fe63be1d56de42ebcf64ef74553ef0",
     "programs/ISI-4/2.0.0/catalog.json": "5b3aa926c55f050fd1e72ae8af076798021b79dd258a80d67b1c2f526ed9409e",
     "programs/ISI-4/profiles/native-conformance-2.0.0/brc100-contract.json": "ad803952399a66f099ea9f9efa664a37801866284c5a01064d3357878199a8eb",
-    "programs/ISI-4/profiles/native-conformance-2.0.0/oracle-3.0.0.json": "4a80fb9f8df8a7ebe02bf33fe14721099091cbbeefb5c68dc29e1c7886e1c623"
+    "programs/ISI-4/profiles/native-conformance-2.0.0/oracle-3.0.0.json": "4a80fb9f8df8a7ebe02bf33fe14721099091cbbeefb5c68dc29e1c7886e1c623",
+    "programs/ISI-4/profiles/native-conformance-2.0.0/lifecycle-oracle-3.0.0.json": "7f7585d34920cad911531099009fa2e3b8cf6e0e1f9037bb4812f9bb09e8fe95"
   },
   "fixtureSubmissionPolicy": "terminal-rejection-v1",
   "clauseOracle": "tpnil-brc100-clause-oracle@3.0.0",
@@ -69,5 +70,6 @@
     "stage": "before-all-customer-scenarios",
     "recoveryScope": "unaffected-preexisting-funds"
   },
-  "additionalClauseFundingRoot": "Exact native internalizeAction receipt for the BRC29 1000-satoshi method-corpus payment, independently bound to the same identity and mined fixture; allowed only for subsequent clause operations."
+  "additionalClauseFundingRoot": "Exact native internalizeAction receipt for the BRC29 1000-satoshi method-corpus payment, independently bound to the same identity and mined fixture; allowed only for subsequent clause operations.",
+  "lifecycleOracle": "tpnil-native-lifecycle-oracle@3.0.0"
 }

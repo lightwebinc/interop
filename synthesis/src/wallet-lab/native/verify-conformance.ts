@@ -9,7 +9,7 @@ import { verifyNativePortability } from './verify-conformance-portability.js'
 import { verifyNativeClauseConformance } from './verify-conformance-clauses.js'
 import { validateComponentIdentity } from '../go-services.js'
 
-export async function verifyNativeConformance(evidenceDirectory: string, baselineVectors: VectorResult[]) {
+export async function verifyNativeConformance(evidenceDirectory: string, baselineVectors: VectorResult[], lifecycleOracle?: string) {
   const read = (name: string) => JSON.parse(fs.readFileSync(path.join(evidenceDirectory, 'conformance', `${name}.json`), 'utf8'))
   const report = read('result')
   assert.equal(report.schema, 'tpnil-native-conformance@2.0.0'); assert.equal(report.profile, 'ITCVE-1@1.4.0'); assert.equal(report.program, 'ISI-4@2.0.0')
@@ -18,7 +18,11 @@ export async function verifyNativeConformance(evidenceDirectory: string, baselin
   assert.equal(typeof integrated.walletIdentity, 'string', 'Native conformance requires the joined wallet identity')
   const permission = verifyNativePermissionConformance(read('permissions'), name => fs.readFileSync(path.join(evidenceDirectory, name)), integrated.walletIdentity)
   const lifecycle = await verifyConformanceLifecycle(read('lifecycle'))
-  assert.equal(read('lifecycle').schema, 'tpnil-native-conformance-lifecycle@2')
+  if (lifecycleOracle !== undefined) {
+    assert.equal(lifecycleOracle, 'tpnil-native-lifecycle-oracle@3.0.0')
+    assert.equal(read('lifecycle').schema, 'tpnil-native-conformance-lifecycle@3')
+    assert.equal(read('lifecycle').oracle, lifecycleOracle)
+  } else assert.equal(read('lifecycle').schema, 'tpnil-native-conformance-lifecycle@2')
   assert.deepEqual(read('lifecycle').serviceIdentity, JSON.parse(fs.readFileSync(path.join(evidenceDirectory, 'service-components.json'), 'utf8')))
   const portability = await verifyNativePortability(read('portability'))
   assert.equal(read('clauses').substrate, 'unchanged-native-window.CWI', 'Reference clauses cannot qualify a native wallet')

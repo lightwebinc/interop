@@ -191,7 +191,7 @@ export async function verifyNativeWallet(directory: string) {
         }
       }
       const { verifyNativeConformance } = await import('./verify-conformance.js')
-      const prospective = await verifyNativeConformance(path.join(rep, 'evidence'), vectors)
+      const prospective = await verifyNativeConformance(path.join(rep, 'evidence'), vectors, plan.lifecycleOracle)
       assert.deepEqual(record.vectors, prospective.vectors)
       vectors = prospective.vectors
       conformanceSemanticProjections.push(prospective.semanticProjection)

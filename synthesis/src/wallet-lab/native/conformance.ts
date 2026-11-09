@@ -1,7 +1,7 @@
 import type { NativeScenarioContext } from '../yours-driver.js'
 import { aggregateOutcome, type VectorResult, type VectorOutcome } from '../model.js'
 import { runNativePermissionConformance } from './conformance-permissions.js'
-import { runConformanceLifecycle } from './conformance-lifecycle.js'
+import { lifecycleOracleId, runConformanceLifecycle } from './conformance-lifecycle.js'
 import { runNativePortability } from './conformance-portability.js'
 import { nativeWalletBoundary, runNativeIntegration } from './integrated.js'
 import { runNativeClauseConformance } from './conformance-clauses.js'
@@ -16,7 +16,7 @@ export async function runNativeConformance(context: NativeScenarioContext): Prom
   const { application, services, evidence, baselineVectors } = context
   const wallet = nativeWalletBoundary(application, true)
   const permission = await context.manualPrompt(() => runNativePermissionConformance({ context: context.context, evidence, extensionId: context.extensionId }))
-  const lifecycle = await runConformanceLifecycle(wallet, services, { receiptMode: 'storage-rpc' })
+  const lifecycle = await runConformanceLifecycle(wallet, services, { receiptMode: 'storage-rpc', oracle: lifecycleOracleId })
   evidence.addJson('conformance/lifecycle.json', lifecycle)
   const portability = await runNativePortability({ application, services, evidence, password: context.password })
   let clauses: any
