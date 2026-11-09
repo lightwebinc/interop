@@ -6,6 +6,8 @@ import path from 'node:path'
 import { createHash } from 'node:crypto'
 import { gunzipSync } from 'node:zlib'
 import { expect, it } from 'vitest'
+import { Beef } from '@bsv/sdk'
+import { qualifyStoragePortability, readyPortableTask, nativePortabilityControls } from '../src/wallet-lab/native/conformance-portability.js'
 import { EvidenceBundle } from '../src/wallet-lab/evidence.js'
 import { ControlledWalletServices } from '../src/wallet-lab/services.js'
 import { verifyNativePortability } from '../src/wallet-lab/native/verify-conformance-portability.js'
@@ -120,3 +122,62 @@ it('stops only the source listener, routes large prospective RPCs, and retires t
     await expect(fetch(endpoint)).rejects.toThrow()
   } finally { if (!closed) await source.close(); if (!adopted) await target.close(); fs.rmSync(directory, { recursive: true, force: true }) }
 }, 30_000)
+
+
+it('retains actual pending native rows until the matching complete ToDo transaction is available', async () => {
+  const folder = path.join(directory, 'readiness-binding')
+  const summary = JSON.parse(fs.readFileSync(path.join(folder, 'summary.json'), 'utf8'))
+  const bytes = fs.readFileSync(path.join(folder, summary.fixture.path))
+  expect(bytes.length).toBe(summary.fixture.bytes); expect(sha(bytes)).toBe(summary.fixture.sha256)
+  const fixture = JSON.parse(bytes.toString())
+  for (const sample of fixture.repetitions) {
+    const observations = sample.observations.filter((row: any) => row.method === 'listOutputs')
+    const before = observations[0].result, pending = observations.at(-1).result
+    expect(pending.outputs.at(-1)).toEqual({ outpoint: '', satoshis: 3, spendable: true })
+    expect(pending.BEEF).toEqual(before.BEEF)
+    expect(readyPortableTask(before, pending)).toBeUndefined()
+    const complete = structuredClone(pending), later = sample.laterSignedTask
+    const beef = Beef.fromBinary(pending.BEEF); beef.mergeRawTx([...Buffer.from(later.rawHex, 'hex')])
+    complete.BEEF = beef.toBinary(); complete.outputs.at(-1).outpoint = later.outpoint
+    expect(readyPortableTask(before, complete)?.tx.toHex()).toBe(later.rawHex)
+    const mutations: Array<(r: any) => void> = [
+      r => { r.outputs.at(-1).outpoint = '' },
+      r => { r.outputs.at(-1).outpoint = later.outpoint.replace('.', '_') },
+      r => { r.outputs.at(-1).outpoint = later.outpoint.toUpperCase() },
+      r => { r.outputs.at(-1).outpoint = later.txid + '.00' },
+      r => { r.outputs.at(-1).outpoint = later.txid + '.-1' },
+      r => { r.outputs.at(-1).outpoint = later.txid + '.9007199254740992' },
+      r => { r.outputs.at(-1).outpoint = later.txid + '.99' },
+      r => { r.outputs.at(-1).spendable = false },
+      r => { r.outputs.at(-1).satoshis = 2 },
+      r => { r.BEEF = pending.BEEF },
+      r => { delete r.BEEF },
+      r => { r.BEEF = [1, 2, 3] }
+    ]
+    for (const mutate of mutations) { const changed = structuredClone(complete); mutate(changed); expect(readyPortableTask(before, changed)).toBeUndefined() }
+    expect(readyPortableTask(complete, complete)).toBeUndefined()
+    const identifiedButPending = structuredClone(pending); identifiedButPending.outputs.at(-1).outpoint = later.outpoint
+    const responses = [before, pending, identifiedButPending, complete]
+    let next = 0
+    const wallet: any = { getPublicKey: async () => ({ publicKey: sample.identity }), listOutputs: async () => structuredClone(responses[next++]), decrypt: async () => { throw new Error('stop-after-complete-public-task') } }
+    const report = await qualifyStoragePortability({ wallet, source: {} as any, destination: {} as any, mode: 'reference-engineering', controls: { createTask: async () => {}, addAndSync: async () => { throw Error('not reached') }, activateAndRemoveSource: async () => {}, coldReload: async () => ({}), redeemTask: async () => {} } })
+    expect(next).toBe(responses.length); expect(report.error.message).toBe('stop-after-complete-public-task')
+    expect(report.created).toEqual(complete); expect(report.task.rawHex).toBe(later.rawHex)
+    const trace = report.trace.filter((row: any) => row.method === 'listOutputs')
+    expect(trace.map((row: any) => row.result)).toEqual(responses)
+    expect(trace.every((row: any) => Date.parse(row.startedAt) <= Date.parse(row.endedAt))).toBe(true)
+    expect(trace.slice(1).every((row: any, i: number) => Date.parse(row.startedAt) >= Date.parse(trace[i].endedAt))).toBe(true)
+  }
+})
+
+it('waits for the exact native ToDo task visibility before recording creation readiness', async () => {
+  const order: string[] = [], ui: any[] = []
+  const application: any = {
+    goto: async () => { order.push('goto') },
+    getByTestId: (id: string) => ({ click: async () => { expect(id).toBe('p0-todo-create-submit'); order.push('submit') } }),
+    getByLabel: (label: string) => ({ waitFor: async (options: any) => { expect(label).toBe('TPNIL native storage replacement 3 satoshis'); expect(options).toEqual({ state: 'visible', timeout: 45000 }); order.push('visible') } }),
+    locator: () => ({ innerText: async () => 'TPNIL native storage replacement 3 satoshis' })
+  }
+  await nativePortabilityControls(application, {} as any, 'unused', ui).createTask()
+  expect(order).toEqual(['goto', 'submit', 'visible']); expect(ui[0].stage).toBe('native-task-visible')
+})

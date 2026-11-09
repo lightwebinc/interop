@@ -23,6 +23,27 @@ async function until<T>(operation: () => Promise<T>, accept: (value: T) => boole
   throw new Error('Portability observation deadline exceeded')
 }
 
+/** Pending storage rows can precede the signed action response. Readiness needs
+ * the complete public outpoint and its actual serialized output; all incomplete
+ * observations remain in the caller's trace until the bounded poll succeeds. */
+export function readyPortableTask(before: any, observed: any): { output: any; tx: Transaction } | undefined {
+  if (!Array.isArray(observed?.outputs) || !Array.isArray(observed?.BEEF)) return
+  const previous = new Set((before?.outputs ?? []).map((row: any) => row.outpoint))
+  for (const output of observed.outputs) {
+    if (output.satoshis !== amount || output.spendable !== true || previous.has(output.outpoint)) continue
+    const match = typeof output.outpoint === 'string' ? /^([0-9a-f]{64})\.(0|[1-9][0-9]*)$/.exec(output.outpoint) : null
+    if (!match || !Number.isSafeInteger(Number(match[2]))) continue
+    try {
+      const tx = Transaction.fromAtomicBEEF(Beef.fromBinary(observed.BEEF).toBinaryAtomic(match[1]!))
+      const serialized = tx.outputs[Number(match[2])]
+      if (tx.id('hex') !== match[1] || serialized?.satoshis !== amount) continue
+      const token = PushDrop.decode(serialized.lockingScript)
+      if (Utils.toUTF8(token.fields[0]!) !== '1ToDoDtKreEzbHYKFjmoBuduFmSXXUGZG' || !token.fields[1]?.length) continue
+      return { output, tx }
+    } catch { /* This public observation is not a complete serialized task yet. */ }
+  }
+}
+
 export interface PortabilityControls {
   createTask(): Promise<void>
   addAndSync(url: string): Promise<void>
@@ -59,11 +80,10 @@ export async function qualifyStoragePortability(options: {
     report.identity = identity
     const beforeTask = await call('listOutputs', { basket: 'todo tokens', include: 'entire transactions', includeTags: true, includeCustomInstructions: true, limit: 1000 })
     await controls.createTask()
-    report.created = await until(() => call('listOutputs', { basket: 'todo tokens', include: 'entire transactions', includeTags: true, includeCustomInstructions: true, limit: 1000 }), r => r.outputs.some((o: any) => o.satoshis === amount && !beforeTask.outputs.some((old: any) => old.outpoint === o.outpoint)))
-    const output = report.created.outputs.find((o: any) => o.satoshis === amount && !beforeTask.outputs.some((old: any) => old.outpoint === o.outpoint))
+    report.created = await until(() => call('listOutputs', { basket: 'todo tokens', include: 'entire transactions', includeTags: true, includeCustomInstructions: true, limit: 1000 }), r => readyPortableTask(beforeTask, r) !== undefined)
+    const { output, tx } = readyPortableTask(beforeTask, report.created)!
     report.outpoint = output.outpoint
     const [txid, index] = output.outpoint.split('.')
-    const tx = Transaction.fromAtomicBEEF(Beef.fromBinary(report.created.BEEF).toBinaryAtomic(txid))
     const token = PushDrop.decode(tx.outputs[Number(index)]!.lockingScript)
     report.task = { text: portableTask, amount, protocolAddress: Utils.toUTF8(token.fields[0]!), ciphertext: token.fields[1], txid, vout: Number(index), rawHex: tx.toHex(), beefHex: Buffer.from(tx.toAtomicBEEF()).toString('hex') }
     report.beforeDecryption = await call('decrypt', { ciphertext: token.fields[1], protocolID: [0, 'todo list'], keyID: '1', counterparty: 'self' })
@@ -132,6 +152,8 @@ export function nativePortabilityControls(application: Page, walletPage: Page, p
     async createTask() {
       const url = new URL('https://todo.itcve.test/'); url.searchParams.set('p0Task', portableTask); url.searchParams.set('p0Amount', String(amount)); url.searchParams.set('p0OpenCreate', '1')
       await application.goto(url.href); await application.getByTestId('p0-todo-create-submit').click()
+      await application.getByLabel(`${portableTask} ${amount} satoshis`).waitFor({ state: 'visible', timeout: 45_000 })
+      ui.push({ stage: 'native-task-visible', at: new Date().toISOString(), text: await application.locator('body').innerText() })
     },
     async addAndSync(url) {
       await backups(); await snapshot('before-add')
