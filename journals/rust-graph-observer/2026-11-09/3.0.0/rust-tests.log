@@ -1,0 +1,22 @@
+   Compiling tpnil-rust-participant v0.1.0 (/Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/components/rust)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.39s
+     Running unittests src/main.rs (components/rust/target/debug/deps/tpnil_rust_participant-d4152ddd0ad90979)
+
+running 14 tests
+test tests::repeated_outpoint_cannot_inflate_input_value ... ok
+test graph_oracle_v3::tests::cycles_and_index_aliases_fail_closed ... ok
+test graph_oracle_v3::tests::duplicate_subject_inputs_cannot_inflate_available_value ... ok
+test graph_oracle_v3::tests::bad_ancestor_script_is_checked_even_when_subject_script_is_valid ... ok
+test graph_oracle_v3::tests::duplicate_beef_entries_are_rejected_instead_of_last_writer_winning ... ok
+test graph_oracle_v3::tests::missing_and_txid_only_ancestor_cannot_borrow_from_another_request ... ok
+test graph_oracle_v3::tests::forged_ancestor_bytes_cannot_keep_the_old_transaction_identity ... ok
+test graph_oracle_v3::tests::two_distinct_ancestors_cannot_spend_the_same_outpoint ... ok
+test graph_oracle_v3::tests::malformed_subject_framing_and_height_are_rejected ... ok
+test graph_oracle_v3::tests::parsed_but_reordered_beef_table_has_the_same_graph ... ok
+test graph_oracle_v3::tests::shared_dag_is_valid_in_both_input_orders_without_expanding_duplicate_trees ... ok
+test graph_oracle_v3::tests::mutated_script_value_root_height_and_missing_output_do_not_pass ... ok
+test graph_oracle_v3::tests::ancestry_depth_limit_retains_the_original_64_edge_boundary ... ok
+test graph_oracle_v3::tests::shallow_memoized_visits_do_not_hide_a_deep_dag_path ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+

@@ -1,0 +1,45 @@
+{
+  "verified": true,
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "nativeQualification": false,
+  "originalFailurePreserved": true,
+  "executions": [
+    {
+      "directory": "repetition-1",
+      "verified": true,
+      "outcome": "PASS",
+      "calls": 47,
+      "assertions": 48,
+      "independentReplay": true,
+      "parentInputsBound": 4,
+      "counts": {
+        "PASS": 48
+      }
+    },
+    {
+      "directory": "repetition-2",
+      "verified": true,
+      "outcome": "PASS",
+      "calls": 47,
+      "assertions": 48,
+      "independentReplay": true,
+      "parentInputsBound": 4,
+      "counts": {
+        "PASS": 48
+      }
+    },
+    {
+      "directory": "corpus2-control",
+      "verified": true,
+      "outcome": "FAIL",
+      "calls": 47,
+      "assertions": 48,
+      "independentReplay": true,
+      "parentInputsBound": 4,
+      "counts": {
+        "PASS": 42,
+        "FAIL": 6
+      }
+    }
+  ]
+}
