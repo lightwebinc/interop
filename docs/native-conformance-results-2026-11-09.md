@@ -41,19 +41,19 @@ response. Both native identities, signed proof ancestry, source outage and
 successful replacement processing independently verify.
 
 The whole original workflow still fails in its Rust observer. Corpus2 records
-42 PASS / 6 FAIL in repetition1; repetition2 Rust does not execute. Each
+42 PASS / 6 FAIL in repetition 1; repetition 2 Rust does not execute. Each
 original BEEF already contains its complete ancestors, but the observer
 incorrectly rejects the pinned SDK's shallow representation of a shared
 ancestor before resolving the full transaction elsewhere in the same graph.
-A separately versioned corpus3 reevaluation is required; original corpus2
+A separately versioned corpus 3 reevaluation is required; original corpus 2
 results and the failed workflow are not replaced or promoted.
 
 [Foundation run 42711677744](https://github.com/p2ppsr/interop/actions/runs/42711677744)
 qualifies the separate component-only ITCVE-1 3.0.0 profile: **584 PASS and six
 unchanged Go Message Box FAIL observations across 590 assertions, nine lanes
-and 30 isolated executions**. The four-direction storage2 matrix passes88
-predicates; descendant2 passes80 in eight fresh executions. Those80 are
-already included in590, and the separate descendant upload is the same bytes.
+and 30 isolated executions**. The four-direction storage2 matrix passes 88
+predicates; descendant2 passes 80 in eight fresh executions. Those 80 are
+already included in 590, and the separate descendant upload is the same bytes.
 [Original aggregate evidence](../journals/integrated-component-qualification/2026-11-09/42711677744/README.md)
 and [descendant evidence](../journals/descendant-storage-qualification/2026-11-09/42711677744/README.md)
 independently replay against the exact recorded source. All three CI jobs pass.
@@ -251,7 +251,8 @@ compares labels and tags as unique string sets, following line 29 of the pinned
 BRC100 source. All other state remains exact; deleted, changed, duplicated or
 non-string members fail. Historical schemas retain their original order-sensitive
 results. Captured-trace replay and a fresh Go reference experiment are engineering
-checks; a new frozen native execution must establish the corrected result.
+checks; the separately frozen native2 execution now establishes the corrected
+result in both repetitions without changing earlier failed observations.
 
 The prospective submission-binding policy retains complete indexed submission
 and authenticated `processAction` windows. It selects the unique customer
@@ -289,7 +290,8 @@ pass 9/9 each. The separate [descendant-funded matrix](../journals/descendant-st
 directions twice with eight distinct fixture identities: 80/80 predicates,
 including empty replacements, private owner boundaries, tiny-page traversal,
 dataset-only proof verification and fresh-wallet recovery/redemption. These
-engineering results require a fresh native qualification before a native claim.
+engineering results are separate from the latest native2 evidence, which now
+proves the actual source-off Go replacement path in both repetitions.
 
 This is a fresh-counterpart replacement contract. It does not establish repair
 of a previously synchronized incomplete counterpart whose equal-time merge rules
@@ -368,7 +370,7 @@ remain; new environment admission and oracle requirements are frozen separately.
 ## Reference evidence and unresolved scope
 
 The earlier oracle3 findings below are historical. The latest native2 run uses
-clause oracle4 and retains99 failures in each repetition:
+clause oracle4 and retains 99 failures in each repetition:
 
 | Latest observation category | Count |
 | --- | ---: |
@@ -388,8 +390,8 @@ finding and does not establish invalid transaction conservation. Only
 the supported `false` request is denied, while malformed `null` is accepted.
 That acceptance remains FAIL; it does not establish a working positive pair.
 The [source-linked independent review](../journals/integrated-native-attempts/2026-11-09/42711700295/independent-review/clauses-findings.json)
-retains exact IDs, calls, contract locations and controls. These99 predicates
-are not99 independent security defects or exclusively Go storage defects.
+retains exact IDs, calls, contract locations and controls. These 99 predicates
+are not 99 independent security defects or exclusively Go storage defects.
 
 ### Retained oracle3 reference comparison
 
@@ -445,7 +447,7 @@ predicates fail, or BLOCKED when those obligations are all that remain.
 | Remaining obligation | Evidence needed to close it |
 | --- | --- |
 | Privileged secondary keyring | An admitted released configuration with an actual distinct secondary keyring and user-presence path; approval/denial, reason validation, independent key/crypto separation, lock/reload and cache expiry. Bundled optional manager code alone does not establish that configuration. Unsupported optional functionality needs a prospective applicability decision. |
-| Permission lifecycle and additional scope | ITCVE-1 2.0 executes basket, certificate and one-shot spending decisions plus individual/origin revocation and isolation; both latest native Linux repetitions independently pass all16 predicates. Linkage, permission persistence across restart, standing allowances and finite expiry remain additional obligations. The reviewed UI grants default to no expiry; finite-expiry evidence requires a supported configuration rather than private-state manipulation. |
+| Permission lifecycle and additional scope | ITCVE-1 2.0 executes basket, certificate and one-shot spending decisions plus individual/origin revocation and isolation; both latest native Linux repetitions independently pass all 16 predicates. Linkage, permission persistence across restart, standing allowances and finite expiry remain additional obligations. The reviewed UI grants default to no expiry; finite-expiry evidence requires a supported configuration rather than private-state manipulation. |
 | Native byte-wire substrate | A released native endpoint, or a prospective applicability decision, followed by all 28 call codes and malformed/truncated/error frames, byte encoding and state/permission parity. A laboratory encoder forwarding to CWI is not a native endpoint. |
 | Basket-length conflict | An explicit versioned interpretation or pinned upstream clarification of the typed 300-byte versus prose 400-byte limits, followed by create/query/persistence cases at 299/300/301/399/400/401 UTF-8 bytes. |
 | Remaining conditional branches | A clause inventory covering transaction batching/defaults, proof-omission trust, consuming-reference conflicts, filter/pagination/include semantics, actual certificate issuance, conflicting required fields, verifier/keyring/signature/revocation behavior and pagination; each applicable branch needs admitted fixtures and independent state/ancestry checks. |
