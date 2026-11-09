@@ -1,0 +1,14 @@
+{
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "platform": "darwin",
+  "architecture": "arm64",
+  "calls": [],
+  "prompts": [],
+  "logs": [],
+  "cleanup": {
+    "browser": true,
+    "services": true,
+    "profile": true
+  },
+  "error": "TimeoutError: browserContext.waitForEvent: Timeout 30000ms exceeded while waiting for event \"serviceworker\""
+}
