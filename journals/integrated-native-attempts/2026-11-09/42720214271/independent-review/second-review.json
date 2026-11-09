@@ -1,0 +1,27 @@
+{
+  "schema": "tpnil-independent-ci-reevaluation-review@1",
+  "reviewer": "storage_wallet",
+  "reviewedAt": "2026-11-09T23:27:55.150366+00:00",
+  "runId": 42720214271,
+  "source": "8055aabb731df2c2a4020c885445ae621b57e492",
+  "workflowConclusion": "failure",
+  "classification": "OFFLINE_VERIFIER_DEPENDENCY_PREPARATION_FAILURE",
+  "originalZipSha256": "c0645821afeea30cbc1c0c70f4ca10bfbe288ebfa570b719af5a709f145c3826",
+  "allOriginalMembersUnchanged": true,
+  "originalMemberCount": 186,
+  "originalQualificationSha256": "8a98103995b918aec867f414c36bc8ff71645ce1004e1ced3f4706257ea82ad7",
+  "originalNativeOutcome": "FAIL",
+  "completedObservations": [
+    "Original base admission independently replayed by CI",
+    "Original Rust2 failed evidence independently replayed by CI",
+    "Repetition1 transport verifier completed"
+  ],
+  "blockedAt": "Repetition1 frozen native messaging verifier imports the pinned TS Message Box @bsv/sdk from its missing prepared source dependency path.",
+  "rust3Executed": false,
+  "completeReevaluationResultPresent": false,
+  "failureLog": {
+    "path": "out/reevaluation-ci-42720214271/logs/repetition-1-verify-native-messaging.mjs.log",
+    "sha256": "d1d492cc4b5bc9ce364a241a9492510af9734968108ade6bacfe508df77d7200"
+  },
+  "reviewBoundary": "Original observations unchanged. This partial CI attempt supplies no Rust3 qualification or successful complete reevaluation; local prepared-cache success does not erase this failed fresh-CI sample."
+}

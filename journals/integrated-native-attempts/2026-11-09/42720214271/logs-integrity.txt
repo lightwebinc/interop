@@ -1,0 +1,13 @@
+Archive:  /Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/reevaluation-ci-42720214271-receipts/logs.zip
+    testing: 0_retained-native-evidence.txt   OK
+    testing: retained-native-evidence/system.txt   OK
+    testing: retained-native-evidence/1_Set up job.txt   OK
+    testing: retained-native-evidence/2_Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt   OK
+    testing: retained-native-evidence/3_Run actions_setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020.txt   OK
+    testing: retained-native-evidence/4_Prepare locked offline verifier dependencies.txt   OK
+    testing: retained-native-evidence/5_Verify shared-ancestor and adversarial graph regressions.txt   OK
+    testing: retained-native-evidence/6_Reevaluate the unchanged original native observations.txt   OK
+    testing: retained-native-evidence/8_Retain original and derived evidence on every outcome.txt   OK
+    testing: retained-native-evidence/16_Post Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt   OK
+    testing: retained-native-evidence/17_Complete job.txt   OK
+No errors detected in compressed data of /Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/reevaluation-ci-42720214271-receipts/logs.zip.
