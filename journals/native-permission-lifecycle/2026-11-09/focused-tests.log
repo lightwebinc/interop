@@ -1,0 +1,13 @@
+
+> @tpnil/synthesis@0.1.0 test
+> vitest run native-conformance-permission-lifecycle.test.ts
+
+
+ RUN  v4.1.12 /Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/synthesis
+
+
+ Test Files  1 passed (1)
+      Tests  39 passed (39)
+   Start at  12:48:33
+   Duration  3.10s (transform 30ms, setup 0ms, import 102ms, tests 2.93s, environment 0ms)
+
