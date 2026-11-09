@@ -80,3 +80,31 @@ it('binds the additional native profile to its complete inventory and separate a
   expect(inherited.clauseOracle).toBe('tpnil-brc100-clause-oracle@3.0.0')
   expect(inherited.permissionLifecycleOracle).toBeUndefined()
 })
+
+it('requires a separate closure profile and preserves the executed 1.5 compatibility set', () => {
+  const plan = read('infra/native/conformance/plan-coverage-closure.json'), profile = read('itcves/ITCVE-1/2.0.0/profile.json')
+  expect(plan.id).toBe('YOURS-5.1.0-GO-ITCVE-1-V2.0.0-CONFORMANCE-CLOSURE')
+  expect(plan.itcve).toBe('ITCVE-1@2.0.0'); expect(plan.program).toBe('ISI-4@4.0.0')
+  expect(plan.permissionOracle).toBe('tpnil-native-permission-oracle@2.0.0')
+  expect(plan.permissionLifecycleOracle).toBe('tpnil-native-permission-lifecycle-oracle@2.0.0')
+  expect(plan.shutdownSubmissionPolicy).toBe('tpnil-native-shutdown-submissions@1.0.0')
+  expect(plan.clauseOracle).toBe('tpnil-brc100-clause-oracle@4.0.0'); expect(plan.portabilityOracle).toBe('tpnil-native-portability-oracle@3.0.0')
+  expect(Object.keys(plan.conformanceInputs)).toHaveLength(10)
+  for (const [file, digest] of Object.entries(plan.conformanceInputs)) expect(createHash('sha256').update(fs.readFileSync(path.join(root, file))).digest('hex')).toBe(digest)
+  for (const key of ['permissionOracle', 'permissionLifecycleOracle', 'shutdownSubmissionPolicy', 'clauseOracle', 'portabilityOracle']) expect(profile.nativeConformance[key]).toBe(plan[key])
+  for (const name of ['permission-oracle-2.0.0.json', 'permission-lifecycle-oracle-2.0.0.json', 'shutdown-submissions-1.0.0.json']) expect(Object.keys(plan.conformanceInputs)).toContain(`programs/ISI-4/profiles/native-conformance-4.0.0/${name}`)
+  const historical = read('itcves/ITCVE-1/1.5.0/profile.json'), oldPlan = read('infra/native/conformance/plan-coverage.json')
+  expect(profile.nativeConformance.assertions).toEqual(historical.nativeConformance.assertions)
+  expect(plan.wallet).toEqual(oldPlan.wallet); expect(plan.application).toEqual(oldPlan.application); expect(plan.fundingReserves).toEqual(oldPlan.fundingReserves)
+  expect(oldPlan.permissionOracle).toBeUndefined(); expect(oldPlan.permissionLifecycleOracle).toBe('tpnil-native-permission-lifecycle-oracle@1.0.0'); expect(oldPlan.shutdownSubmissionPolicy).toBeUndefined()
+  expect(Object.keys(oldPlan.conformanceInputs)).toHaveLength(8)
+  const catalog = read('programs/ISI-4/4.0.0/catalog.json'), oldCatalog = read('programs/ISI-4/3.0.0/catalog.json')
+  expect(catalog.itcve.version).toBe('2.0.0'); expect(catalog.vectors[4].version).toBe('4.0.0')
+  for (const index of [0, 1, 2, 3, 5, 6, 7]) expect(catalog.vectors[index].version).toBe(oldCatalog.vectors[index].version)
+  const executedHashes: Record<string, string> = {
+    "infra/native/conformance/plan-coverage.json": "ec37b83e25592af662b382cc5cc5da5e2238ffbdb7b4f00442d9b2bcfe229755",
+    "itcves/ITCVE-1/1.5.0/profile.json": "1fe3565488a3745c9985bf273d8e59ab1890e651059b84d31fe15f152374f1c4",
+    "programs/ISI-4/3.0.0/catalog.json": "b9ef1df78f846901df2782265bacfdf0bfc888bd666090ded68b540a4b257b0a"
+  }
+  for (const [file, digest] of Object.entries(executedHashes)) expect(createHash('sha256').update(fs.readFileSync(path.join(root, file))).digest('hex')).toBe(digest)
+})
