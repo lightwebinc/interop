@@ -156,12 +156,25 @@ all other dataset relationships, transaction bytes, proofs and certificate
 removal agree. Fourteen other child oracles independently pass. No descendant
 matrix result is inferred from the skipped step.
 
-A prospective, separately versioned component policy compares these history
-instants without discarding sub-millisecond precision. It changes only the
-specified typed timestamp field, rejects invalid calendar/time strings and
-preserves all significant fractional digits and unrelated metadata. Historical
-storage and descendant policies retain their original source and outcomes.
-The native 2.0 plan and all ten acceptance inputs remain unchanged.
+The separately versioned [component-only ITCVE-1 3.0.0](../itcves/ITCVE-1/3.0.0/README.md)
+compares these history timestamps without discarding sub-millisecond precision.
+It changes only the specified typed field, rejects invalid calendar/time strings
+and preserves all significant fractional digits, original UTC suffixes and
+unrelated metadata. Each new-profile worker declares and observes UTC before
+services start. The [storage engineering journal](../journals/storage-history-projection/2026-11-09/README.md)
+retains the initial four-PASS/four-FAIL local-offset attempt and both subsequent
+passing eight-cell matrices, including the final manifest. The final matrix
+independently passes all 88 predicates and rejects four rebound corruptions.
+Historical storage and descendant policies retain their original source and
+outcomes. The native 2.0 plan and all ten acceptance inputs remain unchanged.
+
+The new aggregate requires nine lanes, 30 fresh isolated executions and 590
+assertions. Its additional eight-cell descendant matrix contributes 80 of those
+assertions and runs only once; retaining it as a separate artifact does not
+create another execution or denominator. Both matrices require their exact new
+schemas, source-bound projection policies and independent raw-evidence replay.
+Component 1.3 remains available with its historical default selection. These
+engineering preflights do not establish a new native-wallet qualification.
 
 ## Corrected laboratory boundaries
 
