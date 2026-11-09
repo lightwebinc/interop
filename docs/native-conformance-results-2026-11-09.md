@@ -24,6 +24,8 @@ establishes complete BRC-100 conformance or certification.
 | [Foundation 42674635670](https://github.com/p2ppsr/interop/actions/runs/42674635670) | All three jobs pass on `def98ac`: 76 core, 145 synthesis with eight gated skips, five Python, 11 Go, three transport, 14 service and one Rust test; negative/tamper checks also pass. [Original artifact and independent replay](../journals/integrated-component-qualification/2026-11-09/42674635670/README.md) retain 504 PASS and six unchanged upstream FAIL observations. |
 | [Native 42667035861](https://github.com/p2ppsr/interop/actions/runs/42667035861) | Both workers completed; recovery genuinely failed before submission, and the parent verifier incorrectly assumed every phase submitted a transaction. [Original artifact and diagnosis](../journals/integrated-native-attempts/2026-11-09/42667035861/README.md) retain both repetitions and issue no qualification. |
 | [Native 42674638927](https://github.com/p2ppsr/interop/actions/runs/42674638927) | CI and frozen replay pass, but publication review identifies two observer defects. [Unchanged original artifact and independent review](../journals/integrated-native-attempts/2026-11-09/42674638927/README.md) retain V001–V005 PASS and V006–V008 FAIL; this run is not accepted as completed native conformance qualification. |
+| [Foundation 42680171419](https://github.com/p2ppsr/interop/actions/runs/42680171419) | All three jobs pass on `3f9cbea`: 155 synthesis with eight gated skips, 76 core, five Python, 11 Go, three transport, 14 service and one Rust test; dependency audit has zero findings. [Original artifact and independent replay](../journals/integrated-component-qualification/2026-11-09/42680171419/README.md) retain 504 PASS and six unchanged Go FAIL observations. |
+| [Native 42680240116](https://github.com/p2ppsr/interop/actions/runs/42680240116) | Both workers complete; replacement storage cannot retrieve a synchronized mined ancestor, and the producer/oracle dataset disagreement prevents qualification. [Original artifact and diagnosis](../journals/integrated-native-attempts/2026-11-09/42680240116/README.md) retain V001–V005 PASS and V006–V008 FAIL. |
 
 In native 42667035861 each worker reports V001–V005 PASS and V006–V008 FAIL.
 Independent child review confirms permission 8 PASS and clause 132 PASS / 98 FAIL /
@@ -46,6 +48,32 @@ so it never reaches the storage settings. These are observer defects, not
 newly established wallet failures. The original qualification files and their
 environment-qualified flags remain inside the unchanged archive. Both workers,
 services and containers are cleaned up; the host user-namespace setting is restored.
+
+In native 42680240116, independent child replay verifies permission 8 PASS,
+lifecycle API 3 PASS and clauses 132 PASS / 98 FAIL / 2 BLOCKED per repetition.
+The original ToDo UI rejection observation still reports FAIL: its observer
+selected the last submission, an unrelated accepted change-only transaction,
+after the actual rejected ToDo transaction. The recorded aggregate V006 remains
+FAIL. A prospective correction must retain the complete phase window and bind
+the unique customer transaction independently of the desired verdict.
+
+V007 now reaches real native synchronization, provider activation and removal,
+and source-listener outage. The two logical datasets agree, but the replacement
+cannot retrieve the mined ancestor required for the recovered task's BEEF.
+Cold task visibility times out. Exported inputBEEF does retain the proof bytes;
+independent dataset-only reconstruction verifies all 12 owned transactions and
+the pinned mined root. Their presence does not establish operational retrieval.
+The original producer reports 5 PASS / 4 FAIL while the independent oracle
+rejects its complete-dataset PASS because no owned mined-transaction row exists.
+Any new proof-closure criterion needs its own version and must independently
+verify the complete dataset without borrowing the task's captured BEEF. A Go
+sync correction must make actual source-off reads and spends succeed.
+
+The native graph consequently retains 62 PASS / 7 FAIL / 8 BLOCKED per repetition.
+No Rust execution occurred because parent verification stopped first. All 263
+reported outcomes match, but this does not qualify the disputed portability
+observations. Both workers and containers cleanly shut down and the host setting
+is restored. The original 124 artifact members remain unchanged.
 
 The additional native clause blocker has independent transaction proof:
 `noSendChange` identifies an unsigned transaction's output while `tx` and
