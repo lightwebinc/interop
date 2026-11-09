@@ -82,6 +82,7 @@ jobs:
           rustup toolchain install 1.88.0 --profile minimal
           npm run prepare:go
           node scripts/prepare-storage-sync-go.mjs
+          node scripts/prepare-storage-portability-go.mjs
           node scripts/prepare-messaging.mjs
       - name: Verify trust and adapter regressions
         run: |
@@ -98,6 +99,18 @@ jobs:
           RUSTUP_TOOLCHAIN=1.88.0 node scripts/verify-published-integrations.mjs --semantic
           node scripts/test-messaging-verifier.mjs out/integrated-lab/messaging-1
           RUSTUP_TOOLCHAIN=1.88.0 node scripts/test-rust-verifier.mjs out/integrated-lab/rust-1 out/integrated-lab/transport-typescript-1/paid-http.json out/integrated-lab/transport-go-1/paid-http.json out/integrated-lab/overlay-identity-1/rust-certificate-vectors.json
+      - name: Verify descendant-funded replacement in all four directions
+        run: |
+          node scripts/run-descendant-storage-matrix.mjs out/descendant-storage-sync
+          node scripts/verify-descendant-storage-matrix.mjs out/descendant-storage-sync
+      - name: Retain descendant replacement evidence
+        if: always()
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        with:
+          name: descendant-storage-sync
+          path: out/descendant-storage-sync
+          if-no-files-found: warn
+          retention-days: 90
       - name: Retain every attempt
         if: always()
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4

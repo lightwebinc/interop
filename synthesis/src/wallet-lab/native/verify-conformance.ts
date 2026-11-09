@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
-import { canonicalJson } from '../../determinism.js'
+import { canonicalJson, sha256Hex } from '../../determinism.js'
 import { aggregateOutcome, type VectorResult } from '../model.js'
 import { verifyNativePermissionConformance } from './verify-conformance-permissions.js'
 import { verifyConformanceLifecycle } from './verify-conformance-lifecycle.js'
@@ -9,7 +9,7 @@ import { verifyNativePortability } from './verify-conformance-portability.js'
 import { verifyNativeClauseConformance } from './verify-conformance-clauses.js'
 import { validateComponentIdentity } from '../go-services.js'
 
-export async function verifyNativeConformance(evidenceDirectory: string, baselineVectors: VectorResult[], lifecycleOracle?: string) {
+export async function verifyNativeConformance(evidenceDirectory: string, baselineVectors: VectorResult[], lifecycleOracle?: string, portabilityOracle?: string) {
   const read = (name: string) => JSON.parse(fs.readFileSync(path.join(evidenceDirectory, 'conformance', `${name}.json`), 'utf8'))
   const report = read('result')
   assert.equal(report.schema, 'tpnil-native-conformance@2.0.0'); assert.equal(report.profile, 'ITCVE-1@1.4.0'); assert.equal(report.program, 'ISI-4@2.0.0')
@@ -24,7 +24,24 @@ export async function verifyNativeConformance(evidenceDirectory: string, baselin
     assert.equal(read('lifecycle').oracle, lifecycleOracle)
   } else assert.equal(read('lifecycle').schema, 'tpnil-native-conformance-lifecycle@2')
   assert.deepEqual(read('lifecycle').serviceIdentity, JSON.parse(fs.readFileSync(path.join(evidenceDirectory, 'service-components.json'), 'utf8')))
-  const portability = await verifyNativePortability(read('portability'))
+  const portabilityReport = read('portability')
+  if (portabilityOracle !== undefined) {
+    assert.equal(portabilityOracle, 'tpnil-native-portability-oracle@2.0.0')
+    assert.equal(portabilityReport.schema, 'tpnil-native-storage-portability@2')
+    assert.equal(portabilityReport.oracle, portabilityOracle)
+    const primary = JSON.parse(fs.readFileSync(path.join(evidenceDirectory, 'service-components.json'), 'utf8'))
+    assert.deepEqual(portabilityReport.components.source, primary)
+    const patch = fs.readFileSync(path.resolve(import.meta.dirname, '../../../../infra/adapters/storage-portability/patch.lock.json'))
+    for (const identity of [primary, portabilityReport.components.replacement]) {
+      validateComponentIdentity(identity, 'ITCVE-1@1.4.0')
+      assert.equal(identity.go.compatibilityPatch.schema, 'tpnil-storage-portability-go-build@1.0.0')
+      assert.equal(identity.go.compatibilityPatch.patchLockSha256, sha256Hex(patch), 'Portability requires the admitted ancestry export build')
+    }
+  } else {
+    assert.equal(portabilityReport.schema, 'tpnil-native-storage-portability@1')
+    assert.equal(portabilityReport.oracle, undefined, 'Historical portability cannot select a new oracle')
+  }
+  const portability = await verifyNativePortability(portabilityReport)
   assert.equal(read('clauses').substrate, 'unchanged-native-window.CWI', 'Reference clauses cannot qualify a native wallet')
   const clauses = await verifyNativeClauseConformance(read('clauses'), JSON.parse(fs.readFileSync(path.join(evidenceDirectory, 'integrated/boundary.json'), 'utf8')))
   const identities = read('service-counterparts')

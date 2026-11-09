@@ -23,7 +23,7 @@ const admission=spawnSync(process.execPath,['--import',path.join(root,'synthesis
 assert.equal(admission.status,0,'Native artifact, isolation, trust, funding and cleanup admission failed')
 const base=read('qualification.json'),lock=read('run-lock.json')
 assert.equal(base.qualifiedEnvironment,true)
-const conformance=lock.plan.id==='YOURS-5.1.0-GO-ITCVE-1.4.0-CONFORMANCE'
+const conformance=base.itcve==='ITCVE-1@1.4.0'
 assert.equal(base.itcve,conformance?'ITCVE-1@1.4.0':'ITCVE-1@1.3.0')
 const trustedIdentity=lock.plan.identityTrust==='public-settings-token'
 assert.deepEqual(lock.plan,sourceRead(conformance?'infra/native/conformance/plan.json':trustedIdentity?'infra/native/integrated/plan-trusted.json':'infra/native/integrated/plan.json'))

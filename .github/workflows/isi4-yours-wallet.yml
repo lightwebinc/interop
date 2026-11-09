@@ -85,7 +85,9 @@ jobs:
           docker build --build-arg TPNIL_NATIVE_BASE=tpnil-native-go:${{ github.sha }} -f infra/native/integrated/Dockerfile -t tpnil-native-integrated:${{ github.sha }} .
       - name: Build the prospective conformance image
         if: inputs.profile == 'integrated-native-conformance'
-        run: docker build --build-arg TPNIL_INTEGRATED_BASE=tpnil-native-integrated:${{ github.sha }} -f infra/native/conformance/Dockerfile -t tpnil-native-conformance:${{ github.sha }} .
+        run: |
+          node scripts/prepare-storage-portability-go.mjs
+          docker build --build-arg TPNIL_INTEGRATED_BASE=tpnil-native-integrated:${{ github.sha }} -f infra/native/conformance/Dockerfile -t tpnil-native-conformance:${{ github.sha }} .
       - name: Execute two clean isolated native repetitions and verify results
         if: inputs.profile == 'all-go-native'
         run: node scripts/run-native-go-wallet.mjs tpnil-native-go:${{ github.sha }} out/native-go-wallet
