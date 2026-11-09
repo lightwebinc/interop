@@ -1,6 +1,5 @@
 import fs from 'node:fs'
 import http, { type IncomingMessage, type ServerResponse } from 'node:http'
-import net from 'node:net'
 import os from 'node:os'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
@@ -141,17 +140,10 @@ export function withHeaderHash(header: Omit<HeaderRecord, 'hash'>): HeaderRecord
   return { ...header, hash }
 }
 
-async function freePort(): Promise<number> {
-  const server = net.createServer()
-  await new Promise<void>((resolve, reject) => {
-    server.once('error', reject)
-    server.listen(0, '127.0.0.1', resolve)
-  })
-  const address = server.address()
-  if (address === null || typeof address === 'string') throw new Error('Unable to allocate a loopback port')
-  const port = address.port
-  await new Promise<void>((resolve, reject) => server.close(error => (error ? reject(error) : resolve())))
-  return port
+function listeningPort(server: http.Server | undefined): number {
+  const address = server?.address()
+  if (!server?.listening || address == null || typeof address === 'string' || address.port === 0) throw new Error('Controlled listener has no bound TCP port')
+  return address.port
 }
 
 function hostOf(request: IncomingMessage): string {
@@ -488,9 +480,6 @@ export class ControlledWalletServices {
   }
 
   private async startServices(): Promise<void> {
-    this.storagePort = await freePort()
-    this.servicePort = await freePort()
-    this.proxyPort = await freePort()
     await this.overlay.initialize()
     this.serviceServer = http.createServer((request, response) => {
       void this.handleRequest(request, response).catch(error => {
@@ -500,8 +489,9 @@ export class ControlledWalletServices {
     })
     await new Promise<void>((resolve, reject) => {
       this.serviceServer!.once('error', reject)
-      this.serviceServer!.listen(this.servicePort, '127.0.0.1', resolve)
+      this.serviceServer!.listen(0, '127.0.0.1', resolve)
     })
+    this.servicePort = listeningPort(this.serviceServer)
     if (Object.values(this.components).includes('go')) {
       this.goServices = new GoServices(path.join(this.temporaryDirectory, 'go'), this.components, this.goOptions)
       await this.goServices.start(`http://127.0.0.1:${this.servicePort}`, this.storageRootKeyHex)
@@ -518,8 +508,9 @@ export class ControlledWalletServices {
       })
       await new Promise<void>((resolve, reject) => {
         this.goStorageServer!.once('error', reject)
-        this.goStorageServer!.listen(this.storagePort, '127.0.0.1', resolve)
+        this.goStorageServer!.listen(0, '127.0.0.1', resolve)
       })
+      this.storagePort = listeningPort(this.goStorageServer)
     }
     this.proxy = new Proxy()
     this.proxy.onRequest((context, callback) => {
@@ -603,10 +594,11 @@ export class ControlledWalletServices {
       callback()
     })
     await new Promise<void>((resolve, reject) => {
-      this.proxy!.listen({ port: this.proxyPort, host: '0.0.0.0', forceSNI: true, sslCaDir: this.caDirectory }, error =>
+      this.proxy!.listen({ port: 0, host: '0.0.0.0', forceSNI: true, sslCaDir: this.caDirectory }, error =>
         error ? reject(error) : resolve()
       )
     })
+    this.proxyPort = listeningPort(this.proxy.httpServer)
   }
 
   private async startTypeScriptStorage(): Promise<void> {
@@ -674,6 +666,9 @@ export class ControlledWalletServices {
       this.storageServer!.server.once('listening', resolve)
       this.storageServer!.server.once('error', reject)
     })
+    // Initial startup binds port zero atomically. A deliberate storage restart
+    // keeps the already published endpoint, and fails if that port is occupied.
+    this.storagePort = listeningPort(this.storageServer.server)
   }
 
   private async closeTypeScriptStorageServer(): Promise<void> {

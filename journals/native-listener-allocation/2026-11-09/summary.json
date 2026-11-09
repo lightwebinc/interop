@@ -1,0 +1,96 @@
+{
+  "schema": "tpnil-native-listener-allocation-engineering@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "recordedAt": "2026-11-09T21:57:13.549393+00:00",
+  "platform": "Darwin arm64",
+  "failure": {
+    "runId": 42705007019,
+    "source": "3505d92a01fe7aeef7bb90fa1ed52f6eda003c54",
+    "job": "integrated-components",
+    "test": "retains actual typescript counterpart arrays after service ownership maps are retired",
+    "error": "listen EADDRINUSE: address already in use 127.0.0.1:37329",
+    "durationMs": 309,
+    "sourceCause": "Three temporary freePort listeners release their ports before actual service listeners bind; duplicate assignment or intervening allocation can cause EADDRINUSE. Original logs do not identify which other listener owned 37329.",
+    "predicateResults": {
+      "passed": 10,
+      "failed": 1
+    }
+  },
+  "correction": "Bind each initial owned listener to port 0 and publish only its actual bound port after readiness; no retries, reservations or substitute service. Existing published-port restart/outage reopen remains fixed and rejects an occupied port.",
+  "validation": {
+    "command": "npm --prefix synthesis test -- wallet-services-listeners.test.ts wallet-services.test.ts native-shutdown-submissions.test.ts",
+    "passed": 19,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 8.75,
+    "typecheck": "PASS",
+    "newTests": 3,
+    "concurrentInitialStarts": {
+      "typescript": 6,
+      "go": 6,
+      "pairsPerImplementation": 3
+    },
+    "authenticatedStorage": true,
+    "headersAndProxyRouting": true,
+    "caAndEmulatorProxy": true,
+    "fixedPortOutageRestore": true,
+    "occupiedPortReopenRejected": true,
+    "storageRestartEndpointAndIdentityPreserved": true,
+    "allPublishedListenersClosed": true,
+    "partialStartupListenerClosed": true,
+    "initialInProcessListenersBoundToZeroMinimum": 48
+  },
+  "retainedEngineeringFailure": {
+    "path": "preflight-1-failed.txt",
+    "passed": 16,
+    "failed": 2,
+    "classification": "TEST_FIXTURE_ERROR",
+    "cause": "New test called setStorageAvailable instead of the existing public setStorageEndpointAvailable method; corrected only the test API call."
+  },
+  "cancelledNativeRun": {
+    "id": 42705211560,
+    "source": "3505d92a01fe7aeef7bb90fa1ed52f6eda003c54",
+    "classification": "CANCELLED_BEFORE_NATIVE_EXECUTION",
+    "archive": "journals/native-conformance-attempts/2026-11-09/42705211560",
+    "qualification": false
+  },
+  "sources": [
+    {
+      "path": "synthesis/src/wallet-lab/services.ts",
+      "bytes": 55567,
+      "sha256": "736218e1f689d6c309c62b116f91e35b0aeaf97be0f5a10a4a38978fca7958a5"
+    },
+    {
+      "path": "synthesis/test/wallet-services-listeners.test.ts",
+      "bytes": 6343,
+      "sha256": "4a090d5aa510031da71482ff46d5085b15c26ac4ee33c2c7f426c98a1627ee31"
+    }
+  ],
+  "files": [
+    {
+      "path": "foundation-original.txt",
+      "bytes": 43679,
+      "sha256": "0ea50de1dc2b5b3c62c97d3f68dc2ecd9f471077f1e4ec72bc6b0f64b1cd576d"
+    },
+    {
+      "path": "preflight-1-failed.txt",
+      "bytes": 3396,
+      "sha256": "fff459bfea8e55c28a379950171d49bc16f37d68f4a80dfffa4d6d0ffc3324f8"
+    },
+    {
+      "path": "preflight-2.txt",
+      "bytes": 425,
+      "sha256": "552e9f37d4472cb11b405bdd97056aea35ba4050980eb52304cc65679a40cbe1"
+    },
+    {
+      "path": "preflight-3-final.txt",
+      "bytes": 425,
+      "sha256": "e5ab872265ad2d5ab1bc5252a8a14423c19f75e5d5cad603b92733b3df47fd35"
+    },
+    {
+      "path": "typecheck.txt",
+      "bytes": 52,
+      "sha256": "381be222d640c62a1491f0cd300dd4b3d77f00d5b62028c59702bba3119afc8f"
+    }
+  ]
+}
