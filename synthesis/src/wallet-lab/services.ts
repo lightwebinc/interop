@@ -45,6 +45,8 @@ export interface WalletBridgeObservation {
 
 export interface StorageRpcObservation {
   sequence: number
+  /** Present only for an explicitly registered prospective storage counterpart. */
+  host?: string
   method?: string
   status?: number
   durationMs?: number
@@ -170,7 +172,7 @@ export class ControlledWalletServices {
   private goStorageServer?: http.Server
   readonly headers = new Map<number, HeaderRecord>([[0, genesisHeader]])
   readonly routes: RouteObservation[] = []
-  readonly submissions: SubmittedTransaction[] = []
+  private readonly ownSubmissions: SubmittedTransaction[] = []
   readonly walletBridgeObservations: WalletBridgeObservation[] = []
   readonly storageRpcObservations: StorageRpcObservation[] = []
   readonly temporaryDirectory: string
@@ -180,6 +182,9 @@ export class ControlledWalletServices {
   private readonly verdicts: Array<'ACCEPTED_BY_NETWORK' | 'REJECTED'>
   private readonly webroot: string
   private readonly externalOverlayLookups = new Map<string, string>()
+  private readonly externalStorageCounterparts = new Map<string, number>()
+  private readonly ownedStorageCounterparts = new Map<string, ControlledWalletServices>()
+  readonly storageEndpointEvents: Array<{ available: boolean; at: string }> = []
   private readonly wabPort?: number
   private routeSequence = 0
   private servicePort = 0
@@ -205,6 +210,45 @@ export class ControlledWalletServices {
     this.verdicts = [...(options.submitVerdicts ?? [])]
     this.wabPort = options.wabPort
     this.temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'tpnil-wallet-services-'))
+  }
+
+  /** Prospective native replacement route; authentication remains end to end. */
+  createStorageCounterpart(webroot: string, walletStorageRootKeyHex: string): ControlledWalletServices {
+    return new ControlledWalletServices({ webroot, walletStorageRootKeyHex, components: { storage: this.components.storage }, ...(this.goOptions ? { go: { ...this.goOptions } } : {}) })
+  }
+
+  registerStorageCounterpart(host: string, endpoint: string, owner?: ControlledWalletServices): void {
+    if (!/^[a-z0-9-]+\.itcve\.test$/.test(host) || this.externalStorageCounterparts.has(host)) throw new Error('Invalid or duplicate storage counterpart hostname')
+    const url = new URL(endpoint)
+    if (url.protocol !== 'http:' || url.hostname !== '127.0.0.1' || !url.port || url.pathname !== '/' || url.search || url.hash || url.username || url.password) throw new Error('Storage counterpart must be an isolated loopback endpoint')
+    if (owner && (owner === this || owner.storageUrl !== endpoint || [...this.ownedStorageCounterparts.values()].includes(owner))) throw new Error('Storage counterpart ownership differs from endpoint or is duplicated')
+    this.externalStorageCounterparts.set(host, Number(url.port))
+    if (owner) this.ownedStorageCounterparts.set(host, owner)
+  }
+
+  unregisterStorageCounterpart(host: string): void { this.externalStorageCounterparts.delete(host) }
+
+  get submissions(): SubmittedTransaction[] { return this.ownedStorageCounterparts.size === 0 ? this.ownSubmissions : [...this.ownSubmissions, ...[...this.ownedStorageCounterparts.values()].flatMap(service => service.submissions)] }
+
+  recordSubmission(submission: SubmittedTransaction): void { this.ownSubmissions.push(submission) }
+
+  get storageCounterpartIdentities(): Record<string, unknown> {
+    return Object.fromEntries([...this.ownedStorageCounterparts].map(([host, service]) => [host, service.componentIdentity]))
+  }
+
+  /** Stop/reopen only the storage listener, preserving other controlled services. */
+  async setStorageEndpointAvailable(available: boolean): Promise<void> {
+    const server = this.components.storage === 'go' ? this.goStorageServer : this.storageServer?.server as http.Server | undefined
+    if (!server) throw new Error('Storage endpoint is not initialized')
+    if (available && !server.listening) await new Promise<void>((resolve, reject) => {
+      server.once('error', reject)
+      server.listen(this.storagePort, '127.0.0.1', () => { server.off('error', reject); resolve() })
+    })
+    if (!available && server.listening) {
+      server.closeAllConnections()
+      await new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve()))
+    }
+    this.storageEndpointEvents.push({ available: server.listening, at: new Date().toISOString() })
   }
 
   /** Add a real loopback lookup provider for a prospective joined profile. */
@@ -298,7 +342,7 @@ export class ControlledWalletServices {
     }
     remoteServices.postBeef = async (beef, txids) => txids.map(txid => {
       const bytes = Uint8Array.from(beef.toBinaryAtomic(txid))
-      this.submissions.push({ txid, bytes, verdict: 'ACCEPTED_BY_NETWORK' })
+      this.ownSubmissions.push({ txid, bytes, verdict: 'ACCEPTED_BY_NETWORK' })
       return {
         name: 'tpnil-controlled-submission',
         status: 'success' as const,
@@ -310,7 +354,14 @@ export class ControlledWalletServices {
 
   async nativeTransactions(): Promise<Array<{ txid: string; rawTxHex: string }>> {
     if (this.goServices === undefined || this.components.storage !== 'go') throw new Error('Native Go storage is absent')
-    return this.goServices.transactions()
+    const transactions = await this.goServices.transactions()
+    for (const service of this.ownedStorageCounterparts.values()) transactions.push(...await service.nativeTransactions())
+    const unique = new Map<string, { txid: string; rawTxHex: string }>()
+    for (const transaction of transactions) {
+      if (unique.has(transaction.txid) && unique.get(transaction.txid)!.rawTxHex !== transaction.rawTxHex) throw new Error('Counterparts disagree on transaction bytes')
+      unique.set(transaction.txid, transaction)
+    }
+    return [...unique.values()]
   }
 
   async payNativeWallet(publicKey: string, satoshis: number): Promise<{ txid: string; tx: number[] }> {
@@ -451,7 +502,8 @@ export class ControlledWalletServices {
       const host = String(context.clientToProxyRequest.headers.host ?? '').split(':')[0]!.toLowerCase()
       const target = context.proxyToServerRequestOptions
       if (target === undefined) return callback(new Error('Proxy target options are absent'))
-      const disposition = host === 'wallet.1sat.app'
+      const counterpartPort = this.externalStorageCounterparts.get(host)
+      const disposition = host === 'wallet.1sat.app' || counterpartPort !== undefined
         ? 'controlled-wallet-storage'
         : host === 'wab.itcve.test' && this.wabPort !== undefined
           ? 'controlled-service'
@@ -470,9 +522,10 @@ export class ControlledWalletServices {
         pathname: new URL(context.clientToProxyRequest.url ?? '/', 'http://redacted.invalid').pathname,
         disposition
       })
-      if (host === 'wallet.1sat.app') {
+      if (host === 'wallet.1sat.app' || counterpartPort !== undefined) {
         const observation: StorageRpcObservation = {
-          sequence: this.routeSequence, completed: false
+          sequence: this.routeSequence, completed: false,
+          ...(counterpartPort !== undefined ? { host } : {})
         }
         this.storageRpcObservations.push(observation)
         this.storageRequests.set(context, { observation, startedAt: Date.now(), chunks: [], size: 0 })
@@ -481,19 +534,23 @@ export class ControlledWalletServices {
       target.agent = this.proxy!.httpAgent
       target.host = '127.0.0.1'
       const pathname = new URL(context.clientToProxyRequest.url ?? '/', 'http://redacted.invalid').pathname
-      target.port = host === 'wallet.1sat.app'
+      target.port = counterpartPort ?? (host === 'wallet.1sat.app'
         ? this.storagePort
         : host === 'wab.itcve.test' && pathname === '/demo/faucet/request'
           ? this.servicePort
         : host === 'wab.itcve.test' && this.wabPort !== undefined
           ? this.wabPort
-          : this.servicePort
+          : this.servicePort)
       target.headers.host = host
       callback()
     })
     this.proxy.onRequestData((context, chunk, callback) => {
       const request = this.storageRequests.get(context)
-      if (request !== undefined && request.size + chunk.length <= 64_000) {
+      // Prospective replacement sync chunks contain the full wallet dataset;
+      // retain a bounded envelope until its RPC method can be observed. The
+      // historical primary endpoint keeps its existing 64 KB capture bound.
+      const limit = request?.observation.host === undefined ? 64_000 : 16 * 1024 * 1024
+      if (request !== undefined && request.size + chunk.length <= limit) {
         request.chunks.push(Buffer.from(chunk))
         request.size += chunk.length
       }
@@ -559,7 +616,7 @@ export class ControlledWalletServices {
       txids.map(txid => {
         const bytes = Uint8Array.from(beef.toBinaryAtomic(txid))
         const verdict = this.verdicts.shift() ?? 'ACCEPTED_BY_NETWORK'
-        this.submissions.push({ txid, bytes, verdict })
+        this.ownSubmissions.push({ txid, bytes, verdict })
         this.routes.push({
           sequence: ++this.routeSequence,
           method: 'POST',
@@ -638,6 +695,9 @@ export class ControlledWalletServices {
     }
     const failures: unknown[] = []
     const clean = async (operation: () => Promise<unknown>): Promise<void> => { try { await operation() } catch (error) { failures.push(error) } }
+    for (const counterpart of this.ownedStorageCounterparts.values()) await clean(() => counterpart.close())
+    this.ownedStorageCounterparts.clear()
+    this.externalStorageCounterparts.clear()
     await clean(async () => this.faucetWallet?.destroy())
     this.faucetWallet = undefined
     if (this.goStorageServer !== undefined) {
@@ -703,7 +763,7 @@ export class ControlledWalletServices {
       for await (const chunk of request) { size += chunk.length; if (size > 4 * 1024 * 1024) throw new Error('Submission exceeds limit'); chunks.push(Buffer.from(chunk)) }
       const tx = Transaction.fromHex(Buffer.concat(chunks).toString('utf8'))
       const verdict = this.verdicts.shift() ?? 'ACCEPTED_BY_NETWORK'
-      this.submissions.push({ txid: tx.id('hex'), bytes: tx.toUint8Array(), verdict })
+      this.ownSubmissions.push({ txid: tx.id('hex'), bytes: tx.toUint8Array(), verdict })
       sendJson(response, verdict === 'REJECTED' ? 400 : 200, { txid: tx.id('hex'), verdict })
       return
     }
@@ -889,7 +949,7 @@ export class ControlledWalletServices {
         const txid = beef.atomicTxid
         if (txid === undefined) throw new Error('Atomic transaction id is absent')
         const verdict = this.verdicts.shift() ?? 'ACCEPTED_BY_NETWORK'
-        this.submissions.push({ txid, bytes, verdict })
+        this.ownSubmissions.push({ txid, bytes, verdict })
         sendJson(response, verdict === 'REJECTED' ? 400 : 200, {
           txid,
           txStatus: verdict,
@@ -935,7 +995,7 @@ export class ControlledWalletServices {
       const beef = Beef.fromBinary(bytes)
       const txid = beef.atomicTxid ?? Transaction.fromBEEF(bytes).id('hex')
       const verdict = this.verdicts.shift() ?? 'ACCEPTED_BY_NETWORK'
-      this.submissions.push({ txid, bytes, verdict })
+      this.ownSubmissions.push({ txid, bytes, verdict })
       sendJson(response, verdict === 'REJECTED' ? 400 : 200, {
         txid,
         txStatus: verdict,
