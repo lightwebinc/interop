@@ -1,0 +1,58 @@
+{
+  "schema": "tpnil-shutdown-test-timeout-diagnosis@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "recordedAt": "2026-11-09T21:47:42.626761+00:00",
+  "failedRun": {
+    "id": 42705007019,
+    "url": "https://github.com/p2ppsr/interop/actions/runs/42705007019",
+    "source": "3505d92a01fe7aeef7bb90fa1ed52f6eda003c54",
+    "synthesisTests": {
+      "passed": 287,
+      "failed": 2,
+      "skipped": 9
+    },
+    "failure": "Vitest test deadline exceeded; no predicate mismatch reported",
+    "defaultTimeoutMs": 5000,
+    "cases": [
+      {
+        "verdict": "ACCEPTED_BY_NETWORK",
+        "durationMs": 5538
+      },
+      {
+        "verdict": "UNKNOWN",
+        "durationMs": 5621
+      }
+    ]
+  },
+  "change": {
+    "path": "synthesis/test/native-shutdown-submissions.test.ts",
+    "scope": "Only the four delayed denied-payment verdict cases receive an explicit 15000 ms test timeout. Each retains both 5 and 7 satoshi mutations and the complete cryptographic verifier. Runtime, oracle predicates, policy, manifests and native run inputs are unchanged.",
+    "timeoutMs": 15000
+  },
+  "preflight": {
+    "command": "npm --prefix synthesis test -- native-shutdown-submissions.test.ts",
+    "passed": 11,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 8.84,
+    "platform": "Darwin arm64",
+    "nativeQualification": false
+  },
+  "nativeRunUnchanged": {
+    "id": 42705211560,
+    "source": "3505d92a01fe7aeef7bb90fa1ed52f6eda003c54",
+    "outcome": "IN_PROGRESS_AT_RECORDING"
+  },
+  "files": [
+    {
+      "path": "offline-core-original.txt",
+      "bytes": 71608,
+      "sha256": "5a458d8a2fb5306abb320569ffe8dc0f7e235041ca084d4a1c15b34acaa504c2"
+    },
+    {
+      "path": "focused-preflight.txt",
+      "bytes": 365,
+      "sha256": "bfcdca0263977fcd39d8cf44d5d852ea9b4f17779e2301d97bdf720666cf67c9"
+    }
+  ]
+}

@@ -60,7 +60,7 @@ it.each(['ACCEPTED_BY_NETWORK', 'REJECTED', 'REJECTED_INVALID_TX', 'UNKNOWN'])('
     const fixture = await capture({ tail: [receipt(permission.paymentScript, amount, verdict)] })
     await expect(verifyNativeShutdownSubmissions(fixture.bytes, fixture.binding)).rejects.toThrow('Unapproved denied payment')
   }
-})
+}, 15_000)
 
 it('rejects a delayed repeat of the approved payment outside the exact original grant window', async () => {
   const approved = permission.steps.find((row: any) => row.id === 'spending-allow')
