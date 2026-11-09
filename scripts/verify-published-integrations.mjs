@@ -116,13 +116,14 @@ export function verifyIntegrationArchive(directory) {
   }
   const qualification = readJson(path.join(directory, 'qualification.json'))
   assert.equal(qualification.source, manifest.source)
+  const exactHistory = kind === 'component' && qualification.profile === 'ITCVE-1@3.0.0'
   const closure = kind === 'native' && qualification.profile === 'ITCVE-1@2.0.0'
   const coverage = closure || kind === 'native' && qualification.profile === 'ITCVE-1@1.5.0'
   const conformance = coverage || (kind === 'native' && qualification.profile === 'ITCVE-1@1.4.0')
-  assert.equal(qualification.profile, closure ? 'ITCVE-1@2.0.0' : coverage ? 'ITCVE-1@1.5.0' : conformance ? 'ITCVE-1@1.4.0' : 'ITCVE-1@1.3.0')
+  assert.equal(qualification.profile, exactHistory ? 'ITCVE-1@3.0.0' : closure ? 'ITCVE-1@2.0.0' : coverage ? 'ITCVE-1@1.5.0' : conformance ? 'ITCVE-1@1.4.0' : 'ITCVE-1@1.3.0')
   const archive = kind === 'component' ? 'integrated-lab.zip' : 'native-integrated.zip'
   assert(names.includes(archive))
-  if (kind === 'component') { assert.equal(qualification.schema, 'tpnil-integrated-component-qualification@1'); assert.equal(qualification.claim, 'INFRASTRUCTURE_QUALIFICATION_ONLY') }
+  if (kind === 'component') { assert.equal(qualification.schema, exactHistory ? 'tpnil-integrated-component-qualification@2' : 'tpnil-integrated-component-qualification@1'); assert.equal(qualification.claim, 'INFRASTRUCTURE_QUALIFICATION_ONLY') }
   else {
     assert.equal(qualification.schema, conformance ? 'tpnil-native-integrated-qualification@2' : 'tpnil-native-integrated-qualification@1')
     assert.equal(qualification.claim, 'EXPERIMENTAL_CONFORMANCE_RESULT'); assert.equal(qualification.qualifiedEnvironment, true)
@@ -146,11 +147,11 @@ export function componentArchiveSummary(directory) {
   const all = [], findings = []; let laneRuns = 0, isolatedExecutions = 0
   const lanes = result.lanes.map(lane => ({ id: lane.id, runs: lane.runs.map((run, index) => {
     safeName(run.result); all.push(...run.assertions); laneRuns++
-    isolatedExecutions += lane.id === 'storage-sync' ? readJson(path.join(directory, run.result)).runs.length : 1
+    isolatedExecutions += ['storage-sync','descendant-storage-sync'].includes(lane.id) ? readJson(path.join(directory, run.result)).runs.length : 1
     findings.push(...run.assertions.filter(item => item.result !== 'PASS').map(item => ({ lane: lane.id, repetition: index + 1, resultPath: run.result, implementation: item.implementation, id: item.id, result: item.result })))
     return { repetition: index + 1, resultPath: run.result, assertions: run.assertions.length, outcomes: outcomes(run.assertions), exitCode: run.exitCode, timedOut: run.timedOut }
   }) }))
-  return { source: lock.source, laneCount: lanes.length, laneRuns, isolatedExecutions, assertions: { total: all.length, outcomes: outcomes(all) }, lanes, findings }
+  return { source: lock.source, profile: result.profile, laneCount: lanes.length, laneRuns, isolatedExecutions, assertions: { total: all.length, outcomes: outcomes(all) }, lanes, findings }
 }
 export function verifyArchiveSemantics(bundle, { root = repository } = {}) {
   if (bundle.kind === 'attempt') return { semantic: false, reason: 'Failed observer attempt issues no wallet qualification' }

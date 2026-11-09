@@ -3,8 +3,10 @@ import path from 'node:path'
 import { execFileSync, spawn } from 'node:child_process'
 import { digest, inventory, projection, verifyIntegrated } from './integrated-evidence.mjs'
 const root=path.resolve(import.meta.dirname,'..'), output=path.resolve(process.argv[2]??'out/integrated-lab')
+const exactHistory=process.argv[3]==='--exact-history'
+if(process.argv.length>4||(process.argv[3]!==undefined&&!exactHistory)) throw new Error('Usage: run-integrated-lab.mjs OUTPUT [--exact-history]')
 if(fs.existsSync(output)) throw new Error('Choose a new integration evidence directory')
-const profilePath='itcves/ITCVE-1/1.3.0/profile.json'
+const profilePath=exactHistory?'itcves/ITCVE-1/3.0.0/profile.json':'itcves/ITCVE-1/1.3.0/profile.json'
 const profile=JSON.parse(fs.readFileSync(path.join(root,profilePath),'utf8'))
 const source=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim()
 const dirty=Boolean(execFileSync('git',['status','--porcelain'],{cwd:root,encoding:'utf8'}).trim())
@@ -13,13 +15,13 @@ const inputs=[profilePath,...profile.componentProfiles,...profile.dependencies]
 const files=Object.fromEntries(inputs.map(file=>[file,digest(fs.readFileSync(path.join(root,file)))]))
 fs.mkdirSync(output,{recursive:true})
 const write=(name,value)=>fs.writeFileSync(path.join(output,name),JSON.stringify(value,null,2)+'\n')
-write('run-lock.json',{schema:'tpnil-integrated-run-lock@1',source,dirty,profile,files,startedAt:new Date().toISOString(),runtime:{platform:process.platform,architecture:process.arch,node:process.version}})
+write('run-lock.json',{schema:exactHistory?'tpnil-integrated-run-lock@2':'tpnil-integrated-run-lock@1',source,dirty,profile,files,startedAt:new Date().toISOString(),runtime:{platform:process.platform,architecture:process.arch,node:process.version}})
 const lanes=[]
 const execute=async(id,args,result)=> {
   console.log(`[integrated-lab] ${id}: starting`)
   const logfile=path.join(output,`${id}.log`), fd=fs.openSync(logfile,'wx')
   const startedAt=new Date().toISOString()
-  const child=spawn(process.execPath,args,{cwd:root,stdio:['ignore',fd,fd],detached:true})
+  const child=spawn(process.execPath,args,{cwd:root,stdio:['ignore',fd,fd],detached:true,...(exactHistory?{env:{...process.env,TZ:'UTC'}}:{})})
   fs.closeSync(fd)
   let timedOut=false, killTimer
   const timer=setTimeout(()=>{timedOut=true;try{process.kill(-child.pid,'SIGTERM')}catch{};killTimer=setTimeout(()=>{try{process.kill(-child.pid,'SIGKILL')}catch{}},10_000)},600_000)
@@ -33,7 +35,8 @@ const execute=async(id,args,result)=> {
 }
 let executionError
 try {
-  lanes.push({id:'storage-sync',runs:[await execute('storage-sync',['scripts/run-storage-sync.mjs',path.join(output,'storage-sync')],'storage-sync/result.json')]})
+  lanes.push({id:'storage-sync',runs:[await execute('storage-sync',['scripts/run-storage-sync.mjs',path.join(output,'storage-sync'),...(exactHistory?['--projection-v2']:[])],'storage-sync/result.json')]})
+  if(exactHistory) lanes.push({id:'descendant-storage-sync',runs:[await execute('descendant-storage-sync',['scripts/run-descendant-storage-matrix.mjs',path.join(output,'descendant-storage-sync'),'--exact-history'],'descendant-storage-sync/matrix.json')]})
   for(const id of ['overlay-identity','messaging','transport-typescript','transport-go','boundary-typescript','boundary-go']) {
     const runs=[]
     for(let repetition=1;repetition<=2;repetition++) {
@@ -51,7 +54,7 @@ try {
   lanes.push({id:'rust',runs:rust})
   for(const file of inputs) if(digest(fs.readFileSync(path.join(root,file)))!==files[file]) throw new Error(`Frozen input changed: ${file}`)
 } catch(error) { executionError=error.stack??String(error) }
-write('result.json',{schema:'tpnil-integrated-result@1',profile:'ITCVE-1@1.3.0',claim:'INFRASTRUCTURE_QUALIFICATION_ONLY',lanes,executionError,completedAt:new Date().toISOString()})
+write('result.json',{schema:exactHistory?'tpnil-integrated-result@2':'tpnil-integrated-result@1',profile:exactHistory?'ITCVE-1@3.0.0':'ITCVE-1@1.3.0',claim:'INFRASTRUCTURE_QUALIFICATION_ONLY',lanes,executionError,completedAt:new Date().toISOString()})
 write('manifest.json',{schema:'tpnil-integrated-manifest@1',files:inventory(output)})
 if(executionError) throw new Error(executionError)
 const verified=verifyIntegrated(output);write('verification.json',verified);console.log(JSON.stringify(verified))
