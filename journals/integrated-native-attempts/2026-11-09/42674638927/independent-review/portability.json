@@ -1,0 +1,541 @@
+{
+  "schema": "tpnil-native-portability-diagnostic@1",
+  "run": 42674638927,
+  "claim": "READ_ONLY_DIAGNOSTIC",
+  "repetitions": [
+    {
+      "repetition": 1,
+      "sources": [
+        {
+          "path": "out/native-ci-42674638927/repetition-1/evidence/conformance/portability.json",
+          "sha256": "594d57f3b8d4d388910b40488e8ab6843e79b80c0ebc53a11b0373d1731900ee"
+        },
+        {
+          "path": "out/native-ci-42674638927/repetition-1/evidence/native-transactions.json",
+          "sha256": "aca66b0b040dae7427c3bd5dd2e2f90af53de36e69cb09b156fed7acd9125a4c"
+        }
+      ],
+      "result": "FAIL",
+      "assertions": [
+        {
+          "detail": "The source listener is restored; caller retires the isolated replacement after evidence collection.",
+          "id": "portability.cleanup",
+          "result": "PASS"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.same-identity",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.distinct-counterparts",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.native-mediated-sync",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.complete-logical-dataset",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.source-unavailable",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.cold-wallet-reload",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.cold-task-recovery",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.replacement-redemption",
+          "result": "FAIL"
+        }
+      ],
+      "failedAt": {
+        "message": " does not exist in this Beef",
+        "name": "Error",
+        "stack": "Error:  does not exist in this Beef\n    at Beef.getBeefForAtomic (/work/synthesis/node_modules/@bsv/sdk/src/transaction/Beef.ts:378:13)\n    at Beef.getAtomicSerializedBytes (/work/synthesis/node_modules/@bsv/sdk/src/transaction/Beef.ts:403:28)\n    at Beef.toBinaryAtomic (/work/synthesis/node_modules/@bsv/sdk/src/transaction/Beef.ts:1205:28)\n    at qualifyStoragePortability (/work/synthesis/src/wallet-lab/native/conformance-portability.ts:66:80)\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processImmediate (node:internal/timers:541:9)\n    at async runNativePortability (/work/synthesis/src/wallet-lab/native/conformance-portability.ts:193:14)\n    at async Object.runNativeConformance (/work/synthesis/src/wallet-lab/native/conformance.ts:21:23)\n    at async runYoursWallet (/work/synthesis/src/wallet-lab/yours-driver.ts:711:26)\n    at async <anonymous> (/work/synthesis/src/wallet-lab/native/worker.ts:75:18)"
+      },
+      "trace": [
+        {
+          "method": "getPublicKey",
+          "args": {
+            "identityKey": true
+          },
+          "startedAt": "2026-11-09T18:37:44.258Z",
+          "endedAt": "2026-11-09T18:37:44.264Z",
+          "result": {
+            "publicKey": "03d63a3cfb5711dd1cd20b0604eec70389540ee985bd389e58fae5b37225840e96"
+          }
+        },
+        {
+          "method": "listOutputs",
+          "args": {
+            "basket": "todo tokens",
+            "include": "entire transactions",
+            "includeCustomInstructions": true,
+            "includeTags": true,
+            "limit": 1000
+          },
+          "startedAt": "2026-11-09T18:37:44.264Z",
+          "endedAt": "2026-11-09T18:37:44.348Z",
+          "result": {
+            "outputs": [
+              {
+                "outpoint": "757dff2cd3c247e54d7625b9ec68b15b2a8b2805ddfccee96cae84f3ed27f168.0",
+                "satoshis": 2,
+                "spendable": true
+              },
+              {
+                "outpoint": "05e60aeae30658eee599fa4fb0f655e4bc16d8a04f384a97ce6abb81ee5b6fd6.0",
+                "satoshis": 2,
+                "spendable": true
+              }
+            ],
+            "BEEFSha256": "430b2c1f8a371e095247ad9a10516dbdc93a4e88c216aa550c73651febd13761",
+            "BEEFBytes": 1917
+          }
+        },
+        {
+          "method": "listOutputs",
+          "args": {
+            "basket": "todo tokens",
+            "include": "entire transactions",
+            "includeCustomInstructions": true,
+            "includeTags": true,
+            "limit": 1000
+          },
+          "startedAt": "2026-11-09T18:37:44.603Z",
+          "endedAt": "2026-11-09T18:37:44.725Z",
+          "result": {
+            "outputs": [
+              {
+                "outpoint": "757dff2cd3c247e54d7625b9ec68b15b2a8b2805ddfccee96cae84f3ed27f168.0",
+                "satoshis": 2,
+                "spendable": true
+              },
+              {
+                "outpoint": "05e60aeae30658eee599fa4fb0f655e4bc16d8a04f384a97ce6abb81ee5b6fd6.0",
+                "satoshis": 2,
+                "spendable": true
+              }
+            ],
+            "BEEFSha256": "430b2c1f8a371e095247ad9a10516dbdc93a4e88c216aa550c73651febd13761",
+            "BEEFBytes": 1917
+          }
+        },
+        {
+          "method": "listOutputs",
+          "args": {
+            "basket": "todo tokens",
+            "include": "entire transactions",
+            "includeCustomInstructions": true,
+            "includeTags": true,
+            "limit": 1000
+          },
+          "startedAt": "2026-11-09T18:37:44.925Z",
+          "endedAt": "2026-11-09T18:37:45.030Z",
+          "result": {
+            "outputs": [
+              {
+                "outpoint": "757dff2cd3c247e54d7625b9ec68b15b2a8b2805ddfccee96cae84f3ed27f168.0",
+                "satoshis": 2,
+                "spendable": true
+              },
+              {
+                "outpoint": "05e60aeae30658eee599fa4fb0f655e4bc16d8a04f384a97ce6abb81ee5b6fd6.0",
+                "satoshis": 2,
+                "spendable": true
+              },
+              {
+                "outpoint": "",
+                "satoshis": 3,
+                "spendable": true
+              }
+            ],
+            "BEEFSha256": "430b2c1f8a371e095247ad9a10516dbdc93a4e88c216aa550c73651febd13761",
+            "BEEFBytes": 1917
+          }
+        }
+      ],
+      "observedOutpoint": "",
+      "laterSignedTodoTransactions": [
+        {
+          "txid": "e42daa9a130906cd356f1a664d764d225721eddc8defb8b59f1c86b674777a68",
+          "outpoint": "e42daa9a130906cd356f1a664d764d225721eddc8defb8b59f1c86b674777a68.0",
+          "satoshis": 3,
+          "rawHex": "0100000001adba391408868bf96be5d3b59b920cec59c828951fd8b904e14e9b61b9861574010000006b483045022100bbcb32666e23952a7d453dd40141368e3d639df9324256831bcf273fc7c1128302205ccc1cbf1d34368a218b30fcfbfbe3e77ea77ee19bac91a142a997e3e9e701b6412103568d73e604cdb9a7d6e7c45bdcfb316ba5aa0e3a5fe19c0160e2b86a942a8033ffffffff020300000000000000e12102210b8b807edbf558611b5d90f241e3d2ad7219202487adbf95833c08916c9befac2131546f446f44744b7265457a6248594b466a6d6f42756475466d53585855475a474c50ecf6263866059a24800017bc804ff6e850751654c2bcf5ae0086748f8b1168b46c3e84d30741ee201247953523df05773aa052fd5c4dd80fe4d3d6177088e406a847e69889418521bbdcfb2770e2ca95473045022100a390398be19d81cf9f148be615e2640665bcef4a16200b205e5ee033ff19bd8102204836748cb81887a5be03b1dde22ba768907b57a1c7abec1e2247dccbbf75593c6d753e130000000000001976a91450eddc3b10abe3df2c15e3d8c1f6fcd08af6184f88ac00000000",
+          "scriptHex": "2102210b8b807edbf558611b5d90f241e3d2ad7219202487adbf95833c08916c9befac2131546f446f44744b7265457a6248594b466a6d6f42756475466d53585855475a474c50ecf6263866059a24800017bc804ff6e850751654c2bcf5ae0086748f8b1168b46c3e84d30741ee201247953523df05773aa052fd5c4dd80fe4d3d6177088e406a847e69889418521bbdcfb2770e2ca95473045022100a390398be19d81cf9f148be615e2640665bcef4a16200b205e5ee033ff19bd8102204836748cb81887a5be03b1dde22ba768907b57a1c7abec1e2247dccbbf75593c6d75",
+          "ciphertext": [
+            236,
+            246,
+            38,
+            56,
+            102,
+            5,
+            154,
+            36,
+            128,
+            0,
+            23,
+            188,
+            128,
+            79,
+            246,
+            232,
+            80,
+            117,
+            22,
+            84,
+            194,
+            188,
+            245,
+            174,
+            0,
+            134,
+            116,
+            143,
+            139,
+            17,
+            104,
+            180,
+            108,
+            62,
+            132,
+            211,
+            7,
+            65,
+            238,
+            32,
+            18,
+            71,
+            149,
+            53,
+            35,
+            223,
+            5,
+            119,
+            58,
+            160,
+            82,
+            253,
+            92,
+            77,
+            216,
+            15,
+            228,
+            211,
+            214,
+            23,
+            112,
+            136,
+            228,
+            6,
+            168,
+            71,
+            230,
+            152,
+            137,
+            65,
+            133,
+            33,
+            187,
+            220,
+            251,
+            39,
+            112,
+            226,
+            202,
+            149
+          ],
+          "inputCount": 1,
+          "signedInputs": 1
+        }
+      ],
+      "uiStages": [],
+      "storageCalls": 0,
+      "outagePresent": false,
+      "coldReloadPresent": false,
+      "conclusion": "Observer accepted a pending3sat output with empty outpoint and no corresponding BEEF. Later raw native storage contains the fully signed3sat ToDo transaction. No storage replacement UI, sync, outage or cold reload was executed."
+    },
+    {
+      "repetition": 2,
+      "sources": [
+        {
+          "path": "out/native-ci-42674638927/repetition-2/evidence/conformance/portability.json",
+          "sha256": "7e614daadaf98ee4f6b10205e4d4257c9180e53c6cb9dd854313b6559169006e"
+        },
+        {
+          "path": "out/native-ci-42674638927/repetition-2/evidence/native-transactions.json",
+          "sha256": "8481ace0bd11b26e5edc6f13c1564a4c78286807e0db595397b5a7f3d26793e0"
+        }
+      ],
+      "result": "FAIL",
+      "assertions": [
+        {
+          "detail": "The source listener is restored; caller retires the isolated replacement after evidence collection.",
+          "id": "portability.cleanup",
+          "result": "PASS"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.same-identity",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.distinct-counterparts",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.native-mediated-sync",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.complete-logical-dataset",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.source-unavailable",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.cold-wallet-reload",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.cold-task-recovery",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.replacement-redemption",
+          "result": "FAIL"
+        }
+      ],
+      "failedAt": {
+        "message": " does not exist in this Beef",
+        "name": "Error",
+        "stack": "Error:  does not exist in this Beef\n    at Beef.getBeefForAtomic (/work/synthesis/node_modules/@bsv/sdk/src/transaction/Beef.ts:378:13)\n    at Beef.getAtomicSerializedBytes (/work/synthesis/node_modules/@bsv/sdk/src/transaction/Beef.ts:403:28)\n    at Beef.toBinaryAtomic (/work/synthesis/node_modules/@bsv/sdk/src/transaction/Beef.ts:1205:28)\n    at qualifyStoragePortability (/work/synthesis/src/wallet-lab/native/conformance-portability.ts:66:80)\n    at async runNativePortability (/work/synthesis/src/wallet-lab/native/conformance-portability.ts:193:14)\n    at async Object.runNativeConformance (/work/synthesis/src/wallet-lab/native/conformance.ts:21:23)\n    at async runYoursWallet (/work/synthesis/src/wallet-lab/yours-driver.ts:711:26)\n    at async <anonymous> (/work/synthesis/src/wallet-lab/native/worker.ts:75:18)"
+      },
+      "trace": [
+        {
+          "method": "getPublicKey",
+          "args": {
+            "identityKey": true
+          },
+          "startedAt": "2026-11-09T18:45:07.966Z",
+          "endedAt": "2026-11-09T18:45:07.974Z",
+          "result": {
+            "publicKey": "0336d8488455d7badc2bb7338d01ba5aef3997d44bbc597d2d069bce57e36e6bd0"
+          }
+        },
+        {
+          "method": "listOutputs",
+          "args": {
+            "basket": "todo tokens",
+            "include": "entire transactions",
+            "includeCustomInstructions": true,
+            "includeTags": true,
+            "limit": 1000
+          },
+          "startedAt": "2026-11-09T18:45:07.974Z",
+          "endedAt": "2026-11-09T18:45:08.055Z",
+          "result": {
+            "outputs": [
+              {
+                "outpoint": "d7c5ebde3aefa6b8a4617f4417c4bfccb9aa7f67bcbcd30421ecf1566464b0de.0",
+                "satoshis": 2,
+                "spendable": true
+              },
+              {
+                "outpoint": "8143899197463fa2f7a43f4facc226316f10e05616088fbe59e8676b19490eb3.0",
+                "satoshis": 2,
+                "spendable": true
+              }
+            ],
+            "BEEFSha256": "66c2128fbcc54cbc489575c4da0f8b761cd46c3977099d1f187bf0c1a75b9fa0",
+            "BEEFBytes": 1919
+          }
+        },
+        {
+          "method": "listOutputs",
+          "args": {
+            "basket": "todo tokens",
+            "include": "entire transactions",
+            "includeCustomInstructions": true,
+            "includeTags": true,
+            "limit": 1000
+          },
+          "startedAt": "2026-11-09T18:45:08.301Z",
+          "endedAt": "2026-11-09T18:45:08.398Z",
+          "result": {
+            "outputs": [
+              {
+                "outpoint": "d7c5ebde3aefa6b8a4617f4417c4bfccb9aa7f67bcbcd30421ecf1566464b0de.0",
+                "satoshis": 2,
+                "spendable": true
+              },
+              {
+                "outpoint": "8143899197463fa2f7a43f4facc226316f10e05616088fbe59e8676b19490eb3.0",
+                "satoshis": 2,
+                "spendable": true
+              }
+            ],
+            "BEEFSha256": "66c2128fbcc54cbc489575c4da0f8b761cd46c3977099d1f187bf0c1a75b9fa0",
+            "BEEFBytes": 1919
+          }
+        },
+        {
+          "method": "listOutputs",
+          "args": {
+            "basket": "todo tokens",
+            "include": "entire transactions",
+            "includeCustomInstructions": true,
+            "includeTags": true,
+            "limit": 1000
+          },
+          "startedAt": "2026-11-09T18:45:08.599Z",
+          "endedAt": "2026-11-09T18:45:08.720Z",
+          "result": {
+            "outputs": [
+              {
+                "outpoint": "d7c5ebde3aefa6b8a4617f4417c4bfccb9aa7f67bcbcd30421ecf1566464b0de.0",
+                "satoshis": 2,
+                "spendable": true
+              },
+              {
+                "outpoint": "8143899197463fa2f7a43f4facc226316f10e05616088fbe59e8676b19490eb3.0",
+                "satoshis": 2,
+                "spendable": true
+              },
+              {
+                "outpoint": "",
+                "satoshis": 3,
+                "spendable": true
+              }
+            ],
+            "BEEFSha256": "66c2128fbcc54cbc489575c4da0f8b761cd46c3977099d1f187bf0c1a75b9fa0",
+            "BEEFBytes": 1919
+          }
+        }
+      ],
+      "observedOutpoint": "",
+      "laterSignedTodoTransactions": [
+        {
+          "txid": "3c34da1effd6e8c2f22454bbd9b27a7f63c450c489903796781df78fd467c85f",
+          "outpoint": "3c34da1effd6e8c2f22454bbd9b27a7f63c450c489903796781df78fd467c85f.0",
+          "satoshis": 3,
+          "rawHex": "01000000018c571bfa7b71932cebd94abfb5d01731d63ad106900be3e36d0f5f3ea232d9cd010000006b4830450221008aab2a1a2c74bb33f14d9132155368b2ce4fa1b96cfc0506fbfe6ece13b3638902203b6703483426540b424b18190a97fd657223f22748d48562de2e8dd184f47d1e41210394a288835ea747557fc198d5ff5cd8bba0a8fddeff8c39ed224ab57c8cc04656ffffffff020300000000000000e12102f9ffcd1ce0f46b39f9d169b13c65b884229854b116d531cb5cef2c8474fec2a8ac2131546f446f44744b7265457a6248594b466a6d6f42756475466d53585855475a474c50d94f63a965593a09a75c4c3c05bebca2b468320a9e1914ab744436dc3320bf86858f0d4cea8805620fffb04f5600343ddd8f39866a62ad836bcc2fc2155036581090cd96ff64befcbe5085389c1b4fff473045022100f7541c9d948887875e1cbacc757f0ad32ae0656f59a007da055a63683057571c02200c5ecaa25ec4e1e358af3858b7566ac6070e37fe0bcaf2f07fbb17bfeb22c1086d753e130000000000001976a914f96902e9a10c51b87512af568197a7ff14fbc30088ac00000000",
+          "scriptHex": "2102f9ffcd1ce0f46b39f9d169b13c65b884229854b116d531cb5cef2c8474fec2a8ac2131546f446f44744b7265457a6248594b466a6d6f42756475466d53585855475a474c50d94f63a965593a09a75c4c3c05bebca2b468320a9e1914ab744436dc3320bf86858f0d4cea8805620fffb04f5600343ddd8f39866a62ad836bcc2fc2155036581090cd96ff64befcbe5085389c1b4fff473045022100f7541c9d948887875e1cbacc757f0ad32ae0656f59a007da055a63683057571c02200c5ecaa25ec4e1e358af3858b7566ac6070e37fe0bcaf2f07fbb17bfeb22c1086d75",
+          "ciphertext": [
+            217,
+            79,
+            99,
+            169,
+            101,
+            89,
+            58,
+            9,
+            167,
+            92,
+            76,
+            60,
+            5,
+            190,
+            188,
+            162,
+            180,
+            104,
+            50,
+            10,
+            158,
+            25,
+            20,
+            171,
+            116,
+            68,
+            54,
+            220,
+            51,
+            32,
+            191,
+            134,
+            133,
+            143,
+            13,
+            76,
+            234,
+            136,
+            5,
+            98,
+            15,
+            255,
+            176,
+            79,
+            86,
+            0,
+            52,
+            61,
+            221,
+            143,
+            57,
+            134,
+            106,
+            98,
+            173,
+            131,
+            107,
+            204,
+            47,
+            194,
+            21,
+            80,
+            54,
+            88,
+            16,
+            144,
+            205,
+            150,
+            255,
+            100,
+            190,
+            252,
+            190,
+            80,
+            133,
+            56,
+            156,
+            27,
+            79,
+            255
+          ],
+          "inputCount": 1,
+          "signedInputs": 1
+        }
+      ],
+      "uiStages": [],
+      "storageCalls": 0,
+      "outagePresent": false,
+      "coldReloadPresent": false,
+      "conclusion": "Observer accepted a pending3sat output with empty outpoint and no corresponding BEEF. Later raw native storage contains the fully signed3sat ToDo transaction. No storage replacement UI, sync, outage or cold reload was executed."
+    }
+  ]
+}
