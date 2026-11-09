@@ -29,11 +29,13 @@ export async function verifyNativeWallet(directory: string) {
   const read = (name: string) => JSON.parse(fs.readFileSync(path.join(directory, name), 'utf8'))
   const lock = read('run-lock.json'), plan = lock.plan
   assert.equal(lock.schema, 'tpnil-native-wallet-run-lock@1.0.0')
-  const conformance = plan.itcve === 'ITCVE-1@1.4.0'
-  if (conformance) assert.equal(plan.clauseOracle, 'tpnil-brc100-clause-oracle@3.0.0')
+  const coverage = plan.itcve === 'ITCVE-1@1.5.0'
+  const conformance = coverage || plan.itcve === 'ITCVE-1@1.4.0'
+  if (conformance) assert.equal(plan.clauseOracle, coverage ? 'tpnil-brc100-clause-oracle@4.0.0' : 'tpnil-brc100-clause-oracle@3.0.0')
+  if (coverage) assert.equal(plan.permissionLifecycleOracle, 'tpnil-native-permission-lifecycle-oracle@1.0.0')
   const trustedIdentity = conformance || plan.id === 'YOURS-5.1.0-GO-ITCVE-1.3.0-TRUSTED-IDENTITY'
   const integrated = trustedIdentity || plan.id === 'YOURS-5.1.0-GO-ITCVE-1.3.0'
-  const frozen = JSON.parse(fs.readFileSync(fileURLToPath(new URL(conformance ? '../../../../infra/native/conformance/plan.json' : trustedIdentity ? '../../../../infra/native/integrated/plan-trusted.json' : integrated ? '../../../../infra/native/integrated/plan.json' : '../../../../infra/native/yours-go/plan.json', import.meta.url)), 'utf8'))
+  const frozen = JSON.parse(fs.readFileSync(fileURLToPath(new URL(coverage ? '../../../../infra/native/conformance/plan-coverage.json' : conformance ? '../../../../infra/native/conformance/plan.json' : trustedIdentity ? '../../../../infra/native/integrated/plan-trusted.json' : integrated ? '../../../../infra/native/integrated/plan.json' : '../../../../infra/native/yours-go/plan.json', import.meta.url)), 'utf8'))
   assert.equal(canonicalJson(plan), canonicalJson(frozen))
   assert.equal(plan.id, conformance ? frozen.id : trustedIdentity ? 'YOURS-5.1.0-GO-ITCVE-1.3.0-TRUSTED-IDENTITY' : integrated ? 'YOURS-5.1.0-GO-ITCVE-1.3.0' : 'YOURS-5.1.0-GO-ITCVE-1.2.0')
   if (integrated) {
@@ -65,7 +67,7 @@ export async function verifyNativeWallet(directory: string) {
     assert.equal(after.state.ExitCode, 0); assert.equal(after.state.OOMKilled, false); assert.equal(cleanup.removed, true)
     const rep = path.join(directory, `repetition-${index}`)
     const record = verifyEvidenceBundle(rep)
-    assert.equal(record.itcve, conformance ? 'ITCVE-1@1.4.0' : integrated ? 'ITCVE-1@1.3.0' : 'ITCVE-1@1.1.0')
+    assert.equal(record.itcve, coverage ? 'ITCVE-1@1.5.0' : conformance ? 'ITCVE-1@1.4.0' : integrated ? 'ITCVE-1@1.3.0' : 'ITCVE-1@1.1.0')
     const evidence = (name: string) => JSON.parse(fs.readFileSync(path.join(rep, 'evidence', name), 'utf8'))
     const installed = read(`repetition-${index}/installed-artifacts.json`)
     assert.equal(installed.exactArchiveContents, true)
@@ -156,7 +158,7 @@ export async function verifyNativeWallet(directory: string) {
     let inputs = 0; for (const input of spend.inputs) { const sourceOutput = input.sourceTransaction?.outputs[input.sourceOutputIndex!]; assert.ok(sourceOutput?.satoshis !== undefined); inputs += sourceOutput.satoshis }
     const outputs = spend.outputs.reduce((sum, item) => sum + (item.satoshis ?? 0), 0); assert.ok(inputs >= outputs)
     let vectors: VectorResult[] = structuredClone(conformance ? evidence('conformance/baseline-vectors.json') : record.vectors)
-    if (conformance) { assert.equal(record.program, 'ISI-4@2.0.0'); assert.equal(record.profile, 'production-wallet-native-conformance') }
+    if (conformance) { assert.equal(record.program, coverage ? 'ISI-4@3.0.0' : 'ISI-4@2.0.0'); assert.equal(record.profile, 'production-wallet-native-conformance') }
     for (const vector of vectors.slice(0, 4)) assert.equal(vector.outcome, 'PASS')
     const permission = evidence('permissions.json')
     const explicitDenial = (value: { rejected?: boolean; independentlyPrompted?: boolean; message?: string }) =>
@@ -193,10 +195,11 @@ export async function verifyNativeWallet(directory: string) {
       const metadata = clauses.trace.find((row: any) => row.id === 'setup.metadata')
       assert.ok(metadata, 'Clause metadata creation observation is absent')
       assert.equal(clauses.metadataTxid, metadata.result?.txid)
+      let corpusPayment: string | undefined
       if (typeof metadata.result?.txid === 'string') {
         const transaction = transactions.get(metadata.result.txid)
         assert.ok(transaction, 'Native storage omitted the clause metadata transaction')
-        const corpusPayment = await verifyBoundaryFundingRoot(evidence('integrated/boundary.json'), { identity: evidence('integrated/result.json').walletIdentity, fixture, storageTransactions, submissions: evidence('native-submissions.json'), metadataTxid: transaction.id('hex') })
+        corpusPayment = await verifyBoundaryFundingRoot(evidence('integrated/boundary.json'), { identity: evidence('integrated/result.json').walletIdentity, fixture, storageTransactions, submissions: evidence('native-submissions.json'), metadataTxid: transaction.id('hex') })
         assert.ok(spendsOnlyDeclaredNativePayments(transaction, [...nativeFundingOutpoints, ...(corpusPayment ? [corpusPayment] : [])]), 'Clause metadata has an input outside the exact initial reserves or independently verified method-corpus payment')
         assert.ok(await transaction.verify(tracker), 'Clause metadata signature or mined ancestry is invalid')
         for (const [index, satoshis] of [2, 3, 4].entries()) {
@@ -204,8 +207,20 @@ export async function verifyNativeWallet(directory: string) {
           assert.equal(transaction.outputs[index]?.lockingScript.toHex(), '51')
         }
       }
+      if (coverage) {
+        const permissionLifecycle = evidence('conformance/permission-lifecycle.json')
+        const window = permissionLifecycle.submissionWindow, submissions = evidence('native-submissions.json')
+        assert.ok(Number.isSafeInteger(window.startIndex) && window.startIndex >= 0 && Number.isSafeInteger(window.endIndex) && window.endIndex >= window.startIndex && window.endIndex <= submissions.length)
+        assert.deepEqual(window.entries, submissions.slice(window.startIndex, window.endIndex).map((row: any, offset: number) => ({ index: window.startIndex + offset, txid: row.txid, verdict: row.verdict, serializedHex: row.beefHex })), 'Permission lifecycle window differs from the complete global receipt ledger')
+        assert.ok(Array.isArray(permissionLifecycle.transactions))
+        const rows = [...permissionLifecycle.transactions]
+        const anchor = clauses.trace.find((row: any) => row.id === 'setup.input.createAction.options.noSendChange.0')
+        if (Array.isArray(anchor?.result?.tx) && typeof anchor.result.txid === 'string') rows.push({ role: 'clause-nosend-anchor', txid: anchor.result.txid, atomicBeef: anchor.result.tx })
+        const { verifyCoverageNativeTransactions } = await import('./verify-conformance-coverage-transactions.js')
+        await verifyCoverageNativeTransactions(rows, { storageTransactions, declaredNativePayments: [...nativeFundingOutpoints, ...(corpusPayment ? [corpusPayment] : [])], fixture })
+      }
       const { verifyNativeConformance } = await import('./verify-conformance.js')
-      const prospective = await verifyNativeConformance(path.join(rep, 'evidence'), vectors, plan.lifecycleOracle, plan.portabilityOracle)
+      const prospective = await verifyNativeConformance(path.join(rep, 'evidence'), vectors, plan.lifecycleOracle, plan.portabilityOracle, plan.clauseOracle, plan.itcve)
       assert.deepEqual(record.vectors, prospective.vectors)
       vectors = prospective.vectors
       conformanceSemanticProjections.push(prospective.semanticProjection)

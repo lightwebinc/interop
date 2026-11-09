@@ -12,6 +12,7 @@ on:
           - integrated-native
           - integrated-native-trusted
           - integrated-native-conformance
+          - integrated-native-conformance-coverage
 permissions:
   contents: read
 jobs:
@@ -84,7 +85,7 @@ jobs:
           rustup toolchain install 1.88.0 --profile minimal
           docker build --build-arg TPNIL_NATIVE_BASE=tpnil-native-go:${{ github.sha }} -f infra/native/integrated/Dockerfile -t tpnil-native-integrated:${{ github.sha }} .
       - name: Build the prospective conformance image
-        if: inputs.profile == 'integrated-native-conformance'
+        if: startsWith(inputs.profile, 'integrated-native-conformance')
         run: |
           node scripts/prepare-storage-portability-go.mjs
           docker build --build-arg TPNIL_INTEGRATED_BASE=tpnil-native-integrated:${{ github.sha }} -f infra/native/conformance/Dockerfile -t tpnil-native-conformance:${{ github.sha }} .
@@ -101,6 +102,7 @@ jobs:
           native_image=tpnil-native-integrated:${{ github.sha }}
           if [ "$TPNIL_NATIVE_PROFILE" = integrated-native-trusted ]; then native_flag=--integrated-trusted; fi
           if [ "$TPNIL_NATIVE_PROFILE" = integrated-native-conformance ]; then native_flag=--conformance; native_image=tpnil-native-conformance:${{ github.sha }}; fi
+          if [ "$TPNIL_NATIVE_PROFILE" = integrated-native-conformance-coverage ]; then native_flag=--conformance-coverage; native_image=tpnil-native-conformance:${{ github.sha }}; fi
           node scripts/run-native-go-wallet.mjs "$native_image" out/native-go-wallet "$native_flag"
           node scripts/verify-native-integrated.mjs out/native-go-wallet
       - name: Retain every attempt and qualification receipt

@@ -33,10 +33,10 @@ test('published archive integrity binds every byte and complete file set without
   fs.appendFileSync(path.join(directory, 'qualification.json'), ' ')
   assert.throws(() => verifyIntegrationArchive(directory))
 }))
-test('native conformance publication binds the new schema and preserves its incomplete-conformance claim', () => temporary(directory => {
+for (const [profile, program] of [['ITCVE-1@1.4.0', 'ISI-4@2.0.0'], ['ITCVE-1@1.5.0', 'ISI-4@3.0.0']]) test(`${profile} publication binds its program and preserves incomplete conformance`, () => temporary(directory => {
   const source = 'ab'.repeat(20)
   fs.writeFileSync(path.join(directory, 'native-integrated.zip'), zip([{ name: 'result.json', body: '{}' }]))
-  const qualification = { schema: 'tpnil-native-integrated-qualification@2', claim: 'EXPERIMENTAL_CONFORMANCE_RESULT', profile: 'ITCVE-1@1.4.0', program: 'ISI-4@2.0.0', source, qualifiedEnvironment: true, completeBRC100Conformance: false }
+  const qualification = { schema: 'tpnil-native-integrated-qualification@2', claim: 'EXPERIMENTAL_CONFORMANCE_RESULT', profile, program, source, qualifiedEnvironment: true, completeBRC100Conformance: false }
   const publish = () => {
     fs.writeFileSync(path.join(directory, 'qualification.json'), JSON.stringify(qualification))
     fs.writeFileSync(path.join(directory, 'provenance.json'), JSON.stringify({ schema: 'tpnil-integrated-native-archive@1', source, files: ['qualification.json', 'native-integrated.zip'].map(name => { const bytes = fs.readFileSync(path.join(directory, name)); return { path: name, size: bytes.length, sha256: hash(bytes) } }) }))
@@ -47,7 +47,8 @@ test('native conformance publication binds the new schema and preserves its inco
   qualification.schema = 'tpnil-native-integrated-qualification@1'; publish(); assert.throws(() => verifyIntegrationArchive(directory))
   qualification.schema = 'tpnil-native-integrated-qualification@2'
   qualification.program = 'ISI-4@1.0.0'; publish(); assert.throws(() => verifyIntegrationArchive(directory))
-  qualification.program = 'ISI-4@2.0.0'
+  qualification.program = program === 'ISI-4@3.0.0' ? 'ISI-4@2.0.0' : 'ISI-4@3.0.0'; publish(); assert.throws(() => verifyIntegrationArchive(directory))
+  qualification.program = program
   qualification.profile = 'ITCVE-1@1.3.0'; publish(); assert.throws(() => verifyIntegrationArchive(directory))
 }))
 test('unlisted files and duplicate inventory entries cannot verify', () => temporary(directory => {

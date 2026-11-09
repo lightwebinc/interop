@@ -26,6 +26,10 @@ jobs:
       - run: npm test --prefix synthesis
       - run: node scripts/verify-published-journals.mjs
       - run: node scripts/verify-native-reserve-reference.mjs
+      - run: node scripts/verify-descendant-storage-archives.mjs --semantic
+      - run: node journals/native-nosend-change/2026-11-09/oracle4-preflight/replay.mjs
+      - run: node scripts/verify-native-permission-lifecycle-archive.mjs --semantic
+      - run: node scripts/verify-native-portability-archive.mjs
       - run: python3 scripts/verify-native-clause-journal.py
       - run: python3 scripts/verify-native-clause-journal.py journals/native-clause-reference/2026-11-09/oracle-3.0.0
       - run: python3 -m unittest discover -s test -p 'test_*.py' -v

@@ -66,7 +66,7 @@ export interface NativeScenarioContext {
 }
 
 export interface YoursRunOptions {
-  integratedProfile?: 'ITCVE-1@1.3.0' | 'ITCVE-1@1.4.0'
+  integratedProfile?: 'ITCVE-1@1.3.0' | 'ITCVE-1@1.4.0' | 'ITCVE-1@1.5.0'
   go?: import('./go-services.js').GoServiceOptions
   prepareScenario?: (context: NativeScenarioContext) => Promise<void>
   additionalScenario?: (context: NativeScenarioContext) => Promise<void | { vectors: VectorResult[] }>
@@ -151,8 +151,8 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
   const outputDirectory = path.resolve(options.outputDirectory)
   const runId = path.basename(outputDirectory)
   const evidence = new EvidenceBundle(outputDirectory)
-  if (options.go?.storageSyncPatch && !['ITCVE-1@1.3.0', 'ITCVE-1@1.4.0'].includes(options.integratedProfile ?? '')) throw new Error('Patched native services require the prospective integrated profile')
-  if (options.go?.terminalRejectionReceipts && options.integratedProfile !== 'ITCVE-1@1.4.0') throw new Error('Terminal submission receipts require the prospective conformance profile')
+  if (options.go?.storageSyncPatch && !['ITCVE-1@1.3.0', 'ITCVE-1@1.4.0', 'ITCVE-1@1.5.0'].includes(options.integratedProfile ?? '')) throw new Error('Patched native services require the prospective integrated profile')
+  if (options.go?.terminalRejectionReceipts && !['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0'].includes(options.integratedProfile ?? '')) throw new Error('Terminal submission receipts require the prospective conformance profile')
   const services = new ControlledWalletServices({ webroot, components: options.components, go: options.go })
   const permissions: PermissionObservation[] = []
   const consoleErrors: string[] = []
@@ -558,7 +558,7 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
       submission?: { txid: string; verdict: 'ACCEPTED_BY_NETWORK' | 'REJECTED'; sha256: string }
       submissionWindow?: TodoSubmissionWindow
     }> => {
-      services.enqueueVerdict(verdict, options.integratedProfile === 'ITCVE-1@1.4.0' ? { kind: 'todo-output', protocol: todoProtocol, amount: 2 } : undefined)
+      services.enqueueVerdict(verdict, ['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0'].includes(options.integratedProfile ?? '') ? { kind: 'todo-output', protocol: todoProtocol, amount: 2 } : undefined)
       const submissionsBefore = services.submissions.length
       const phaseStartedAt = new Date().toISOString()
       const casePage = await context!.newPage()
@@ -592,7 +592,7 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
         while (Date.now() < deadline) {
           body = await within(`immediate ${verdict} page observation`, 5_000,
             casePage.locator('body').innerText())
-          if (options.integratedProfile === 'ITCVE-1@1.4.0') {
+          if (['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0'].includes(options.integratedProfile ?? '')) {
             const candidate = bindTodoSubmissionWindow(services.submissions, submissionsBefore, name, phaseStartedAt, new Date().toISOString())
             if (candidate.selection !== 'none') break
           } else if (services.submissions.length > submissionsBefore) break
@@ -610,7 +610,7 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
       } finally {
         await casePage.close().catch(() => undefined)
       }
-      const submissionWindow = options.integratedProfile === 'ITCVE-1@1.4.0'
+      const submissionWindow = ['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0'].includes(options.integratedProfile ?? '')
         ? bindTodoSubmissionWindow(services.submissions, submissionsBefore, name, phaseStartedAt, new Date().toISOString()) : undefined
       const observed = submissionWindow === undefined
         ? services.submissions.length > submissionsBefore ? services.submissions.at(-1) : undefined
@@ -638,7 +638,7 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     const rejectedPassed = rejected.submission?.verdict === 'REJECTED' && rejectedStatePreserved
     const recoveryPassed = recovered.submission?.verdict === 'ACCEPTED_BY_NETWORK' && recoveredStateAdvanced
     evidence.addJson('broadcast-lifecycle.json', {
-      ...(options.integratedProfile === 'ITCVE-1@1.4.0' ? { submissionBinding: todoSubmissionBinding } : {}),
+      ...(['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0'].includes(options.integratedProfile ?? '') ? { submissionBinding: todoSubmissionBinding } : {}),
       accepted,
       rejected,
       recovered,
@@ -719,9 +719,9 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     if (options.additionalScenario !== undefined) {
       progress('additional integrated component scenario: starting')
       const baselineVectors = structuredClone(vectors)
-      if (options.integratedProfile === 'ITCVE-1@1.4.0') evidence.addJson('conformance/baseline-vectors.json', baselineVectors)
+      if (['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0'].includes(options.integratedProfile ?? '')) evidence.addJson('conformance/baseline-vectors.json', baselineVectors)
       const additional = await options.additionalScenario({ application, context, extensionId, password: 'TPNIL-Fixture-Only-2026!', services, evidence, baselineVectors, manualPrompt })
-      if (options.integratedProfile === 'ITCVE-1@1.4.0') {
+      if (['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0'].includes(options.integratedProfile ?? '')) {
         if (!additional || additional.vectors.length !== 8 || additional.vectors.some((vector, i) => vector.id !== `ISI-4-V00${i + 1}`)) throw new Error('Conformance scenario omitted required vector outcomes')
         vectors.splice(0, vectors.length, ...additional.vectors)
         evidence.addJson('conformance/service-counterparts.json', services.storageCounterpartIdentities)
@@ -738,9 +738,9 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     const resultWithoutEvidence: Omit<WalletLabResult, 'evidence'> = {
       schema: 'tpnil-isi4-wallet-run@1.0.0',
       claim: Object.values(services.components).includes('go') ? 'ENGINEERING_OBSERVATION_ONLY' : 'EXPERIMENTAL_CONFORMANCE_RESULT',
-      program: options.integratedProfile === 'ITCVE-1@1.4.0' ? 'ISI-4@2.0.0' : 'ISI-4@1.0.0',
+      program: options.integratedProfile === 'ITCVE-1@1.5.0' ? 'ISI-4@3.0.0' : options.integratedProfile === 'ITCVE-1@1.4.0' ? 'ISI-4@2.0.0' : 'ISI-4@1.0.0',
       itcve: options.integratedProfile ?? (Object.values(services.components).includes('go') ? 'ITCVE-1@1.1.0' : 'ITCVE-1@1.0.0'),
-      profile: options.integratedProfile === 'ITCVE-1@1.4.0' ? 'production-wallet-native-conformance' : 'production-wallet-todo-controlled-services',
+      profile: ['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0'].includes(options.integratedProfile ?? '') ? 'production-wallet-native-conformance' : 'production-wallet-todo-controlled-services',
       runId,
       startedAt,
       endedAt: new Date().toISOString(),

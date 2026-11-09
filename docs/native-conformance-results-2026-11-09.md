@@ -27,6 +27,9 @@ establishes complete BRC-100 conformance or certification.
 | [Foundation 42680171419](https://github.com/p2ppsr/interop/actions/runs/42680171419) | All three jobs pass on `3f9cbea`: 155 synthesis with eight gated skips, 76 core, five Python, 11 Go, three transport, 14 service and one Rust test; dependency audit has zero findings. [Original artifact and independent replay](../journals/integrated-component-qualification/2026-11-09/42680171419/README.md) retain 504 PASS and six unchanged Go FAIL observations. |
 | [Native 42680240116](https://github.com/p2ppsr/interop/actions/runs/42680240116) | Both workers complete; replacement storage cannot retrieve a synchronized mined ancestor, and the producer/oracle dataset disagreement prevents qualification. [Original artifact and diagnosis](../journals/integrated-native-attempts/2026-11-09/42680240116/README.md) retain V001–V005 PASS and V006–V008 FAIL. |
 
+| [Foundation42689603169](https://github.com/p2ppsr/interop/actions/runs/42689603169) | All three jobs pass on `d02414f`. [Generic component archive](../journals/integrated-component-qualification/2026-11-09/42689603169/README.md) retains504PASS/6FAIL; the separate [descendant storage archive](../journals/descendant-storage-qualification/2026-11-09/42689603169/README.md) independently verifies80PASS across eight clean runs and four TS/Go directions. |
+| [Native42690318194](https://github.com/p2ppsr/interop/actions/runs/42690318194) | Both workers complete and clean up; original permissions, rejection/recovery and all77 integrated checks independently pass. Source-off cold task recovery works. The parent rejects portability UI casing and unproven signed redemption timing. [Original artifact and independent diagnosis](../journals/integrated-native-attempts/2026-11-09/42690318194/README.md) retain the failed qualification and no Rust execution. |
+
 In native 42667035861 each worker reports V001–V005 PASS and V006–V008 FAIL.
 Independent child review confirms permission 8 PASS and clause 132 PASS / 98 FAIL /
 2 BLOCKED per repetition. Lifecycle recovery fails with insufficient funds;
@@ -74,6 +77,23 @@ No Rust execution occurred because parent verification stopped first. All 263
 reported outcomes match, but this does not qualify the disputed portability
 observations. Both workers and containers cleanly shut down and the host setting
 is restored. The original 124 artifact members remain unchanged.
+
+In native42690318194, both repetitions report V001–V006 PASS and V007–V008
+FAIL, with identical263-predicate reports:162PASS,99FAIL,2BLOCKED. Independent
+partial verification confirms the original eight permissions, all six ToDo/API
+rejection-and-recovery checks, and all77 integrated checks per repetition. Cold
+Lock/Unlock and task reconstruction now succeed from replacement storage while
+the source listener is unavailable. Each exported dataset independently closes
+its12 signed transactions to the pinned mined root.
+
+Qualification still fails: the rendered native status is `IN USE`, whereas the
+frozen oracle2 requires `In use`. The final replacement snapshot also contains
+an unsigned redemption reservation. The original absence read and snapshot
+precede completion; later signed storage bytes cannot prove completion during
+the source outage. All132 original artifact members, full failed parent replay,
+partial reviews and diagnosis remain unchanged. Rust did not execute. These
+observations justify a prospective oracle correction, not retrospective passing
+results for the original run.
 
 The additional native clause blocker has independent transaction proof:
 `noSendChange` identifies an unsigned transaction's output while `tx` and
@@ -148,7 +168,7 @@ mined root and every owned signed transaction, and still requires actual cold
 read/decrypt/redemption while the source is unavailable. It cannot borrow the
 task's separately captured BEEF to fill a missing export. Schema 1 retains its
 original guard and failures. The [two final reference runs](../journals/native-portability-reference/2026-11-09/ancestry-closure-v2/README.md)
-pass 9/9 each. The separate descendant-funded matrix passes all four TS/Go
+pass 9/9 each. The separate [descendant-funded matrix](../journals/descendant-storage-sync/2026-11-09/README.md) passes all four TS/Go
 directions twice with eight distinct fixture identities: 80/80 predicates,
 including empty replacements, private owner boundaries, tiny-page traversal,
 dataset-only proof verification and fresh-wallet recovery/redemption. These
@@ -174,6 +194,33 @@ produced an invalid 31-byte positive fixture. A deterministic zero-prefixed key
 survives actual remote acquisition, proof and strict SDK disclosure in the
 [regression evidence](../journals/certificate-fixture-reference/2026-11-09/README.md).
 The correction changes the issuer fixture, not the storage or wallet SUT.
+
+The separately frozen [ITCVE1.5 profile](../itcves/ITCVE-1/1.5.0/README.md)
+and [ISI4 version3 criteria](../programs/ISI-4/3.0.0/README.md) add16 native
+category/revocation predicates and one returned-change predicate, for280
+conformance predicates. Historical1.4 plans and evidence remain unchanged.
+Portability oracle3 retains complete authenticated dataset polls and requires a
+signed task spend with valid ancestry and successful replacement processing
+before the final read, final snapshot and source restoration. Exact rendered
+active-status lines permit case and whitespace normalization only.
+
+The new permission lifecycle uses native basket, certificate and one-shot
+spending prompts, Settings individual revocation and origin-wide revocation.
+Subsequent native requests prove denied access, restored access and isolation
+of unrelated grants and the other origin. Independent certificate decryption,
+actual signed payments, exact matching submission receipts and full global
+receipt windows supply effects beyond UI text. No private permission store is
+edited, and the scenario introduces no funding.
+
+[Clause oracle4 engineering evidence](../journals/native-nosend-change/2026-11-09/oracle4-preflight/README.md)
+establishes a valid caller input from final signed transaction bytes and matching
+labelled public action outputs. The released wallet passes this input case but
+returns a stale unsigned-transaction outpoint, which separately fails the new
+return predicate. TypeScript and Go references pass both. Optional absent/empty
+returns remain BLOCKED for that unexercised branch; a valid nonempty subset is
+allowed. No returned value is silently repaired and no oracle3 BLOCKED result
+is rewritten. These macOS/reference checks are engineering evidence; the new
+Linux native profile still requires its own complete retained qualification.
 
 ## Reference evidence and unresolved scope
 

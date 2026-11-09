@@ -6,7 +6,9 @@ import { expect, it } from 'vitest'
 import { nativeWalletBoundary } from '../src/wallet-lab/native/integrated.js'
 import { permissionAssertionIds } from '../src/wallet-lab/native/conformance-permissions-model.js'
 import { portabilityAssertions } from '../src/wallet-lab/native/conformance-portability.js'
-import { clauseAssertionIds } from '../src/wallet-lab/native/conformance-clauses-model.js'
+import { clauseAssertionIds, clauseOracle4AssertionIds } from '../src/wallet-lab/native/conformance-clauses-model.js'
+
+import { permissionLifecycleAssertionIds, permissionLifecycleOracle } from '../src/wallet-lab/native/conformance-permission-lifecycle-model.js'
 
 const root = path.resolve(import.meta.dirname, '../..')
 const read = (name: string) => JSON.parse(fs.readFileSync(path.join(root, name), 'utf8'))
@@ -56,4 +58,25 @@ it('keeps legacy success values and prospective success values identical', async
   const application = page({ listOutputs: async (args: any) => ({ totalOutputs: 1, outputs: [{ outpoint: `${'ab'.repeat(32)}.0`, basket: args.basket }] }) })
   const legacy = await nativeWalletBoundary(application).listOutputs({ basket: 'observed' })
   expect(await nativeWalletBoundary(application, true).listOutputs({ basket: 'observed' })).toEqual(legacy)
+})
+
+it('binds the additional native profile to its complete inventory and separate acceptance inputs', () => {
+  const plan = read('infra/native/conformance/plan-coverage.json'), profile = read('itcves/ITCVE-1/1.5.0/profile.json')
+  expect(plan.itcve).toBe('ITCVE-1@1.5.0'); expect(plan.program).toBe('ISI-4@3.0.0')
+  expect(plan.clauseOracle).toBe('tpnil-brc100-clause-oracle@4.0.0')
+  expect(plan.permissionLifecycleOracle).toBe(permissionLifecycleOracle)
+  expect(plan.portabilityOracle).toBe('tpnil-native-portability-oracle@3.0.0')
+  expect(profile.nativeConformance.portabilityOracle).toBe(plan.portabilityOracle)
+  expect(Object.keys(plan.conformanceInputs)).toHaveLength(8)
+  for (const [file, digest] of Object.entries(plan.conformanceInputs)) expect(createHash('sha256').update(fs.readFileSync(path.join(root, file))).digest('hex')).toBe(digest)
+  expect(profile.nativeConformance.assertions['ISI-4-V005']).toEqual([...permissionAssertionIds, ...permissionLifecycleAssertionIds])
+  expect(profile.nativeConformance.assertions['ISI-4-V008']).toEqual(clauseOracle4AssertionIds)
+  expect(clauseOracle4AssertionIds).toHaveLength(233)
+  expect(profile.completeBRC100Conformance).toBe(false)
+  const inherited = read('infra/native/conformance/plan.json')
+  expect(plan.wallet).toEqual(inherited.wallet); expect(plan.application).toEqual(inherited.application)
+  expect(plan.fundingReserves).toEqual(inherited.fundingReserves)
+  expect(plan.compatibilityPatchSha256).toBe(inherited.compatibilityPatchSha256)
+  expect(inherited.clauseOracle).toBe('tpnil-brc100-clause-oracle@3.0.0')
+  expect(inherited.permissionLifecycleOracle).toBeUndefined()
 })
