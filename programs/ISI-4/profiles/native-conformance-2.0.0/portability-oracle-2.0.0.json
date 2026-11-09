@@ -1,0 +1,17 @@
+{
+  "id": "tpnil-native-portability-oracle@2.0.0",
+  "profile": "ISI-4@2.0.0",
+  "predecessor": "native-storage-portability schema1 frozen predicates",
+  "changeClass": "MAJOR_VERDICT_CHANGE",
+  "reportSchema": "tpnil-native-storage-portability@2",
+  "cause": "Native attempt42680240116 exposed both unusable exported ancestor references and an oracle assumption that every recipient owns a mined transaction row. Failed original samples and schema1 predicates remain unchanged.",
+  "criteria": [
+    "Exact authenticated owner-scoped complete dataset reconstruction and logical metadata/proof-byte equality remain required.",
+    "Independently build source and destination graphs only from each dataset rawTx, inputBEEF and provenTx proof records; never seed either from task/listOutputs BEEF or fixture transaction bytes.",
+    "Require actual retained mined raw transaction and BUMP to equal the admitted funding fixture hash, raw bytes, height and root. Verify every owned signed transaction and every retained raw transaction record, with no unresolved txid-only ancestors and valid scripts.",
+    "All original source outage, native settings sync/activation/removal, same identity, cold lock/unlock/cache retirement, task decryption, metadata preservation, redemption and ordered final snapshot criteria remain required."
+  ],
+  "implementation": "synthesis/src/wallet-lab/native/portability-proof.ts",
+  "legacy": "Schema1 still requires a nonempty owned provenTx table and retains its original task-seeded proof predicate. Schema2 is prospective only; it does not promote old failed runtime reports.",
+  "externalRoots": "No root funding seed, database copy, external transaction service fetch or private native wallet extraction is admitted."
+}

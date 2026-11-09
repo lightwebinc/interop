@@ -6,6 +6,7 @@ import { entities, projectDataset, type Dataset } from '../../storage-sync/proje
 import { canonicalSyncChunk } from '../../storage-sync/compatibility.js'
 import { canonicalJson } from '../../determinism.js'
 import { portabilityAssertions, portableTask } from './conformance-portability.js'
+import { verifyPortableProofClosure } from './portability-proof.js'
 const fixture = JSON.parse(fs.readFileSync(path.resolve(import.meta.dirname, '../../../../fixtures/teranode/wab-funding-v1.json'), 'utf8'))
 const tracker = { currentHeight: async () => 900100, isValidRootForHeight: async (root: string, height: number) => root === fixture.merkleRoot && height === fixture.fundingHeight }
 
@@ -24,7 +25,10 @@ function datasetBeef(dataset: Dataset, starting: number[]): Beef {
 
 /** Recompute public operations, full logical projection and signed ancestry. */
 export async function verifyNativePortability(report: any, { requireNative = true } = {}) {
-  assert.equal(report.schema, 'tpnil-native-storage-portability@1')
+  const v2 = report.schema === 'tpnil-native-storage-portability@2'
+  assert.ok(v2 || report.schema === 'tpnil-native-storage-portability@1')
+  if (v2) assert.equal(report.oracle, 'tpnil-native-portability-oracle@2.0.0')
+  else assert.equal(report.oracle, undefined, 'Original schema cannot select a new proof predicate')
   assert.equal(report.claim, 'ENGINEERING_OBSERVATION_ONLY')
   assert.ok(['native-ui', 'reference-engineering'].includes(report.mode))
   if (requireNative) assert.equal(report.mode, 'native-ui', 'Reference recreation cannot qualify native portability')
@@ -137,7 +141,8 @@ export async function verifyNativePortability(report: any, { requireNative = tru
       snapshotWindow('source', 'source-observer', initialDecryption().endedAt, report.readWindows?.destination.startedAt ?? report.outage.startedAt)
       snapshotWindow('destination', 'destination-observer', report.readWindows?.source.endedAt ?? initialDecryption().endedAt, report.outage?.startedAt ?? report.readWindows.destination.endedAt)
       assert.equal(report.source.user.identityKey, report.identity); assert.equal(report.destination.user.identityKey, report.identity)
-      assert.ok(report.source.transactions.length >= 2 && report.source.outputs.length >= 2 && report.source.provenTxs.length >= 1)
+      assert.ok(report.source.transactions.length >= 2 && report.source.outputs.length >= 2)
+      if (!v2) assert.ok(report.source.provenTxs.length >= 1)
       assert.deepEqual(projectDataset(report.source), projectDataset(report.destination), 'Portable bytes, metadata or relationships differ')
       const outpoint = report.task.txid + '.' + report.task.vout; assert.equal(outpoint, report.outpoint)
       const sourceOutput = report.source.outputs.find((row: any) => row.txid === report.task.txid && row.vout === report.task.vout)
@@ -147,7 +152,12 @@ export async function verifyNativePortability(report: any, { requireNative = tru
       const decoded = PushDrop.decode(task.outputs[report.task.vout]!.lockingScript)
       assert.equal(Utils.toUTF8(decoded.fields[0]!), '1ToDoDtKreEzbHYKFjmoBuduFmSXXUGZG')
       assert.deepEqual(decoded.fields[1], report.task.ciphertext); assert.equal(task.outputs[report.task.vout]!.satoshis, 3)
-      for (const dataset of [report.source, report.destination]) assert.ok(await Transaction.fromAtomicBEEF(datasetBeef(dataset, [...Buffer.from(report.task.beefHex, 'hex')]).toBinaryAtomic(report.task.txid)).verify(tracker))
+      for (const dataset of [report.source, report.destination]) {
+        const graph = v2 ? (await verifyPortableProofClosure(dataset)).beef : datasetBeef(dataset, [...Buffer.from(report.task.beefHex, 'hex')])
+        const retainedTask = Transaction.fromAtomicBEEF(graph.toBinaryAtomic(report.task.txid))
+        assert.equal(retainedTask.toHex(), report.task.rawHex)
+        assert.ok(await retainedTask.verify(tracker))
+      }
     },
     'portability.source-unavailable': () => {
       assert.equal(report.outage.probe.reachable, false); assert.match(report.outage.probe.error, /fetch failed|connect|refused/i)
@@ -193,7 +203,7 @@ export async function verifyNativePortability(report: any, { requireNative = tru
       assert.equal(spent.spendable, false)
       const row = report.destinationAfter.transactions.find((transaction: any) => transaction.transactionId === spent.spentBy)
       assert.equal(row.txid, report.redemption.txid)
-      const beef = datasetBeef(report.destinationAfter, [...Buffer.from(report.task.beefHex, 'hex')])
+      const beef = v2 ? (await verifyPortableProofClosure(report.destinationAfter)).beef : datasetBeef(report.destinationAfter, [...Buffer.from(report.task.beefHex, 'hex')])
       const tx = Transaction.fromAtomicBEEF(beef.toBinaryAtomic(report.redemption.txid))
       assert.equal(tx.toHex(), report.redemption.rawHex); assert.ok(await tx.verify(tracker))
       assert.ok(tx.inputs.some(input => input.sourceTXID === report.task.txid && input.sourceOutputIndex === report.task.vout))

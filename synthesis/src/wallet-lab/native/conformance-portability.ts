@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { Beef, PushDrop, Transaction, Utils, type WalletInterface } from '@bsv/sdk'
+import { Beef, MerklePath, PushDrop, Transaction, Utils, type WalletInterface } from '@bsv/sdk'
 import type { Page } from 'playwright'
 import { ControlledWalletServices } from '../services.js'
 import type { EvidenceBundle } from '../evidence.js'
@@ -58,10 +58,10 @@ export interface PortabilityControls {
  * wallet's own supported settings UI performs synchronization and replacement. */
 export async function qualifyStoragePortability(options: {
   wallet: WalletInterface; source: ControlledWalletServices; destination: ControlledWalletServices
-  controls: PortabilityControls; mode: 'native-ui' | 'reference-engineering'
+  controls: PortabilityControls; mode: 'native-ui' | 'reference-engineering'; proofOracle?: 'v2'
 }) {
   const { wallet, source, destination, controls } = options
-  const report: any = { schema: 'tpnil-native-storage-portability@1', claim: 'ENGINEERING_OBSERVATION_ONLY', mode: options.mode, assertions: [], trace: [], storage: [], readWindows: {}, ui: [], cleanup: { sourceRestored: false } }
+  const report: any = { schema: options.proofOracle === 'v2' ? 'tpnil-native-storage-portability@2' : 'tpnil-native-storage-portability@1', ...(options.proofOracle === 'v2' ? { oracle: 'tpnil-native-portability-oracle@2.0.0' } : {}), claim: 'ENGINEERING_OBSERVATION_ONLY', mode: options.mode, assertions: [], trace: [], storage: [], readWindows: {}, ui: [], cleanup: { sourceRestored: false } }
   const check = (id: string, pass: boolean, detail: string) => report.assertions.push({ id: `portability.${id}`, result: pass ? 'PASS' : 'FAIL', detail })
   const call = async (method: string, args: any): Promise<any> => {
     const row: any = { method, args, startedAt: new Date().toISOString() }; report.trace.push(row)
@@ -97,7 +97,25 @@ export async function qualifyStoragePortability(options: {
     // Read after the native mediator completes; the harness never writes chunks.
     report.source = await dataset('source', reader, identity)
     report.destination = await dataset('destination', target, identity)
-    check('complete-logical-dataset', canonicalJson(projectDataset(report.source)) === canonicalJson(projectDataset(report.destination)), 'All logical records, bytes, metadata and foreign-key relationships match after native-mediated synchronization.')
+    let complete = report.source.transactions.length >= 2 && report.source.outputs.length >= 2 && canonicalJson(projectDataset(report.source)) === canonicalJson(projectDataset(report.destination))
+    if (options.proofOracle === 'v2') {
+      try {
+        const fixture = JSON.parse(fs.readFileSync(path.resolve(import.meta.dirname, '../../../../fixtures/teranode/wab-funding-v1.json'), 'utf8'))
+        const tracker = { currentHeight: async () => fixture.fundingHeight + fixture.maturityDepth, isValidRootForHeight: async (root: string, height: number) => root === fixture.merkleRoot && height === fixture.fundingHeight }
+        // Producer uses only captured dataset bytes, never earlier listOutputs BEEF.
+        for (const copy of [report.source, report.destination]) {
+          const graph = new Beef()
+          for (const row of [...copy.transactions, ...copy.provenTxReqs]) if (row.inputBEEF?.length) graph.mergeBeef(row.inputBEEF)
+          for (const row of [...copy.transactions, ...copy.provenTxReqs]) if (row.rawTx?.length) { assert.equal(Transaction.fromBinary(row.rawTx).id('hex'), row.txid); graph.mergeRawTx(row.rawTx) }
+          for (const row of copy.provenTxs) graph.mergeRawTx(row.rawTx, graph.mergeBump(MerklePath.fromBinary(row.merklePath)))
+          assert.equal(graph.findTxid(fixture.txid)?.tx?.toHex(), fixture.rawHex)
+          assert.ok(await graph.verify(tracker))
+          for (const row of copy.transactions) if (row.txid) assert.ok(await Transaction.fromAtomicBEEF(graph.toBinaryAtomic(row.txid)).verify(tracker))
+          for (const row of copy.provenTxReqs) if (row.rawTx?.length) assert.ok(await Transaction.fromAtomicBEEF(graph.toBinaryAtomic(row.txid)).verify(tracker))
+        }
+      } catch (error) { complete = false; report.proofClosureError = String(error) }
+    } else complete &&= report.source.provenTxs.length >= 1
+    check('complete-logical-dataset', complete, 'All logical records, bytes, metadata and foreign keys match; the declared proof oracle verifies retained ancestry.')
     report.nativeRpc = clean(source.storageRpcObservations)
     if (options.mode === 'reference-engineering') report.referenceMediator = clean(controls.referenceTranscript?.() ?? [])
     check('native-mediated-sync', options.mode === 'native-ui' ? report.nativeRpc.some((r: any) => r.host === replacementHost && r.method === 'processSyncChunk' && r.completed && r.status === 200) : report.referenceMediator.some((r: any) => r.method === 'processSyncChunk' && r.response && !r.error), 'The declared wallet mediator sends authenticated processSyncChunk requests; reference mode is not native qualification.')
@@ -212,7 +230,7 @@ export async function runNativePortability({ application, services, evidence, pa
     const walletPage = application.context().pages().find(page => /^chrome-extension:\/\/.+\/index.html/.test(page.url()))
     if (!walletPage) throw new Error('Native wallet settings page is absent')
     const ui: any[] = []
-    report = await qualifyStoragePortability({ wallet: nativeWalletBoundary(application), source: services, destination: replacement, controls: nativePortabilityControls(application, walletPage, password, ui), mode: 'native-ui' })
+    report = await qualifyStoragePortability({ wallet: nativeWalletBoundary(application), source: services, destination: replacement, controls: nativePortabilityControls(application, walletPage, password, ui), mode: 'native-ui', proofOracle: 'v2' })
     report.ui = ui
     report.components = { source: services.componentIdentity, replacement: replacement.componentIdentity }
     report.cleanup.replacementOwnedByServiceGraph = true

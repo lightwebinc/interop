@@ -83,7 +83,7 @@ try {
     task: plan.task,
     amount: plan.amount,
     nativeQualification: { fundingFixture: fixture, sandbox: true },
-    ...(conformance ? { prepareScenario: (await import('./conformance-reserves.js')).prepareNativeConformanceReserves, additionalScenario: (await import('./conformance.js')).runNativeConformance, integratedProfile: 'ITCVE-1@1.4.0', go: { binary: '/opt/tpnil/itcve-go-storage-sync', storageSyncPatch: true, terminalRejectionReceipts: true } } as const : integrated ? { additionalScenario: (await import('./integrated.js')).runNativeIntegration, integratedProfile: 'ITCVE-1@1.3.0', go: { binary: '/opt/tpnil/itcve-go-storage-sync', storageSyncPatch: true } } as const : {})
+    ...(conformance ? { prepareScenario: (await import('./conformance-reserves.js')).prepareNativeConformanceReserves, additionalScenario: (await import('./conformance.js')).runNativeConformance, integratedProfile: 'ITCVE-1@1.4.0', go: { binary: '/opt/tpnil/itcve-go-storage-portability', storagePortabilityPatch: true, terminalRejectionReceipts: true } } as const : integrated ? { additionalScenario: (await import('./integrated.js')).runNativeIntegration, integratedProfile: 'ITCVE-1@1.3.0', go: { binary: '/opt/tpnil/itcve-go-storage-sync', storageSyncPatch: true } } as const : {})
   })
   verifyEvidenceBundle(output)
   save('network-after.json', await network())
