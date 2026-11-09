@@ -73,8 +73,8 @@ also reduces errors to messages, so the new evidence retains its actual error
 separately from the authenticated public storage request and response. The
 oracle binds identity, RPC ID, transaction bytes, terminal status, preserved
 wallet state and recovery without inventing fields on the native exception.
-State preservation is measured over the declared lifecycle basket and public
-action projections. It does not assert that inputs quarantined by a terminal
+State preservation compares the declared lifecycle-basket output projection
+and confirms the rejected transaction is absent from the corresponding action query. It does not assert that inputs quarantined by a terminal
 rejection remain usable. The prospective plan therefore declares two additional
 10,000-satoshi mined BRC29 reserves before customer scenarios, independently
 bound to native ownership and read-only public storage observations. Continued
