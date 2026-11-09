@@ -10,6 +10,7 @@ import { nativeWalletBoundary } from './integrated.js'
 import { ObservedStorageClient, readDataset, type Transcript } from '../../storage-sync/run.js'
 import { projectDataset } from '../../storage-sync/projection.js'
 import { canonicalJson } from '../../determinism.js'
+import { verifyPortableProofClosure } from './portability-proof.js'
 
 export const portabilityAssertions = ['same-identity', 'distinct-counterparts', 'native-mediated-sync', 'complete-logical-dataset', 'source-unavailable', 'cold-wallet-reload', 'cold-task-recovery', 'replacement-redemption', 'cleanup'].map(id => `portability.${id}`)
 const replacementHost = 'replacement-wallet.itcve.test'
@@ -17,9 +18,9 @@ const replacementUrl = `https://${replacementHost}`
 export const portableTask = 'TPNIL native storage replacement'
 const amount = 3
 const clean = <T>(value: T): T => JSON.parse(JSON.stringify(value))
-async function until<T>(operation: () => Promise<T>, accept: (value: T) => boolean, timeout = 45_000): Promise<T> {
+async function until<T>(operation: () => Promise<T>, accept: (value: T) => boolean, timeout = 45_000, interval = 200): Promise<T> {
   const end = Date.now() + timeout
-  do { const value = await operation(); if (accept(value)) return value; await new Promise(resolve => setTimeout(resolve, 200)) } while (Date.now() < end)
+  do { const value = await operation(); if (accept(value)) return value; await new Promise(resolve => setTimeout(resolve, interval)) } while (Date.now() < end)
   throw new Error('Portability observation deadline exceeded')
 }
 
@@ -44,6 +45,23 @@ export function readyPortableTask(before: any, observed: any): { output: any; tx
   }
 }
 
+/** A reserved input disappears before signAction finishes. Require its actual
+ * signed spending transaction and complete retained ancestry before proceeding. */
+export async function readyPortableRedemption(copy: any, outpoint: string) {
+  const [txid, vout] = outpoint.split('.')
+  const spent = copy.outputs.find((row: any) => row.txid === txid && row.vout === Number(vout))
+  if (spent?.spendable !== false) return
+  const spending = copy.transactions.find((row: any) => row.transactionId === spent.spentBy)
+  if (!/^[0-9a-f]{64}$/.test(spending?.txid ?? '') || spending.status === 'unsigned') return
+  const raw = spending.rawTx ?? copy.provenTxReqs.find((row: any) => row.txid === spending.txid)?.rawTx
+  if (!Array.isArray(raw) || raw.length === 0) return
+  const tx = Transaction.fromBinary(raw)
+  if (tx.id('hex') !== spending.txid || !tx.inputs.some(input => input.sourceTXID === txid && input.sourceOutputIndex === Number(vout))) return
+  const closure = await verifyPortableProofClosure(copy)
+  if (!closure.verifiedTxids.includes(spending.txid)) return
+  return { txid: tx.id('hex'), rawHex: tx.toHex(), transaction: spending }
+}
+
 export interface PortabilityControls {
   createTask(): Promise<void>
   addAndSync(url: string): Promise<void>
@@ -58,10 +76,11 @@ export interface PortabilityControls {
  * wallet's own supported settings UI performs synchronization and replacement. */
 export async function qualifyStoragePortability(options: {
   wallet: WalletInterface; source: ControlledWalletServices; destination: ControlledWalletServices
-  controls: PortabilityControls; mode: 'native-ui' | 'reference-engineering'; proofOracle?: 'v2'
+  controls: PortabilityControls; mode: 'native-ui' | 'reference-engineering'; proofOracle?: 'v2' | 'v3'
 }) {
   const { wallet, source, destination, controls } = options
-  const report: any = { schema: options.proofOracle === 'v2' ? 'tpnil-native-storage-portability@2' : 'tpnil-native-storage-portability@1', ...(options.proofOracle === 'v2' ? { oracle: 'tpnil-native-portability-oracle@2.0.0' } : {}), claim: 'ENGINEERING_OBSERVATION_ONLY', mode: options.mode, assertions: [], trace: [], storage: [], readWindows: {}, ui: [], cleanup: { sourceRestored: false } }
+  const v3 = options.proofOracle === 'v3'
+  const report: any = { schema: v3 ? 'tpnil-native-storage-portability@3' : options.proofOracle === 'v2' ? 'tpnil-native-storage-portability@2' : 'tpnil-native-storage-portability@1', ...(options.proofOracle ? { oracle: v3 ? 'tpnil-native-portability-oracle@3.0.0' : 'tpnil-native-portability-oracle@2.0.0' } : {}), claim: 'ENGINEERING_OBSERVATION_ONLY', mode: options.mode, assertions: [], trace: [], storage: [], readWindows: {}, ui: [], cleanup: { sourceRestored: false } }
   const check = (id: string, pass: boolean, detail: string) => report.assertions.push({ id: `portability.${id}`, result: pass ? 'PASS' : 'FAIL', detail })
   const call = async (method: string, args: any): Promise<any> => {
     const row: any = { method, args, startedAt: new Date().toISOString() }; report.trace.push(row)
@@ -75,6 +94,7 @@ export async function qualifyStoragePortability(options: {
     finally { window.storageEnd = report.storage.length; window.endedAt = new Date().toISOString() }
   }
   let unavailable = false
+  let replacementStart = -1
   try {
     const identity = (await call('getPublicKey', { identityKey: true })).publicKey
     report.identity = identity
@@ -98,7 +118,7 @@ export async function qualifyStoragePortability(options: {
     report.source = await dataset('source', reader, identity)
     report.destination = await dataset('destination', target, identity)
     let complete = report.source.transactions.length >= 2 && report.source.outputs.length >= 2 && canonicalJson(projectDataset(report.source)) === canonicalJson(projectDataset(report.destination))
-    if (options.proofOracle === 'v2') {
+    if (options.proofOracle) {
       try {
         const fixture = JSON.parse(fs.readFileSync(path.resolve(import.meta.dirname, '../../../../fixtures/teranode/wab-funding-v1.json'), 'utf8'))
         const tracker = { currentHeight: async () => fixture.fundingHeight + fixture.maturityDepth, isValidRootForHeight: async (root: string, height: number) => root === fixture.merkleRoot && height === fixture.fundingHeight }
@@ -125,7 +145,7 @@ export async function qualifyStoragePortability(options: {
     try { await fetch(source.storageUrl, { signal: AbortSignal.timeout(2000) }); report.outage.probe = { reachable: true } }
     catch (error) { report.outage.probe = { reachable: false, error: String(error) } }
     check('source-unavailable', report.outage.probe.reachable === false, 'The source storage TCP listener is stopped while chain, overlay and replacement services remain running.')
-    const replacementStart = source.storageRpcObservations.length
+    replacementStart = source.storageRpcObservations.length
     report.coldReload = await controls.coldReload()
     check('cold-wallet-reload', report.coldReload.locked === true && report.coldReload.unlocked === true && report.coldReload.applicationCacheCleared === true && report.coldReload.contextDropped === true, 'Supported Lock/Unlock retires the native live wallet context; the ToDo client cache is cleared and reloaded.')
     report.identityAfter = (await call('getPublicKey', { identityKey: true })).publicKey
@@ -134,7 +154,36 @@ export async function qualifyStoragePortability(options: {
     report.afterDecryption = await call('decrypt', { ciphertext: token.fields[1], protocolID: [0, 'todo list'], keyID: '1', counterparty: 'self' })
     const recovered = report.recovered.outputs.filter((o: any) => o.outpoint === report.outpoint)
     check('cold-task-recovery', recovered.length === 1 && recovered[0].spendable === true && Utils.toUTF8(report.afterDecryption.plaintext) === portableTask && report.coldReload.taskVisible === true, 'The same unspent encrypted ToDo outpoint is reconstructed and decrypted from the replacement.')
+    const receiptStart = destination.storageProcessActionReceipts.length
     await controls.redeemTask()
+    if (v3) {
+      report.redemptionObservations = []
+      const ready = await until(async () => {
+        const name = `redemptionPoll${report.redemptionObservations.length}`
+        const row: any = { name, dataset: await dataset(name, target, identity), ready: false }
+        row.processActionReceipts = clean(destination.storageProcessActionReceipts.slice(receiptStart))
+        row.capturedAt = new Date().toISOString()
+        report.redemptionObservations.push(row)
+        try {
+          const signed = await readyPortableRedemption(row.dataset, report.outpoint)
+          const processed = options.mode === 'native-ui'
+            ? row.processActionReceipts.some((receipt: any) => {
+                const request = JSON.parse(Buffer.from(receipt.requestHex, 'hex').toString())
+                const response = JSON.parse(Buffer.from(receipt.responseHex, 'hex').toString())
+                return signed && receipt.status === 200 && receipt.requestIdentityKey === identity && request.method === 'processAction'
+                  && request.params[0]?.identityKey === identity && request.params[1]?.txid === signed.txid
+                  && Buffer.from(request.params[1]?.rawTx ?? []).toString('hex') === signed.rawHex
+                  && response.id === request.id && !response.error && response.result
+                  && !(response.result.sendWithResults ?? []).some((r: any) => ['failed', 'error'].includes(r.status))
+              })
+            : controls.referenceTranscript?.().some(r => r.provider === 'replacement-active' && r.method === 'processAction' && r.response && !r.error)
+          row.ready = Boolean(signed && processed)
+          if (row.ready) row.txid = signed!.txid
+        } catch (error) { row.error = String(error) }
+        return row
+      }, row => row.ready, 45_000, 1000)
+      report.redemptionCompletion = { observation: ready.name, txid: ready.txid, at: new Date().toISOString() }
+    }
     report.redeemed = await until(() => call('listOutputs', { basket: 'todo tokens', include: 'entire transactions', limit: 1000 }), r => !r.outputs.some((o: any) => o.outpoint === report.outpoint))
     report.destinationAfter = await dataset('destinationAfter', target, identity)
     report.replacementRpc = clean(source.storageRpcObservations.slice(replacementStart))
@@ -149,6 +198,7 @@ export async function qualifyStoragePortability(options: {
     check('replacement-redemption', spent?.spendable === false && Boolean(report.redemption) && (options.mode === 'native-ui' ? report.replacementRpc.some((r: any) => r.host === replacementHost && r.method === 'processAction' && r.status === 200) : report.referenceMediatorAfter.some((r: any) => r.provider === 'replacement-active' && r.method === 'processAction' && r.response && !r.error)), 'A ToDo redemption is serialized and stored by the replacement while the source listener remains unavailable.')
   } catch (error) { report.error = error instanceof Error ? { name: error.name, message: error.message, stack: error.stack } : String(error) }
   finally {
+    if (v3 && replacementStart >= 0) report.replacementRpc = clean(source.storageRpcObservations.slice(replacementStart))
     if (unavailable) {
       report.outage.restorationStartedAt = new Date().toISOString()
       await source.setStorageEndpointAvailable(true); report.outage.endedAt = new Date().toISOString()
@@ -162,7 +212,7 @@ export async function qualifyStoragePortability(options: {
 }
 
 /** Real settings UI controls; no extension messaging or private wallet access. */
-export function nativePortabilityControls(application: Page, walletPage: Page, password: string, ui: any[]): PortabilityControls {
+export function nativePortabilityControls(application: Page, walletPage: Page, password: string, ui: any[], waitForSignedCompletion = false): PortabilityControls {
   const snapshot = async (stage: string) => ui.push({ stage, at: new Date().toISOString(), text: await walletPage.locator('body').innerText() })
   const settings = async () => { await walletPage.reload(); await walletPage.getByText('Settings', { exact: true }).last().click(); await walletPage.getByText('Lock Wallet', { exact: true }).waitFor() }
   const backups = async () => { await settings(); await walletPage.getByText('Wallet Backup', { exact: true }).first().click(); await walletPage.getByText('Remote Backup', { exact: true }).click(); await walletPage.getByText('Sync Now', { exact: true }).waitFor() }
@@ -210,12 +260,23 @@ export function nativePortabilityControls(application: Page, walletPage: Page, p
         return { mechanism: 'native-settings-lock-unlock', locked: true, unlocked: true, contextDropped: consoleMessages.length > 0, consoleMessages, applicationCacheCleared: true, taskVisible: true, at: new Date().toISOString() }
       } finally { for (const worker of workers) worker.off('console', listener) }
     },
-    async redeemTask() { await application.getByLabel(`${portableTask} ${amount} satoshis`, { exact: true }).click(); await application.getByTestId('p0-todo-complete-submit').click() }
+    async redeemTask() {
+      await application.getByLabel(`${portableTask} ${amount} satoshis`, { exact: true }).click()
+      await application.getByTestId('p0-todo-complete-submit').click()
+      if (waitForSignedCompletion) {
+        // The unchanged ToDo app emits this only after await wallet.signAction.
+        // Let that public operation finish before starting a separate observer
+        // authentication session; signed storage/proof checks still follow.
+        await application.getByText('Congrats! Task complete 🎉', { exact: true }).waitFor({ timeout: 45_000 })
+        ui.push({ stage: 'native-task-complete', at: new Date().toISOString(), text: await application.locator('body').innerText() })
+      }
+    }
   }
 }
 
-export async function runNativePortability({ application, services, evidence, password }: {
+export async function runNativePortability({ application, services, evidence, password, oracle = 'tpnil-native-portability-oracle@2.0.0' }: {
   application: Page; services: ControlledWalletServices; evidence: EvidenceBundle; password: string
+  oracle?: 'tpnil-native-portability-oracle@2.0.0' | 'tpnil-native-portability-oracle@3.0.0'
 }) {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'tpnil-native-portability-'))
   fs.writeFileSync(path.join(directory, 'index.html'), '<title>Isolated storage counterpart</title>')
@@ -230,7 +291,7 @@ export async function runNativePortability({ application, services, evidence, pa
     const walletPage = application.context().pages().find(page => /^chrome-extension:\/\/.+\/index.html/.test(page.url()))
     if (!walletPage) throw new Error('Native wallet settings page is absent')
     const ui: any[] = []
-    report = await qualifyStoragePortability({ wallet: nativeWalletBoundary(application), source: services, destination: replacement, controls: nativePortabilityControls(application, walletPage, password, ui), mode: 'native-ui', proofOracle: 'v2' })
+    report = await qualifyStoragePortability({ wallet: nativeWalletBoundary(application), source: services, destination: replacement, controls: nativePortabilityControls(application, walletPage, password, ui, oracle === 'tpnil-native-portability-oracle@3.0.0'), mode: 'native-ui', proofOracle: oracle === 'tpnil-native-portability-oracle@3.0.0' ? 'v3' : 'v2' })
     report.ui = ui
     report.components = { source: services.componentIdentity, replacement: replacement.componentIdentity }
     report.cleanup.replacementOwnedByServiceGraph = true

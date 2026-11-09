@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
+import { createHash } from 'node:crypto'
 import { Beef, MerklePath, PushDrop, Transaction, Utils } from '@bsv/sdk'
 import { entities, projectDataset, type Dataset } from '../../storage-sync/projection.js'
 import { canonicalSyncChunk } from '../../storage-sync/compatibility.js'
@@ -25,9 +26,10 @@ function datasetBeef(dataset: Dataset, starting: number[]): Beef {
 
 /** Recompute public operations, full logical projection and signed ancestry. */
 export async function verifyNativePortability(report: any, { requireNative = true } = {}) {
-  const v2 = report.schema === 'tpnil-native-storage-portability@2'
+  const v3 = report.schema === 'tpnil-native-storage-portability@3'
+  const v2 = v3 || report.schema === 'tpnil-native-storage-portability@2'
   assert.ok(v2 || report.schema === 'tpnil-native-storage-portability@1')
-  if (v2) assert.equal(report.oracle, 'tpnil-native-portability-oracle@2.0.0')
+  if (v2) assert.equal(report.oracle, v3 ? 'tpnil-native-portability-oracle@3.0.0' : 'tpnil-native-portability-oracle@2.0.0')
   else assert.equal(report.oracle, undefined, 'Original schema cannot select a new proof predicate')
   assert.equal(report.claim, 'ENGINEERING_OBSERVATION_ONLY')
   assert.ok(['native-ui', 'reference-engineering'].includes(report.mode))
@@ -132,7 +134,7 @@ export async function verifyNativePortability(report: any, { requireNative = tru
       if (report.mode === 'native-ui') {
         assert.ok(report.nativeRpc.some((row: any) => row.host === 'replacement-wallet.itcve.test' && row.method === 'processSyncChunk' && row.completed && row.status === 200))
         assert.ok(report.ui.some((row: any) => row.stage === 'native-sync-complete' && row.text.includes('Sync complete')))
-        assert.ok(report.ui.some((row: any) => row.stage === 'replacement-active' && row.text.includes('replacement-wallet.itcve.test') && row.text.includes('In use')))
+        assert.ok(report.ui.some((row: any) => row.stage === 'replacement-active' && row.text.includes('replacement-wallet.itcve.test') && (v3 ? row.text.split(/\r?\n/).some((line: string) => line.trim().replace(/\s+/g, ' ').toLowerCase() === 'in use') : row.text.includes('In use'))))
       } else assert.ok(report.referenceMediator.some((row: any) => row.method === 'processSyncChunk' && row.response && !row.error))
     },
     'portability.complete-logical-dataset': async () => {
@@ -186,7 +188,7 @@ export async function verifyNativePortability(report: any, { requireNative = tru
       if (report.mode === 'native-ui') assert.ok(report.replacementRpc.some((rpc: any) => rpc.host === 'replacement-wallet.itcve.test' && rpc.method === 'listOutputs' && rpc.completed && rpc.status === 200), 'Cold public reads must reach the replacement counterpart')
     },
     'portability.replacement-redemption': async () => {
-      assert.deepEqual(report.destinationAfter, snapshots('destination-observer')[1], 'Post-replacement dataset differs from authenticated RPC responses')
+      assert.deepEqual(report.destinationAfter, (v3 ? snapshots('destination-observer').at(-1) : snapshots('destination-observer')[1]), 'Post-replacement dataset differs from authenticated RPC responses')
       const redeemed = trace.at(-1)
       assert.equal(redeemed.method, 'listOutputs'); assert.deepEqual(redeemed.result, report.redeemed)
       assert.equal(redeemed.args.basket, 'todo tokens'); assert.equal(redeemed.args.include, 'entire transactions')
@@ -197,6 +199,63 @@ export async function verifyNativePortability(report: any, { requireNative = tru
       if (report.readWindows) {
         assert.ok(report.readWindows.destinationAfter.storageStart >= report.readWindows.destination.storageEnd)
         assert.equal(report.readWindows.destinationAfter.storageEnd, report.storage.length)
+      }
+      if (v3) {
+        assert.ok(Array.isArray(report.redemptionObservations) && report.redemptionObservations.length > 0)
+        let lower = after.endedAt
+        if (report.mode === 'native-ui') {
+          const visible = report.ui.filter((row: any) => row.stage === 'native-task-complete')
+          assert.equal(visible.length, 1)
+          assert.ok(visible[0].text.includes('Congrats! Task complete 🎉'))
+          assert.ok(Date.parse(visible[0].at) >= Date.parse(lower) && Date.parse(visible[0].at) <= Date.parse(redeemed.startedAt))
+          lower = visible[0].at
+        }
+        let previousEnd = report.readWindows.destination.storageEnd
+        for (const [index, observation] of report.redemptionObservations.entries()) {
+          assert.equal(observation.name, `redemptionPoll${index}`)
+          const window = report.readWindows[observation.name]
+          interval(window, lower, redeemed.startedAt)
+          assert.ok(Number.isInteger(window.storageStart) && Number.isInteger(window.storageEnd) && window.storageStart >= 0 && window.storageEnd > window.storageStart && window.storageEnd <= report.storage.length)
+          assert.ok(report.storage.slice(window.storageStart, window.storageEnd).every((row: any) => row.provider === 'destination-observer' && ['makeAvailable', 'getSyncChunk'].includes(row.method) && row.response && !row.error))
+          assert.equal(window.storageStart, previousEnd)
+          assert.deepEqual(snapshots('destination-observer', window.storageStart, window.storageEnd), [observation.dataset])
+          assert.equal(observation.ready, index === report.redemptionObservations.length - 1)
+          lower = window.endedAt; previousEnd = window.storageEnd
+        }
+        const last = report.redemptionObservations.at(-1)
+        assert.equal(report.redemptionCompletion.observation, last.name)
+        assert.equal(report.redemptionCompletion.txid, report.redemption.txid)
+        assert.equal(last.txid, report.redemption.txid)
+        assert.ok(Date.parse(report.redemptionCompletion.at) >= Date.parse(lower) && Date.parse(report.redemptionCompletion.at) <= Date.parse(redeemed.startedAt))
+        const complete = last.dataset
+        const locked = complete.outputs.find((row: any) => row.txid === report.task.txid && row.vout === report.task.vout)
+        assert.equal(locked.spendable, false)
+        const signed = complete.transactions.find((row: any) => row.transactionId === locked.spentBy)
+        assert.equal(signed.txid, report.redemption.txid); assert.notEqual(signed.status, 'unsigned')
+        const closure = await verifyPortableProofClosure(complete)
+        const tx = Transaction.fromAtomicBEEF(closure.beef.toBinaryAtomic(signed.txid))
+        assert.equal(tx.toHex(), report.redemption.rawHex)
+        assert.ok(tx.inputs.some(input => input.sourceTXID === report.task.txid && input.sourceOutputIndex === report.task.vout))
+        assert.equal(report.readWindows.destinationAfter.storageStart, previousEnd)
+        assert.ok(Date.parse(last.capturedAt) >= Date.parse(lower) && Date.parse(last.capturedAt) <= Date.parse(report.redemptionCompletion.at))
+        if (report.mode === 'native-ui') {
+          const receipts = last.processActionReceipts
+          assert.ok(Array.isArray(receipts) && receipts.length > 0)
+          const matching = receipts.filter((receipt: any) => {
+            const requestBytes = Buffer.from(receipt.requestHex, 'hex'), responseBytes = Buffer.from(receipt.responseHex, 'hex')
+            const digest = (bytes: Buffer) => createHash('sha256').update(bytes).digest('hex')
+            assert.equal(digest(requestBytes), receipt.requestSha256); assert.equal(digest(responseBytes), receipt.responseSha256)
+            const request = JSON.parse(requestBytes.toString()), response = JSON.parse(responseBytes.toString())
+            if (request.params?.[1]?.txid !== report.redemption.txid) return false
+            assert.equal(receipt.status, 200); assert.equal(receipt.requestIdentityKey, report.identity)
+            assert.equal(request.method, 'processAction'); assert.equal(request.params[0].identityKey, report.identity)
+            assert.equal(Buffer.from(request.params[1].rawTx).toString('hex'), report.redemption.rawHex)
+            assert.equal(response.id, request.id); assert.equal(response.error, undefined); assert.ok(response.result)
+            assert.ok(!(response.result.sendWithResults ?? []).some((r: any) => ['failed', 'error'].includes(r.status)))
+            return true
+          })
+          assert.equal(matching.length, 1, 'Exactly one successful authenticated processAction must bind the signed redemption bytes')
+        }
       }
       assert.ok(!report.redeemed.outputs.some((output: any) => output.outpoint === report.outpoint))
       const spent = report.destinationAfter.outputs.find((output: any) => output.txid === report.task.txid && output.vout === report.task.vout)
