@@ -30,8 +30,37 @@ export async function verifyNativePortability(report: any, { requireNative = tru
   if (requireNative) assert.equal(report.mode, 'native-ui', 'Reference recreation cannot qualify native portability')
   assert.deepEqual(report.assertions.map((a: any) => a.id).sort(), [...portabilityAssertions].sort())
   const trace = report.trace as any[]
-  const returned = (method: string, result: any) => [...trace].reverse().find(row => row.method === method && canonicalJson(row.result) === canonicalJson(result))
-  const snapshots = (provider: string): Dataset[] => {
+  const outageEnd = report.outage?.restorationStartedAt ?? report.outage?.endedAt
+  const interval = (row: any, lower: string, upper: string) => {
+    assert.ok(Date.parse(row.startedAt) >= Date.parse(lower) && Date.parse(row.endedAt) >= Date.parse(row.startedAt) && Date.parse(row.endedAt) <= Date.parse(upper), 'Observation lies outside its ordered execution interval')
+  }
+  const initialDecryption = () => {
+    const before = trace.find(row => row.method === 'decrypt')
+    assert.ok(before)
+    assert.deepEqual(before.result, report.beforeDecryption)
+    assert.deepEqual(before.args, { ciphertext: report.task.ciphertext, protocolID: [0, 'todo list'], keyID: '1', counterparty: 'self' })
+    assert.equal(Utils.toUTF8(before.result.plaintext), portableTask)
+    const created = trace[trace.indexOf(before) - 1]
+    assert.equal(created.method, 'listOutputs'); assert.deepEqual(created.result, report.created)
+    interval(before, created.endedAt, report.readWindows?.source.startedAt ?? report.outage.startedAt)
+    return before
+  }
+  const decryptions = () => {
+    const rows = trace.filter(row => row.method === 'decrypt')
+    assert.equal(rows.length, 2, 'Distinct before/after public decrypt observations required')
+    for (const [index, value] of [report.beforeDecryption, report.afterDecryption].entries()) {
+      assert.deepEqual(rows[index].result, value)
+      assert.deepEqual(rows[index].args, { ciphertext: report.task.ciphertext, protocolID: [0, 'todo list'], keyID: '1', counterparty: 'self' })
+      assert.equal(Utils.toUTF8(value.plaintext), portableTask)
+    }
+    assert.equal(rows[0], initialDecryption())
+    const recovered = trace[trace.indexOf(rows[1]) - 1]
+    assert.equal(recovered.method, 'listOutputs'); assert.deepEqual(recovered.result, report.recovered)
+    interval(recovered, report.coldReload.at, rows[1].startedAt)
+    interval(rows[1], recovered.endedAt, outageEnd)
+    return { before: rows[0], after: rows[1], recovered }
+  }
+  const snapshots = (provider: string, start = 0, end = report.storage.length): Dataset[] => {
     // StorageClient exposes JSON RPC entity timestamps as Dates and absent SQL
     // values as undefined. Reconstruct that representation independently; do
     // not import the client's entity validation or discard any logical field.
@@ -48,21 +77,39 @@ export async function verifyNativePortability(report: any, { requireNative = tru
       }))
     const datasets: Dataset[] = []
     let current: Dataset | undefined
-    for (const row of report.storage.filter((row: any) => row.provider === provider && row.method === 'getSyncChunk' && row.response)) {
+    let complete = true
+    for (const row of report.storage.slice(start, end).filter((row: any) => row.provider === provider && row.method === 'getSyncChunk' && row.response)) {
       const request = row.request[0], chunk = canonicalSyncChunk(row.response, 'go') as any
       assert.equal(request.identityKey, report.identity); assert.equal(chunk.userIdentityKey, report.identity)
+      assert.equal(request.fromStorageIdentityKey, report.counterparts[provider === 'source-observer' ? 'source' : 'destination'].storageIdentityKey)
+      assert.equal(request.toStorageIdentityKey, request.fromStorageIdentityKey)
       assert.equal(chunk.fromStorageIdentityKey, request.fromStorageIdentityKey)
       assert.equal(canonicalJson(row.canonicalResponse), canonicalJson(chunk), 'Recorded wire normalization differs from raw RPC')
-      if (request.offsets.every((offset: any) => offset.offset === 0)) { current = Object.fromEntries(entities.map(entity => [entity, []])); datasets.push(current!) }
+      if (request.offsets.every((offset: any) => offset.offset === 0)) { assert.equal(complete, true, 'Previous snapshot lacks its terminal empty page'); complete = false; current = Object.fromEntries(entities.map(entity => [entity, []])); datasets.push(current!) }
       assert.ok(current)
+      assert.equal(complete, false, 'Additional page follows the terminal empty page')
       if (chunk.user) current.user = normalizeEntity(chunk.user)
       for (const entity of entities) {
         const offset = request.offsets.find((offset: any) => offset.name === entity.slice(0, -1))
         assert.equal(offset.offset, current[entity]!.length, 'Sync read page cursor differs from captured records')
         current[entity]!.push(...(chunk[entity] ?? []).map(normalizeEntity))
       }
+      complete = entities.every(entity => Array.isArray(chunk[entity]) && chunk[entity].length === 0)
     }
+    assert.equal(complete, true, 'Snapshot lacks its terminal empty page')
     return datasets
+  }
+  const snapshotWindow = (name: string, provider: string, lower: string, upper: string) => {
+    // Earlier reference archives predate bounded read windows and remain
+    // explicitly ineligible for native qualification. Every native run and
+    // every newly captured reference run must carry the stronger observation.
+    if (report.mode !== 'native-ui' && report.readWindows === undefined) return
+    const window = report.readWindows[name]
+    interval(window, lower, upper)
+    assert.ok(Number.isInteger(window.storageStart) && Number.isInteger(window.storageEnd) && window.storageStart >= 0 && window.storageEnd > window.storageStart && window.storageEnd <= report.storage.length)
+    const rows = report.storage.slice(window.storageStart, window.storageEnd)
+    assert.ok(rows.every((row: any) => row.provider === provider && ['makeAvailable', 'getSyncChunk'].includes(row.method) && row.response && !row.error))
+    assert.deepEqual(snapshots(provider, window.storageStart, window.storageEnd), [report[name]], 'Snapshot window must bind one complete authenticated dataset')
   }
   const predicates: Record<string, () => void | Promise<void>> = {
     'portability.same-identity': () => {
@@ -70,7 +117,7 @@ export async function verifyNativePortability(report: any, { requireNative = tru
       assert.equal(identities.length, 2); assert.equal(identities[0].result.publicKey, report.identity); assert.equal(identities[1].result.publicKey, report.identity)
       assert.equal(report.identityAfter, report.identity)
       assert.ok(Date.parse(identities[0].endedAt) <= Date.parse(report.outage.startedAt))
-      assert.ok(Date.parse(identities[1].startedAt) >= Date.parse(report.coldReload.at) && Date.parse(identities[1].endedAt) <= Date.parse(report.outage.endedAt))
+      assert.ok(Date.parse(identities[1].startedAt) >= Date.parse(report.coldReload.at) && Date.parse(identities[1].endedAt) <= Date.parse(outageEnd))
     },
     'portability.distinct-counterparts': () => {
       assert.notEqual(report.counterparts.source.storageIdentityKey, report.counterparts.destination.storageIdentityKey)
@@ -87,6 +134,8 @@ export async function verifyNativePortability(report: any, { requireNative = tru
     'portability.complete-logical-dataset': async () => {
       assert.deepEqual(report.source, snapshots('source-observer')[0], 'Source dataset differs from authenticated RPC responses')
       assert.deepEqual(report.destination, snapshots('destination-observer')[0], 'Destination dataset differs from authenticated RPC responses')
+      snapshotWindow('source', 'source-observer', initialDecryption().endedAt, report.readWindows?.destination.startedAt ?? report.outage.startedAt)
+      snapshotWindow('destination', 'destination-observer', report.readWindows?.source.endedAt ?? initialDecryption().endedAt, report.outage?.startedAt ?? report.readWindows.destination.endedAt)
       assert.equal(report.source.user.identityKey, report.identity); assert.equal(report.destination.user.identityKey, report.identity)
       assert.ok(report.source.transactions.length >= 2 && report.source.outputs.length >= 2 && report.source.provenTxs.length >= 1)
       assert.deepEqual(projectDataset(report.source), projectDataset(report.destination), 'Portable bytes, metadata or relationships differ')
@@ -103,18 +152,20 @@ export async function verifyNativePortability(report: any, { requireNative = tru
     'portability.source-unavailable': () => {
       assert.equal(report.outage.probe.reachable, false); assert.match(report.outage.probe.error, /fetch failed|connect|refused/i)
       assert.equal(report.outage.events.at(-1).available, false)
-      assert.ok(Date.parse(report.outage.endedAt) >= Date.parse(report.outage.startedAt))
+      if (report.mode === 'native-ui') assert.equal(typeof report.outage.restorationStartedAt, 'string', 'Native outage must end before reopening the source listener')
+      assert.ok(Date.parse(report.outage.endedAt) >= Date.parse(outageEnd))
+      assert.ok(Date.parse(outageEnd) >= Date.parse(report.outage.startedAt))
     },
     'portability.cold-wallet-reload': () => {
       for (const name of ['locked', 'unlocked', 'contextDropped', 'applicationCacheCleared', 'taskVisible']) assert.equal(report.coldReload[name], true)
-      assert.ok(Date.parse(report.outage.startedAt) <= Date.parse(report.coldReload.at) && Date.parse(report.coldReload.at) <= Date.parse(report.outage.endedAt))
+      assert.ok(Date.parse(report.outage.startedAt) <= Date.parse(report.coldReload.at) && Date.parse(report.coldReload.at) <= Date.parse(outageEnd))
       if (report.mode === 'native-ui') {
         assert.equal(report.coldReload.mechanism, 'native-settings-lock-unlock')
         assert.ok(report.coldReload.consoleMessages.some((text: string) => /dropWalletContext \(WALLET_LOCKED\): gone immediately/.test(text)))
       } else assert.equal(report.coldReload.mechanism, 'reference-wallet-recreation')
     },
     'portability.cold-task-recovery': async () => {
-      const row = returned('listOutputs', report.recovered); assert.ok(row)
+      const { recovered: row } = decryptions()
       assert.equal(row.args.basket, 'todo tokens'); assert.equal(row.args.include, 'entire transactions')
       const outputs = report.recovered.outputs.filter((output: any) => output.outpoint === report.outpoint)
       assert.equal(outputs.length, 1); assert.equal(outputs[0].spendable, true)
@@ -122,20 +173,22 @@ export async function verifyNativePortability(report: any, { requireNative = tru
       for (const field of ['satoshis', 'lockingScript', 'tags', 'customInstructions', 'outputDescription']) assert.deepEqual(outputs[0][field], original[field])
       const tx = Transaction.fromAtomicBEEF(Beef.fromBinary(report.recovered.BEEF).toBinaryAtomic(report.task.txid))
       assert.equal(tx.toHex(), report.task.rawHex); assert.ok(await tx.verify(tracker))
-      for (const value of [report.beforeDecryption, report.afterDecryption]) {
-        const row = returned('decrypt', value); assert.ok(row)
-        assert.deepEqual(row.args, { ciphertext: report.task.ciphertext, protocolID: [0, 'todo list'], keyID: '1', counterparty: 'self' })
-        assert.equal(Utils.toUTF8(value.plaintext), portableTask)
-      }
-      const recoveryTime = Date.parse(row.startedAt)
-      assert.ok(recoveryTime >= Date.parse(report.coldReload.at) && recoveryTime <= Date.parse(report.outage.endedAt))
-      const decryption = returned('decrypt', report.afterDecryption)
-      assert.ok(Date.parse(decryption.startedAt) >= Date.parse(report.coldReload.at) && Date.parse(decryption.endedAt) <= Date.parse(report.outage.endedAt))
       if (report.mode === 'native-ui') assert.ok(report.replacementRpc.some((rpc: any) => rpc.host === 'replacement-wallet.itcve.test' && rpc.method === 'listOutputs' && rpc.completed && rpc.status === 200), 'Cold public reads must reach the replacement counterpart')
     },
     'portability.replacement-redemption': async () => {
       assert.deepEqual(report.destinationAfter, snapshots('destination-observer')[1], 'Post-replacement dataset differs from authenticated RPC responses')
-      assert.ok(returned('listOutputs', report.redeemed)); assert.ok(!report.redeemed.outputs.some((output: any) => output.outpoint === report.outpoint))
+      const redeemed = trace.at(-1)
+      assert.equal(redeemed.method, 'listOutputs'); assert.deepEqual(redeemed.result, report.redeemed)
+      assert.equal(redeemed.args.basket, 'todo tokens'); assert.equal(redeemed.args.include, 'entire transactions')
+      const { after } = decryptions()
+      assert.ok(trace.indexOf(redeemed) > trace.indexOf(after))
+      interval(redeemed, after.endedAt, outageEnd)
+      snapshotWindow('destinationAfter', 'destination-observer', redeemed.endedAt, outageEnd)
+      if (report.readWindows) {
+        assert.ok(report.readWindows.destinationAfter.storageStart >= report.readWindows.destination.storageEnd)
+        assert.equal(report.readWindows.destinationAfter.storageEnd, report.storage.length)
+      }
+      assert.ok(!report.redeemed.outputs.some((output: any) => output.outpoint === report.outpoint))
       const spent = report.destinationAfter.outputs.find((output: any) => output.txid === report.task.txid && output.vout === report.task.vout)
       assert.equal(spent.spendable, false)
       const row = report.destinationAfter.transactions.find((transaction: any) => transaction.transactionId === spent.spentBy)

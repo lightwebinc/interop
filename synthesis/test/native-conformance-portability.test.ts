@@ -31,6 +31,10 @@ for (const run of summary.finalRuns) it(`independently replays ${run.implementat
     r => { r.outage.probe.reachable = true },
     r => { r.coldReload.at = new Date(Date.parse(r.outage.endedAt) + 1).toISOString() },
     r => { r.trace.filter((row: any) => row.method === 'decrypt').at(-1).startedAt = '2000-01-01T00:00:00.000Z' },
+    r => { const row = r.trace.at(-1); row.startedAt = new Date(Date.parse(r.outage.endedAt) + 60_000).toISOString(); row.endedAt = new Date(Date.parse(r.outage.endedAt) + 61_000).toISOString() },
+    r => { const row = r.trace.at(-1); row.startedAt = r.outage.startedAt; row.endedAt = r.outage.startedAt },
+    r => { const rows = r.trace.filter((row: any) => row.method === 'decrypt'); rows[0].startedAt = rows[1].startedAt; rows[0].endedAt = rows[1].endedAt },
+    r => { const row = r.trace.at(-1); row.endedAt = new Date(Date.parse(row.startedAt) - 1).toISOString() },
     r => { r.recovered.outputs[0].outpoint = '00'.repeat(32) + '.0' },
     r => { r.task.ciphertext[0] ^= 1 },
     r => { r.redemption.rawHex = r.task.rawHex },
@@ -50,6 +54,39 @@ for (const run of summary.finalRuns) it(`independently replays ${run.implementat
     const read = JSON.parse(fs.readFileSync(path.join(temporary, 'evidence/conformance/portability.json'), 'utf8'))
     expect((await verifyNativePortability(read, { requireNative: false })).result).toBe('PASS')
   } finally { fs.rmSync(temporary, { recursive: true, force: true }) }
+})
+
+it('binds fresh source, destination and post-redemption snapshots to their exact outage intervals and RPC pages', async () => {
+  const timing = path.join(directory, 'timing-binding')
+  const manifest = JSON.parse(fs.readFileSync(path.join(timing, 'summary.json'), 'utf8'))
+  const bytes = fs.readFileSync(path.join(timing, manifest.archive.path))
+  assert.equal(bytes.length, manifest.archive.size); assert.equal(sha(bytes), manifest.archive.sha256)
+  const files = new Map<string, string>()
+  for (const item of JSON.parse(gunzipSync(bytes, { maxOutputLength: 32 * 1024 * 1024 }).toString()).files) {
+    const bytes = Buffer.from(item.content); assert.equal(bytes.length, item.size); assert.equal(sha(bytes), item.sha256)
+    assert.ok(!files.has(item.path)); files.set(item.path, item.content)
+  }
+  for (const run of manifest.finalRuns) {
+    const report = JSON.parse(files.get(`${run.directory}/portability.json`)!)
+    expect(report.readWindows).toBeDefined(); expect(report.outage.restorationStartedAt).toBeDefined()
+    expect((await verifyNativePortability(report, { requireNative: false })).result).toBe('PASS')
+    const mutations: Array<(report: any) => void> = [
+      r => { r.readWindows.destinationAfter.startedAt = r.outage.endedAt; r.readWindows.destinationAfter.endedAt = new Date(Date.parse(r.outage.endedAt) + 1000).toISOString() },
+      r => { r.readWindows.destinationAfter.startedAt = r.coldReload.at },
+      r => { r.readWindows.destinationAfter.storageStart = r.readWindows.destination.storageStart },
+      r => { r.readWindows.destination.storageEnd = r.readWindows.destinationAfter.storageEnd },
+      r => { r.readWindows.destinationAfter.storageEnd-- },
+      r => { r.readWindows.source.endedAt = r.outage.endedAt },
+      r => { r.outage.restorationStartedAt = r.coldReload.at },
+      r => { r.storage.at(-1).request[0].fromStorageIdentityKey = r.counterparts.source.storageIdentityKey }
+    ]
+    for (const mutate of mutations) {
+      const changed = structuredClone(report); mutate(changed)
+      await expect(verifyNativePortability(changed, { requireNative: false })).rejects.toThrow('Independent portability predicate differs')
+    }
+    const missingWindows = structuredClone(report); missingWindows.mode = 'native-ui'; delete missingWindows.readWindows
+    await expect(verifyNativePortability(missingWindows)).rejects.toThrow('portability.complete-logical-dataset')
+  }
 })
 
 it('stops only the source listener, routes large prospective RPCs, and retires the owned counterpart', async () => {

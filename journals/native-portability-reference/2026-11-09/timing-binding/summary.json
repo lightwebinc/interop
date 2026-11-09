@@ -1,0 +1,55 @@
+{
+  "schema": "tpnil-portability-timing-binding@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "nativeExecution": false,
+  "archive": {
+    "path": "evidence.json.gz",
+    "size": 550649,
+    "sha256": "a6e697760cb7d89cbe966ebd99ad983ae46c51e3c616d53d7a7c96c07f740994",
+    "files": 16
+  },
+  "finalRuns": [
+    {
+      "directory": "out/portability-reference-timing-ts-final",
+      "assertions": 9,
+      "result": "PASS"
+    },
+    {
+      "directory": "out/portability-reference-timing-go-final",
+      "assertions": 9,
+      "result": "PASS"
+    }
+  ],
+  "issue": "The original oracle accepted a final redeemed listOutputs timestamp after source restoration, and resolved identical before/after decrypt results to the same later call.",
+  "correction": "Bind exactly two ordered decrypt calls and adjacent create/recovery observations. Bind final redeemed read after recovery/decryption and before restoration begins. Native snapshots require exact timed RPC ranges, complete terminal pages, storage identity binding, and final post-redemption dataset completion before restoration.",
+  "oldArchive": "The parent directory archive is unchanged. Its raw original successful reference reports still replay; they remain inadmissible as native results. New native and reference captures carry readWindows; native also requires restorationStartedAt.",
+  "sourceFiles": [
+    {
+      "path": "synthesis/src/wallet-lab/native/conformance-portability.ts",
+      "sha256": "6031bb68f45fc8ff36830cc5d4bf5386c2105752508df33cb4822d444beb5200"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/verify-conformance-portability.ts",
+      "sha256": "f77127eac700d3eee88cb2b0f265f4f98442059acd5c678222e52223418d738a"
+    }
+  ],
+  "verification": [
+    {
+      "path": "portability-timing-tests-reviewed.txt",
+      "sha256": "0a14e71df06aaf20d561abfa8b85f41a2896a9c398cc112916a9e019f71a58a3",
+      "size": 372
+    },
+    {
+      "path": "portability-timing-typecheck-reviewed.txt",
+      "sha256": "381be222d640c62a1491f0cd300dd4b3d77f00d5b62028c59702bba3119afc8f",
+      "size": 52
+    }
+  ],
+  "tests": {
+    "passed": 4,
+    "semanticTamperCases": 46,
+    "nativeMissingWindowRejections": 2,
+    "originalReferenceAdmissionRejections": 2,
+    "typecheck": "PASS"
+  }
+}

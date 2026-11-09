@@ -1,0 +1,13 @@
+
+> @tpnil/synthesis@0.1.0 test
+> vitest run test/native-conformance-portability.test.ts
+
+
+ RUN  v4.1.12 /Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/synthesis
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  09:02:57
+   Duration  1.73s (transform 103ms, setup 0ms, import 407ms, tests 1.26s, environment 0ms)
+

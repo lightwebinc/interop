@@ -40,12 +40,18 @@ export async function qualifyStoragePortability(options: {
   controls: PortabilityControls; mode: 'native-ui' | 'reference-engineering'
 }) {
   const { wallet, source, destination, controls } = options
-  const report: any = { schema: 'tpnil-native-storage-portability@1', claim: 'ENGINEERING_OBSERVATION_ONLY', mode: options.mode, assertions: [], trace: [], storage: [], ui: [], cleanup: { sourceRestored: false } }
+  const report: any = { schema: 'tpnil-native-storage-portability@1', claim: 'ENGINEERING_OBSERVATION_ONLY', mode: options.mode, assertions: [], trace: [], storage: [], readWindows: {}, ui: [], cleanup: { sourceRestored: false } }
   const check = (id: string, pass: boolean, detail: string) => report.assertions.push({ id: `portability.${id}`, result: pass ? 'PASS' : 'FAIL', detail })
   const call = async (method: string, args: any): Promise<any> => {
     const row: any = { method, args, startedAt: new Date().toISOString() }; report.trace.push(row)
     try { const result = await (wallet as any)[method](args); row.result = clean(result); return result }
     catch (error) { row.error = String(error); throw error } finally { row.endedAt = new Date().toISOString() }
+  }
+  const dataset = async (name: string, reader: ObservedStorageClient, identity: string) => {
+    const window = { startedAt: new Date().toISOString(), storageStart: report.storage.length, storageEnd: report.storage.length, endedAt: '' }
+    report.readWindows[name] = window
+    try { return await readDataset(reader, identity) }
+    finally { window.storageEnd = report.storage.length; window.endedAt = new Date().toISOString() }
   }
   let unavailable = false
   try {
@@ -69,8 +75,8 @@ export async function qualifyStoragePortability(options: {
     check('distinct-counterparts', report.counterparts.source.storageIdentityKey !== report.counterparts.destination.storageIdentityKey, 'Independent storage identities and temporary databases back the two counterparts.')
     await controls.addAndSync(replacementUrl)
     // Read after the native mediator completes; the harness never writes chunks.
-    report.source = await readDataset(reader, identity)
-    report.destination = await readDataset(target, identity)
+    report.source = await dataset('source', reader, identity)
+    report.destination = await dataset('destination', target, identity)
     check('complete-logical-dataset', canonicalJson(projectDataset(report.source)) === canonicalJson(projectDataset(report.destination)), 'All logical records, bytes, metadata and foreign-key relationships match after native-mediated synchronization.')
     report.nativeRpc = clean(source.storageRpcObservations)
     if (options.mode === 'reference-engineering') report.referenceMediator = clean(controls.referenceTranscript?.() ?? [])
@@ -92,7 +98,7 @@ export async function qualifyStoragePortability(options: {
     check('cold-task-recovery', recovered.length === 1 && recovered[0].spendable === true && Utils.toUTF8(report.afterDecryption.plaintext) === portableTask && report.coldReload.taskVisible === true, 'The same unspent encrypted ToDo outpoint is reconstructed and decrypted from the replacement.')
     await controls.redeemTask()
     report.redeemed = await until(() => call('listOutputs', { basket: 'todo tokens', include: 'entire transactions', limit: 1000 }), r => !r.outputs.some((o: any) => o.outpoint === report.outpoint))
-    report.destinationAfter = await readDataset(target, identity)
+    report.destinationAfter = await dataset('destinationAfter', target, identity)
     report.replacementRpc = clean(source.storageRpcObservations.slice(replacementStart))
     if (options.mode === 'reference-engineering') report.referenceMediatorAfter = clean(controls.referenceTranscript?.() ?? [])
     const spent = report.destinationAfter.outputs.find((o: any) => o.txid === txid && Number(o.vout) === Number(index))
@@ -105,7 +111,10 @@ export async function qualifyStoragePortability(options: {
     check('replacement-redemption', spent?.spendable === false && Boolean(report.redemption) && (options.mode === 'native-ui' ? report.replacementRpc.some((r: any) => r.host === replacementHost && r.method === 'processAction' && r.status === 200) : report.referenceMediatorAfter.some((r: any) => r.provider === 'replacement-active' && r.method === 'processAction' && r.response && !r.error)), 'A ToDo redemption is serialized and stored by the replacement while the source listener remains unavailable.')
   } catch (error) { report.error = error instanceof Error ? { name: error.name, message: error.message, stack: error.stack } : String(error) }
   finally {
-    if (unavailable) { await source.setStorageEndpointAvailable(true); report.outage.endedAt = new Date().toISOString() }
+    if (unavailable) {
+      report.outage.restorationStartedAt = new Date().toISOString()
+      await source.setStorageEndpointAvailable(true); report.outage.endedAt = new Date().toISOString()
+    }
     report.cleanup.sourceRestored = true
     check('cleanup', true, 'The source listener is restored; caller retires the isolated replacement after evidence collection.')
   }
@@ -137,7 +146,8 @@ export function nativePortabilityControls(application: Page, walletPage: Page, p
     async activateAndRemoveSource(url) {
       await walletPage.getByRole('button').filter({ hasText: new URL(url).host }).first().click()
       await walletPage.getByRole('button', { name: 'Make Active', exact: true }).click()
-      await walletPage.getByText(`Active: ${new URL(url).host}`, { exact: true }).waitFor({ timeout: 60_000 }); await snapshot('replacement-active')
+      await walletPage.getByText(`Active: ${new URL(url).host}`, { exact: true }).waitFor({ timeout: 60_000 })
+      await walletPage.getByText('In use', { exact: true }).first().waitFor({ timeout: 30_000 }); await snapshot('replacement-active')
       await backups()
       await walletPage.getByRole('button').filter({ hasText: 'wallet.1sat.app' }).first().click()
       await walletPage.getByRole('button', { name: 'Remove', exact: true }).click()
