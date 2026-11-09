@@ -5,6 +5,7 @@ import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import { inflateRawSync, crc32 } from 'node:zlib'
 import { spawnSync } from 'node:child_process'
+import { prepareFrozenComponentReplay } from './frozen-component-replay.mjs'
 
 const repository = path.resolve(import.meta.dirname, '..')
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex')
@@ -156,11 +157,16 @@ export function componentArchiveSummary(directory) {
 export function verifyArchiveSemantics(bundle, { root = repository } = {}) {
   if (bundle.kind === 'attempt') return { semantic: false, reason: 'Failed observer attempt issues no wallet qualification' }
   const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'tpnil-published-integration-'))
+  let frozenSource
   try {
     const extracted = extractZipSafely(fs.readFileSync(path.join(bundle.directory, bundle.archive)), temporary)
     const lock = readJson(path.join(temporary, 'run-lock.json')); assert.equal(lock.source, bundle.source)
     const script = bundle.kind === 'component' ? 'verify-integrated-lab.mjs' : 'verify-native-integrated.mjs'
-    const child = spawnSync(process.execPath, [path.join(root, 'scripts', script), temporary], { cwd: root, encoding: 'utf8', timeout: 600000, maxBuffer: 16 * 1024 * 1024 })
+    const exactHistory=bundle.kind==='component'&&bundle.qualification.profile==='ITCVE-1@3.0.0'
+    if(exactHistory) { frozenSource=fs.mkdtempSync(path.join(os.tmpdir(),'tpnil-component-source-'));fs.rmdirSync(frozenSource) }
+    const replay=exactHistory?prepareFrozenComponentReplay(root,bundle.source,frozenSource):undefined
+    const replayRoot=replay?.root??root
+    const child = spawnSync(process.execPath, [path.join(replayRoot, 'scripts', script), temporary], { cwd: replayRoot, ...(exactHistory?{env:{...process.env,RUSTUP_TOOLCHAIN:'1.88.0'}}:{}), encoding: 'utf8', timeout: 600000, maxBuffer: 16 * 1024 * 1024 })
     assert.equal(child.status, 0, `${script} failed: ${child.stderr}\n${child.stdout}`)
     if (bundle.kind === 'component') {
       const summary = componentArchiveSummary(temporary)
@@ -170,7 +176,7 @@ export function verifyArchiveSemantics(bundle, { root = repository } = {}) {
     const observed = readJson(path.join(temporary, 'integrated-qualification.json'))
     assert.deepEqual(bundle.qualification, observed, 'Published native qualification differs from regenerated qualification')
     return { semantic: true, extracted, source: observed.source, repetitions: observed.repetitions.length, assertions: { total: observed.repetitions.reduce((n, repetition) => n + repetition.assertions.length, 0), outcomes: outcomes(observed.repetitions.flatMap(repetition => repetition.assertions)) } }
-  } finally { fs.rmSync(temporary, { recursive: true, force: true }) }
+  } finally { fs.rmSync(temporary, { recursive: true, force: true });if(frozenSource)fs.rmSync(frozenSource,{recursive:true,force:true}) }
 }
 
 export function verifyPublishedIntegrations({ root = repository, semantic = false } = {}) {

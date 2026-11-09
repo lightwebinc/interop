@@ -17,7 +17,7 @@ function fixture() {
   const runtime={declaredTimezone:'UTC',resolvedTimezone:'UTC',offsetMinutes:0,observedAt:'2026-11-09T00:00:00.000Z'}
   const storageRuns=[],descendantRuns=[]
   for(let i=0;i<8;i++) {
-    const name=`cell-${i}`, assertions=[{id:'fixture',result:'PASS'}], child={schema:storage.runSchema,...binding,projectionRuntime:runtime,startedAt:runtime.observedAt,assertions,cleanup:true}
+    const name=`cell-${i}`, assertions=Array.from({length:11},(_,n)=>({id:`fixture-${n}`,result:'PASS'})), child={schema:storage.runSchema,...binding,projectionRuntime:runtime,startedAt:runtime.observedAt,assertions,cleanup:true}
     write(`storage-sync/${name}/result.json`,child);storageRuns.push({name,assertions,cleanup:true})
     const da=Array.from({length:10},(_,n)=>({id:`predicate-${n}`,result:'PASS'})),file=`${name}/observations.json`
     const dc={schema:descendant.runSchema,projection:descBinding,projectionRuntime:runtime,startedAt:runtime.observedAt,assertions:da.map(row=>({...row,detail:'Retained raw observation'})),cleanup:{sourceRestored:true,errors:[]}}
@@ -28,7 +28,7 @@ function fixture() {
   write('descendant-storage-sync/matrix.json',{schema:descendant.matrixSchema,projection:descBinding,projectionRuntime:runtime,startedAt:runtime.observedAt,sourceCommit:source,sourceDirty:false,runs:descendantRuns})
   const lanes=profile.lanes.map(id=>({id,runs:Array.from({length:['storage-sync','descendant-storage-sync'].includes(id)?1:2},(_,i)=>{
     const result=id==='storage-sync'?'storage-sync/result.json':id==='descendant-storage-sync'?'descendant-storage-sync/matrix.json':`${id}-${i}/result.json`
-    if(!['storage-sync','descendant-storage-sync'].includes(id))write(result,{assertions:[{id:'fixture',result:'PASS'}],cleanup:{closed:true}})
+    if(!['storage-sync','descendant-storage-sync'].includes(id))write(result,{assertions:Array.from({length:{'overlay-identity':14,messaging:41,'transport-typescript':17,'transport-go':17,'boundary-typescript':43,'boundary-go':43,rust:36}[id]},(_,n)=>({id:`fixture-${n}`,result:'PASS'})),cleanup:{closed:true}})
     return {result,exitCode:0,timedOut:false,assertions:projection(read(result))}
   })}))
   write('run-lock.json',{schema:'tpnil-integrated-run-lock@2',source,dirty:false,profile,files})
@@ -58,7 +58,8 @@ test('component3 rejects old schemas, relabelled policies and non-UTC cells desp
   f=>f.editCell('descendant-storage-sync',r=>r.projectionRuntime.offsetMinutes=480),
   f=>f.editCell('storage-sync',r=>r.projectionRuntime.resolvedTimezone='America/Los_Angeles'),
   f=>f.editCell('storage-sync',r=>r.projectionRuntime.observedAt='2026-11-09T00:00:01.000Z'),
-  f=>f.edit('result.json',r=>r.lanes.splice(1,1))
+  f=>f.edit('result.json',r=>r.lanes.splice(1,1)),
+  f=>{for(const i of [0,1])f.edit(`rust-${i}/result.json`,r=>r.assertions.pop());f.edit('result.json',r=>{for(const run of r.lanes.find(l=>l.id==='rust').runs)run.assertions=run.assertions.filter(a=>a.id!=='fixture-35')})}
  ]
  for(const [index,mutate] of mutations.entries()){const f=fixture();try{assert.equal(verifyIntegrated(f.directory).verified,true);mutate(f);f.rebind();assert.throws(()=>verifyIntegrated(f.directory),`mutation${index}`)}finally{f.cleanup()}}
 })

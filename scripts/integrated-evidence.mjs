@@ -76,6 +76,11 @@ export function verifyIntegrated(directory) {
     }
     if(projections.length===2) assert.deepEqual(projections[0],projections[1],`${lane.id} repetitions differ`)
   }
+  if(exactHistory) {
+    assert.equal(result.lanes.length,frozen.denominator.lanes)
+    assert.equal(result.lanes.reduce((total,lane)=>total+lane.runs.reduce((sum,run)=>sum+run.assertions.length,0),0),frozen.denominator.assertions,'Exact-history assertion denominator differs')
+    assert.equal(result.lanes.reduce((total,lane)=>total+(['storage-sync','descendant-storage-sync'].includes(lane.id)?read(lane.runs[0].result).runs.length:lane.runs.length),0),frozen.denominator.isolatedExecutions,'Exact-history execution denominator differs')
+  }
   return {schema:exactHistory?'tpnil-integrated-verification@2':'tpnil-integrated-verification@1',verified:true,source:lock.source,profile:`ITCVE-1@${version}`,lanes:result.lanes.length,findings:result.lanes.flatMap(l=>l.runs.flatMap(r=>r.assertions.filter(a=>a.result!=='PASS').map(a=>({lane:l.id,resultFile:r.result,...a}))))}
 }
 
