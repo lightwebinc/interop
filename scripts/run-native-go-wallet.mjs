@@ -20,7 +20,7 @@ const docker = args => execFileSync('docker', args, { encoding: 'utf8', timeout:
 const imageInfo = JSON.parse(docker(['image', 'inspect', image]))[0];
 const save = (name, value) => fs.writeFileSync(path.join(output, name), JSON.stringify(value, null, 2) + '\n', { flag: 'wx' });
 const source = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim();
-const dirty = execFileSync('git', ['status', '--porcelain', '--untracked-files=no'], { cwd: root, encoding: 'utf8' }).trim();
+const dirty = execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }).trim();
 if (dirty) throw new Error('Qualification requires committed source');
 if (process.platform !== 'linux' || process.arch !== 'x64') throw new Error('This admitted lane requires native Linux/amd64 execution');
 save('run-lock.json', { schema: 'tpnil-native-wallet-run-lock@1.0.0', source, plan, planSha256: sha(fs.readFileSync(planFile)), image: { id: imageInfo.Id, os: imageInfo.Os, architecture: imageInfo.Architecture, layers: imageInfo.RootFS.Layers }, runner: { os: os.release(), node: process.version, platform: process.platform, architecture: process.arch }, startedAt: new Date().toISOString() });
