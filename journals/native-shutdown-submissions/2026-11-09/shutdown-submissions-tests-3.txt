@@ -1,0 +1,13 @@
+
+> @tpnil/synthesis@0.1.0 test
+> vitest run native-shutdown-submissions.test.ts
+
+
+ RUN  v4.1.12 /Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/synthesis
+
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  13:34:07
+   Duration  8.05s (transform 60ms, setup 0ms, import 341ms, tests 7.64s, environment 0ms)
+

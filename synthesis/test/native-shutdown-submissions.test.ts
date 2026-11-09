@@ -119,3 +119,19 @@ for (const implementation of ['typescript', 'go'] as const) it.skipIf(implementa
     expect(final.map(row => row.submissions.length)).toEqual([1, 1]); expect(final).toEqual(observer.initialProviders)
   } finally { if (!closed) await source.close(); if (!adopted) await destination.close(); fs.rmSync(directory, { recursive: true, force: true }) }
 }, 30_000)
+
+it('does not reclassify a same-script5sat receipt before the permission module began', async () => {
+  const original = await capture({ tail: [] }), prior = receipt(permission.paymentScript, 5)
+  const report: any = structuredClone(original.report), module = structuredClone(permission), nextGlobal = [prior, ...global]
+  module.submissions.unshift(prior); module.submissionWindow.startIndex++; module.submissionWindow.endIndex++
+  for (const step of module.steps) { step.submissionStart++; step.submissionEnd++ }
+  module.submissionWindow.entries = module.submissions.slice(module.submissionWindow.startIndex).map((row: any, offset: number) => ({ index: module.submissionWindow.startIndex + offset, txid: row.txid, verdict: row.verdict, serializedHex: row.beefHex }))
+  report.initialProviders[0].submissions.unshift(prior); report.providers[0].submissions.unshift(prior)
+  report.initialCount++; report.submissions.unshift(prior)
+  report.provenance = report.initialProviders.flatMap((provider: any) => provider.submissions.map((_row: unknown, providerIndex: number) => ({ provider: provider.id, providerIndex })))
+  for (const [index, provider] of report.providers.entries()) for (let providerIndex = report.initialProviders[index].submissions.length; providerIndex < provider.submissions.length; providerIndex++) report.provenance.push({ provider: provider.id, providerIndex })
+  const globalSubmissionsBytes = Buffer.from(JSON.stringify(nextGlobal)), permissionReportBytes = Buffer.from(JSON.stringify(module))
+  for (const [name, bytes] of [['global', globalSubmissionsBytes], ['module', permissionReportBytes]] as const) Object.assign(report.bindings[name], { bytes: bytes.length, sha256: sha(bytes) })
+  const bytes = Buffer.from(JSON.stringify(report))
+  expect((await verifyNativeShutdownSubmissions(bytes, { ...original.binding, globalSubmissionsBytes, permissionReportBytes, worker: { ...original.binding.worker, shutdownSubmissionsSha256: sha(bytes) } })).verified).toBe(true)
+})
