@@ -22,6 +22,7 @@ export async function verifyNativeWallet(directory: string) {
   const lock = read('run-lock.json'), plan = lock.plan
   assert.equal(lock.schema, 'tpnil-native-wallet-run-lock@1.0.0')
   const conformance = plan.id === 'YOURS-5.1.0-GO-ITCVE-1.4.0-CONFORMANCE'
+  if (conformance) assert.equal(plan.clauseOracle, 'tpnil-brc100-clause-oracle@3.0.0')
   const trustedIdentity = conformance || plan.id === 'YOURS-5.1.0-GO-ITCVE-1.3.0-TRUSTED-IDENTITY'
   const integrated = trustedIdentity || plan.id === 'YOURS-5.1.0-GO-ITCVE-1.3.0'
   const frozen = JSON.parse(fs.readFileSync(fileURLToPath(new URL(conformance ? '../../../../infra/native/conformance/plan.json' : trustedIdentity ? '../../../../infra/native/integrated/plan-trusted.json' : integrated ? '../../../../infra/native/integrated/plan.json' : '../../../../infra/native/yours-go/plan.json', import.meta.url)), 'utf8'))

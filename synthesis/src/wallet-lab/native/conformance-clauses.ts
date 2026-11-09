@@ -2,7 +2,7 @@ import { createCipheriv, createHash } from 'node:crypto'
 import { MasterCertificate, PrivateKey, ProtoWallet } from '@bsv/sdk'
 import type { BoundaryWallet } from '../boundary-corpus.js'
 import type { EvidenceBundle } from '../evidence.js'
-import { clauseContract, clauseCoverageGaps, clauseCrypto, conforms, invalidClauses, type Shape } from './conformance-clauses-model.js'
+import { clauseContract, clauseCoverageGaps, clauseCrypto, clauseOracleId, conforms, invalidClauses, type Shape } from './conformance-clauses-model.js'
 import { deriveClauseOutcomes } from './verify-conformance-clauses.js'
 
 const peer = new ProtoWallet(PrivateKey.fromHex('61'.repeat(32)))
@@ -57,7 +57,7 @@ export async function runNativeClauseConformance({ wallet, evidence, boundaryRep
   const trace: any[] = [], cleanup: any[] = []
   async function call(id: string, method: string, args: any) {
     const row: any = { id, method, args: structuredClone(args) }; trace.push(row)
-    try { row.result = structuredClone(await wallet[method]!(args)) } catch (error) { row.error = captureClauseError(error) }
+    try { row.result = structuredClone(await wallet[method]!(structuredClone(args))) } catch (error) { row.error = captureClauseError(error) }
     return row
   }
   const originals = boundaryReport.trace as any[]
@@ -144,7 +144,9 @@ export async function runNativeClauseConformance({ wallet, evidence, boundaryRep
     row.controlId = control?.id
     row.controlUsesFreshReference = ['signAction', 'abortAction'].includes(fixture.method)
     row.baseContractValid = conforms(clauseContract.methods[fixture.method]!.input, base)
-    if (row.result) await release(fixture.id, row.result, args.options?.noSend === true)
+    // The returned action can inherit noSend from its prepared action even when
+    // the malformed signAction option is null. Flush any returned TXID explicitly.
+    if (row.result) await release(fixture.id, row.result)
     else if (prepared?.result && (row.controlUsesFreshReference || !control?.result)) await release(fixture.id, prepared.result)
     if (pendingBatch?.result) await release(`batch.${fixture.id}`, pendingBatch.result)
   }
@@ -174,7 +176,7 @@ export async function runNativeClauseConformance({ wallet, evidence, boundaryRep
   await call('metadata.labels-outputs', 'listActions', { labels: ['tpnil-clause-metadata'], includeLabels: true, includeOutputs: true, includeOutputLockingScripts: true, limit: 100 })
   await call('metadata.pagination', 'listOutputs', { basket: 'tpnil native metadata', tags: ['clause'], tagQueryMode: 'all', limit: 1, offset: 1, includeCustomInstructions: true })
   if (cert) await call('cleanup.certificate', 'relinquishCertificate', { type: cert.type, serialNumber: cert.serialNumber, certifier: cert.certifier })
-  const report: any = { schema: 'tpnil-native-brc100-clauses@2.0.0', claim: 'ENGINEERING_OBSERVATION_ONLY', source: clauseContract.source, substrate, identity, positives, trace, cleanup, coverageGaps: clauseCoverageGaps, completeBRC100Conformance: false, metadataTxid: creation.result?.txid }
+  const report: any = { schema: 'tpnil-native-brc100-clauses@2.0.0', oracle: clauseOracleId, claim: 'ENGINEERING_OBSERVATION_ONLY', source: clauseContract.source, substrate, identity, positives, trace, cleanup, coverageGaps: clauseCoverageGaps, completeBRC100Conformance: false, metadataTxid: creation.result?.txid }
   report.assertions = await deriveClauseOutcomes(report)
   report.result = report.assertions.some((r: any) => r.result === 'FAIL') ? 'FAIL' : report.assertions.some((r: any) => r.result === 'BLOCKED') ? 'BLOCKED' : 'PASS'
   // Omitted optional JavaScript properties remain absent in the JSON transport evidence.

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import { createCipheriv, createDecipheriv, createHash, createHmac } from 'node:crypto'
 import { PrivateKey, ProtoWallet, Signature, Transaction } from '@bsv/sdk'
-import { clauseAssertionIds, clauseContract, clauseCoverageGaps, clauseCrypto, conforms, invalidClauses, semanticClauseIds, specifiedError } from './conformance-clauses-model.js'
+import { clauseAssertionIds, clauseContract, clauseCoverageGaps, clauseCrypto, clauseOracleId, conforms, invalidClauses, semanticClauseIds, specifiedError } from './conformance-clauses-model.js'
 class ClauseBlocked extends Error {}
 
 export async function deriveClauseOutcomes(report: any) {
@@ -40,7 +40,7 @@ export async function deriveClauseOutcomes(report: any) {
       assert.deepEqual({ ...control.args, reference: row.base.reference }, row.base)
     } else assert.deepEqual(control.args, row.base)
     assert.equal(control.method, fixture.method)
-    assert.ok(specifiedError(row.error), `Expected specified rejection for${fixture.token}; observed${JSON.stringify(row.error)}`)
+    assert.ok(specifiedError(row.error, undefined, report.oracle === clauseOracleId), `Expected specified rejection for${fixture.token}; observed${JSON.stringify(row.error)}`)
   }
   const peer = new ProtoWallet(PrivateKey.fromHex(clauseCrypto.peerKey))
   const peerIdentity = PrivateKey.fromHex(clauseCrypto.peerKey).toPublicKey().toString()
@@ -219,6 +219,7 @@ export async function deriveClauseOutcomes(report: any) {
 export async function verifyNativeClauseConformance(report: any, boundaryReport?: any) {
   assert.equal(report.schema, 'tpnil-native-brc100-clauses@2.0.0')
   assert.equal(report.claim, 'ENGINEERING_OBSERVATION_ONLY'); assert.ok(['unchanged-native-window.CWI', 'reference-toolbox-public-api'].includes(report.substrate))
+  assert.ok(report.oracle === clauseOracleId || report.oracle === undefined && report.substrate === 'reference-toolbox-public-api', 'Native qualification requires the independently versioned clause oracle3.0.0; omitted IDs admit historical reference diagnostics only')
   assert.deepEqual(report.source, clauseContract.source); assert.deepEqual(report.coverageGaps, clauseCoverageGaps)
   assert.equal(report.completeBRC100Conformance, false)
   if (boundaryReport) assert.deepEqual(report.positives, JSON.parse(JSON.stringify(Object.keys(clauseContract.methods).map(method => ({ method, observations: boundaryReport.trace.filter((r: any) => r.method === method && r.result !== undefined).map((r: any) => ({ args: r.args, result: r.result })) })))))

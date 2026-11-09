@@ -5,11 +5,12 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import zipfile
 
 root = Path(__file__).resolve().parent.parent
-directory = root / 'journals/native-clause-reference/2026-11-09'
+directory = root / (sys.argv[1] if len(sys.argv) > 1 else 'journals/native-clause-reference/2026-11-09')
 journal = json.loads((directory / 'journal.json').read_text())
 assert journal['nativeQualification'] is False
 assert journal['claim'] == 'ENGINEERING_OBSERVATION_ONLY'

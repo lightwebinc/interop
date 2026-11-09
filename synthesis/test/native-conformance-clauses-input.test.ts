@@ -6,7 +6,7 @@ import { deriveClauseOutcomes, verifyNativeClauseConformance } from '../src/wall
 const id = 'input.createHmac.keyID'
 function report() {
   const base = { data: [1, 2, 3], protocolID: [0, 'tpnil input oracle'], keyID: 'valid key', counterparty: 'self' }
-  return { identity: PrivateKey.fromHex('73'.repeat(32)).toPublicKey().toString(), positives: [], trace: [
+  return { oracle: 'tpnil-brc100-clause-oracle@3.0.0', identity: PrivateKey.fromHex('73'.repeat(32)).toPublicKey().toString(), positives: [], trace: [
     { id: `control.${id}`, method: 'createHmac', args: structuredClone(base), result: { hmac: Array(32).fill(0) } },
     { id, method: 'createHmac', base, args: { ...base, keyID: '' }, controlId: `control.${id}`, error: { name: 'Error', message: 'keyID must contain at least one byte', code: 'ERR_INVALID_PARAMETER_VALUE', status: 'error', description: 'keyID must contain at least one byte' } }
   ] }
@@ -31,10 +31,12 @@ describe('Native BRC100 independent input oracle', () => {
     expect(conforms({ kind: 'alias', name: 'BooleanDefaultTrue', optional: true }, null)).toBe(false)
   })
   it('accepts a single invalid field only with a successful exact positive control', async () => expect(await outcome(report())).toBe('PASS'))
+  it('recognizes an explicit required-field rejection independently of the error-envelope test', async () => { const r = report(); r.trace[1]!.error!.message = 'protocolID and keyID are required if identityKey is false or undefined.'; expect(await outcome(r)).toBe('PASS') })
+  it('retains the earlier diagnostic oracle finding instead of rewriting archived outcomes', async () => { const r: any = report(); delete r.oracle; r.trace[1].error.message = 'protocolID and keyID are required if identityKey is false or undefined.'; expect(await outcome(r)).toBe('FAIL') })
   it('rejects unrelated extra argument changes', async () => { const r = report(); r.trace[1]!.args!.data = [9]; expect(await outcome(r)).toBe('FAIL') })
   it('blocks stale or failing positive controls', async () => { const r: any = report(); delete r.trace[0].result; r.trace[0].error = { message: 'Certificate unavailable' }; expect(await outcome(r)).toBe('BLOCKED') })
   it('rejects network errors, timeouts and raw engine exceptions as specified rejections', async () => {
-    for (const error of [{ message: 'Network fetch failed', name: 'Error' }, { message: 'Request timed out', name: 'Error' }, { message: 'Permission denied', name: 'Error' }, { message: 'Cannot read properties of null', name: 'TypeError' }]) { const r: any = report(); r.trace[1].error = error; expect(await outcome(r)).toBe('FAIL') }
+    for (const error of [{ message: 'Network fetch failed', name: 'Error' }, { message: 'Request timed out', name: 'Error' }, { message: 'Permission denied', name: 'Error' }, { message: 'Cannot read properties of null', name: 'TypeError' }, { message: "Cannot read properties of null (reading 'trim')", name: 'Error' }, { message: 'Cannot convert undefined or null to object', name: 'Error' }, { message: 'object null is not iterable', name: 'Error' }]) { const r: any = report(); r.trace[1].error = error; expect(await outcome(r)).toBe('FAIL') }
   })
   it('rejects accepted malformed values and duplicate trace IDs', async () => {
     const accepted: any = report(); accepted.trace[1].result = { hmac: [] }; delete accepted.trace[1].error; expect(await outcome(accepted)).toBe('FAIL')

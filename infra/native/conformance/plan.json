@@ -57,7 +57,9 @@
   "conformanceInputs": {
     "itcves/ITCVE-1/1.4.0/profile.json": "e9b107326b2d808bfb695fb38683d345f7a36d099cb397e7f6ce5a7e99e8c3be",
     "programs/ISI-4/2.0.0/catalog.json": "5b3aa926c55f050fd1e72ae8af076798021b79dd258a80d67b1c2f526ed9409e",
-    "programs/ISI-4/profiles/native-conformance-2.0.0/brc100-contract.json": "ad803952399a66f099ea9f9efa664a37801866284c5a01064d3357878199a8eb"
+    "programs/ISI-4/profiles/native-conformance-2.0.0/brc100-contract.json": "ad803952399a66f099ea9f9efa664a37801866284c5a01064d3357878199a8eb",
+    "programs/ISI-4/profiles/native-conformance-2.0.0/oracle-3.0.0.json": "4a80fb9f8df8a7ebe02bf33fe14721099091cbbeefb5c68dc29e1c7886e1c623"
   },
-  "fixtureSubmissionPolicy": "terminal-rejection-v1"
+  "fixtureSubmissionPolicy": "terminal-rejection-v1",
+  "clauseOracle": "tpnil-brc100-clause-oracle@3.0.0"
 }

@@ -5,6 +5,7 @@ import { PublicKey } from '@bsv/sdk'
 export type Shape = { kind: string; name?: string; value?: unknown; fields?: Record<string, Shape>; item?: Shape; items?: Shape[]; variants?: Shape[]; key?: Shape; optional?: boolean; line?: number }
 export const clauseContract = JSON.parse(fs.readFileSync(path.resolve(import.meta.dirname, '../../../../programs/ISI-4/profiles/native-conformance-2.0.0/brc100-contract.json'), 'utf8')) as { source: unknown; methods: Record<string, { line: number; input: Shape; output: Shape }> }
 export const clauseCrypto = { protocolID: [0, 'tpnil native clauses'] as [0, string], keyID: 'native clause key', data: [...Buffer.from('TPNIL independent primitive check\u0000é')], peerKey: '61'.repeat(32) }
+export const clauseOracleId = 'tpnil-brc100-clause-oracle@3.0.0'
 const bytes = (v: unknown): boolean => (Array.isArray(v) || v instanceof Uint8Array) && [...v].every(n => Number.isInteger(n) && n >= 0 && n <= 255)
 const integer = (v: unknown, min: number, max: number) => typeof v === 'number' && Number.isInteger(v) && v >= min && v <= max
 const stringLength = (v: unknown, min: number, max: number) => typeof v === 'string' && Buffer.byteLength(v, 'utf8') >= min && Buffer.byteLength(v, 'utf8') <= max
@@ -87,9 +88,10 @@ export const clauseCoverageGaps = [
   { id: 'basket-length-interpretation', sourceLines: [518, 356], reason: 'The interface alias limits baskets to300 bytes while namespace prose permits400. This profile tests the unambiguous common subset and does not qualify301–400.' },
   { id: 'optional-transaction-and-certificate-paths', sourceLines: [630, 1428], reason: 'The input/output contract corpus does not prove every batching, default, pagination, certificate issuance and conflicting-parameter combination. Coverage remains explicit until corresponding native stateful fixtures execute.' }
 ]
-export function specifiedError(error: any, token?: string): boolean {
+export function specifiedError(error: any, token?: string, includeRequired = true): boolean {
   if (!error || error.name === 'TypeError' || typeof error.message !== 'string' || /timed? ?out|timeout|unsupported|not implemented|not yet implemented|network|fetch failed|closed|detached|context.*destroyed|target.*closed|connection|insufficient funds|unique constraint|permission denied|permission required|not authori[sz]ed|unauthorized/i.test(error.message)) return false
-  if (!token) return /invalid|incorrect|authenticat|permission|not valid|must|parameter|cannot|failed|malformed|ciphertext|decrypt|signature|hmac/i.test(error.message)
+  if (includeRequired && /cannot read (?:properties|property)|cannot (?:convert|set|destructure).*?(?:null|undefined)|(?:object null|undefined|null).*?not iterable|is not a function/i.test(error.message)) return false
+  if (!token) return /invalid|incorrect|authenticat|permission|not valid|must|parameter|cannot|failed|malformed|ciphertext|decrypt|signature|hmac/i.test(error.message) || includeRequired && /required/i.test(error.message)
   const normalized = error.message.toLowerCase().replace(/[^a-z0-9]/g, '')
   return normalized.includes(token.toLowerCase().replace(/[^a-z0-9]/g, ''))
 }

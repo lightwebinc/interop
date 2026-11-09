@@ -1,0 +1,11 @@
+{
+  "id": "tpnil-brc100-clause-oracle@3.0.0",
+  "profile": "ISI-4@2.0.0",
+  "predecessor": "tpnil-brc100-clause-oracle@2.0.0",
+  "changeClass": "MAJOR_VERDICT_CHANGE",
+  "criteria": "The 232 source-linked predicates and comprehensive R008 obligation remain unchanged. Explicit required-field errors qualify as specified rejection; the error-envelope predicate remains separate.",
+  "correction": "The earlier diagnostic matcher omitted the word required and falsely rejected an actual getPublicKey keyID validation error. The new oracle admits that explicit rejection and excludes JavaScript engine-exception messages even when native CWI has erased the TypeError name. Earlier diagnostic reports without an oracle ID retain their original matcher and archived outcomes.",
+  "fixtureIsolation": "Every wallet call receives a private argument clone; reference Toolbox normalization cannot mutate subsequent setup inputs.",
+  "nativeAdmission": "The failed first CI attempt stopped at artifact download before any wallet or oracle executed. Only oracle3.0.0 is admitted for the prospective native qualification.",
+  "completeBRC100Conformance": false
+}

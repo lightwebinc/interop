@@ -1,0 +1,200 @@
+{
+  "schema": "tpnil-native-clause-reference-journal@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "nativeQualification": false,
+  "oracle": "tpnil-brc100-clause-oracle@3.0.0",
+  "sourceBoundary": "Uncommitted pre-admission diagnostic source; exact historical source identity is not claimed. Native source freeze is separately recorded.",
+  "attempts": [
+    {
+      "attempt": "clauses-reference-typescript-20261109-8",
+      "archive": "clauses-reference-typescript-20261109-8.zip",
+      "archiveBytes": 220969,
+      "archiveSha256": "b3244db075a88eaa730eb29e6992ebde7e195ec99ae128016ea8d84246a38831",
+      "recordedCounts": {
+        "PASS": 128,
+        "FAIL": 99,
+        "BLOCKED": 5
+      },
+      "files": [
+        {
+          "path": "clauses-reference-typescript-20261109-8/clauses/evidence/conformance/clauses.json",
+          "bytes": 1468999,
+          "sha256": "230078c2b80db73717e141caae80792bc5fd8ccb0368f3ef8c1fae9d2948b8cb"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-8/clauses-verification.json",
+          "bytes": 379704,
+          "sha256": "39c1928d560fa918fd83f7d20d40f74bc9459cad485a32cd8cbeb05bfff99bce"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-8/coverage.json",
+          "bytes": 46100,
+          "sha256": "8e701a7c23edb8a951e48d9fdd782f4225fbaa6c1ee37489d9f01e65378b25fd"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-8/observations.json",
+          "bytes": 457460,
+          "sha256": "dfd86062207aa7cf9040e154f4734aed75997dd11446a6545ff482032989e7c7"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-8/result.json",
+          "bytes": 8051,
+          "sha256": "ba09ef2844c1088e26d9c8b15a39007fe37be5daa7fedb2c31559ec4ab668462"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-8.log",
+          "bytes": 13738,
+          "sha256": "de7c5248f1749ae18041ddc0116a6278ef9b654c137e59188ee5ef5d1285f696"
+        }
+      ]
+    },
+    {
+      "attempt": "clauses-reference-go-20261109-4",
+      "archive": "clauses-reference-go-20261109-4.zip",
+      "archiveBytes": 220726,
+      "archiveSha256": "e28c22f8cec32cb00f2f2309041b232589e6ffe4f364b8d41f040d5ee2422934",
+      "recordedCounts": {
+        "PASS": 127,
+        "FAIL": 100,
+        "BLOCKED": 5
+      },
+      "files": [
+        {
+          "path": "clauses-reference-go-20261109-4/clauses/evidence/conformance/clauses.json",
+          "bytes": 1448265,
+          "sha256": "dc26ae0b0080c96a92933ad288f2b7d73eeae8a20987180e986cdd13687a0b72"
+        },
+        {
+          "path": "clauses-reference-go-20261109-4/clauses-verification.json",
+          "bytes": 366575,
+          "sha256": "1e3da13f40f0aeb28817cefcf4eed0488f933ea47c5c161f911881a380a28d97"
+        },
+        {
+          "path": "clauses-reference-go-20261109-4/coverage.json",
+          "bytes": 46100,
+          "sha256": "8e701a7c23edb8a951e48d9fdd782f4225fbaa6c1ee37489d9f01e65378b25fd"
+        },
+        {
+          "path": "clauses-reference-go-20261109-4/observations.json",
+          "bytes": 460113,
+          "sha256": "7de09cb9c09b41edd1b111c8298552d8901f53c690b218600959dec65d55b3d5"
+        },
+        {
+          "path": "clauses-reference-go-20261109-4/result.json",
+          "bytes": 8043,
+          "sha256": "9fe5f523c488c3376cc7a9a968247941512d56f17630c602ad476101b28564f3"
+        },
+        {
+          "path": "clauses-reference-go-20261109-4.log",
+          "bytes": 13672,
+          "sha256": "c07b180627271a0910ef95f7b603ea1fb000baf83d50e7c99db26b08542e906c"
+        }
+      ]
+    },
+    {
+      "attempt": "clauses-reference-typescript-20261109-9",
+      "archive": "clauses-reference-typescript-20261109-9.zip",
+      "archiveBytes": 257032,
+      "archiveSha256": "de09152d1b2f9a570bceb31385004c96846a11bcf19529eae2ecce4db6308724",
+      "recordedCounts": {
+        "PASS": 133,
+        "FAIL": 98,
+        "BLOCKED": 1
+      },
+      "files": [
+        {
+          "path": "clauses-reference-typescript-20261109-9/clauses/evidence/conformance/clauses.json",
+          "bytes": 1652143,
+          "sha256": "581d119a43b8120a7f7dc7d6004101454b544ab598cabd6c2fb9425086ea8e54"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-9/clauses-verification.json",
+          "bytes": 450264,
+          "sha256": "2b57d4d879648272724e787c7f08c275fd7b2c05e12bbfb52afb6605be6e2bd3"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-9/coverage.json",
+          "bytes": 46100,
+          "sha256": "8e701a7c23edb8a951e48d9fdd782f4225fbaa6c1ee37489d9f01e65378b25fd"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-9/observations.json",
+          "bytes": 457233,
+          "sha256": "df35478725280d2ed8bc19ee54eea5585441ba709b300109e21232341554060c"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-9/result.json",
+          "bytes": 8051,
+          "sha256": "cddfebd3ae804cf9f45ca7e247548bdfbf27cd7fcad9ba4feef3d96ade50c94c"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-9.log",
+          "bytes": 13751,
+          "sha256": "8b1b39a765bfa63213b7e682cd44ffddb601bff9817511f7886414150c67902e"
+        }
+      ]
+    },
+    {
+      "attempt": "clauses-reference-go-20261109-5",
+      "archive": "clauses-reference-go-20261109-5.zip",
+      "archiveBytes": 238110,
+      "archiveSha256": "8fec52408577b3fb433fd6f093502fe988fef25eb9b8a7793bc1b9100fe055db",
+      "recordedCounts": {
+        "PASS": 133,
+        "FAIL": 98,
+        "BLOCKED": 1
+      },
+      "files": [
+        {
+          "path": "clauses-reference-go-20261109-5/clauses/evidence/conformance/clauses.json",
+          "bytes": 1544564,
+          "sha256": "728f6523299489fe6797d80e8165c5476d4c7fbd364bf6974ba172bed18751cf"
+        },
+        {
+          "path": "clauses-reference-go-20261109-5/clauses-verification.json",
+          "bytes": 366603,
+          "sha256": "04e8a742dfdf9b5bff95ffd904a9cb2b43f08d83c95d4ac74d4f475943dc13c3"
+        },
+        {
+          "path": "clauses-reference-go-20261109-5/coverage.json",
+          "bytes": 46100,
+          "sha256": "8e701a7c23edb8a951e48d9fdd782f4225fbaa6c1ee37489d9f01e65378b25fd"
+        },
+        {
+          "path": "clauses-reference-go-20261109-5/observations.json",
+          "bytes": 460844,
+          "sha256": "d12b15f094e55e6a05bb3873f5a79677136d2626f4f8f1540ae4876d754d6d79"
+        },
+        {
+          "path": "clauses-reference-go-20261109-5/result.json",
+          "bytes": 8043,
+          "sha256": "589365bec3ec7ea50cecd3173b958bca998ea334188905b0a47676f81f0c27c9"
+        },
+        {
+          "path": "clauses-reference-go-20261109-5.log",
+          "bytes": 13685,
+          "sha256": "b73147d2d583d339b5c231515dd7e3239fea87d4a427a51dea6dc26873c1d607"
+        }
+      ]
+    }
+  ],
+  "finalReplayedAttempts": [
+    "clauses-reference-typescript-20261109-9",
+    "clauses-reference-go-20261109-5"
+  ],
+  "finalCounts": {
+    "PASS": 133,
+    "FAIL": 98,
+    "BLOCKED": 1
+  },
+  "corrections": [
+    "Major oracle version recognizes explicit required-field rejection and excludes wrapped JavaScript engine errors.",
+    "Calls receive independent argument copies. This exposed inherited noSend state that needed explicit TXID batching cleanup; the first pair retains the resulting funding-control failures.",
+    "The final pair explicitly flushes any returned action TXID and all fixture-control blockers disappear."
+  ],
+  "costBoundary": {
+    "paidDeviceOrCloudCapacityCharges": 0,
+    "productionBroadcasts": 0,
+    "operatorAndAgentAndOwnedCapacityCost": "UNKNOWN_NOT_ZERO"
+  }
+}
