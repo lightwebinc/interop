@@ -1,0 +1,59 @@
+{
+  "schema": "tpnil-storage-projection-diagnosis@1",
+  "claim": "FAILED_ATTEMPT_READ_ONLY_DIAGNOSIS",
+  "recordedAt": "2026-11-09T21:59:11.814814+00:00",
+  "foundationRun": 42706097914,
+  "source": "4e7c1e1",
+  "cell": "typescript-to-go-2",
+  "producerFailures": [
+    "mediated-initial-sync",
+    "incremental-tombstone"
+  ],
+  "originalVerdictsRetained": true,
+  "initialProjectionDifferences": [
+    {
+      "path": "/provenTxReqs/0/history/notes/1/when",
+      "source": "2026-11-09T21:54:52.660Z",
+      "destination": "2026-11-09T21:54:52.66Z"
+    }
+  ],
+  "incrementalProjectionDifferences": [
+    {
+      "path": "/provenTxReqs/0/history/notes/1/when",
+      "source": "2026-11-09T21:54:52.660Z",
+      "destination": "2026-11-09T21:54:52.66Z"
+    }
+  ],
+  "sameInstant": true,
+  "remainingCertificates": {
+    "totalCertificates": 0,
+    "certificates": []
+  },
+  "underlyingTypedSource": {
+    "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+    "version": "v0.191.4",
+    "path": "pkg/wdk/history_notes.go",
+    "type": "HistoryNote.When time.Time",
+    "marshal": "HistoryNote.MarshalJSON places n.When into data[whenAttr] and json.Marshal(data), using Go time.Time JSON serialization.",
+    "sha256": "b2c723d248eb4f0d3b95d7c9f9b058c755287c2f5ebbb38e6ccb1e4d7b9e75ea",
+    "patched": false
+  },
+  "interpretation": "Only trailing fractional-second zeros differ in both logical comparisons. The certificate tombstone itself propagated. The original1.0 oracle compares history.when strings literally and correctly remains a FAIL under that frozen rule. Any equal-instant normalization requires a prospective declared projection policy, retaining original raw bytes and all other metadata.",
+  "evidence": [
+    {
+      "path": "out/recheck-foundation-42706097914-messaging/storage-sync/typescript-to-go-2/observations.json",
+      "bytes": 419485,
+      "sha256": "c848406585f4b2e57ff181001a34d1718cf136b09249e6d95dc894ffab3bec62"
+    },
+    {
+      "path": "out/recheck-foundation-42706097914-messaging/storage-sync/typescript-to-go-2/transcript.json",
+      "bytes": 937655,
+      "sha256": "5175422dd2129101b644ddb1375915e2584b8495c10351e6a9b26970fff08613"
+    },
+    {
+      "path": "out/recheck-foundation-42706097914-messaging/storage-sync/typescript-to-go-2/result.json",
+      "bytes": 2677,
+      "sha256": "628a31a38d7e335748002687852c1d285f07646682feee9328aadcd2d8756cd8"
+    }
+  ]
+}
