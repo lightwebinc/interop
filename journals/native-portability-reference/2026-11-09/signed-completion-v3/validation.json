@@ -1,0 +1,32 @@
+{
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "sourceCommit": "a3da4e5",
+  "nativeMacOSAssertions": {
+    "PASS": 9
+  },
+  "retainedFailedPreflights": 2,
+  "focusedTests": 15,
+  "typecheck": "PASS",
+  "tamperMutations": {
+    "actualNative6Readiness": 12,
+    "actualSuccessfulNativePreflight": 18
+  },
+  "independentReviewerReceipt": "out/coverage-preflight/independent-review.json",
+  "logs": [
+    {
+      "path": "tests.txt",
+      "bytes": 440,
+      "sha256": "4cc9ba8b861b54f69d32930db08e51bfe379fc0838735b229b408f9dba65216b"
+    },
+    {
+      "path": "typecheck.txt",
+      "bytes": 52,
+      "sha256": "381be222d640c62a1491f0cd300dd4b3d77f00d5b62028c59702bba3119afc8f"
+    },
+    {
+      "path": "independent-verification.txt",
+      "bytes": 298,
+      "sha256": "f320d4f5773f2975602733c430a31716c253b296596755fa604fa5279d6d119a"
+    }
+  ]
+}
