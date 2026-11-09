@@ -42,12 +42,20 @@ export async function runConformanceLifecycle(wallet: any, services: ControlledW
     const observation: any = { phase, scheduledVerdict: verdict, publicKey, args: snapshot(args), traceSequence: report.trace.length }
     const before = services.submissions.length
     const receiptsBefore = services.storageProcessActionReceipts.length
-    services.enqueueVerdict(verdict)
+    services.enqueueVerdict(verdict, metadataSets ? { kind: 'exact-output', lockingScript, amount: 2 } : undefined)
     try { observation.result = await call('createAction', args) }
     catch (error) { observation.error = errorSnapshot(error) }
     observation.submissions = services.submissions.slice(before).map(row => ({ txid: row.txid, verdict: row.verdict, bytes: [...row.bytes], sha256: sha256Hex(row.bytes) }))
     if (options.receiptMode) observation.storageReceipts = snapshot(services.storageProcessActionReceipts.slice(receiptsBefore))
-    if (observation.submissions.length === 0) observation.unconsumedVerdictRemoved = services.discardQueuedVerdict(verdict)
+    const targetObserved = metadataSets && observation.submissions.some((row: any) => {
+      let tx: Transaction
+      try { tx = Transaction.fromAtomicBEEF(row.bytes) } catch { tx = Transaction.fromBinary(row.bytes) }
+      return tx.outputs.some(output => output.satoshis === 2 && output.lockingScript.toHex() === lockingScript)
+        && !services.submissions.slice(0, before).some(previous => previous.txid === row.txid)
+    })
+    const unusedTargetRemoved = metadataSets && !targetObserved ? services.discardQueuedVerdict(verdict) : false
+    if (unusedTargetRemoved) observation.unusedTargetRemoved = true
+    if (observation.submissions.length === 0) observation.unconsumedVerdictRemoved = metadataSets ? unusedTargetRemoved : services.discardQueuedVerdict(verdict)
     observation.outputs = await outputs()
     observation.actions = await actions()
     report.cases.push(observation)

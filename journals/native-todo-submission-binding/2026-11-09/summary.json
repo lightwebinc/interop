@@ -1,0 +1,16 @@
+{
+  "schema": "tpnil-todo-binding-reference@1",
+  "claim": "ENGINEERING_RECONSTRUCTION_NOT_NATIVE_QUALIFICATION",
+  "sourceRun": "42680240116",
+  "runtimeSource": "3f9cbead7c05a17b663f9c2c52b93abdf04eac69",
+  "originalArchive": {
+    "size": 1470368,
+    "sha256": "264ba858b5618574c3aea189425d22c5cbb47c91a1ae361b618609cc17d38e49"
+  },
+  "fixture": {
+    "path": "captured-receipts.json.gz",
+    "size": 8033,
+    "sha256": "dd1b35f60a11f96ad33c6767a075892cfb542241653fe2fde33f51f7d431f34b"
+  },
+  "boundary": "The original run did not record phase receipt windows. These retrospective windows are an engineering fixture inferred from its ordered phase receipts and global trace. They do not qualify or rewrite that run. Prospective runs must capture complete windows at runtime."
+}

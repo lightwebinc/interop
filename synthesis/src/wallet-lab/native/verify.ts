@@ -164,6 +164,18 @@ export async function verifyNativeWallet(directory: string) {
     const deniedPrompt = (origin: string) => permission.permissions.some((item: { origin: string; decision: string }) => item.origin.includes(origin) && item.decision === 'deny')
     vectors[4]!.outcome = explicitDenial(permission.denial) && explicitDenial(permission.crossOrigin) && deniedPrompt('deny.itcve.test') && deniedPrompt('alternate.itcve.test') ? 'PASS' : 'FAIL'
     const lifecycle = evidence('broadcast-lifecycle.json')
+    if (conformance) {
+      const { verifyTodoSubmissionBinding } = await import('./verify-todo-submission-binding.js')
+      assert.equal(plan.todoSubmissionBinding, 'tpnil-native-todo-submission-binding@1.0.0')
+      const selected = verifyTodoSubmissionBinding(lifecycle, evidence('native-submissions.json'), plan.task)
+      for (const txid of selected) {
+        const tx = transactions.get(txid)
+        assert.ok(tx, 'Selected ToDo lifecycle transaction is absent from retained storage')
+        assert.equal(storageTransactions.get(txid)?.toHex(), tx.toHex())
+        assert.ok(spendsOnlyDeclaredNativePayments(tx, nativeFundingOutpoints), 'ToDo lifecycle transaction spends outside the declared upfront funding')
+        assert.ok(await tx.verify(tracker), 'Selected ToDo lifecycle transaction signature or mined proof is invalid')
+      }
+    }
     const acceptedCount = lifecycle.accepted.outputs?.totalOutputs
     const accepted = lifecycle.accepted.submission?.verdict === 'ACCEPTED_BY_NETWORK' && lifecycle.accepted.body.includes('Task successfully created!')
     const rejected = lifecycle.rejected.submission?.verdict === 'REJECTED' && acceptedCount !== undefined && lifecycle.rejected.outputs?.totalOutputs === acceptedCount
@@ -191,7 +203,7 @@ export async function verifyNativeWallet(directory: string) {
         }
       }
       const { verifyNativeConformance } = await import('./verify-conformance.js')
-      const prospective = await verifyNativeConformance(path.join(rep, 'evidence'), vectors, plan.lifecycleOracle)
+      const prospective = await verifyNativeConformance(path.join(rep, 'evidence'), vectors, plan.lifecycleOracle, plan.portabilityOracle)
       assert.deepEqual(record.vectors, prospective.vectors)
       vectors = prospective.vectors
       conformanceSemanticProjections.push(prospective.semanticProjection)

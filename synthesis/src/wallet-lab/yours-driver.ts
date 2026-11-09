@@ -25,6 +25,7 @@ import {
 } from './model.js'
 import type { ComponentSelection } from './go-services.js'
 import { ControlledWalletServices, type TeranodeWalletFundingFixture } from './services.js'
+import { bindTodoSubmissionWindow, todoProtocol, todoSubmissionBinding, type TodoSubmissionWindow } from './native/todo-submission-binding.js'
 
 interface CwiBoundary {
   [method: string]: (args: Record<string, unknown>) => Promise<Record<string, unknown>>
@@ -555,9 +556,11 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
       outputs?: ListOutputProjection
       error?: string
       submission?: { txid: string; verdict: 'ACCEPTED_BY_NETWORK' | 'REJECTED'; sha256: string }
+      submissionWindow?: TodoSubmissionWindow
     }> => {
-      services.enqueueVerdict(verdict)
+      services.enqueueVerdict(verdict, options.integratedProfile === 'ITCVE-1@1.4.0' ? { kind: 'todo-output', protocol: todoProtocol, amount: 2 } : undefined)
       const submissionsBefore = services.submissions.length
+      const phaseStartedAt = new Date().toISOString()
       const casePage = await context!.newPage()
       const url = new URL('https://todo.itcve.test/')
       url.searchParams.set('p0Task', name)
@@ -589,7 +592,10 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
         while (Date.now() < deadline) {
           body = await within(`immediate ${verdict} page observation`, 5_000,
             casePage.locator('body').innerText())
-          if (services.submissions.length > submissionsBefore) break
+          if (options.integratedProfile === 'ITCVE-1@1.4.0') {
+            const candidate = bindTodoSubmissionWindow(services.submissions, submissionsBefore, name, phaseStartedAt, new Date().toISOString())
+            if (candidate.selection !== 'none') break
+          } else if (services.submissions.length > submissionsBefore) break
           await casePage.waitForTimeout(500)
         }
         progress(`immediate ${verdict}: ${services.submissions.length - submissionsBefore} submission(s) observed`)
@@ -604,10 +610,15 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
       } finally {
         await casePage.close().catch(() => undefined)
       }
-      const observed = services.submissions.length > submissionsBefore ? services.submissions.at(-1) : undefined
+      const submissionWindow = options.integratedProfile === 'ITCVE-1@1.4.0'
+        ? bindTodoSubmissionWindow(services.submissions, submissionsBefore, name, phaseStartedAt, new Date().toISOString()) : undefined
+      const observed = submissionWindow === undefined
+        ? services.submissions.length > submissionsBefore ? services.submissions.at(-1) : undefined
+        : submissionWindow.selection === 'unique' ? services.submissions[submissionWindow.selectedIndex!] : undefined
       const discardedUnconsumedVerdict = observed === undefined ? services.discardQueuedVerdict(verdict) : false
       return {
         body,
+        ...(submissionWindow === undefined ? {} : { submissionWindow }),
         ...(outputs === undefined ? {} : { outputs }),
         ...(error === undefined ? {} : { error }),
         ...(discardedUnconsumedVerdict ? { error: error ?? 'No controlled submission consumed the scheduled verdict.' } : {}),
@@ -627,6 +638,7 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     const rejectedPassed = rejected.submission?.verdict === 'REJECTED' && rejectedStatePreserved
     const recoveryPassed = recovered.submission?.verdict === 'ACCEPTED_BY_NETWORK' && recoveredStateAdvanced
     evidence.addJson('broadcast-lifecycle.json', {
+      ...(options.integratedProfile === 'ITCVE-1@1.4.0' ? { submissionBinding: todoSubmissionBinding } : {}),
       accepted,
       rejected,
       recovered,

@@ -1,0 +1,73 @@
+{
+  "schema": "tpnil-todo-binding-diagnostic@1",
+  "claim": "ENGINEERING_RECONSTRUCTION_NOT_NATIVE_QUALIFICATION",
+  "sourceRun": "42680240116",
+  "originalArchive": {
+    "size": 1470368,
+    "sha256": "264ba858b5618574c3aea189425d22c5cbb47c91a1ae361b618609cc17d38e49"
+  },
+  "results": [
+    {
+      "repetition": 1,
+      "originalReportedRejectedSelection": {
+        "sha256": "9e47bd6dd5fd92819116fa3e0e4639a888ce165761759beacc9f932ad3b7f4b8",
+        "txid": "75efff1ac381cbc090b2ca52955b6d2e839d7ef025e5506b86d376e1f96f1dd6",
+        "verdict": "ACCEPTED_BY_NETWORK"
+      },
+      "independentlySelected": {
+        "accepted": {
+          "txid": "73f85fee38811d10429257466d5c0ecab235c67ab7103f90dfaf0fbff0756910",
+          "verdict": "ACCEPTED_BY_NETWORK",
+          "sha256": "b23db9b4ab6dd9104f5e6ed5c71cd3bd85cb769fc0d5f7cedf2f24e486586ab4"
+        },
+        "rejected": {
+          "txid": "58f32bd0060219a2f933508eaf0c07af196cafbc1287da2ee783fb3ee3830baf",
+          "verdict": "REJECTED",
+          "sha256": "6b92e78cdd6df9a55ea2d58f02e96f97d9219f1f27ec6f335f93c20f5b5b34d1"
+        },
+        "recovered": {
+          "txid": "a802c55f351cbf954fc5fe88bcaa87be801b32dcf602f84789233d244b4ebe6a",
+          "verdict": "ACCEPTED_BY_NETWORK",
+          "sha256": "636550dbd78b1ef0c67e250dfaf3d6b470537123497ff0a1b545eea50f5e60c3"
+        }
+      },
+      "reconstructedWindowPredicates": {
+        "accepted": true,
+        "rejected": true,
+        "recovered": true
+      },
+      "warning": "Phase boundaries and diagnostic timestamps were reconstructed for this engineering replay. They were not captured by the native run, which remains unchanged and unqualified."
+    },
+    {
+      "repetition": 2,
+      "originalReportedRejectedSelection": {
+        "sha256": "8336c2f5126adc62e4a2ad0de2e01b137a0e6abed0cb651eced9b29181917ed8",
+        "txid": "d217a9590ebf19f98abfcc992e943f6668778db1276ee89b15fc4bfb6d3f3049",
+        "verdict": "ACCEPTED_BY_NETWORK"
+      },
+      "independentlySelected": {
+        "accepted": {
+          "txid": "795cb69cb40b06513833ed86d0f6d6fd6d1ce40006bf75e4e8b75e308b15afd3",
+          "verdict": "ACCEPTED_BY_NETWORK",
+          "sha256": "ff7de23680cac613209c41d488262e05f1a31d4460157e9f8eb067206d0210e9"
+        },
+        "rejected": {
+          "txid": "b5e223545355e43bffce9aa8d7105077be25b95b73c7b0cab8e904d109dfba11",
+          "verdict": "REJECTED",
+          "sha256": "5f8b35f16a7e02fe289e594d9ddd66a79944dabee3670c3edae05745aa41d071"
+        },
+        "recovered": {
+          "txid": "bae5f5df56f1656f10e8c4394b3aa1633006a2a23c50f00d1e2991b5a5adfe7c",
+          "verdict": "ACCEPTED_BY_NETWORK",
+          "sha256": "c040588c6f29c9bbfb4ff4fb321c3964cce6645d7671db3eeea177f9533db8a9"
+        }
+      },
+      "reconstructedWindowPredicates": {
+        "accepted": true,
+        "rejected": true,
+        "recovered": true
+      },
+      "warning": "Phase boundaries and diagnostic timestamps were reconstructed for this engineering replay. They were not captured by the native run, which remains unchanged and unqualified."
+    }
+  ]
+}
