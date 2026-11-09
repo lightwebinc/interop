@@ -1,0 +1,33 @@
+{
+  "schema": "tpnil-frozen-parent-replay@1",
+  "runId": 42697283161,
+  "source": "cc3cf756272b8d3826612d71e8f6356239fed6fa",
+  "result": "REJECTED_REPETITION_MISMATCH",
+  "claim": "FAILED_ATTEMPT_INDEPENDENT_REPLAY",
+  "originalArchiveSha256": "20f854ee8fa3f32eaa3122bf20f8200204d7b04ae31df7f4542cd31138021176",
+  "originalMembersUnchanged": 176,
+  "replayDirectory": "out/native-ci-42697283161-parent-replay",
+  "command": "node out/frozen-native-source-cc3cf756/scripts/verify-native-integrated.mjs out/native-ci-42697283161-parent-replay",
+  "exitCode": 1,
+  "log": {
+    "path": "out/native-review-42697283161/frozen-parent-replay.log",
+    "bytes": 1821,
+    "sha256": "3005bba87826c3e93b992afa54acf79906668d9c2720e1eb74a0b681e5036bc4"
+  },
+  "cause": "V005 repetition outcomes differ: permission-lifecycle.basket-denial FAIL in repetition1 and PASS in repetition2. Frozen parent independently reproduced CI rejection.",
+  "portability": {
+    "oracle": "tpnil-native-portability-oracle@3.0.0",
+    "repetitions": [
+      {
+        "index": 1,
+        "PASS": 9
+      },
+      {
+        "index": 2,
+        "PASS": 9
+      }
+    ],
+    "receipt": "out/native-review-42697283161/portability.json"
+  },
+  "integratedParentAndRust": "Not reached after admission/repetition failure; no qualification or Rust result claimed."
+}
