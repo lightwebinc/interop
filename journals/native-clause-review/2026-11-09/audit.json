@@ -1,0 +1,379 @@
+{
+  "schema": "tpnil-native-v008-closure-audit@1",
+  "claim": "READ_ONLY_SCOPE_REVIEW",
+  "runId": 42674638927,
+  "walletArtifactSha256": "d55abda7dc8790ecfdd57ed0f5f4dd4a28187bb4833715f7612b067625eabc52",
+  "repetitions": [
+    {
+      "repetition": 1,
+      "source": "out/native-ci-42674638927/repetition-1/evidence/conformance/clauses.json",
+      "sha256": "21741c9b96f68b0b8b891a3cc7138aaf8254112e6de4d962c16244baec495e8e",
+      "counts": {
+        "PASS": 132,
+        "FAIL": 98,
+        "BLOCKED": 2
+      },
+      "failureClasses": {
+        "literal-return-shape": 1,
+        "malformed-value-returned-success": 73,
+        "malformed-input-storage-500": 4,
+        "malformed-input-js-engine-error": 15,
+        "unknown-reference-not-implemented-error": 1,
+        "namespace-accepted": 3,
+        "structured-error-loss": 1
+      },
+      "blocked": [
+        "input.createAction.options.noSendChange.0",
+        "coverage.remaining-obligations"
+      ],
+      "failureIds": {
+        "literal-return-shape": [
+          "output.listActions"
+        ],
+        "malformed-value-returned-success": [
+          "input.createAction.description",
+          "input.createAction.inputBEEF",
+          "input.createAction.inputs.0.inputDescription",
+          "input.createAction.outputs.0.outputDescription",
+          "input.createAction.outputs.0.customInstructions",
+          "input.createAction.options.signAndProcess",
+          "input.createAction.options.acceptDelayedBroadcast",
+          "input.createAction.options.trustSelf",
+          "input.createAction.options.knownTxids.0",
+          "input.createAction.options.returnTXIDOnly",
+          "input.createAction.options.noSend",
+          "input.createAction.options.sendWith.0",
+          "input.createAction.options.randomizeOutputs",
+          "input.signAction.options.acceptDelayedBroadcast",
+          "input.signAction.options.returnTXIDOnly",
+          "input.signAction.options.noSend",
+          "input.listActions.includeLabels",
+          "input.listActions.includeInputs",
+          "input.listActions.includeInputSourceLockingScripts",
+          "input.listActions.includeInputUnlockingScripts",
+          "input.listActions.includeOutputs",
+          "input.listActions.includeOutputLockingScripts",
+          "input.listActions.seekPermission",
+          "input.internalizeAction.seekPermission",
+          "input.listOutputs.include",
+          "input.listOutputs.includeCustomInstructions",
+          "input.listOutputs.includeTags",
+          "input.listOutputs.includeLabels",
+          "input.listOutputs.seekPermission",
+          "input.getPublicKey.identityKey",
+          "input.getPublicKey.privileged",
+          "input.getPublicKey.privilegedReason",
+          "input.getPublicKey.counterparty",
+          "input.getPublicKey.forSelf",
+          "input.getPublicKey.seekPermission",
+          "input.revealCounterpartyKeyLinkage.privilegedReason",
+          "input.revealCounterpartyKeyLinkage.privileged",
+          "input.revealSpecificKeyLinkage.privilegedReason",
+          "input.revealSpecificKeyLinkage.privileged",
+          "input.encrypt.plaintext.0",
+          "input.encrypt.privilegedReason",
+          "input.encrypt.counterparty",
+          "input.encrypt.privileged",
+          "input.encrypt.seekPermission",
+          "input.decrypt.privilegedReason",
+          "input.decrypt.counterparty",
+          "input.decrypt.privileged",
+          "input.decrypt.seekPermission",
+          "input.createHmac.data.0",
+          "input.createHmac.privilegedReason",
+          "input.createHmac.counterparty",
+          "input.createHmac.privileged",
+          "input.createHmac.seekPermission",
+          "input.verifyHmac.privilegedReason",
+          "input.verifyHmac.counterparty",
+          "input.verifyHmac.privileged",
+          "input.verifyHmac.seekPermission",
+          "input.createSignature.data.0",
+          "input.createSignature.hashToDirectlySign.0",
+          "input.createSignature.privilegedReason",
+          "input.createSignature.counterparty",
+          "input.createSignature.privileged",
+          "input.createSignature.seekPermission",
+          "input.verifySignature.privilegedReason",
+          "input.verifySignature.privileged",
+          "input.verifySignature.seekPermission",
+          "input.acquireCertificate.certifierUrl",
+          "input.acquireCertificate.privileged",
+          "input.listCertificates.privileged",
+          "input.proveCertificate.certificate.fields",
+          "input.proveCertificate.privileged",
+          "input.discoverByIdentityKey.seekPermission",
+          "input.discoverByAttributes.seekPermission"
+        ],
+        "malformed-input-storage-500": [
+          "input.createAction.inputs.0.unlockingScriptLength",
+          "input.createAction.inputs.0.sequenceNumber",
+          "input.createAction.lockTime",
+          "input.createAction.version"
+        ],
+        "malformed-input-js-engine-error": [
+          "input.createAction.outputs.0.basket",
+          "input.createAction.outputs.0.tags.0",
+          "input.createAction.labels.0",
+          "input.signAction.spends",
+          "input.listActions.labels.0",
+          "input.internalizeAction.outputs.0.insertionRemittance.basket",
+          "input.internalizeAction.outputs.0.insertionRemittance.customInstructions",
+          "input.internalizeAction.outputs.0.insertionRemittance.tags.0",
+          "input.internalizeAction.labels.0",
+          "input.listOutputs.basket",
+          "input.listOutputs.tags.0",
+          "input.relinquishOutput.basket",
+          "input.acquireCertificate.fields",
+          "input.proveCertificate.fieldsToReveal.0",
+          "input.discoverByAttributes.attributes"
+        ],
+        "unknown-reference-not-implemented-error": [
+          "input.signAction.reference"
+        ],
+        "namespace-accepted": [
+          "namespace.protocol.reserved",
+          "namespace.protocol.uppercase",
+          "namespace.basket.reserved"
+        ],
+        "structured-error-loss": [
+          "errors.structured"
+        ]
+      }
+    },
+    {
+      "repetition": 2,
+      "source": "out/native-ci-42674638927/repetition-2/evidence/conformance/clauses.json",
+      "sha256": "bbc0c4190f7762be92b3181d327a82a1cceeac35eb972159163e36826c1ffc75",
+      "counts": {
+        "PASS": 132,
+        "FAIL": 98,
+        "BLOCKED": 2
+      },
+      "failureClasses": {
+        "literal-return-shape": 1,
+        "malformed-value-returned-success": 73,
+        "malformed-input-storage-500": 4,
+        "malformed-input-js-engine-error": 15,
+        "unknown-reference-not-implemented-error": 1,
+        "namespace-accepted": 3,
+        "structured-error-loss": 1
+      },
+      "blocked": [
+        "input.createAction.options.noSendChange.0",
+        "coverage.remaining-obligations"
+      ],
+      "failureIds": {
+        "literal-return-shape": [
+          "output.listActions"
+        ],
+        "malformed-value-returned-success": [
+          "input.createAction.description",
+          "input.createAction.inputBEEF",
+          "input.createAction.inputs.0.inputDescription",
+          "input.createAction.outputs.0.outputDescription",
+          "input.createAction.outputs.0.customInstructions",
+          "input.createAction.options.signAndProcess",
+          "input.createAction.options.acceptDelayedBroadcast",
+          "input.createAction.options.trustSelf",
+          "input.createAction.options.knownTxids.0",
+          "input.createAction.options.returnTXIDOnly",
+          "input.createAction.options.noSend",
+          "input.createAction.options.sendWith.0",
+          "input.createAction.options.randomizeOutputs",
+          "input.signAction.options.acceptDelayedBroadcast",
+          "input.signAction.options.returnTXIDOnly",
+          "input.signAction.options.noSend",
+          "input.listActions.includeLabels",
+          "input.listActions.includeInputs",
+          "input.listActions.includeInputSourceLockingScripts",
+          "input.listActions.includeInputUnlockingScripts",
+          "input.listActions.includeOutputs",
+          "input.listActions.includeOutputLockingScripts",
+          "input.listActions.seekPermission",
+          "input.internalizeAction.seekPermission",
+          "input.listOutputs.include",
+          "input.listOutputs.includeCustomInstructions",
+          "input.listOutputs.includeTags",
+          "input.listOutputs.includeLabels",
+          "input.listOutputs.seekPermission",
+          "input.getPublicKey.identityKey",
+          "input.getPublicKey.privileged",
+          "input.getPublicKey.privilegedReason",
+          "input.getPublicKey.counterparty",
+          "input.getPublicKey.forSelf",
+          "input.getPublicKey.seekPermission",
+          "input.revealCounterpartyKeyLinkage.privilegedReason",
+          "input.revealCounterpartyKeyLinkage.privileged",
+          "input.revealSpecificKeyLinkage.privilegedReason",
+          "input.revealSpecificKeyLinkage.privileged",
+          "input.encrypt.plaintext.0",
+          "input.encrypt.privilegedReason",
+          "input.encrypt.counterparty",
+          "input.encrypt.privileged",
+          "input.encrypt.seekPermission",
+          "input.decrypt.privilegedReason",
+          "input.decrypt.counterparty",
+          "input.decrypt.privileged",
+          "input.decrypt.seekPermission",
+          "input.createHmac.data.0",
+          "input.createHmac.privilegedReason",
+          "input.createHmac.counterparty",
+          "input.createHmac.privileged",
+          "input.createHmac.seekPermission",
+          "input.verifyHmac.privilegedReason",
+          "input.verifyHmac.counterparty",
+          "input.verifyHmac.privileged",
+          "input.verifyHmac.seekPermission",
+          "input.createSignature.data.0",
+          "input.createSignature.hashToDirectlySign.0",
+          "input.createSignature.privilegedReason",
+          "input.createSignature.counterparty",
+          "input.createSignature.privileged",
+          "input.createSignature.seekPermission",
+          "input.verifySignature.privilegedReason",
+          "input.verifySignature.privileged",
+          "input.verifySignature.seekPermission",
+          "input.acquireCertificate.certifierUrl",
+          "input.acquireCertificate.privileged",
+          "input.listCertificates.privileged",
+          "input.proveCertificate.certificate.fields",
+          "input.proveCertificate.privileged",
+          "input.discoverByIdentityKey.seekPermission",
+          "input.discoverByAttributes.seekPermission"
+        ],
+        "malformed-input-storage-500": [
+          "input.createAction.inputs.0.unlockingScriptLength",
+          "input.createAction.inputs.0.sequenceNumber",
+          "input.createAction.lockTime",
+          "input.createAction.version"
+        ],
+        "malformed-input-js-engine-error": [
+          "input.createAction.outputs.0.basket",
+          "input.createAction.outputs.0.tags.0",
+          "input.createAction.labels.0",
+          "input.signAction.spends",
+          "input.listActions.labels.0",
+          "input.internalizeAction.outputs.0.insertionRemittance.basket",
+          "input.internalizeAction.outputs.0.insertionRemittance.customInstructions",
+          "input.internalizeAction.outputs.0.insertionRemittance.tags.0",
+          "input.internalizeAction.labels.0",
+          "input.listOutputs.basket",
+          "input.listOutputs.tags.0",
+          "input.relinquishOutput.basket",
+          "input.acquireCertificate.fields",
+          "input.proveCertificate.fieldsToReveal.0",
+          "input.discoverByAttributes.attributes"
+        ],
+        "unknown-reference-not-implemented-error": [
+          "input.signAction.reference"
+        ],
+        "namespace-accepted": [
+          "namespace.protocol.reserved",
+          "namespace.protocol.uppercase",
+          "namespace.basket.reserved"
+        ],
+        "structured-error-loss": [
+          "errors.structured"
+        ]
+      }
+    }
+  ],
+  "labBugAssessment": {
+    "confirmedMisclassifiedFailures": [],
+    "detail": "No new concrete lab defect was found that warrants reclassifying these98FAIL observations. The19 generic engine/storage errors are actual observed responses to controlled malformed inputs; they correctly fail specified-error predicates. The73successful malformed-value responses are literal API-shape observations, not73 independent security defects. Optional-null or inactive conditional parameters need interpretation at their declared boundary, as the existing report already notes."
+  },
+  "documentationPrecision": {
+    "path": "docs/native-conformance-results-2026-11-09.md",
+    "issue": "Invalid probes require successful controls is broader than the frozen oracle. Three successful malformed-input calls have no successful positive control, but their actual returned success still establishes acceptance of an out-of-schema value. The oracle checks accepted results before the successful-control requirement for rejection outcomes.",
+    "affected": [
+      "input.listActions.seekPermission",
+      "input.acquireCertificate.certifierUrl",
+      "input.acquireCertificate.privileged"
+    ],
+    "suggestedWording": "A negative rejection satisfies its predicate only after a successful causal control; directly returning success for a malformed value remains a literal contract failure.",
+    "countsChanged": false
+  },
+  "actionableSupportedScopes": [
+    {
+      "id": "noSendChange-positive-input",
+      "status": "FEASIBLE_PROSPECTIVE_TEST_NOT_EXECUTED",
+      "detail": "Keep the genuine stale noSendChange-return finding. Independently derive a valid pending change outpoint from the signed createAction.tx/txid and public listActions(includeOutputs:true) default-basket output metadata, then separately exercise noSendChange input semantics. The existing native positive listActions response already exposes default change metadata without listOutputs(default). This is a new valid caller fixture, not rewriting a SUT return. A separately named stale-return assertion is needed before replacing the current blocked control; preserve this archived232-predicate sample. Whether the pending noSend action is visible through listActions must be proven in the next prospective execution.",
+      "publicEvidence": "clauses.positives method=listActions includes outputs with basket=default, outputIndex=2, satoshis=964, script and spendable=true in repetition1."
+    },
+    {
+      "id": "permission-categories-and-revocation",
+      "status": "SUPPORTED_UI_AVAILABLE_UNEXECUTED",
+      "detail": "The released background binds protocol,basket,certificate,spending,grouped and counterparty prompts. Settings\u2192Permissions implements individual revoke and Revoke All via actual UI. Fresh-origin basket/spending/certificate/linkage approval-denial, scope, cache and cold-reload/revoke scenarios can be added without changing wallet artifact or private state. These are missing lab scenarios, not an externally unavailable capability.",
+      "sourceLocations": [
+        "background.ts:599",
+        "PermissionsManager.tsx:226",
+        "PermissionsManager.tsx:262",
+        "Settings.tsx:1727"
+      ]
+    },
+    {
+      "id": "conditional-transaction-certificate-branches",
+      "status": "PUBLIC_METHODS_AVAILABLE_UNEXECUTED",
+      "detail": "Batching/default/trustSelf, filter/include/pagination and certificate-protocol/conflicting-field paths are reachable through the admitted public methods. Each requires separate positive fixtures, meaningful state/ancestry or disclosure oracles and a source-linked branch inventory. They cannot be certified by the existing wrong-type leaf matrix."
+    }
+  ],
+  "remainingAdmissionOrInterfaceLimits": [
+    {
+      "id": "finite-permission-expiry",
+      "detail": "Background accepts optional expiry, but released approval UI does not send it and defaults to no expiry. Injecting extension messages or changing internal token state is not the supported public UI. Finite-expiry behavior needs an admitted supported configuration; current UI can prove revocation and persistent grants only."
+    },
+    {
+      "id": "privileged-secondary-keyring",
+      "detail": "Native initialization passes identity private key, chain, fee, storage and task-state config into createWebWallet; no secondary privileged-key configuration is exposed by the reviewed application. Bundled optional manager support and privileged warning alone do not establish a distinct admitted secondary key/user-presence path."
+    },
+    {
+      "id": "byte-wire-substrate",
+      "detail": "The released CWI factory exposes28 public methods. No admitted native byte-wire endpoint is established. Encoding an adapter-side frame and forwarding to CWI would not qualify a native byte-wire implementation."
+    },
+    {
+      "id": "basket-length-interpretation",
+      "detail": "Boundary cases can be measured through existing APIs, but pinned typed300-byte and prose400-byte limits need a prospective explicit interpretation before301\u2013400can receive conformancePASS. Raw observations can be collected without resolving that policy; they cannot remove the coverage gate by themselves."
+    }
+  ],
+  "sourceInspection": [
+    {
+      "localPath": "out/native-portability-source/PermissionsManager.tsx",
+      "sha256": "d4c91d57dbc46dec1aed093ee863401c39f4873cf04eaea29b4e58c5410d8186"
+    },
+    {
+      "localPath": "out/native-portability-source/PermissionRequest.tsx",
+      "sha256": "24dc32c8eeda40982941b7139f6799fd38934d53ed252e33410a4ca933ac2c58"
+    },
+    {
+      "localPath": "out/native-portability-source/background.ts",
+      "sha256": "b335c86549135f3a1dd9e146057130961858384de869d431469855bbf35017d4"
+    },
+    {
+      "localPath": "out/native-portability-source/initWallet.ts",
+      "sha256": "b0ae51c23eb063d3fd2b4df2f49236c410ce2934f946bc0f2f9bd207e3008956"
+    },
+    {
+      "localPath": "out/native-portability-source/cwi-factory.js",
+      "sha256": "d5b920e0bf1b1702d6cc776a87508d61012811e330626617a3a9db88a3ec6648"
+    }
+  ],
+  "noSourceEdits": true,
+  "noAdditionalNativeRuns": true,
+  "boundaryAttribution": {
+    "default": "All categories are established at unchanged native window.CWI; do not assign shared-client observations to Go storage merely because Go is the configured backend.",
+    "storage500": "Four native errors expressly report WalletStorageClient rpcCall network error500. This establishes a storage-RPC error path, not a complete causal attribution to a specific Go decoder without independent matching request/reply evidence.",
+    "noSendChange": "Separate prior diagnostic proves exact unchanged WalletPermissionsManager merges signed result over createResult and leaves noSendChange stale. The current blocked control has the same positive-control error; its precise transaction proof remains independently reproducible.",
+    "structuredErrorLoss": "Native public error objects lack required status/code/description; caller-capture code retains original own properties. Exact bridge wrapping is documented in the unchanged native source.",
+    "negativeNetSatoshi": "listActions returns negative outgoing net amounts against the pinned positive SatoshiValue alias; literal standard mismatch, not invalid transaction output values."
+  },
+  "pinnedSourceReview": {
+    "url": "https://github.com/bsv-blockchain/BRCs/blob/39a643ff148a8dcd23ec08986a8ddeb7d5713743/wallet/0100.md",
+    "gitBlobSha": "ec25ff75b7d5c584a892e52dbcef07dfae6d9747",
+    "lines": [
+      315,
+      362
+    ],
+    "finding": "Namespace lowercase and reserved-prefix prohibitions are explicit. Privileged secondary mode is conditional on implementation. Basket prose400 differs from typed alias300; no prospective interpretation was silently applied."
+  }
+}

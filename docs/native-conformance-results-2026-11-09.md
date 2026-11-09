@@ -138,7 +138,9 @@ TypeScript client behavior shared by both reference paths is not automatically
 a Go storage defect, and assertion counts are not independent security-defect
 counts.
 
-The two native repetitions each retain the same 98 clause failures:
+The [read-only clause review](../journals/native-clause-review/2026-11-09/README.md)
+retains exact identifiers and source boundaries. Both native repetitions have
+the same 98 clause failures:
 
 | Observation category | Count | Proven boundary |
 | --- | ---: | --- |
