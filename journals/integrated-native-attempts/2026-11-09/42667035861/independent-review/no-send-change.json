@@ -1,0 +1,256 @@
+{
+  "schema": "tpnil-native-no-send-change-diagnostic@1",
+  "claim": "Read-only diagnostic of retained native positive-control failure; no qualification result is changed.",
+  "run": {
+    "id": 42667035861,
+    "url": "https://github.com/p2ppsr/interop/actions/runs/42667035861",
+    "sourceRevision": "60c87315cccdfef86523b03a9ce2390bae639dae"
+  },
+  "artifact": {
+    "path": "out/native-ci-42667035861.zip",
+    "sha256": "6422dc19008616785e6299a23ef9536e11c89de44d9773675ec28b815f66152b"
+  },
+  "method": "Decode the returned AtomicBEEF using the pinned local SDK, independently double-SHA256 the extracted raw transaction with node:crypto and reverse the digest. Compute the empty-unlocking-script transaction ID separately. Read value and locking script directly from the signed transaction at the returned vout. No wallet calls, response rewriting, or report mutations.",
+  "nativeSource": {
+    "artifact": {
+      "path": "out/sut-artifacts/yours-wallet-v5.1.0/pw-v5.1.0.zip",
+      "sha256": "d55abda7dc8790ecfdd57ed0f5f4dd4a28187bb4833715f7612b067625eabc52"
+    },
+    "map": {
+      "path": "out/sut-artifacts/yours-wallet-v5.1.0/unpacked/build/background.js.map",
+      "sha256": "cc084942acf05a6b8278160ca739663d865bbbbbb564b2567e3f81f54acc451b"
+    },
+    "embeddedSource": {
+      "path": "../node_modules/@1sat/client/node_modules/@bsv/wallet-toolbox-client/out/index.client.mjs",
+      "sha256": "511e5856ccecbb4493092dda3aa78cfaed44141804ad3099b1f38eece4559601",
+      "lines": [
+        34136,
+        34177,
+        34178,
+        34179,
+        34194
+      ]
+    },
+    "explanation": "The unchanged WalletPermissionsManager forces deferred signing for normal application callers, signs internally, and returns the merged createResult/signResult. The signed transaction ID overwrites the unsigned ID while noSendChange inherited from createResult remains unchanged. Exact native receipts below prove the stale ID independently of this source-level explanation."
+  },
+  "repetitions": [
+    {
+      "repetition": 1,
+      "source": {
+        "path": "out/native-ci-42667035861/repetition-1/evidence/conformance/clauses.json",
+        "sha256": "e9808e0c88212e9d87d5323eda0a47e8b022afc89496109656367c6a07fecf33"
+      },
+      "setup": {
+        "traceIndex": 79,
+        "id": "setup.input.createAction.options.noSendChange.0",
+        "method": "createAction",
+        "args": {
+          "description": "TPNIL parameter validation fixture",
+          "labels": [
+            "tpnil-clauses"
+          ],
+          "options": {
+            "noSend": true,
+            "randomizeOutputs": false
+          },
+          "outputs": [
+            {
+              "basket": "tpnil clause parameters",
+              "customInstructions": "fixture",
+              "lockingScript": "51",
+              "outputDescription": "TPNIL validation output",
+              "satoshis": 1,
+              "tags": [
+                "clause"
+              ]
+            }
+          ]
+        },
+        "returnedTxid": "4da2f80c6d26e1ca440ab98ea7f7fae5dd474010ebd322984d20c5a213e8ccf0",
+        "returnedAtomicBeefSha256": "e6caec68ec0a0bf6db5a823d81775f6476b9fd38c58a3dc1765a8ad3d7303785",
+        "returnedNoSendChange": [
+          "3be68f1b237edaacd6968ca39bd28dcfb0ca3e9cbeb737edaa711d453b7d6a5a.1"
+        ]
+      },
+      "signedTransaction": {
+        "computedTxid": "4da2f80c6d26e1ca440ab98ea7f7fae5dd474010ebd322984d20c5a213e8ccf0",
+        "rawHex": "0100000001312562d1d0e8046d97790f7c6b5b685abce3488e2422b40614b56fd0243a4a6e010000006b483045022100d7b0cdb6e4e5c602be758f330c65fbda162a4fef92b10de66752ce541f2f1aac02203540c575691e50a1206c8babd2e1f9ca20f59916b97b6a2800e86645a09eb6e3412102726b4cd4aa50f254207042e9ddf58788a7b0a62ec00dedfd0ae0b05b10d719e8ffffffff02010000000000000001513e020000000000001976a91435681961183e2c98d5c3ed90adac15a3fd8d16b188ac00000000",
+        "rawSha256": "1cc05e85d3e2a9efd69322cbc6c8abbc26efc17f58d2233eebaea89e95341b5b",
+        "inputs": [
+          {
+            "sourceTXID": "6e4a3a24d06fb51406b422248e48e3bc5a685b6b7c0f79976d04e8d0d1622531",
+            "sourceOutputIndex": 1,
+            "unlockingScriptBytes": 107
+          }
+        ],
+        "matchingOutput": {
+          "index": 1,
+          "outpoint": "4da2f80c6d26e1ca440ab98ea7f7fae5dd474010ebd322984d20c5a213e8ccf0.1",
+          "satoshis": 574,
+          "lockingScriptHex": "76a91435681961183e2c98d5c3ed90adac15a3fd8d16b188ac",
+          "lockingScriptSha256": "cb731020d43609b0f668d4bd5c3ae489c33965ae7ea9aa27885179189259780f",
+          "metadataSource": "Decoded signed transaction; no storage basket or spendability metadata is inferred."
+        }
+      },
+      "unsignedForm": {
+        "computedTxid": "3be68f1b237edaacd6968ca39bd28dcfb0ca3e9cbeb737edaa711d453b7d6a5a",
+        "matchesReturnedChangeTxid": true,
+        "transformation": "Set every input unlocking script to empty; preserve all other transaction fields."
+      },
+      "control": {
+        "traceIndex": 80,
+        "id": "control.input.createAction.options.noSendChange.0",
+        "args": {
+          "description": "TPNIL parameter validation fixture",
+          "labels": [
+            "tpnil-clauses"
+          ],
+          "options": {
+            "noSend": true,
+            "noSendChange": [
+              "3be68f1b237edaacd6968ca39bd28dcfb0ca3e9cbeb737edaa711d453b7d6a5a.1"
+            ],
+            "randomizeOutputs": false,
+            "signAndProcess": false
+          },
+          "outputs": [
+            {
+              "basket": "tpnil clause parameters",
+              "customInstructions": "fixture",
+              "lockingScript": "51",
+              "outputDescription": "TPNIL validation output",
+              "satoshis": 1,
+              "tags": [
+                "clause"
+              ]
+            }
+          ]
+        },
+        "error": {
+          "message": "failed to process createAction: failed to create priority outputs: failed to validate outputs: the number of outputs (0) doesn't match the number of outpoints (1)",
+          "name": "Error"
+        }
+      },
+      "retainedAssertion": {
+        "detail": "Positive control failed or was unavailable: {\"name\":\"Error\",\"message\":\"failed to process createAction: failed to create priority outputs: failed to validate outputs: the number of outputs (0) doesn't match the number of outpoints (1)\"}",
+        "id": "input.createAction.options.noSendChange.0",
+        "result": "BLOCKED"
+      },
+      "retainedCounts": {
+        "PASS": 132,
+        "FAIL": 98,
+        "BLOCKED": 2
+      },
+      "diagnosis": "The returned noSendChange refers to the unsigned transaction ID, while the signed transaction and returned txid use a different ID. Feeding the unchanged returned outpoint to the positive control fails before malformed-input semantics can be tested."
+    },
+    {
+      "repetition": 2,
+      "source": {
+        "path": "out/native-ci-42667035861/repetition-2/evidence/conformance/clauses.json",
+        "sha256": "639733f5a350e3c6a7deb0dcecd575abf55ce86782a7b351220f0fb5d54384b9"
+      },
+      "setup": {
+        "traceIndex": 79,
+        "id": "setup.input.createAction.options.noSendChange.0",
+        "method": "createAction",
+        "args": {
+          "description": "TPNIL parameter validation fixture",
+          "labels": [
+            "tpnil-clauses"
+          ],
+          "options": {
+            "noSend": true,
+            "randomizeOutputs": false
+          },
+          "outputs": [
+            {
+              "basket": "tpnil clause parameters",
+              "customInstructions": "fixture",
+              "lockingScript": "51",
+              "outputDescription": "TPNIL validation output",
+              "satoshis": 1,
+              "tags": [
+                "clause"
+              ]
+            }
+          ]
+        },
+        "returnedTxid": "392b6ca2586235eedd5d8bd2cc640ffdc8e61b747cf4bb5530bfdc7a0eacdc1e",
+        "returnedAtomicBeefSha256": "2cabe033fb02b434851e8d4948a1ebb6ab640cfa4a3e156b2c18505276bf7d53",
+        "returnedNoSendChange": [
+          "e77fe81b85461373cabc415ebfaa1d7ed43ab72c2cd1d1baa32b700cc8e97ad0.1"
+        ]
+      },
+      "signedTransaction": {
+        "computedTxid": "392b6ca2586235eedd5d8bd2cc640ffdc8e61b747cf4bb5530bfdc7a0eacdc1e",
+        "rawHex": "01000000013b647ffe34b774e5963480bf57bcc358c1716e84d4b8156c82fb32985d8a14e3010000006a47304402201c9aa3f444043a559b69b9763fda233acbc46a132ab27cfe71bf04b7c8ad2e56022019a46c3c5c1ce1c90e3e2225f61e9a1bb58f04dcc3022fde6194c83f9b0bba9a4121032bea311ac3e171ae1b3534243cb7ca764b6bfe2dbc3eefaae84158ce886fbe35ffffffff02010000000000000001513d020000000000001976a914b342cdeeb42b6de6a2d356ae3ac3d97cadecc17388ac00000000",
+        "rawSha256": "1358aa61daac1effa25c3ee0e4bab15b0c753fb4ef6a517fe8a6efdccb96ff68",
+        "inputs": [
+          {
+            "sourceTXID": "e3148a5d9832fb826c15b8d4846e71c158c3bc57bf803496e574b734fe7f643b",
+            "sourceOutputIndex": 1,
+            "unlockingScriptBytes": 106
+          }
+        ],
+        "matchingOutput": {
+          "index": 1,
+          "outpoint": "392b6ca2586235eedd5d8bd2cc640ffdc8e61b747cf4bb5530bfdc7a0eacdc1e.1",
+          "satoshis": 573,
+          "lockingScriptHex": "76a914b342cdeeb42b6de6a2d356ae3ac3d97cadecc17388ac",
+          "lockingScriptSha256": "b6da765b3dbc1e00d8ae636e9c1e506d3c08d8a41006b2285f933c2b206583ad",
+          "metadataSource": "Decoded signed transaction; no storage basket or spendability metadata is inferred."
+        }
+      },
+      "unsignedForm": {
+        "computedTxid": "e77fe81b85461373cabc415ebfaa1d7ed43ab72c2cd1d1baa32b700cc8e97ad0",
+        "matchesReturnedChangeTxid": true,
+        "transformation": "Set every input unlocking script to empty; preserve all other transaction fields."
+      },
+      "control": {
+        "traceIndex": 80,
+        "id": "control.input.createAction.options.noSendChange.0",
+        "args": {
+          "description": "TPNIL parameter validation fixture",
+          "labels": [
+            "tpnil-clauses"
+          ],
+          "options": {
+            "noSend": true,
+            "noSendChange": [
+              "e77fe81b85461373cabc415ebfaa1d7ed43ab72c2cd1d1baa32b700cc8e97ad0.1"
+            ],
+            "randomizeOutputs": false,
+            "signAndProcess": false
+          },
+          "outputs": [
+            {
+              "basket": "tpnil clause parameters",
+              "customInstructions": "fixture",
+              "lockingScript": "51",
+              "outputDescription": "TPNIL validation output",
+              "satoshis": 1,
+              "tags": [
+                "clause"
+              ]
+            }
+          ]
+        },
+        "error": {
+          "message": "failed to process createAction: failed to create priority outputs: failed to validate outputs: the number of outputs (0) doesn't match the number of outpoints (1)",
+          "name": "Error"
+        }
+      },
+      "retainedAssertion": {
+        "detail": "Positive control failed or was unavailable: {\"name\":\"Error\",\"message\":\"failed to process createAction: failed to create priority outputs: failed to validate outputs: the number of outputs (0) doesn't match the number of outpoints (1)\"}",
+        "id": "input.createAction.options.noSendChange.0",
+        "result": "BLOCKED"
+      },
+      "retainedCounts": {
+        "PASS": 132,
+        "FAIL": 98,
+        "BLOCKED": 2
+      },
+      "diagnosis": "The returned noSendChange refers to the unsigned transaction ID, while the signed transaction and returned txid use a different ID. Feeding the unchanged returned outpoint to the positive control fails before malformed-input semantics can be tested."
+    }
+  ]
+}
