@@ -166,8 +166,10 @@ export async function verifyNativeWallet(directory: string) {
     const lifecycle = evidence('broadcast-lifecycle.json')
     if (conformance) {
       const { verifyTodoSubmissionBinding } = await import('./verify-todo-submission-binding.js')
+      const { verifyLifecycleSubmissionBinding } = await import('./lifecycle-submission-binding.js')
       assert.equal(plan.todoSubmissionBinding, 'tpnil-native-todo-submission-binding@1.0.0')
       const selected = verifyTodoSubmissionBinding(lifecycle, evidence('native-submissions.json'), plan.task)
+      verifyLifecycleSubmissionBinding(evidence('conformance/lifecycle.json'), evidence('native-submissions.json'))
       for (const txid of selected) {
         const tx = transactions.get(txid)
         assert.ok(tx, 'Selected ToDo lifecycle transaction is absent from retained storage')

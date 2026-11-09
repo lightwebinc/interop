@@ -3,6 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { P2PKH, PublicKey, Transaction } from '@bsv/sdk'
 import { canonicalJson, sha256Hex } from '../../determinism.js'
+import { verifyLifecycleSubmissionBinding } from './lifecycle-submission-binding.js'
 
 const fixture = JSON.parse(fs.readFileSync(path.resolve(import.meta.dirname, '../../../../fixtures/teranode/wab-funding-v1.json'), 'utf8'))
 const tracker = { currentHeight: async () => fixture.fundingHeight + fixture.maturityDepth, isValidRootForHeight: async (root: string, height: number) => root === fixture.merkleRoot && height === fixture.fundingHeight }
@@ -22,6 +23,10 @@ const errorIsRejection = (error: any) => typeof error?.message === 'string' && /
 export async function verifyConformanceLifecycle(report: any): Promise<any> {
   assert.ok(['tpnil-native-conformance-lifecycle@1', 'tpnil-native-conformance-lifecycle@2', 'tpnil-native-conformance-lifecycle@3'].includes(report.schema))
   const metadataSets = report.schema === 'tpnil-native-conformance-lifecycle@3'
+  if (report.submissionBinding !== undefined) {
+    assert.ok(metadataSets, 'Historical lifecycle schema cannot select scoped receipt binding')
+    verifyLifecycleSubmissionBinding(report)
+  } else for (const entry of report.cases) assert.equal(entry.submissionWindow, undefined, 'Unversioned lifecycle submission window')
   if (metadataSets) assert.equal(report.oracle, 'tpnil-native-lifecycle-oracle@3.0.0')
   else assert.equal(report.oracle, undefined, 'Historical lifecycle reports cannot select a new oracle')
   const storageReceiptMode = report.schema !== 'tpnil-native-conformance-lifecycle@1'

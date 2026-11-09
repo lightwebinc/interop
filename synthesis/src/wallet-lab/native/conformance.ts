@@ -5,6 +5,7 @@ import { lifecycleOracleId, runConformanceLifecycle } from './conformance-lifecy
 import { runNativePortability } from './conformance-portability.js'
 import { nativeWalletBoundary, runNativeIntegration } from './integrated.js'
 import { runNativeClauseConformance } from './conformance-clauses.js'
+import { todoSubmissionBinding } from './todo-submission-binding.js'
 
 function vector(id: VectorResult['id'], report: any, file: string, limitations: string[] = []): VectorResult {
   const assertions = report.assertions.map((row: any) => ({ id: row.id, outcome: row.result as VectorOutcome, detail: row.detail ?? 'Independent predicate is retained with its raw observations.', evidence: [file] }))
@@ -16,7 +17,7 @@ export async function runNativeConformance(context: NativeScenarioContext): Prom
   const { application, services, evidence, baselineVectors } = context
   const wallet = nativeWalletBoundary(application, true)
   const permission = await context.manualPrompt(() => runNativePermissionConformance({ context: context.context, evidence, extensionId: context.extensionId }))
-  const lifecycle = await runConformanceLifecycle(wallet, services, { receiptMode: 'storage-rpc', oracle: lifecycleOracleId })
+  const lifecycle = await runConformanceLifecycle(wallet, services, { receiptMode: 'storage-rpc', oracle: lifecycleOracleId, submissionBinding: todoSubmissionBinding })
   evidence.addJson('conformance/lifecycle.json', lifecycle)
   const portability = await runNativePortability({ application, services, evidence, password: context.password })
   let clauses: any

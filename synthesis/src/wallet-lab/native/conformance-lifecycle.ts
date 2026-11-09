@@ -1,6 +1,8 @@
 import { Beef, P2PKH, PublicKey, Transaction } from '@bsv/sdk'
 import { canonicalJson, sha256Hex } from '../../determinism.js'
 import type { ControlledWalletServices } from '../services.js'
+import { todoSubmissionBinding } from './todo-submission-binding.js'
+import { captureLifecycleWindow } from './lifecycle-submission-binding.js'
 
 export const lifecycleAssertionIds = ['accepted-service-verdict-observed', 'rejection-preserves-wallet-state', 'post-rejection-recovery']
 export const lifecycleBasket = 'tpnil conformance lifecycle'
@@ -20,10 +22,13 @@ const projection = (value: any, metadataSets: boolean) => canonicalJson((value?.
 
 /** Public wallet operations and controlled service responses are retained separately.
  * No storage mutation, action abort or output relinquishment repairs the rejection. */
-export async function runConformanceLifecycle(wallet: any, services: ControlledWalletServices, options: { receiptMode?: 'storage-rpc'; oracle?: typeof lifecycleOracleId } = {}): Promise<any> {
+export async function runConformanceLifecycle(wallet: any, services: ControlledWalletServices, options: { receiptMode?: 'storage-rpc'; oracle?: typeof lifecycleOracleId; submissionBinding?: typeof todoSubmissionBinding } = {}): Promise<any> {
   if (options.oracle !== undefined && (options.oracle !== lifecycleOracleId || options.receiptMode !== 'storage-rpc')) throw new Error('Lifecycle v3 requires its explicit oracle and public storage receipt mode')
   const metadataSets = options.oracle === lifecycleOracleId
+  const scoped = options.submissionBinding !== undefined
+  if (scoped && (options.submissionBinding !== todoSubmissionBinding || !metadataSets)) throw new Error('Scoped lifecycle receipt binding requires its explicit policy and lifecycle v3')
   const report: any = { schema: metadataSets ? 'tpnil-native-conformance-lifecycle@3' : options.receiptMode ? 'tpnil-native-conformance-lifecycle@2' : 'tpnil-native-conformance-lifecycle@1', ...(metadataSets ? { oracle: lifecycleOracleId } : {}), ...(options.receiptMode ? { terminalReceiptSource: 'authenticated-public-go-storage-rpc' } : {}), claim: 'ENGINEERING_OBSERVATION_ONLY', basket: lifecycleBasket, label, trace: [], cases: [], assertions: [] }
+  if (scoped) report.submissionBinding = todoSubmissionBinding
   if (options.receiptMode) report.serviceIdentity = snapshot(services.componentIdentity)
   const call = async (method: string, args: any) => {
     const entry: any = { sequence: report.trace.length, method, args: snapshot(args) }; report.trace.push(entry)
@@ -36,28 +41,26 @@ export async function runConformanceLifecycle(wallet: any, services: ControlledW
   report.initial = { outputs: await outputs(), actions: await actions() }
   if (report.initial.outputs.totalOutputs !== 0 || report.initial.actions.totalActions !== 0) throw new Error('Lifecycle requires fresh basket and action-label state')
   for (const [phase, verdict] of [['accepted', 'ACCEPTED_BY_NETWORK'], ['rejected', 'REJECTED'], ['recovered', 'ACCEPTED_BY_NETWORK']] as const) {
+    const phaseStart = services.submissions.length, receiptStart = services.storageProcessActionReceipts.length, startedAt = new Date().toISOString()
     const publicKey = (await call('getPublicKey', { protocolID: [2, 'tpnil lifecycle'], keyID: phase, counterparty: 'self', forSelf: true })).publicKey
     const lockingScript = new P2PKH().lock(PublicKey.fromString(publicKey).toAddress()).toHex()
     const args = { description: `TPNIL lifecycle ${phase}`, labels: [label, `${label}-${phase}`], outputs: [{ satoshis: 2, lockingScript, basket: lifecycleBasket, tags: [phase], customInstructions: `tpnil-lifecycle:${phase}`, outputDescription: `Lifecycle ${phase} output` }], options: { randomizeOutputs: false, acceptDelayedBroadcast: false } }
     const observation: any = { phase, scheduledVerdict: verdict, publicKey, args: snapshot(args), traceSequence: report.trace.length }
-    const before = services.submissions.length
-    const receiptsBefore = services.storageProcessActionReceipts.length
-    services.enqueueVerdict(verdict, metadataSets ? { kind: 'exact-output', lockingScript, amount: 2 } : undefined)
+    const before = scoped ? phaseStart : services.submissions.length
+    const receiptsBefore = scoped ? receiptStart : services.storageProcessActionReceipts.length
+    services.enqueueVerdict(verdict, scoped ? { kind: 'exact-output', lockingScript, amount: 2 } : undefined)
     try { observation.result = await call('createAction', args) }
     catch (error) { observation.error = errorSnapshot(error) }
     observation.submissions = services.submissions.slice(before).map(row => ({ txid: row.txid, verdict: row.verdict, bytes: [...row.bytes], sha256: sha256Hex(row.bytes) }))
     if (options.receiptMode) observation.storageReceipts = snapshot(services.storageProcessActionReceipts.slice(receiptsBefore))
-    const targetObserved = metadataSets && observation.submissions.some((row: any) => {
-      let tx: Transaction
-      try { tx = Transaction.fromAtomicBEEF(row.bytes) } catch { tx = Transaction.fromBinary(row.bytes) }
-      return tx.outputs.some(output => output.satoshis === 2 && output.lockingScript.toHex() === lockingScript)
-        && !services.submissions.slice(0, before).some(previous => previous.txid === row.txid)
-    })
-    const unusedTargetRemoved = metadataSets && !targetObserved ? services.discardQueuedVerdict(verdict) : false
-    if (unusedTargetRemoved) observation.unusedTargetRemoved = true
-    if (observation.submissions.length === 0) observation.unconsumedVerdictRemoved = metadataSets ? unusedTargetRemoved : services.discardQueuedVerdict(verdict)
+    if (!scoped && observation.submissions.length === 0) observation.unconsumedVerdictRemoved = services.discardQueuedVerdict(verdict)
     observation.outputs = await outputs()
     observation.actions = await actions()
+    if (scoped) {
+      const captured = captureLifecycleWindow(services.submissions, before, services.storageProcessActionReceipts, receiptsBefore, lockingScript, startedAt, new Date().toISOString())
+      observation.submissionWindow = captured.window; observation.submissions = captured.submissions; observation.storageReceipts = captured.storageReceipts
+      if (observation.submissions.length === 0) observation.unconsumedVerdictRemoved = services.discardQueuedVerdict(verdict)
+    }
     report.cases.push(observation)
   }
   // Merge independently observed proof material so even the rejected raw Go
