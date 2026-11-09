@@ -58,10 +58,16 @@ interface ListOutputProjection {
   beef?: number[]
 }
 
+export interface NativeScenarioContext {
+  application: Page; context: BrowserContext; extensionId: string; password: string
+  services: ControlledWalletServices; evidence: EvidenceBundle; baselineVectors: VectorResult[]
+  manualPrompt: <T>(operation: () => Promise<T>) => Promise<T>
+}
+
 export interface YoursRunOptions {
-  integratedProfile?: 'ITCVE-1@1.3.0'
+  integratedProfile?: 'ITCVE-1@1.3.0' | 'ITCVE-1@1.4.0'
   go?: import('./go-services.js').GoServiceOptions
-  additionalScenario?: (context: { application: Page; services: ControlledWalletServices; evidence: EvidenceBundle }) => Promise<void>
+  additionalScenario?: (context: NativeScenarioContext) => Promise<void | { vectors: VectorResult[] }>
   nativeQualification?: { fundingFixture: TeranodeWalletFundingFixture; sandbox: true }
   components?: ComponentSelection
   extensionDirectory: string
@@ -143,7 +149,8 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
   const outputDirectory = path.resolve(options.outputDirectory)
   const runId = path.basename(outputDirectory)
   const evidence = new EvidenceBundle(outputDirectory)
-  if (options.go?.storageSyncPatch && options.integratedProfile !== 'ITCVE-1@1.3.0') throw new Error('Patched native services require the prospective integrated profile')
+  if (options.go?.storageSyncPatch && !['ITCVE-1@1.3.0', 'ITCVE-1@1.4.0'].includes(options.integratedProfile ?? '')) throw new Error('Patched native services require the prospective integrated profile')
+  if (options.go?.terminalRejectionReceipts && options.integratedProfile !== 'ITCVE-1@1.4.0') throw new Error('Terminal submission receipts require the prospective conformance profile')
   const services = new ControlledWalletServices({ webroot, components: options.components, go: options.go })
   const permissions: PermissionObservation[] = []
   const consoleErrors: string[] = []
@@ -153,6 +160,16 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
   let permissionSequence = 0
   let browserVersion = 'unknown'
   const handledPromptUrls = new Set<string>()
+  const activeAutomaticPrompts = new Set<Promise<void>>()
+  let manualPromptActive = false
+  const manualPrompt = async <T>(operation: () => Promise<T>): Promise<T> => {
+    if (manualPromptActive) throw new Error('Nested manual permission scenario')
+    manualPromptActive = true
+    try {
+      await Promise.allSettled([...activeAutomaticPrompts])
+      return await operation()
+    } finally { manualPromptActive = false }
+  }
   const progress = (message: string): void => {
     process.stdout.write(`[wallet-lab:${runId}] ${message}\n`)
     if (options.nativeQualification !== undefined) {
@@ -195,8 +212,9 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     })
     browserVersion = context.browser()?.version() ?? 'chromium-persistent-context'
     const handlePrompt = async (page: Page): Promise<void> => {
+      if (manualPromptActive) return
       await page.waitForLoadState('domcontentloaded').catch(() => undefined)
-      if (!page.url().includes('/prompt.html')) return
+      if (manualPromptActive || !page.url().includes('/prompt.html')) return
       const promptUrl = page.url()
       if (handledPromptUrls.has(promptUrl)) return
       handledPromptUrls.add(promptUrl)
@@ -207,6 +225,7 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
           return text !== '' && text !== 'Loading...' && /Allow|Deny/.test(text)
         }, undefined, { timeout: 20_000 })
         const body = await page.locator('body').innerText()
+        if (manualPromptActive) return
         const origin = body.match(/Origin\s+([^\s]+)/)?.[1]
           ?? body.match(/\n([^\s]+) is requesting/)?.[1]
           ?? 'unknown'
@@ -229,11 +248,17 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
         handledPromptUrls.delete(promptUrl)
       }
     }
+    const automaticPrompt = (page: Page): void => {
+      if (manualPromptActive) return
+      const operation = handlePrompt(page).catch(error => { consoleErrors.push(`prompt: ${String(error)}`) })
+      activeAutomaticPrompts.add(operation)
+      void operation.finally(() => activeAutomaticPrompts.delete(operation))
+    }
     context.on('page', page => {
       page.on('console', message => {
         if (message.type() === 'error') consoleErrors.push(message.text().slice(0, 2_000))
       })
-      const attempt = (): void => void handlePrompt(page).catch(error => consoleErrors.push(`prompt: ${String(error)}`))
+      const attempt = (): void => automaticPrompt(page)
       page.on('framenavigated', frame => {
         if (frame === page.mainFrame()) attempt()
       })
@@ -241,7 +266,7 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     })
     promptPoll = setInterval(() => {
       for (const page of context!.pages())
-        void handlePrompt(page).catch(error => consoleErrors.push(`prompt-poll: ${String(error)}`))
+        automaticPrompt(page)
     }, 250)
     let worker = context.serviceWorkers()[0]
     if (worker === undefined) worker = await context.waitForEvent('serviceworker')
@@ -674,7 +699,14 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
 
     if (options.additionalScenario !== undefined) {
       progress('additional integrated component scenario: starting')
-      await options.additionalScenario({ application, services, evidence })
+      const baselineVectors = structuredClone(vectors)
+      if (options.integratedProfile === 'ITCVE-1@1.4.0') evidence.addJson('conformance/baseline-vectors.json', baselineVectors)
+      const additional = await options.additionalScenario({ application, context, extensionId, password: 'TPNIL-Fixture-Only-2026!', services, evidence, baselineVectors, manualPrompt })
+      if (options.integratedProfile === 'ITCVE-1@1.4.0') {
+        if (!additional || additional.vectors.length !== 8 || additional.vectors.some((vector, i) => vector.id !== `ISI-4-V00${i + 1}`)) throw new Error('Conformance scenario omitted required vector outcomes')
+        vectors.splice(0, vectors.length, ...additional.vectors)
+        evidence.addJson('conformance/service-counterparts.json', services.storageCounterpartIdentities)
+      }
       progress('additional integrated component scenario: completed')
     }
 
@@ -687,9 +719,9 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     const resultWithoutEvidence: Omit<WalletLabResult, 'evidence'> = {
       schema: 'tpnil-isi4-wallet-run@1.0.0',
       claim: Object.values(services.components).includes('go') ? 'ENGINEERING_OBSERVATION_ONLY' : 'EXPERIMENTAL_CONFORMANCE_RESULT',
-      program: 'ISI-4@1.0.0',
+      program: options.integratedProfile === 'ITCVE-1@1.4.0' ? 'ISI-4@2.0.0' : 'ISI-4@1.0.0',
       itcve: options.integratedProfile ?? (Object.values(services.components).includes('go') ? 'ITCVE-1@1.1.0' : 'ITCVE-1@1.0.0'),
-      profile: 'production-wallet-todo-controlled-services',
+      profile: options.integratedProfile === 'ITCVE-1@1.4.0' ? 'production-wallet-native-conformance' : 'production-wallet-todo-controlled-services',
       runId,
       startedAt,
       endedAt: new Date().toISOString(),

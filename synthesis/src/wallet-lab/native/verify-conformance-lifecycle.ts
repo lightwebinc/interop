@@ -13,7 +13,13 @@ const errorIsRejection = (error: any) => typeof error?.message === 'string' && /
 /** Recompute every outcome from trace, exact outpoints, action status and signed
  * transactions; asserted booleans and output counts alone cannot establish PASS. */
 export async function verifyConformanceLifecycle(report: any): Promise<any> {
-  assert.equal(report.schema, 'tpnil-native-conformance-lifecycle@1')
+  assert.ok(['tpnil-native-conformance-lifecycle@1', 'tpnil-native-conformance-lifecycle@2'].includes(report.schema))
+  const storageReceiptMode = report.schema === 'tpnil-native-conformance-lifecycle@2'
+  if (storageReceiptMode) {
+    assert.equal(report.terminalReceiptSource, 'authenticated-public-go-storage-rpc')
+    assert.equal(report.serviceIdentity.components.storage, 'go')
+    assert.equal(report.serviceIdentity.go.fixtureSubmissionPolicy, 'terminal-rejection-v1')
+  }
   assert.equal(report.claim, 'ENGINEERING_OBSERVATION_ONLY')
   assert.equal(report.basket, 'tpnil conformance lifecycle'); assert.equal(report.label, 'tpnil-conformance-lifecycle')
   assert.deepEqual(report.cases.map((row: any) => row.phase), ['accepted', 'rejected', 'recovered'])
@@ -24,7 +30,7 @@ export async function verifyConformanceLifecycle(report: any): Promise<any> {
   assert.deepEqual(report.initial.outputs, report.trace[1].result); assert.deepEqual(report.initial.actions, report.trace[2].result)
   assert.equal(report.initial.outputs.totalOutputs, 0); assert.deepEqual(report.initial.outputs.outputs, [])
   assert.equal(report.initial.actions.totalActions, 0); assert.deepEqual(report.initial.actions.actions, [])
-  const states: any[] = [], transactions: Transaction[] = []
+  const states: any[] = [], transactions: Transaction[] = [], serviceResults: any[] = []
   for (const [index, entry] of report.cases.entries()) {
     const key = report.trace[3 + index * 4], write = report.trace[4 + index * 4], outputs = report.trace[5 + index * 4], actions = report.trace[6 + index * 4]
     assert.deepEqual(key.args, { protocolID: [2, 'tpnil lifecycle'], keyID: entry.phase, counterparty: 'self', forSelf: true })
@@ -46,6 +52,25 @@ export async function verifyConformanceLifecycle(report: any): Promise<any> {
     let submitted: Transaction
     try { submitted = Transaction.fromAtomicBEEF(submission.bytes) } catch { submitted = Transaction.fromBinary(submission.bytes) }
     assert.equal(submitted.id('hex'), submission.txid)
+    if (storageReceiptMode) {
+      assert.equal(entry.storageReceipts.length, 1, 'Each operation requires one correlated public processAction receipt')
+      const receipt = entry.storageReceipts[0]
+      assert.equal(receipt.status, 200); assert.equal(receipt.requestIdentityKey, report.identity)
+      const decode = (name: 'request' | 'response') => {
+        assert.match(receipt[`${name}Hex`], /^(?:[0-9a-f]{2})+$/)
+        const bytes = Buffer.from(receipt[`${name}Hex`], 'hex'); assert.ok(bytes.length <= 4 * 1024 * 1024)
+        assert.equal(sha256Hex(bytes), receipt[`${name}Sha256`]); return JSON.parse(bytes.toString('utf8'))
+      }
+      const request = decode('request'), response = decode('response')
+      assert.equal(request.jsonrpc, '2.0'); assert.equal(response.jsonrpc, '2.0')
+      assert.equal(request.method, 'processAction'); assert.equal(response.id, request.id)
+      assert.equal(request.params.length, 2); assert.equal(request.params[0].identityKey, report.identity)
+      const args = request.params[1]
+      assert.equal(args.txid, submission.txid); assert.equal(args.isDelayed, false); assert.equal(args.isNoSend, false); assert.equal(args.isNewTx, true)
+      assert.equal(Transaction.fromBinary(args.rawTx).toHex(), submitted.toHex())
+      assert.equal(response.error, undefined); assert.ok(response.result)
+      serviceResults.push(response.result)
+    }
     const proof = report.transactions.filter((row: any) => row.phase === entry.phase)
     assert.equal(proof.length, 1); assert.equal(proof[0].txid, submission.txid)
     const tx = Transaction.fromAtomicBEEF(proof[0].beef)
@@ -62,7 +87,9 @@ export async function verifyConformanceLifecycle(report: any): Promise<any> {
   const usable = (row: any) => row?.spendable === true && row.satoshis === 2
   const acceptedPass = !accepted.error && accepted.result?.txid === transactions[0]!.id('hex') && states[0].length === 1 && states[0][0].outpoint === acceptedOutpoint && usable(states[0][0])
   const rejectedActionAbsent = !rejected.actions.actions.some((row: any) => row.txid === rejectedTxid)
-  const terminalError = rejected.error?.txid === rejectedTxid && rejected.error?.reviewActionResults?.some((row: any) => row.txid === rejectedTxid && row.status === 'invalidTx') && rejected.error?.sendWithResults?.some((row: any) => row.txid === rejectedTxid && row.status === 'failed')
+  const terminalError = storageReceiptMode
+    ? serviceResults[1]?.notDelayedResults?.some((row: any) => row.txid === rejectedTxid && row.status === 'invalidTx') && serviceResults[1]?.sendWithResults?.some((row: any) => row.txid === rejectedTxid && row.status === 'failed')
+    : rejected.error?.txid === rejectedTxid && rejected.error?.reviewActionResults?.some((row: any) => row.txid === rejectedTxid && row.status === 'invalidTx') && rejected.error?.sendWithResults?.some((row: any) => row.txid === rejectedTxid && row.status === 'failed')
   const rejectedPass = errorIsRejection(rejected.error) && terminalError && rejectedActionAbsent && canonicalJson(states[1]) === canonicalJson(states[0])
   const recoveredRow = states[2].find((row: any) => row.outpoint === recoveredOutpoint)
   const recoveredPass = !recovered.error && recovered.result?.txid === transactions[2]!.id('hex') && states[2].length === states[0].length + 1 && usable(recoveredRow) && canonicalJson(states[2].filter((row: any) => row.outpoint !== recoveredOutpoint)) === canonicalJson(states[0]) && !transactions[2]!.inputs.some(input => input.sourceTXID === rejectedTxid)

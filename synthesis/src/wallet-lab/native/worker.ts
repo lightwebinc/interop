@@ -12,10 +12,12 @@ import type { TeranodeWalletFundingFixture } from '../services.js'
 
 const root = '/work'
 const output = '/evidence'
+const conformance = process.env.TPNIL_NATIVE_CONFORMANCE === '1'
 const integrated = process.env.TPNIL_NATIVE_INTEGRATED === '1'
 const trustedIdentity = process.env.TPNIL_NATIVE_IDENTITY_TRUST === '1'
+if (conformance && (!integrated || !trustedIdentity)) throw new Error('Conformance qualification requires integrated trusted native mode')
 if (trustedIdentity && !integrated) throw new Error('Trusted identity qualification requires integrated native mode')
-const planFile = path.join(root, trustedIdentity ? 'infra/native/integrated/plan-trusted.json' : integrated ? 'infra/native/integrated/plan.json' : 'infra/native/yours-go/plan.json')
+const planFile = path.join(root, conformance ? 'infra/native/conformance/plan.json' : trustedIdentity ? 'infra/native/integrated/plan-trusted.json' : integrated ? 'infra/native/integrated/plan.json' : 'infra/native/yours-go/plan.json')
 const plan = JSON.parse(fs.readFileSync(planFile, 'utf8'))
 fs.mkdirSync(output, { recursive: true })
 const save = (name: string, value: unknown) => fs.writeFileSync(path.join(output, name), JSON.stringify(value, null, 2) + '\n')
@@ -49,6 +51,9 @@ let mongo: ReturnType<typeof spawn> | undefined
 let failure: unknown
 const startedAt = new Date().toISOString()
 try {
+  if (conformance) for (const [name, digest] of Object.entries(plan.conformanceInputs as Record<string, string>)) {
+    if (sha256Hex(fs.readFileSync(path.join(root, name))) !== digest) throw new Error(`Conformance input differs: ${name}`)
+  }
   if (integrated) {
     if (trustedIdentity && sha256Hex(fs.readFileSync(path.join(root, plan.identityTrustProfile))) !== plan.identityTrustProfileSha256) throw new Error('Trusted identity profile differs from frozen plan')
     if (sha256Hex(fs.readFileSync(path.join(root, plan.compatibilityPatch))) !== plan.compatibilityPatchSha256 || sha256Hex(fs.readFileSync(path.join(root, plan.boundaryProfile))) !== plan.boundaryProfileSha256) throw new Error('Integrated profile inputs differ from frozen plan')
@@ -78,7 +83,7 @@ try {
     task: plan.task,
     amount: plan.amount,
     nativeQualification: { fundingFixture: fixture, sandbox: true },
-    ...(integrated ? { additionalScenario: (await import('./integrated.js')).runNativeIntegration, integratedProfile: 'ITCVE-1@1.3.0', go: { binary: '/opt/tpnil/itcve-go-storage-sync', storageSyncPatch: true } } as const : {})
+    ...(conformance ? { additionalScenario: (await import('./conformance.js')).runNativeConformance, integratedProfile: 'ITCVE-1@1.4.0', go: { binary: '/opt/tpnil/itcve-go-storage-sync', storageSyncPatch: true, terminalRejectionReceipts: true } } as const : integrated ? { additionalScenario: (await import('./integrated.js')).runNativeIntegration, integratedProfile: 'ITCVE-1@1.3.0', go: { binary: '/opt/tpnil/itcve-go-storage-sync', storageSyncPatch: true } } as const : {})
   })
   verifyEvidenceBundle(output)
   save('network-after.json', await network())

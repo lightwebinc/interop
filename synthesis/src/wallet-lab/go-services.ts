@@ -60,6 +60,8 @@ export interface GoServiceOptions {
   mongoUri?: string
   /** Separate prospective storage-sync build; historical native profiles reject it. */
   storageSyncPatch?: boolean
+  /** Prospective ITCVE-1.4 fixture semantics, never implicit in old profiles. */
+  terminalRejectionReceipts?: boolean
 }
 export function selectComponents(value: ComponentSelection = {}): Required<ComponentSelection> {
   if (value === null || typeof value !== 'object' || Array.isArray(value)) throw new Error('Invalid component selection')
@@ -69,17 +71,18 @@ export function selectComponents(value: ComponentSelection = {}): Required<Compo
   }
   return { overlay: 'typescript', chaintracks: 'typescript', storage: 'typescript', ...value }
 }
-export function validateComponentIdentity(value: Record<string, unknown>, profile?: 'ITCVE-1@1.3.0'): void {
+export function validateComponentIdentity(value: Record<string, unknown>, profile?: 'ITCVE-1@1.3.0' | 'ITCVE-1@1.4.0'): void {
   const components = selectComponents(value.components as ComponentSelection)
   if (!Object.values(components).includes('go')) throw new Error('Go profile omitted Go selection')
   const go = value.go as Record<string, unknown> | undefined
   if (go?.schema !== 'tpnil-go-services@1.0.0' || canonicalJson(go.components) !== canonicalJson(components) ||
       typeof go.binarySha256 !== 'string' || !/^[a-f0-9]{64}$/.test(go.binarySha256) ||
-      (profile !== 'ITCVE-1@1.3.0' && go.compatibilityPatch !== undefined) ||
+      (!['ITCVE-1@1.3.0', 'ITCVE-1@1.4.0'].includes(profile ?? '') && go.compatibilityPatch !== undefined) ||
+      (profile === 'ITCVE-1@1.4.0' ? go.fixtureSubmissionPolicy !== 'terminal-rejection-v1' : go.fixtureSubmissionPolicy !== undefined) ||
       go.goModSha256 !== componentLock.moduleFiles['go.mod'] || go.goSumSha256 !== componentLock.moduleFiles['go.sum'] ||
       canonicalJson(go.dependencies) !== canonicalJson(componentLock))
     throw new Error('Go service component identity is incomplete or differs from lock')
-  if (profile === 'ITCVE-1@1.3.0') {
+  if (profile === 'ITCVE-1@1.3.0' || profile === 'ITCVE-1@1.4.0') {
     const manifest = go.compatibilityPatch as Record<string, unknown> | undefined
     const bytes = fs.readFileSync(fileURLToPath(new URL('../../../infra/adapters/storage-sync/patch.lock.json', import.meta.url)))
     const lock = JSON.parse(bytes.toString())
@@ -105,10 +108,11 @@ export class GoServices {
     this.binary = path.resolve(options.binary ?? process.env.TPNIL_GO_BINARY ?? fileURLToPath(new URL('../../../out/itcve-go-services', import.meta.url)))
   }
   get identity(): Record<string, unknown> {
-    return { schema: 'tpnil-go-services@1.0.0', ...(this.compatibilityPatch === undefined ? {} : { compatibilityPatch: this.compatibilityPatch }), components: this.components, binarySha256: this.executableSha256, dependencies: componentLock, goModSha256: createHash('sha256').update(fs.readFileSync(fileURLToPath(new URL('../../go/go.mod', import.meta.url)))).digest('hex'), goSumSha256: createHash('sha256').update(fs.readFileSync(fileURLToPath(new URL('../../go/go.sum', import.meta.url)))).digest('hex') }
+    return { schema: 'tpnil-go-services@1.0.0', ...(this.compatibilityPatch === undefined ? {} : { compatibilityPatch: this.compatibilityPatch }), ...(this.options.terminalRejectionReceipts ? { fixtureSubmissionPolicy: 'terminal-rejection-v1' } : {}), components: this.components, binarySha256: this.executableSha256, dependencies: componentLock, goModSha256: createHash('sha256').update(fs.readFileSync(fileURLToPath(new URL('../../go/go.mod', import.meta.url)))).digest('hex'), goSumSha256: createHash('sha256').update(fs.readFileSync(fileURLToPath(new URL('../../go/go.sum', import.meta.url)))).digest('hex') }
   }
   async start(fixtures: string, rootKey: string): Promise<void> {
     const args = ['--state', this.state, '--fixtures', fixtures, '--control-token', this.token, '--root-key', rootKey]
+    if (this.options.terminalRejectionReceipts) args.push('--terminal-rejection-receipts')
     if (this.components.storage === 'go') args.push('--storage')
     if (this.components.overlay === 'go') {
       const mongo = this.options.mongoUri ?? process.env.TPNIL_GO_MONGO_URI

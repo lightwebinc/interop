@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url'
 import { createHash } from 'node:crypto'
 import { Beef, LockingScript, P2PKH, PublicKey, PushDrop, Transaction, Utils } from '@bsv/sdk'
 import { canonicalJson, sha256Hex } from '../../determinism.js'
-import { aggregateOutcome } from '../model.js'
+import { aggregateOutcome, type VectorResult } from '../model.js'
 import { verifyEvidenceBundle } from '../evidence.js'
 
 export function verifyHostReceipt(observation: Record<string, any>, image: string): void {
@@ -21,13 +21,15 @@ export async function verifyNativeWallet(directory: string) {
   const read = (name: string) => JSON.parse(fs.readFileSync(path.join(directory, name), 'utf8'))
   const lock = read('run-lock.json'), plan = lock.plan
   assert.equal(lock.schema, 'tpnil-native-wallet-run-lock@1.0.0')
-  const trustedIdentity = plan.id === 'YOURS-5.1.0-GO-ITCVE-1.3.0-TRUSTED-IDENTITY'
+  const conformance = plan.id === 'YOURS-5.1.0-GO-ITCVE-1.4.0-CONFORMANCE'
+  const trustedIdentity = conformance || plan.id === 'YOURS-5.1.0-GO-ITCVE-1.3.0-TRUSTED-IDENTITY'
   const integrated = trustedIdentity || plan.id === 'YOURS-5.1.0-GO-ITCVE-1.3.0'
-  const frozen = JSON.parse(fs.readFileSync(fileURLToPath(new URL(trustedIdentity ? '../../../../infra/native/integrated/plan-trusted.json' : integrated ? '../../../../infra/native/integrated/plan.json' : '../../../../infra/native/yours-go/plan.json', import.meta.url)), 'utf8'))
+  const frozen = JSON.parse(fs.readFileSync(fileURLToPath(new URL(conformance ? '../../../../infra/native/conformance/plan.json' : trustedIdentity ? '../../../../infra/native/integrated/plan-trusted.json' : integrated ? '../../../../infra/native/integrated/plan.json' : '../../../../infra/native/yours-go/plan.json', import.meta.url)), 'utf8'))
   assert.equal(canonicalJson(plan), canonicalJson(frozen))
-  assert.equal(plan.id, trustedIdentity ? 'YOURS-5.1.0-GO-ITCVE-1.3.0-TRUSTED-IDENTITY' : integrated ? 'YOURS-5.1.0-GO-ITCVE-1.3.0' : 'YOURS-5.1.0-GO-ITCVE-1.2.0')
+  assert.equal(plan.id, conformance ? 'YOURS-5.1.0-GO-ITCVE-1.4.0-CONFORMANCE' : trustedIdentity ? 'YOURS-5.1.0-GO-ITCVE-1.3.0-TRUSTED-IDENTITY' : integrated ? 'YOURS-5.1.0-GO-ITCVE-1.3.0' : 'YOURS-5.1.0-GO-ITCVE-1.2.0')
   if (integrated) {
     const root = path.resolve(import.meta.dirname, '../../../..')
+    if (conformance) for (const [name, digest] of Object.entries(plan.conformanceInputs as Record<string, string>)) assert.equal(sha256Hex(fs.readFileSync(path.join(root, name))), digest, `Conformance input differs: ${name}`)
     if (trustedIdentity) {
       assert.equal(plan.identityTrust, 'public-settings-token')
       assert.equal(sha256Hex(fs.readFileSync(path.join(root, plan.identityTrustProfile))), plan.identityTrustProfileSha256)
@@ -53,7 +55,7 @@ export async function verifyNativeWallet(directory: string) {
     assert.equal(after.state.ExitCode, 0); assert.equal(after.state.OOMKilled, false); assert.equal(cleanup.removed, true)
     const rep = path.join(directory, `repetition-${index}`)
     const record = verifyEvidenceBundle(rep)
-    assert.equal(record.itcve, integrated ? 'ITCVE-1@1.3.0' : 'ITCVE-1@1.1.0')
+    assert.equal(record.itcve, conformance ? 'ITCVE-1@1.4.0' : integrated ? 'ITCVE-1@1.3.0' : 'ITCVE-1@1.1.0')
     const evidence = (name: string) => JSON.parse(fs.readFileSync(path.join(rep, 'evidence', name), 'utf8'))
     const installed = read(`repetition-${index}/installed-artifacts.json`)
     assert.equal(installed.exactArchiveContents, true)
@@ -123,7 +125,8 @@ export async function verifyNativeWallet(directory: string) {
     assert.ok(await spend.verify(tracker))
     let inputs = 0; for (const input of spend.inputs) { const sourceOutput = input.sourceTransaction?.outputs[input.sourceOutputIndex!]; assert.ok(sourceOutput?.satoshis !== undefined); inputs += sourceOutput.satoshis }
     const outputs = spend.outputs.reduce((sum, item) => sum + (item.satoshis ?? 0), 0); assert.ok(inputs >= outputs)
-    const vectors = structuredClone(record.vectors)
+    let vectors: VectorResult[] = structuredClone(conformance ? evidence('conformance/baseline-vectors.json') : record.vectors)
+    if (conformance) { assert.equal(record.program, 'ISI-4@2.0.0'); assert.equal(record.profile, 'production-wallet-native-conformance') }
     for (const vector of vectors.slice(0, 4)) assert.equal(vector.outcome, 'PASS')
     const permission = evidence('permissions.json')
     const explicitDenial = (value: { rejected?: boolean; independentlyPrompted?: boolean; message?: string }) =>
@@ -136,12 +139,36 @@ export async function verifyNativeWallet(directory: string) {
     const rejected = lifecycle.rejected.submission?.verdict === 'REJECTED' && acceptedCount !== undefined && lifecycle.rejected.outputs?.totalOutputs === acceptedCount
     const recovered = lifecycle.recovered.submission?.verdict === 'ACCEPTED_BY_NETWORK' && acceptedCount !== undefined && lifecycle.recovered.outputs?.totalOutputs === acceptedCount + 1
     vectors[5]!.outcome = accepted && rejected && recovered ? 'PASS' : 'FAIL'
+    if (conformance) {
+      assert.deepEqual(vectors[5]!.assertions.map(row => row.id), ['accepted-service-verdict-observed', 'rejection-preserves-wallet-state', 'post-rejection-recovery'])
+      for (const [index, passed] of [accepted, rejected, recovered].entries()) vectors[5]!.assertions[index]!.outcome = passed ? 'PASS' : 'FAIL'
+    }
     assert.equal(vectors[6]!.outcome, 'BLOCKED'); assert.equal(vectors[7]!.outcome, 'BLOCKED')
+    if (conformance) {
+      const clauses = evidence('conformance/clauses.json')
+      const metadata = clauses.trace.find((row: any) => row.id === 'setup.metadata')
+      assert.ok(metadata, 'Clause metadata creation observation is absent')
+      assert.equal(clauses.metadataTxid, metadata.result?.txid)
+      if (typeof metadata.result?.txid === 'string') {
+        const transaction = transactions.get(metadata.result.txid)
+        assert.ok(transaction, 'Native storage omitted the clause metadata transaction')
+        assert.ok(ancestry(transaction, funding.id('hex')), 'Clause metadata does not descend from this native wallet funding')
+        assert.ok(await transaction.verify(tracker), 'Clause metadata signature or mined ancestry is invalid')
+        for (const [index, satoshis] of [2, 3, 4].entries()) {
+          assert.equal(transaction.outputs[index]?.satoshis, satoshis)
+          assert.equal(transaction.outputs[index]?.lockingScript.toHex(), '51')
+        }
+      }
+      const { verifyNativeConformance } = await import('./verify-conformance.js')
+      const prospective = await verifyNativeConformance(path.join(rep, 'evidence'), vectors)
+      assert.deepEqual(record.vectors, prospective.vectors)
+      vectors = prospective.vectors
+    }
     results.push({ record, vectors, recordSha256: worker.recordSha256, independent: { funding: funding.id('hex'), create: create.id('hex'), redemption: spend.id('hex'), valueConserved: true, fee: inputs - outputs } })
   }
   assert.equal(canonicalJson(results[0]!.vectors.map(vector => vector.outcome)), canonicalJson(results[1]!.vectors.map(vector => vector.outcome)))
   assert.equal(canonicalJson(results[0]!.record.semanticProjection), canonicalJson(results[1]!.record.semanticProjection))
-  return { schema: 'tpnil-native-wallet-qualification@1.0.0', claim: 'EXPERIMENTAL_CONFORMANCE_RESULT', itcve: plan.itcve, program: plan.program, lane: plan.lane, planSha256: lock.planSha256, source: lock.source, image: lock.image, qualifiedEnvironment: true, artifact: plan.wallet, vectors: results[0]!.vectors, outcome: aggregateOutcome(results[0]!.vectors), repetitionMatch: true, repetitions: results.map((result, index) => ({ runId: `repetition-${index + 1}`, recordSha256: result.recordSha256, independent: result.independent })) }
+  return { schema: conformance ? 'tpnil-native-wallet-qualification@2.0.0' : 'tpnil-native-wallet-qualification@1.0.0', claim: 'EXPERIMENTAL_CONFORMANCE_RESULT', itcve: plan.itcve, program: plan.program, lane: plan.lane, planSha256: lock.planSha256, source: lock.source, image: lock.image, qualifiedEnvironment: true, artifact: plan.wallet, vectors: results[0]!.vectors, outcome: aggregateOutcome(results[0]!.vectors), repetitionMatch: true, repetitions: results.map((result, index) => ({ runId: `repetition-${index + 1}`, recordSha256: result.recordSha256, independent: result.independent })) }
 }
 if (process.argv[1]?.endsWith('/native/verify.ts')) {
   const directory = path.resolve(process.argv[2] ?? '')

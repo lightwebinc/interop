@@ -175,6 +175,8 @@ export class ControlledWalletServices {
   private readonly ownSubmissions: SubmittedTransaction[] = []
   readonly walletBridgeObservations: WalletBridgeObservation[] = []
   readonly storageRpcObservations: StorageRpcObservation[] = []
+  /** Exact public Go storage receipts; prospective terminal-rejection profile only. */
+  readonly storageProcessActionReceipts: Array<{ sequence: number; requestIdentityKey: string; requestHex: string; responseHex: string; requestSha256: string; responseSha256: string; status: number }> = []
   readonly temporaryDirectory: string
   readonly identityKey: string
   readonly storageRootKeyHex: string
@@ -729,7 +731,16 @@ export class ControlledWalletServices {
   private async forwardGo(request: IncomingMessage, response: ServerResponse, route: string, transform?: (body: Buffer, status: number) => Buffer) {
     if (this.goServices === undefined) throw new Error('Go services are absent')
     await this.syncGoHeaders()
-    return this.goServices.forward(request, response, route, transform)
+    const observed = await this.goServices.forward(request, response, route, transform)
+    if (this.goOptions?.terminalRejectionReceipts && route.startsWith('/storage')) {
+      let method: unknown
+      try { method = JSON.parse(observed.input.toString('utf8')).method } catch { /* Preserve normal forwarding for non-JSON/authentication envelopes. */ }
+      if (method === 'processAction') this.storageProcessActionReceipts.push({ sequence: this.storageProcessActionReceipts.length,
+        requestIdentityKey: String(request.headers['x-bsv-auth-identity-key'] ?? ''),
+        requestHex: observed.input.toString('hex'), responseHex: observed.output.toString('hex'), status: observed.status,
+        requestSha256: createHash('sha256').update(observed.input).digest('hex'), responseSha256: createHash('sha256').update(observed.output).digest('hex') })
+    }
+    return observed
   }
 
   private async handleGoOverlay(request: IncomingMessage, response: ServerResponse, pathname: string): Promise<void> {

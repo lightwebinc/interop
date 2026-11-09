@@ -1,0 +1,63 @@
+{
+  "schema": "tpnil-native-wallet-plan@2.0.0",
+  "id": "YOURS-5.1.0-GO-ITCVE-1.4.0-CONFORMANCE",
+  "itcve": "ITCVE-1@1.4.0",
+  "program": "ISI-4@2.0.0",
+  "lane": "chromium-extension-linux-amd64",
+  "wallet": {
+    "id": "yours-wallet-chromium-extension",
+    "version": "5.1.0",
+    "sha256": "d55abda7dc8790ecfdd57ed0f5f4dd4a28187bb4833715f7612b067625eabc52",
+    "size": 13513123
+  },
+  "application": {
+    "id": "todo-ts-compiled-webroot",
+    "version": "236733c586c4d2cc3ab7f957afa382005509acd4",
+    "sha256": "b3c41dc60ba99b497231008a15033a60110cc7cd60b2d4fffd405e33f4979ddc",
+    "size": 502803
+  },
+  "components": {
+    "overlay": "go",
+    "chaintracks": "go",
+    "storage": "go"
+  },
+  "componentLock": "synthesis/go/components.lock.json",
+  "fundingFixture": "fixtures/teranode/wab-funding-v1.json",
+  "repetitions": 2,
+  "task": "TPNIL controlled task",
+  "amount": 2,
+  "timeoutSecondsPerRepetition": 900,
+  "publicMainnetBroadcast": false,
+  "requiredEnvironmentAssertions": [
+    "exact-wallet-and-application-artifacts",
+    "native-chromium-with-sandbox",
+    "fresh-container-and-wallet-profile-each-repetition",
+    "kernel-network-none-before-and-after",
+    "no-network-admin-capabilities",
+    "negative-tcp-ipv4-and-ipv6-probes",
+    "controlled-ca-trust-without-global-tls-bypass",
+    "proof-carrying-mined-funding-ancestry",
+    "independent-transaction-and-state-oracles",
+    "all-eight-vector-outcomes-retained",
+    "two-matching-semantic-projections",
+    "successful-process-and-state-cleanup",
+    "declared-pinned-Go-compatibility-build"
+  ],
+  "sutOutcomePolicy": "PASS, FAIL and BLOCKED are retained findings; a valid environment and complete reproducible report do not require all SUT vectors to pass",
+  "scope": "Unchanged Yours Wallet 5.1.0; original ToDo UI sequence plus visible protocol permission decisions, terminal-rejection preservation and recovery, native Wallet Backup counterpart replacement and source-linked BRC-100 clauses. Remaining clause obligations retain BLOCKED coverage and real SUT deficiencies remain FAIL.",
+  "fundingFixtureCanonicalSha256": "67a6da93734b8bad048c3a723068293fc946e3cb3ed582a0fd7d104353814a12",
+  "compatibilityPatch": "infra/adapters/storage-sync/patch.lock.json",
+  "boundaryCoverage": "programs/ISI-4/profiles/brc100-boundary-1.0.0/coverage.json",
+  "boundaryProfile": "programs/ISI-4/profiles/brc100-boundary-1.0.0/profile-trusted-native.json",
+  "compatibilityPatchSha256": "73b327cb785ab061d58678ff6c26eefa46a9aa838d09d5f8bfee50aae3fb4391",
+  "boundaryProfileSha256": "f825d8a4e84f92b36f17e9ae50a0690a717a5a357e036cfa3b5de5e84ff0f367",
+  "identityTrust": "public-settings-token",
+  "identityTrustProfile": "infra/native/integrated/trust-profile.json",
+  "identityTrustProfileSha256": "44956caee43df56ff307b9d259074f964e68a5092242a211961347acb58d30a6",
+  "conformanceInputs": {
+    "itcves/ITCVE-1/1.4.0/profile.json": "e9b107326b2d808bfb695fb38683d345f7a36d099cb397e7f6ce5a7e99e8c3be",
+    "programs/ISI-4/2.0.0/catalog.json": "5b3aa926c55f050fd1e72ae8af076798021b79dd258a80d67b1c2f526ed9409e",
+    "programs/ISI-4/profiles/native-conformance-2.0.0/brc100-contract.json": "ad803952399a66f099ea9f9efa664a37801866284c5a01064d3357878199a8eb"
+  },
+  "fixtureSubmissionPolicy": "terminal-rejection-v1"
+}

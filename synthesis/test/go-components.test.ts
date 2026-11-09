@@ -58,6 +58,11 @@ it('requires frozen component identities and a binary digest for Go evidence', (
   const prospective = { ...identity, go: { ...identity.go, compatibilityPatch } }
   expect(() => validateComponentIdentity(prospective)).toThrow(/identity/)
   expect(() => validateComponentIdentity(prospective, 'ITCVE-1@1.3.0')).not.toThrow()
+  const terminal = { ...prospective, go: { ...prospective.go, fixtureSubmissionPolicy: 'terminal-rejection-v1' } }
+  expect(() => validateComponentIdentity(terminal, 'ITCVE-1@1.4.0')).not.toThrow()
+  expect(() => validateComponentIdentity(terminal, 'ITCVE-1@1.3.0')).toThrow(/identity/)
+  expect(() => validateComponentIdentity(terminal)).toThrow(/identity/)
+  expect(() => validateComponentIdentity(prospective, 'ITCVE-1@1.4.0')).toThrow(/identity/)
   expect(() => validateComponentIdentity(identity, 'ITCVE-1@1.3.0')).toThrow(/compatibility/)
   expect(() => validateComponentIdentity({ ...prospective, go: { ...prospective.go, compatibilityPatch: { ...compatibilityPatch, patchSha256: '00'.repeat(32) } } }, 'ITCVE-1@1.3.0')).toThrow(/compatibility/)
 })
