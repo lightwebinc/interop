@@ -4,13 +4,13 @@ import path from 'node:path'
 import { execFileSync, spawnSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex')
-const paths=['package.json','.nvmrc','scripts','synthesis','infra','fixtures','components','integrations','itcves','programs']
-/** Replay a component3 pack against its recorded Git source. The caller owns and
+const paths=['package.json','.nvmrc','scripts','synthesis','infra','fixtures','components','integrations','itcves','programs','config','src','bin','adapters','schemas','suts']
+/** Replay an integration pack against its recorded Git source. The caller owns and
  * removes `directory`; installed dependencies are reused only with exact locks. */
-export function prepareFrozenComponentReplay(root,source,directory) {
+export function prepareFrozenComponentReplay(root,source,directory,{repository=process.env.TPNIL_REPLAY_GIT_ROOT??root}={}) {
   assert.match(source,/^[0-9a-f]{40}$/)
   assert.ok(!fs.existsSync(directory),'Frozen replay requires a new owned directory')
-  const tree=execFileSync('git',['ls-tree','-r','-z',source,'--',...paths],{cwd:root,maxBuffer:32*1024*1024}).toString().split('\0').filter(Boolean)
+  const tree=execFileSync('git',['ls-tree','-r','-z',source,'--',...paths],{cwd:repository,maxBuffer:32*1024*1024}).toString().split('\0').filter(Boolean)
   assert.ok(tree.length>0,'Frozen source is absent')
   for(const row of tree) {
     assert.match(row,/^100(?:644|755) blob [a-f0-9]{40}\t/,'Frozen replay rejects Git symlinks and non-file objects')
@@ -18,10 +18,11 @@ export function prepareFrozenComponentReplay(root,source,directory) {
     assert.ok(!path.isAbsolute(name)&&name.split('/').every(part=>part&&part!=='.'&&part!=='..'),'Unsafe frozen source path')
   }
   fs.mkdirSync(directory,{recursive:true})
-  const archive=execFileSync('git',['archive','--format=tar',source,'--',...paths],{cwd:root,maxBuffer:128*1024*1024})
+  const present=[...new Set(tree.map(row=>row.slice(row.indexOf('\t')+1).split('/')[0]))]
+  const archive=execFileSync('git',['archive','--format=tar',source,'--',...present],{cwd:repository,maxBuffer:128*1024*1024})
   const unpack=spawnSync('tar',['-xf','-','-C',directory],{input:archive});assert.equal(unpack.status,0,String(unpack.stderr))
   const expectedNode=fs.readFileSync(path.join(directory,'.nvmrc'),'utf8').trim().replace(/^v/,'')
-  assert.equal(process.versions.node,expectedNode,'Use the recorded Node runtime for component3 replay')
+  assert.equal(process.versions.node,expectedNode,'Use the recorded Node runtime for integration replay')
   const reused=[]
   for(const dependency of ['synthesis','integrations/services','components/transport']) {
     const lock=`${dependency}/package-lock.json`

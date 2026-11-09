@@ -99,7 +99,7 @@ export function extractZipSafely(bytes, directory, { maxEntries = 100000, maxByt
 export function verifyIntegrationArchive(directory) {
   const attempt = fs.existsSync(path.join(directory, 'attempt.json'))
   const manifestName = attempt ? 'attempt.json' : 'provenance.json', manifest = readJson(path.join(directory, manifestName))
-  const kinds = { 'tpnil-integrated-component-archive@1': 'component', 'tpnil-integrated-native-archive@1': 'native', 'tpnil-integration-attempt@1': 'attempt' }
+  const kinds = { 'tpnil-integrated-component-archive@1': 'component', 'tpnil-integrated-native-archive@1': 'native', 'tpnil-integration-attempt@1': 'attempt', 'tpnil-native-integrated-reevaluation-archive@1': 'reevaluation' }
   const kind = kinds[manifest.schema]; assert(kind, `Unrecognized integration archive: ${manifest.schema}`)
   assert.equal(attempt, kind === 'attempt'); assert.match(manifest.source, /^[a-f0-9]{40}$/)
   assert(Array.isArray(manifest.files) && manifest.files.length > 0)
@@ -114,6 +114,15 @@ export function verifyIntegrationArchive(directory) {
     assert(['OBSERVER_BUILD_ERROR', 'OBSERVER_STARTUP_ERROR', 'OBSERVER_EXECUTION_ERROR', 'OBSERVER_VERIFICATION_ERROR'].includes(manifest.claim))
     if (manifest.claim === 'OBSERVER_BUILD_ERROR') assert.equal(manifest.walletExecuted, false)
     return { kind, directory, source: manifest.source, files: names.length, claim: manifest.claim }
+  }
+  if (kind === 'reevaluation') {
+    const qualification=readJson(path.join(directory,'reevaluation.json')),archive='native-reevaluation.zip'
+    assert.equal(qualification.schema,'tpnil-native-integrated-reevaluation@1');assert.equal(qualification.claim,'RETAINED_NATIVE_EVIDENCE_REEVALUATION')
+    assert.equal(qualification.evaluatorSource,manifest.source);assert.equal(qualification.qualifiedRetainedEvidence,true);assert.equal(qualification.newNativeSessions,0);assert.equal(qualification.originalMembersUnchanged,true);assert.equal(qualification.completeBRC100Conformance,false)
+    assert.equal(qualification.original.profile,'ITCVE-1@2.0.0');assert.equal(qualification.original.program,'ISI-4@4.0.0');assert.match(qualification.original.source,/^[a-f0-9]{40}$/);assert.match(qualification.original.sha256,/^[a-f0-9]{64}$/)
+    assert.deepEqual(qualification.repetitions.map(row=>row.index),[1,2]);assert.equal(qualification.rustOutcome,'PASS')
+    for(const row of qualification.repetitions){assert.equal(row.native.assertions,280);assert.equal(row.assertions.length,77);assert.equal(row.rust.corpus,'tpnil-rust-corpus@3');assert.equal(row.rust.assertions,48);assert.equal(row.rust.outcome,'PASS');assert.deepEqual(row.rust.counts,{PASS:48,FAIL:0,BLOCKED:0});assert.equal(row.rust.inputs.length,4)}
+    assert.ok(names.includes(archive));return {kind,directory,source:manifest.source,files:names.length,archive,qualification}
   }
   const qualification = readJson(path.join(directory, 'qualification.json'))
   assert.equal(qualification.source, manifest.source)
@@ -160,18 +169,20 @@ export function verifyArchiveSemantics(bundle, { root = repository } = {}) {
   let frozenSource
   try {
     const extracted = extractZipSafely(fs.readFileSync(path.join(bundle.directory, bundle.archive)), temporary)
-    const lock = readJson(path.join(temporary, 'run-lock.json')); assert.equal(lock.source, bundle.source)
-    const script = bundle.kind === 'component' ? 'verify-integrated-lab.mjs' : 'verify-native-integrated.mjs'
-    const exactHistory=bundle.kind==='component'&&bundle.qualification.profile==='ITCVE-1@3.0.0'
-    if(exactHistory) { frozenSource=fs.mkdtempSync(path.join(os.tmpdir(),'tpnil-component-source-'));fs.rmdirSync(frozenSource) }
-    const replay=exactHistory?prepareFrozenComponentReplay(root,bundle.source,frozenSource):undefined
-    const replayRoot=replay?.root??root
-    const child = spawnSync(process.execPath, [path.join(replayRoot, 'scripts', script), temporary], { cwd: replayRoot, ...(exactHistory?{env:{...process.env,RUSTUP_TOOLCHAIN:'1.88.0'}}:{}), encoding: 'utf8', timeout: 600000, maxBuffer: 16 * 1024 * 1024 })
+    const lock = readJson(path.join(temporary, 'run-lock.json')); assert.equal(bundle.kind==='reevaluation'?lock.evaluatorSource:lock.source, bundle.source)
+    const script = bundle.kind === 'component' ? 'verify-integrated-lab.mjs' : bundle.kind === 'reevaluation' ? 'verify-native-reevaluation.mjs' : 'verify-native-integrated.mjs'
+    frozenSource=fs.mkdtempSync(path.join(os.tmpdir(),'tpnil-integration-source-'));fs.rmdirSync(frozenSource)
+    const replayRoot=prepareFrozenComponentReplay(root,bundle.source,frozenSource).root
+    const child = spawnSync(process.execPath, [path.join(replayRoot, 'scripts', script), temporary], { cwd: replayRoot, env:{...process.env,RUSTUP_TOOLCHAIN:'1.88.0',TPNIL_REPLAY_GIT_ROOT:process.env.TPNIL_REPLAY_GIT_ROOT??root}, encoding: 'utf8', timeout: 600000, maxBuffer: 16 * 1024 * 1024 })
     assert.equal(child.status, 0, `${script} failed: ${child.stderr}\n${child.stdout}`)
     if (bundle.kind === 'component') {
       const summary = componentArchiveSummary(temporary)
       for (const [name, value] of Object.entries(summary)) assert.deepEqual(bundle.qualification[name], value, `Published component ${name} differs from verified evidence`)
       return { semantic: true, extracted, source: summary.source, assertions: summary.assertions, isolatedExecutions: summary.isolatedExecutions }
+    }
+    if(bundle.kind==='reevaluation') {
+      const observed=readJson(path.join(temporary,'reevaluation.json'));assert.deepEqual(bundle.qualification,observed,'Published re-evaluation differs from independently verified evidence')
+      return {semantic:true,extracted,source:observed.evaluatorSource,originalNativeSource:observed.original.source,newNativeSessions:0,repetitions:2,nativeOutcome:observed.nativeOutcome,rustAssertions:96}
     }
     const observed = readJson(path.join(temporary, 'integrated-qualification.json'))
     assert.deepEqual(bundle.qualification, observed, 'Published native qualification differs from regenerated qualification')
@@ -181,13 +192,13 @@ export function verifyArchiveSemantics(bundle, { root = repository } = {}) {
 
 export function verifyPublishedIntegrations({ root = repository, semantic = false } = {}) {
   const bundles = []
-  for (const category of ['integrated-component-qualification', 'integrated-native-qualification', 'integrated-native-attempts', 'integrated-component-attempts']) {
+  for (const category of ['integrated-component-qualification', 'integrated-native-qualification', 'integrated-native-attempts', 'integrated-component-attempts', 'native-integrated-reevaluation']) {
     const directory = path.join(root, 'journals', category)
     if (!fs.existsSync(directory)) continue
     const files = filesUnder(directory), covered = []
     for (const file of files) if (file.endsWith('/provenance.json') || file.endsWith('/attempt.json')) {
       const bundle = verifyIntegrationArchive(path.dirname(path.join(directory, file)))
-      assert.equal(bundle.kind, category === 'integrated-component-qualification' ? 'component' : category === 'integrated-native-qualification' ? 'native' : 'attempt')
+      assert.equal(bundle.kind, category === 'integrated-component-qualification' ? 'component' : category === 'integrated-native-qualification' ? 'native' : category === 'native-integrated-reevaluation' ? 'reevaluation' : 'attempt')
       bundles.push({ kind: bundle.kind, path: path.relative(root, bundle.directory).split(path.sep).join('/'), source: bundle.source, files: bundle.files, ...(semantic ? verifyArchiveSemantics(bundle, { root }) : {}) })
       covered.push(file.slice(0, file.lastIndexOf('/') + 1))
     }
