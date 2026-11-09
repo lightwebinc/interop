@@ -1,0 +1,2908 @@
+{
+  "schema": "tpnil-brc100-contract@2.0.0",
+  "source": {
+    "repository": "bsv-blockchain/BRCs",
+    "commit": "39a643ff148a8dcd23ec08986a8ddeb7d5713743",
+    "path": "wallet/0100.md",
+    "gitBlobSha": "ec25ff75b7d5c584a892e52dbcef07dfae6d9747",
+    "sha256": "537ab393c655195e8cd61897b00d6b187a36f17d930493f8af48430752064082",
+    "bytes": 172505
+  },
+  "methods": {
+    "createAction": {
+      "line": 666,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "description": {
+            "kind": "alias",
+            "name": "ActionDescriptionString5to2000Characters",
+            "optional": false,
+            "line": 668
+          },
+          "inputBEEF": {
+            "kind": "alias",
+            "name": "BEEF",
+            "optional": true,
+            "line": 669
+          },
+          "inputs": {
+            "kind": "array",
+            "item": {
+              "kind": "object",
+              "fields": {
+                "outpoint": {
+                  "kind": "alias",
+                  "name": "OutpointString",
+                  "optional": false,
+                  "line": 671
+                },
+                "unlockingScript": {
+                  "kind": "alias",
+                  "name": "HexString",
+                  "optional": true,
+                  "line": 672
+                },
+                "unlockingScriptLength": {
+                  "kind": "alias",
+                  "name": "PositiveInteger",
+                  "optional": true,
+                  "line": 673
+                },
+                "inputDescription": {
+                  "kind": "alias",
+                  "name": "ActionDescriptionString5to2000Characters",
+                  "optional": false,
+                  "line": 674
+                },
+                "sequenceNumber": {
+                  "kind": "alias",
+                  "name": "PositiveIntegerOrZero",
+                  "optional": true,
+                  "line": 675
+                }
+              }
+            },
+            "optional": true,
+            "line": 670
+          },
+          "outputs": {
+            "kind": "array",
+            "item": {
+              "kind": "object",
+              "fields": {
+                "lockingScript": {
+                  "kind": "alias",
+                  "name": "HexString",
+                  "optional": false,
+                  "line": 678
+                },
+                "satoshis": {
+                  "kind": "alias",
+                  "name": "SatoshiValue",
+                  "optional": false,
+                  "line": 679
+                },
+                "outputDescription": {
+                  "kind": "alias",
+                  "name": "ActionDescriptionString5to2000Characters",
+                  "optional": false,
+                  "line": 680
+                },
+                "basket": {
+                  "kind": "alias",
+                  "name": "BasketStringUnder300Characters",
+                  "optional": true,
+                  "line": 681
+                },
+                "customInstructions": {
+                  "kind": "string",
+                  "optional": true,
+                  "line": 682
+                },
+                "tags": {
+                  "kind": "array",
+                  "item": {
+                    "kind": "alias",
+                    "name": "OutputTagStringUnder300Characters"
+                  },
+                  "optional": true,
+                  "line": 683
+                }
+              }
+            },
+            "optional": true,
+            "line": 677
+          },
+          "lockTime": {
+            "kind": "alias",
+            "name": "PositiveIntegerOrZero",
+            "optional": true,
+            "line": 685
+          },
+          "version": {
+            "kind": "alias",
+            "name": "PositiveIntegerOrZero",
+            "optional": true,
+            "line": 686
+          },
+          "labels": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "LabelStringUnder300Characters"
+            },
+            "optional": true,
+            "line": 687
+          },
+          "options": {
+            "kind": "object",
+            "fields": {
+              "signAndProcess": {
+                "kind": "alias",
+                "name": "BooleanDefaultTrue",
+                "optional": true,
+                "line": 689
+              },
+              "acceptDelayedBroadcast": {
+                "kind": "alias",
+                "name": "BooleanDefaultTrue",
+                "optional": true,
+                "line": 690
+              },
+              "trustSelf": {
+                "kind": "literal",
+                "value": "known",
+                "optional": true,
+                "line": 691
+              },
+              "knownTxids": {
+                "kind": "array",
+                "item": {
+                  "kind": "alias",
+                  "name": "TXIDHexString"
+                },
+                "optional": true,
+                "line": 692
+              },
+              "returnTXIDOnly": {
+                "kind": "alias",
+                "name": "BooleanDefaultFalse",
+                "optional": true,
+                "line": 693
+              },
+              "noSend": {
+                "kind": "alias",
+                "name": "BooleanDefaultFalse",
+                "optional": true,
+                "line": 694
+              },
+              "noSendChange": {
+                "kind": "array",
+                "item": {
+                  "kind": "alias",
+                  "name": "OutpointString"
+                },
+                "optional": true,
+                "line": 695
+              },
+              "sendWith": {
+                "kind": "array",
+                "item": {
+                  "kind": "alias",
+                  "name": "TXIDHexString"
+                },
+                "optional": true,
+                "line": 696
+              },
+              "randomizeOutputs": {
+                "kind": "alias",
+                "name": "BooleanDefaultTrue",
+                "optional": true,
+                "line": 697
+              }
+            },
+            "optional": true,
+            "line": 688
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "txid": {
+            "kind": "alias",
+            "name": "TXIDHexString",
+            "optional": true,
+            "line": 702
+          },
+          "tx": {
+            "kind": "alias",
+            "name": "AtomicBEEF",
+            "optional": true,
+            "line": 703
+          },
+          "noSendChange": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "OutpointString"
+            },
+            "optional": true,
+            "line": 704
+          },
+          "sendWithResults": {
+            "kind": "array",
+            "item": {
+              "kind": "object",
+              "fields": {
+                "txid": {
+                  "kind": "alias",
+                  "name": "TXIDHexString",
+                  "optional": false,
+                  "line": 706
+                },
+                "status": {
+                  "kind": "union",
+                  "variants": [
+                    {
+                      "kind": "literal",
+                      "value": "unproven"
+                    },
+                    {
+                      "kind": "literal",
+                      "value": "sending"
+                    },
+                    {
+                      "kind": "literal",
+                      "value": "failed"
+                    }
+                  ],
+                  "optional": false,
+                  "line": 707
+                }
+              }
+            },
+            "optional": true,
+            "line": 705
+          },
+          "signableTransaction": {
+            "kind": "object",
+            "fields": {
+              "tx": {
+                "kind": "alias",
+                "name": "AtomicBEEF",
+                "optional": false,
+                "line": 710
+              },
+              "reference": {
+                "kind": "alias",
+                "name": "Base64String",
+                "optional": false,
+                "line": 711
+              }
+            },
+            "optional": true,
+            "line": 709
+          }
+        }
+      }
+    },
+    "signAction": {
+      "line": 731,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "spends": {
+            "kind": "record",
+            "key": {
+              "kind": "alias",
+              "name": "PositiveIntegerOrZero"
+            },
+            "value": {
+              "kind": "object",
+              "fields": {
+                "unlockingScript": {
+                  "kind": "alias",
+                  "name": "HexString",
+                  "optional": false,
+                  "line": 736
+                },
+                "sequenceNumber": {
+                  "kind": "alias",
+                  "name": "PositiveIntegerOrZero",
+                  "optional": true,
+                  "line": 737
+                }
+              }
+            },
+            "optional": false,
+            "line": 733
+          },
+          "reference": {
+            "kind": "alias",
+            "name": "Base64String",
+            "optional": false,
+            "line": 740
+          },
+          "options": {
+            "kind": "object",
+            "fields": {
+              "acceptDelayedBroadcast": {
+                "kind": "alias",
+                "name": "BooleanDefaultTrue",
+                "optional": true,
+                "line": 742
+              },
+              "returnTXIDOnly": {
+                "kind": "alias",
+                "name": "BooleanDefaultFalse",
+                "optional": true,
+                "line": 743
+              },
+              "noSend": {
+                "kind": "alias",
+                "name": "BooleanDefaultFalse",
+                "optional": true,
+                "line": 744
+              },
+              "sendWith": {
+                "kind": "array",
+                "item": {
+                  "kind": "alias",
+                  "name": "TXIDHexString"
+                },
+                "optional": true,
+                "line": 745
+              }
+            },
+            "optional": true,
+            "line": 741
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "txid": {
+            "kind": "alias",
+            "name": "TXIDHexString",
+            "optional": true,
+            "line": 750
+          },
+          "tx": {
+            "kind": "alias",
+            "name": "AtomicBEEF",
+            "optional": true,
+            "line": 751
+          },
+          "sendWithResults": {
+            "kind": "array",
+            "item": {
+              "kind": "object",
+              "fields": {
+                "txid": {
+                  "kind": "alias",
+                  "name": "TXIDHexString",
+                  "optional": false,
+                  "line": 753
+                },
+                "status": {
+                  "kind": "union",
+                  "variants": [
+                    {
+                      "kind": "literal",
+                      "value": "unproven"
+                    },
+                    {
+                      "kind": "literal",
+                      "value": "sending"
+                    },
+                    {
+                      "kind": "literal",
+                      "value": "failed"
+                    }
+                  ],
+                  "optional": false,
+                  "line": 754
+                }
+              }
+            },
+            "optional": true,
+            "line": 752
+          }
+        }
+      }
+    },
+    "abortAction": {
+      "line": 766,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "reference": {
+            "kind": "alias",
+            "name": "Base64String",
+            "optional": false,
+            "line": 768
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "aborted": {
+            "kind": "literal",
+            "value": true,
+            "optional": false,
+            "line": 771
+          }
+        }
+      }
+    },
+    "listActions": {
+      "line": 791,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "labels": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "LabelStringUnder300Characters"
+            },
+            "optional": false,
+            "line": 793
+          },
+          "labelQueryMode": {
+            "kind": "union",
+            "variants": [
+              {
+                "kind": "literal",
+                "value": "any"
+              },
+              {
+                "kind": "literal",
+                "value": "all"
+              }
+            ],
+            "optional": true,
+            "line": 794
+          },
+          "includeLabels": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 795
+          },
+          "includeInputs": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 796
+          },
+          "includeInputSourceLockingScripts": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 797
+          },
+          "includeInputUnlockingScripts": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 798
+          },
+          "includeOutputs": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 799
+          },
+          "includeOutputLockingScripts": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 800
+          },
+          "limit": {
+            "kind": "alias",
+            "name": "PositiveIntegerDefault10Max10000",
+            "optional": true,
+            "line": 801
+          },
+          "offset": {
+            "kind": "alias",
+            "name": "PositiveIntegerOrZero",
+            "optional": true,
+            "line": 802
+          },
+          "seekPermission": {
+            "kind": "alias",
+            "name": "BooleanDefaultTrue",
+            "optional": true,
+            "line": 803
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "totalActions": {
+            "kind": "alias",
+            "name": "PositiveIntegerOrZero",
+            "optional": false,
+            "line": 807
+          },
+          "actions": {
+            "kind": "array",
+            "item": {
+              "kind": "object",
+              "fields": {
+                "txid": {
+                  "kind": "alias",
+                  "name": "TXIDHexString",
+                  "optional": false,
+                  "line": 809
+                },
+                "satoshis": {
+                  "kind": "alias",
+                  "name": "SatoshiValue",
+                  "optional": false,
+                  "line": 810
+                },
+                "status": {
+                  "kind": "union",
+                  "variants": [
+                    {
+                      "kind": "literal",
+                      "value": "completed"
+                    },
+                    {
+                      "kind": "literal",
+                      "value": "unprocessed"
+                    },
+                    {
+                      "kind": "literal",
+                      "value": "sending"
+                    },
+                    {
+                      "kind": "literal",
+                      "value": "unproven"
+                    },
+                    {
+                      "kind": "literal",
+                      "value": "unsigned"
+                    },
+                    {
+                      "kind": "literal",
+                      "value": "nosend"
+                    },
+                    {
+                      "kind": "literal",
+                      "value": "nonfinal"
+                    },
+                    {
+                      "kind": "literal",
+                      "value": "failed"
+                    }
+                  ],
+                  "optional": false,
+                  "line": 811
+                },
+                "isOutgoing": {
+                  "kind": "boolean",
+                  "optional": false,
+                  "line": 820
+                },
+                "description": {
+                  "kind": "alias",
+                  "name": "ActionDescriptionString5to2000Characters",
+                  "optional": false,
+                  "line": 821
+                },
+                "labels": {
+                  "kind": "array",
+                  "item": {
+                    "kind": "alias",
+                    "name": "LabelStringUnder300Characters"
+                  },
+                  "optional": true,
+                  "line": 822
+                },
+                "version": {
+                  "kind": "alias",
+                  "name": "PositiveIntegerOrZero",
+                  "optional": false,
+                  "line": 823
+                },
+                "lockTime": {
+                  "kind": "alias",
+                  "name": "PositiveIntegerOrZero",
+                  "optional": false,
+                  "line": 824
+                },
+                "inputs": {
+                  "kind": "array",
+                  "item": {
+                    "kind": "object",
+                    "fields": {
+                      "sourceOutpoint": {
+                        "kind": "alias",
+                        "name": "OutpointString",
+                        "optional": false,
+                        "line": 826
+                      },
+                      "sourceSatoshis": {
+                        "kind": "alias",
+                        "name": "SatoshiValue",
+                        "optional": false,
+                        "line": 827
+                      },
+                      "sourceLockingScript": {
+                        "kind": "alias",
+                        "name": "HexString",
+                        "optional": true,
+                        "line": 828
+                      },
+                      "unlockingScript": {
+                        "kind": "alias",
+                        "name": "HexString",
+                        "optional": true,
+                        "line": 829
+                      },
+                      "inputDescription": {
+                        "kind": "alias",
+                        "name": "ActionDescriptionString5to2000Characters",
+                        "optional": false,
+                        "line": 830
+                      },
+                      "sequenceNumber": {
+                        "kind": "alias",
+                        "name": "PositiveIntegerOrZero",
+                        "optional": false,
+                        "line": 831
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "line": 825
+                },
+                "outputs": {
+                  "kind": "array",
+                  "item": {
+                    "kind": "object",
+                    "fields": {
+                      "outputIndex": {
+                        "kind": "alias",
+                        "name": "PositiveIntegerOrZero",
+                        "optional": false,
+                        "line": 834
+                      },
+                      "satoshis": {
+                        "kind": "alias",
+                        "name": "SatoshiValue",
+                        "optional": false,
+                        "line": 835
+                      },
+                      "lockingScript": {
+                        "kind": "alias",
+                        "name": "HexString",
+                        "optional": true,
+                        "line": 836
+                      },
+                      "spendable": {
+                        "kind": "boolean",
+                        "optional": false,
+                        "line": 837
+                      },
+                      "outputDescription": {
+                        "kind": "alias",
+                        "name": "ActionDescriptionString5to2000Characters",
+                        "optional": false,
+                        "line": 838
+                      },
+                      "basket": {
+                        "kind": "alias",
+                        "name": "BasketStringUnder300Characters",
+                        "optional": false,
+                        "line": 839
+                      },
+                      "tags": {
+                        "kind": "array",
+                        "item": {
+                          "kind": "alias",
+                          "name": "OutputTagStringUnder300Characters"
+                        },
+                        "optional": false,
+                        "line": 840
+                      },
+                      "customInstructions": {
+                        "kind": "string",
+                        "optional": true,
+                        "line": 841
+                      }
+                    }
+                  },
+                  "optional": true,
+                  "line": 833
+                }
+              }
+            },
+            "optional": false,
+            "line": 808
+          }
+        }
+      }
+    },
+    "internalizeAction": {
+      "line": 868,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "tx": {
+            "kind": "alias",
+            "name": "AtomicBEEF",
+            "optional": false,
+            "line": 870
+          },
+          "outputs": {
+            "kind": "array",
+            "item": {
+              "kind": "object",
+              "fields": {
+                "outputIndex": {
+                  "kind": "alias",
+                  "name": "PositiveIntegerOrZero",
+                  "optional": false,
+                  "line": 872
+                },
+                "protocol": {
+                  "kind": "union",
+                  "variants": [
+                    {
+                      "kind": "literal",
+                      "value": "wallet payment"
+                    },
+                    {
+                      "kind": "literal",
+                      "value": "basket insertion"
+                    }
+                  ],
+                  "optional": false,
+                  "line": 873
+                },
+                "paymentRemittance": {
+                  "kind": "object",
+                  "fields": {
+                    "derivationPrefix": {
+                      "kind": "alias",
+                      "name": "Base64String",
+                      "optional": false,
+                      "line": 875
+                    },
+                    "derivationSuffix": {
+                      "kind": "alias",
+                      "name": "Base64String",
+                      "optional": false,
+                      "line": 876
+                    },
+                    "senderIdentityKey": {
+                      "kind": "alias",
+                      "name": "PubKeyHex",
+                      "optional": false,
+                      "line": 877
+                    }
+                  },
+                  "optional": true,
+                  "line": 874
+                },
+                "insertionRemittance": {
+                  "kind": "object",
+                  "fields": {
+                    "basket": {
+                      "kind": "alias",
+                      "name": "BasketStringUnder300Characters",
+                      "optional": false,
+                      "line": 880
+                    },
+                    "customInstructions": {
+                      "kind": "string",
+                      "optional": true,
+                      "line": 881
+                    },
+                    "tags": {
+                      "kind": "array",
+                      "item": {
+                        "kind": "alias",
+                        "name": "OutputTagStringUnder300Characters"
+                      },
+                      "optional": true,
+                      "line": 882
+                    }
+                  },
+                  "optional": true,
+                  "line": 879
+                }
+              }
+            },
+            "optional": false,
+            "line": 871
+          },
+          "description": {
+            "kind": "alias",
+            "name": "ActionDescriptionString5to2000Characters",
+            "optional": false,
+            "line": 885
+          },
+          "labels": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "LabelStringUnder300Characters"
+            },
+            "optional": true,
+            "line": 886
+          },
+          "seekPermission": {
+            "kind": "alias",
+            "name": "BooleanDefaultTrue",
+            "optional": true,
+            "line": 887
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "accepted": {
+            "kind": "literal",
+            "value": true,
+            "optional": false,
+            "line": 890
+          }
+        }
+      }
+    },
+    "listOutputs": {
+      "line": 909,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "basket": {
+            "kind": "alias",
+            "name": "BasketStringUnder300Characters",
+            "optional": false,
+            "line": 911
+          },
+          "tags": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "OutputTagStringUnder300Characters"
+            },
+            "optional": true,
+            "line": 912
+          },
+          "tagQueryMode": {
+            "kind": "union",
+            "variants": [
+              {
+                "kind": "literal",
+                "value": "all"
+              },
+              {
+                "kind": "literal",
+                "value": "any"
+              }
+            ],
+            "optional": true,
+            "line": 913
+          },
+          "include": {
+            "kind": "union",
+            "variants": [
+              {
+                "kind": "literal",
+                "value": "locking scripts"
+              },
+              {
+                "kind": "literal",
+                "value": "entire transactions"
+              }
+            ],
+            "optional": true,
+            "line": 914
+          },
+          "includeCustomInstructions": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 915
+          },
+          "includeTags": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 916
+          },
+          "includeLabels": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 917
+          },
+          "limit": {
+            "kind": "alias",
+            "name": "PositiveIntegerDefault10Max10000",
+            "optional": true,
+            "line": 918
+          },
+          "offset": {
+            "kind": "number",
+            "optional": true,
+            "line": 919
+          },
+          "seekPermission": {
+            "kind": "alias",
+            "name": "BooleanDefaultTrue",
+            "optional": true,
+            "line": 920
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "totalOutputs": {
+            "kind": "alias",
+            "name": "PositiveIntegerOrZero",
+            "optional": false,
+            "line": 924
+          },
+          "BEEF": {
+            "kind": "alias",
+            "name": "BEEF",
+            "optional": true,
+            "line": 925
+          },
+          "outputs": {
+            "kind": "array",
+            "item": {
+              "kind": "object",
+              "fields": {
+                "outpoint": {
+                  "kind": "alias",
+                  "name": "OutpointString",
+                  "optional": false,
+                  "line": 927
+                },
+                "satoshis": {
+                  "kind": "alias",
+                  "name": "SatoshiValue",
+                  "optional": false,
+                  "line": 928
+                },
+                "lockingScript": {
+                  "kind": "alias",
+                  "name": "HexString",
+                  "optional": true,
+                  "line": 929
+                },
+                "spendable": {
+                  "kind": "literal",
+                  "value": true,
+                  "optional": false,
+                  "line": 930
+                },
+                "customInstructions": {
+                  "kind": "string",
+                  "optional": true,
+                  "line": 931
+                },
+                "tags": {
+                  "kind": "array",
+                  "item": {
+                    "kind": "alias",
+                    "name": "OutputTagStringUnder300Characters"
+                  },
+                  "optional": true,
+                  "line": 932
+                },
+                "labels": {
+                  "kind": "array",
+                  "item": {
+                    "kind": "alias",
+                    "name": "LabelStringUnder300Characters"
+                  },
+                  "optional": true,
+                  "line": 933
+                }
+              }
+            },
+            "optional": false,
+            "line": 926
+          }
+        }
+      }
+    },
+    "relinquishOutput": {
+      "line": 946,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "basket": {
+            "kind": "alias",
+            "name": "BasketStringUnder300Characters",
+            "optional": false,
+            "line": 948
+          },
+          "output": {
+            "kind": "alias",
+            "name": "OutpointString",
+            "optional": false,
+            "line": 949
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "relinquished": {
+            "kind": "literal",
+            "value": true,
+            "optional": false,
+            "line": 952
+          }
+        }
+      }
+    },
+    "getPublicKey": {
+      "line": 969,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "identityKey": {
+            "kind": "literal",
+            "value": true,
+            "optional": true,
+            "line": 971
+          },
+          "protocolID": {
+            "kind": "tuple",
+            "items": [
+              {
+                "kind": "union",
+                "variants": [
+                  {
+                    "kind": "literal",
+                    "value": 0
+                  },
+                  {
+                    "kind": "literal",
+                    "value": 1
+                  },
+                  {
+                    "kind": "literal",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "kind": "alias",
+                "name": "ProtocolString5To400Characters"
+              }
+            ],
+            "optional": true,
+            "line": 972
+          },
+          "keyID": {
+            "kind": "alias",
+            "name": "KeyIDStringUnder800Characters",
+            "optional": true,
+            "line": 973
+          },
+          "privileged": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 974
+          },
+          "privilegedReason": {
+            "kind": "alias",
+            "name": "DescriptionString5to50Characters",
+            "optional": true,
+            "line": 975
+          },
+          "counterparty": {
+            "kind": "union",
+            "variants": [
+              {
+                "kind": "alias",
+                "name": "PubKeyHex"
+              },
+              {
+                "kind": "literal",
+                "value": "self"
+              },
+              {
+                "kind": "literal",
+                "value": "anyone"
+              }
+            ],
+            "optional": true,
+            "line": 976
+          },
+          "forSelf": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 977
+          },
+          "seekPermission": {
+            "kind": "alias",
+            "name": "BooleanDefaultTrue",
+            "optional": true,
+            "line": 978
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "publicKey": {
+            "kind": "alias",
+            "name": "PubKeyHex",
+            "optional": false,
+            "line": 981
+          }
+        }
+      }
+    },
+    "revealCounterpartyKeyLinkage": {
+      "line": 994,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "counterparty": {
+            "kind": "alias",
+            "name": "PubKeyHex",
+            "optional": false,
+            "line": 996
+          },
+          "verifier": {
+            "kind": "alias",
+            "name": "PubKeyHex",
+            "optional": false,
+            "line": 997
+          },
+          "privilegedReason": {
+            "kind": "alias",
+            "name": "DescriptionString5to50Characters",
+            "optional": true,
+            "line": 998
+          },
+          "privileged": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 999
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "prover": {
+            "kind": "alias",
+            "name": "PubKeyHex",
+            "optional": false,
+            "line": 1003
+          },
+          "verifier": {
+            "kind": "alias",
+            "name": "PubKeyHex",
+            "optional": false,
+            "line": 1004
+          },
+          "counterparty": {
+            "kind": "alias",
+            "name": "PubKeyHex",
+            "optional": false,
+            "line": 1005
+          },
+          "revelationTime": {
+            "kind": "alias",
+            "name": "ISOTimestampString",
+            "optional": false,
+            "line": 1006
+          },
+          "encryptedLinkage": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Byte"
+            },
+            "optional": false,
+            "line": 1007
+          },
+          "encryptedLinkageProof": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Byte"
+            },
+            "optional": false,
+            "line": 1008
+          }
+        }
+      }
+    },
+    "revealSpecificKeyLinkage": {
+      "line": 1024,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "counterparty": {
+            "kind": "alias",
+            "name": "PubKeyHex",
+            "optional": false,
+            "line": 1026
+          },
+          "verifier": {
+            "kind": "alias",
+            "name": "PubKeyHex",
+            "optional": false,
+            "line": 1027
+          },
+          "protocolID": {
+            "kind": "tuple",
+            "items": [
+              {
+                "kind": "union",
+                "variants": [
+                  {
+                    "kind": "literal",
+                    "value": 0
+                  },
+                  {
+                    "kind": "literal",
+                    "value": 1
+                  },
+                  {
+                    "kind": "literal",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "kind": "alias",
+                "name": "ProtocolString5To400Characters"
+              }
+            ],
+            "optional": false,
+            "line": 1028
+          },
+          "keyID": {
+            "kind": "alias",
+            "name": "KeyIDStringUnder800Characters",
+            "optional": false,
+            "line": 1029
+          },
+          "privilegedReason": {
+            "kind": "alias",
+            "name": "DescriptionString5to50Characters",
+            "optional": true,
+            "line": 1030
+          },
+          "privileged": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 1031
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "prover": {
+            "kind": "alias",
+            "name": "PubKeyHex",
+            "optional": false,
+            "line": 1035
+          },
+          "verifier": {
+            "kind": "alias",
+            "name": "PubKeyHex",
+            "optional": false,
+            "line": 1036
+          },
+          "counterparty": {
+            "kind": "alias",
+            "name": "PubKeyHex",
+            "optional": false,
+            "line": 1037
+          },
+          "protocolID": {
+            "kind": "tuple",
+            "items": [
+              {
+                "kind": "union",
+                "variants": [
+                  {
+                    "kind": "literal",
+                    "value": 0
+                  },
+                  {
+                    "kind": "literal",
+                    "value": 1
+                  },
+                  {
+                    "kind": "literal",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "kind": "alias",
+                "name": "ProtocolString5To400Characters"
+              }
+            ],
+            "optional": false,
+            "line": 1038
+          },
+          "keyID": {
+            "kind": "alias",
+            "name": "KeyIDStringUnder800Characters",
+            "optional": false,
+            "line": 1039
+          },
+          "encryptedLinkage": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Byte"
+            },
+            "optional": false,
+            "line": 1040
+          },
+          "encryptedLinkageProof": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Byte"
+            },
+            "optional": false,
+            "line": 1041
+          },
+          "proofType": {
+            "kind": "alias",
+            "name": "Byte",
+            "optional": false,
+            "line": 1042
+          }
+        }
+      }
+    },
+    "encrypt": {
+      "line": 1059,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "plaintext": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Byte"
+            },
+            "optional": false,
+            "line": 1061
+          },
+          "protocolID": {
+            "kind": "tuple",
+            "items": [
+              {
+                "kind": "union",
+                "variants": [
+                  {
+                    "kind": "literal",
+                    "value": 0
+                  },
+                  {
+                    "kind": "literal",
+                    "value": 1
+                  },
+                  {
+                    "kind": "literal",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "kind": "alias",
+                "name": "ProtocolString5To400Characters"
+              }
+            ],
+            "optional": false,
+            "line": 1062
+          },
+          "keyID": {
+            "kind": "alias",
+            "name": "KeyIDStringUnder800Characters",
+            "optional": false,
+            "line": 1063
+          },
+          "privilegedReason": {
+            "kind": "alias",
+            "name": "DescriptionString5to50Characters",
+            "optional": true,
+            "line": 1064
+          },
+          "counterparty": {
+            "kind": "union",
+            "variants": [
+              {
+                "kind": "alias",
+                "name": "PubKeyHex"
+              },
+              {
+                "kind": "literal",
+                "value": "self"
+              },
+              {
+                "kind": "literal",
+                "value": "anyone"
+              }
+            ],
+            "optional": true,
+            "line": 1065
+          },
+          "privileged": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 1066
+          },
+          "seekPermission": {
+            "kind": "alias",
+            "name": "BooleanDefaultTrue",
+            "optional": true,
+            "line": 1067
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "ciphertext": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Byte"
+            },
+            "optional": false,
+            "line": 1070
+          }
+        }
+      }
+    },
+    "decrypt": {
+      "line": 1086,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "ciphertext": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Byte"
+            },
+            "optional": false,
+            "line": 1088
+          },
+          "protocolID": {
+            "kind": "tuple",
+            "items": [
+              {
+                "kind": "union",
+                "variants": [
+                  {
+                    "kind": "literal",
+                    "value": 0
+                  },
+                  {
+                    "kind": "literal",
+                    "value": 1
+                  },
+                  {
+                    "kind": "literal",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "kind": "alias",
+                "name": "ProtocolString5To400Characters"
+              }
+            ],
+            "optional": false,
+            "line": 1089
+          },
+          "keyID": {
+            "kind": "alias",
+            "name": "KeyIDStringUnder800Characters",
+            "optional": false,
+            "line": 1090
+          },
+          "privilegedReason": {
+            "kind": "alias",
+            "name": "DescriptionString5to50Characters",
+            "optional": true,
+            "line": 1091
+          },
+          "counterparty": {
+            "kind": "union",
+            "variants": [
+              {
+                "kind": "alias",
+                "name": "PubKeyHex"
+              },
+              {
+                "kind": "literal",
+                "value": "self"
+              },
+              {
+                "kind": "literal",
+                "value": "anyone"
+              }
+            ],
+            "optional": true,
+            "line": 1092
+          },
+          "privileged": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 1093
+          },
+          "seekPermission": {
+            "kind": "alias",
+            "name": "BooleanDefaultTrue",
+            "optional": true,
+            "line": 1094
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "plaintext": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Byte"
+            },
+            "optional": false,
+            "line": 1097
+          }
+        }
+      }
+    },
+    "createHmac": {
+      "line": 1113,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "data": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Byte"
+            },
+            "optional": false,
+            "line": 1115
+          },
+          "protocolID": {
+            "kind": "tuple",
+            "items": [
+              {
+                "kind": "union",
+                "variants": [
+                  {
+                    "kind": "literal",
+                    "value": 0
+                  },
+                  {
+                    "kind": "literal",
+                    "value": 1
+                  },
+                  {
+                    "kind": "literal",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "kind": "alias",
+                "name": "ProtocolString5To400Characters"
+              }
+            ],
+            "optional": false,
+            "line": 1116
+          },
+          "keyID": {
+            "kind": "alias",
+            "name": "KeyIDStringUnder800Characters",
+            "optional": false,
+            "line": 1117
+          },
+          "privilegedReason": {
+            "kind": "alias",
+            "name": "DescriptionString5to50Characters",
+            "optional": true,
+            "line": 1118
+          },
+          "counterparty": {
+            "kind": "union",
+            "variants": [
+              {
+                "kind": "alias",
+                "name": "PubKeyHex"
+              },
+              {
+                "kind": "literal",
+                "value": "self"
+              },
+              {
+                "kind": "literal",
+                "value": "anyone"
+              }
+            ],
+            "optional": true,
+            "line": 1119
+          },
+          "privileged": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 1120
+          },
+          "seekPermission": {
+            "kind": "alias",
+            "name": "BooleanDefaultTrue",
+            "optional": true,
+            "line": 1121
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "hmac": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Byte"
+            },
+            "optional": false,
+            "line": 1124
+          }
+        }
+      }
+    },
+    "verifyHmac": {
+      "line": 1141,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "data": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Byte"
+            },
+            "optional": false,
+            "line": 1143
+          },
+          "hmac": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Byte"
+            },
+            "optional": false,
+            "line": 1144
+          },
+          "protocolID": {
+            "kind": "tuple",
+            "items": [
+              {
+                "kind": "union",
+                "variants": [
+                  {
+                    "kind": "literal",
+                    "value": 0
+                  },
+                  {
+                    "kind": "literal",
+                    "value": 1
+                  },
+                  {
+                    "kind": "literal",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "kind": "alias",
+                "name": "ProtocolString5To400Characters"
+              }
+            ],
+            "optional": false,
+            "line": 1145
+          },
+          "keyID": {
+            "kind": "alias",
+            "name": "KeyIDStringUnder800Characters",
+            "optional": false,
+            "line": 1146
+          },
+          "privilegedReason": {
+            "kind": "alias",
+            "name": "DescriptionString5to50Characters",
+            "optional": true,
+            "line": 1147
+          },
+          "counterparty": {
+            "kind": "union",
+            "variants": [
+              {
+                "kind": "alias",
+                "name": "PubKeyHex"
+              },
+              {
+                "kind": "literal",
+                "value": "self"
+              },
+              {
+                "kind": "literal",
+                "value": "anyone"
+              }
+            ],
+            "optional": true,
+            "line": 1148
+          },
+          "privileged": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 1149
+          },
+          "seekPermission": {
+            "kind": "alias",
+            "name": "BooleanDefaultTrue",
+            "optional": true,
+            "line": 1150
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "valid": {
+            "kind": "literal",
+            "value": true,
+            "optional": false,
+            "line": 1153
+          }
+        }
+      }
+    },
+    "createSignature": {
+      "line": 1170,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "data": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Byte"
+            },
+            "optional": true,
+            "line": 1172
+          },
+          "hashToDirectlySign": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Byte"
+            },
+            "optional": true,
+            "line": 1173
+          },
+          "protocolID": {
+            "kind": "tuple",
+            "items": [
+              {
+                "kind": "union",
+                "variants": [
+                  {
+                    "kind": "literal",
+                    "value": 0
+                  },
+                  {
+                    "kind": "literal",
+                    "value": 1
+                  },
+                  {
+                    "kind": "literal",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "kind": "alias",
+                "name": "ProtocolString5To400Characters"
+              }
+            ],
+            "optional": false,
+            "line": 1174
+          },
+          "keyID": {
+            "kind": "alias",
+            "name": "KeyIDStringUnder800Characters",
+            "optional": false,
+            "line": 1175
+          },
+          "privilegedReason": {
+            "kind": "alias",
+            "name": "DescriptionString5to50Characters",
+            "optional": true,
+            "line": 1176
+          },
+          "counterparty": {
+            "kind": "union",
+            "variants": [
+              {
+                "kind": "alias",
+                "name": "PubKeyHex"
+              },
+              {
+                "kind": "literal",
+                "value": "self"
+              },
+              {
+                "kind": "literal",
+                "value": "anyone"
+              }
+            ],
+            "optional": true,
+            "line": 1177
+          },
+          "privileged": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 1178
+          },
+          "seekPermission": {
+            "kind": "alias",
+            "name": "BooleanDefaultTrue",
+            "optional": true,
+            "line": 1179
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "signature": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Byte"
+            },
+            "optional": false,
+            "line": 1182
+          }
+        }
+      }
+    },
+    "verifySignature": {
+      "line": 1201,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "data": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Byte"
+            },
+            "optional": true,
+            "line": 1203
+          },
+          "hashToDirectlyVerify": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Byte"
+            },
+            "optional": true,
+            "line": 1204
+          },
+          "signature": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Byte"
+            },
+            "optional": false,
+            "line": 1205
+          },
+          "protocolID": {
+            "kind": "tuple",
+            "items": [
+              {
+                "kind": "union",
+                "variants": [
+                  {
+                    "kind": "literal",
+                    "value": 0
+                  },
+                  {
+                    "kind": "literal",
+                    "value": 1
+                  },
+                  {
+                    "kind": "literal",
+                    "value": 2
+                  }
+                ]
+              },
+              {
+                "kind": "alias",
+                "name": "ProtocolString5To400Characters"
+              }
+            ],
+            "optional": false,
+            "line": 1206
+          },
+          "keyID": {
+            "kind": "alias",
+            "name": "KeyIDStringUnder800Characters",
+            "optional": false,
+            "line": 1207
+          },
+          "privilegedReason": {
+            "kind": "alias",
+            "name": "DescriptionString5to50Characters",
+            "optional": true,
+            "line": 1208
+          },
+          "counterparty": {
+            "kind": "union",
+            "variants": [
+              {
+                "kind": "alias",
+                "name": "PubKeyHex"
+              },
+              {
+                "kind": "literal",
+                "value": "self"
+              },
+              {
+                "kind": "literal",
+                "value": "anyone"
+              }
+            ],
+            "optional": true,
+            "line": 1209
+          },
+          "forSelf": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 1210
+          },
+          "privileged": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 1211
+          },
+          "seekPermission": {
+            "kind": "alias",
+            "name": "BooleanDefaultTrue",
+            "optional": true,
+            "line": 1212
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "valid": {
+            "kind": "literal",
+            "value": true,
+            "optional": false,
+            "line": 1215
+          }
+        }
+      }
+    },
+    "acquireCertificate": {
+      "line": 1236,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "type": {
+            "kind": "alias",
+            "name": "Base64String",
+            "optional": false,
+            "line": 1238
+          },
+          "certifier": {
+            "kind": "alias",
+            "name": "PubKeyHex",
+            "optional": false,
+            "line": 1239
+          },
+          "acquisitionProtocol": {
+            "kind": "union",
+            "variants": [
+              {
+                "kind": "literal",
+                "value": "direct"
+              },
+              {
+                "kind": "literal",
+                "value": "issuance"
+              }
+            ],
+            "optional": false,
+            "line": 1240
+          },
+          "fields": {
+            "kind": "record",
+            "key": {
+              "kind": "alias",
+              "name": "CertificateFieldNameUnder50Characters"
+            },
+            "value": {
+              "kind": "string"
+            },
+            "optional": false,
+            "line": 1241
+          },
+          "serialNumber": {
+            "kind": "alias",
+            "name": "Base64String",
+            "optional": true,
+            "line": 1242
+          },
+          "revocationOutpoint": {
+            "kind": "alias",
+            "name": "OutpointString",
+            "optional": true,
+            "line": 1243
+          },
+          "signature": {
+            "kind": "alias",
+            "name": "HexString",
+            "optional": true,
+            "line": 1244
+          },
+          "certifierUrl": {
+            "kind": "string",
+            "optional": true,
+            "line": 1245
+          },
+          "keyringRevealer": {
+            "kind": "union",
+            "variants": [
+              {
+                "kind": "alias",
+                "name": "PubKeyHex"
+              },
+              {
+                "kind": "literal",
+                "value": "certifier"
+              }
+            ],
+            "optional": true,
+            "line": 1246
+          },
+          "keyringForSubject": {
+            "kind": "record",
+            "key": {
+              "kind": "alias",
+              "name": "CertificateFieldNameUnder50Characters"
+            },
+            "value": {
+              "kind": "alias",
+              "name": "Base64String"
+            },
+            "optional": true,
+            "line": 1247
+          },
+          "privileged": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 1251
+          },
+          "privilegedReason": {
+            "kind": "alias",
+            "name": "DescriptionString5to50Characters",
+            "optional": true,
+            "line": 1252
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "type": {
+            "kind": "alias",
+            "name": "Base64String",
+            "optional": false,
+            "line": 1256
+          },
+          "subject": {
+            "kind": "alias",
+            "name": "PubKeyHex",
+            "optional": false,
+            "line": 1257
+          },
+          "serialNumber": {
+            "kind": "alias",
+            "name": "Base64String",
+            "optional": false,
+            "line": 1258
+          },
+          "certifier": {
+            "kind": "alias",
+            "name": "PubKeyHex",
+            "optional": false,
+            "line": 1259
+          },
+          "revocationOutpoint": {
+            "kind": "alias",
+            "name": "OutpointString",
+            "optional": false,
+            "line": 1260
+          },
+          "signature": {
+            "kind": "alias",
+            "name": "HexString",
+            "optional": false,
+            "line": 1261
+          },
+          "fields": {
+            "kind": "record",
+            "key": {
+              "kind": "alias",
+              "name": "CertificateFieldNameUnder50Characters"
+            },
+            "value": {
+              "kind": "string"
+            },
+            "optional": false,
+            "line": 1262
+          }
+        }
+      }
+    },
+    "listCertificates": {
+      "line": 1278,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "certifiers": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "PubKeyHex"
+            },
+            "optional": false,
+            "line": 1280
+          },
+          "types": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "Base64String"
+            },
+            "optional": false,
+            "line": 1281
+          },
+          "limit": {
+            "kind": "alias",
+            "name": "PositiveIntegerDefault10Max10000",
+            "optional": true,
+            "line": 1282
+          },
+          "offset": {
+            "kind": "alias",
+            "name": "PositiveIntegerOrZero",
+            "optional": true,
+            "line": 1283
+          },
+          "privileged": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 1284
+          },
+          "privilegedReason": {
+            "kind": "alias",
+            "name": "DescriptionString5to50Characters",
+            "optional": true,
+            "line": 1285
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "totalCertificates": {
+            "kind": "alias",
+            "name": "PositiveIntegerOrZero",
+            "optional": false,
+            "line": 1289
+          },
+          "certificates": {
+            "kind": "array",
+            "item": {
+              "kind": "object",
+              "fields": {
+                "type": {
+                  "kind": "alias",
+                  "name": "Base64String",
+                  "optional": false,
+                  "line": 1291
+                },
+                "subject": {
+                  "kind": "alias",
+                  "name": "PubKeyHex",
+                  "optional": false,
+                  "line": 1292
+                },
+                "serialNumber": {
+                  "kind": "alias",
+                  "name": "Base64String",
+                  "optional": false,
+                  "line": 1293
+                },
+                "certifier": {
+                  "kind": "alias",
+                  "name": "PubKeyHex",
+                  "optional": false,
+                  "line": 1294
+                },
+                "revocationOutpoint": {
+                  "kind": "alias",
+                  "name": "OutpointString",
+                  "optional": false,
+                  "line": 1295
+                },
+                "signature": {
+                  "kind": "alias",
+                  "name": "HexString",
+                  "optional": false,
+                  "line": 1296
+                },
+                "fields": {
+                  "kind": "record",
+                  "key": {
+                    "kind": "alias",
+                    "name": "CertificateFieldNameUnder50Characters"
+                  },
+                  "value": {
+                    "kind": "string"
+                  },
+                  "optional": false,
+                  "line": 1297
+                }
+              }
+            },
+            "optional": false,
+            "line": 1290
+          }
+        }
+      }
+    },
+    "proveCertificate": {
+      "line": 1320,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "certificate": {
+            "kind": "object",
+            "fields": {
+              "type": {
+                "kind": "alias",
+                "name": "Base64String",
+                "optional": false,
+                "line": 1323
+              },
+              "subject": {
+                "kind": "alias",
+                "name": "PubKeyHex",
+                "optional": false,
+                "line": 1324
+              },
+              "serialNumber": {
+                "kind": "alias",
+                "name": "Base64String",
+                "optional": false,
+                "line": 1325
+              },
+              "certifier": {
+                "kind": "alias",
+                "name": "PubKeyHex",
+                "optional": false,
+                "line": 1326
+              },
+              "revocationOutpoint": {
+                "kind": "alias",
+                "name": "OutpointString",
+                "optional": false,
+                "line": 1327
+              },
+              "signature": {
+                "kind": "alias",
+                "name": "HexString",
+                "optional": false,
+                "line": 1328
+              },
+              "fields": {
+                "kind": "record",
+                "key": {
+                  "kind": "alias",
+                  "name": "CertificateFieldNameUnder50Characters"
+                },
+                "value": {
+                  "kind": "string"
+                },
+                "optional": false,
+                "line": 1329
+              }
+            },
+            "optional": false,
+            "line": 1322
+          },
+          "fieldsToReveal": {
+            "kind": "array",
+            "item": {
+              "kind": "alias",
+              "name": "CertificateFieldNameUnder50Characters"
+            },
+            "optional": false,
+            "line": 1331
+          },
+          "verifier": {
+            "kind": "alias",
+            "name": "PubKeyHex",
+            "optional": false,
+            "line": 1332
+          },
+          "privileged": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 1333
+          },
+          "privilegedReason": {
+            "kind": "alias",
+            "name": "DescriptionString5to50Characters",
+            "optional": true,
+            "line": 1334
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "keyringForVerifier": {
+            "kind": "record",
+            "key": {
+              "kind": "alias",
+              "name": "CertificateFieldNameUnder50Characters"
+            },
+            "value": {
+              "kind": "alias",
+              "name": "Base64String"
+            },
+            "optional": false,
+            "line": 1338
+          }
+        }
+      }
+    },
+    "relinquishCertificate": {
+      "line": 1354,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "type": {
+            "kind": "alias",
+            "name": "Base64String",
+            "optional": false,
+            "line": 1356
+          },
+          "serialNumber": {
+            "kind": "alias",
+            "name": "Base64String",
+            "optional": false,
+            "line": 1357
+          },
+          "certifier": {
+            "kind": "alias",
+            "name": "PubKeyHex",
+            "optional": false,
+            "line": 1358
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "relinquished": {
+            "kind": "literal",
+            "value": true,
+            "optional": false,
+            "line": 1361
+          }
+        }
+      }
+    },
+    "discoverByIdentityKey": {
+      "line": 1374,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "identityKey": {
+            "kind": "alias",
+            "name": "PubKeyHex",
+            "optional": false,
+            "line": 1376
+          },
+          "limit": {
+            "kind": "alias",
+            "name": "PositiveIntegerDefault10Max10000",
+            "optional": true,
+            "line": 1377
+          },
+          "offset": {
+            "kind": "alias",
+            "name": "PositiveIntegerOrZero",
+            "optional": true,
+            "line": 1378
+          },
+          "seekPermission": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 1379
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "totalCertificates": {
+            "kind": "alias",
+            "name": "PositiveIntegerOrZero",
+            "optional": false,
+            "line": 1383
+          },
+          "certificates": {
+            "kind": "array",
+            "item": {
+              "kind": "object",
+              "fields": {
+                "type": {
+                  "kind": "alias",
+                  "name": "Base64String",
+                  "optional": false,
+                  "line": 1385
+                },
+                "subject": {
+                  "kind": "alias",
+                  "name": "PubKeyHex",
+                  "optional": false,
+                  "line": 1386
+                },
+                "serialNumber": {
+                  "kind": "alias",
+                  "name": "Base64String",
+                  "optional": false,
+                  "line": 1387
+                },
+                "certifier": {
+                  "kind": "alias",
+                  "name": "PubKeyHex",
+                  "optional": false,
+                  "line": 1388
+                },
+                "revocationOutpoint": {
+                  "kind": "alias",
+                  "name": "OutpointString",
+                  "optional": false,
+                  "line": 1389
+                },
+                "signature": {
+                  "kind": "alias",
+                  "name": "HexString",
+                  "optional": false,
+                  "line": 1390
+                },
+                "fields": {
+                  "kind": "record",
+                  "key": {
+                    "kind": "alias",
+                    "name": "CertificateFieldNameUnder50Characters"
+                  },
+                  "value": {
+                    "kind": "alias",
+                    "name": "Base64String"
+                  },
+                  "optional": false,
+                  "line": 1391
+                },
+                "certifierInfo": {
+                  "kind": "object",
+                  "fields": {
+                    "name": {
+                      "kind": "alias",
+                      "name": "EntityNameStringMax100Characters",
+                      "optional": false,
+                      "line": 1393
+                    },
+                    "iconUrl": {
+                      "kind": "alias",
+                      "name": "EntityIconURLStringMax500Characters",
+                      "optional": false,
+                      "line": 1394
+                    },
+                    "description": {
+                      "kind": "alias",
+                      "name": "DescriptionString5to50Characters",
+                      "optional": false,
+                      "line": 1395
+                    },
+                    "trust": {
+                      "kind": "alias",
+                      "name": "PositiveIntegerMax10",
+                      "optional": false,
+                      "line": 1396
+                    }
+                  },
+                  "optional": false,
+                  "line": 1392
+                },
+                "publiclyRevealedKeyring": {
+                  "kind": "record",
+                  "key": {
+                    "kind": "alias",
+                    "name": "CertificateFieldNameUnder50Characters"
+                  },
+                  "value": {
+                    "kind": "alias",
+                    "name": "Base64String"
+                  },
+                  "optional": false,
+                  "line": 1398
+                },
+                "decryptedFields": {
+                  "kind": "record",
+                  "key": {
+                    "kind": "alias",
+                    "name": "CertificateFieldNameUnder50Characters"
+                  },
+                  "value": {
+                    "kind": "string"
+                  },
+                  "optional": false,
+                  "line": 1402
+                }
+              }
+            },
+            "optional": false,
+            "line": 1384
+          }
+        }
+      }
+    },
+    "discoverByAttributes": {
+      "line": 1417,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "attributes": {
+            "kind": "record",
+            "key": {
+              "kind": "alias",
+              "name": "CertificateFieldNameUnder50Characters"
+            },
+            "value": {
+              "kind": "string"
+            },
+            "optional": false,
+            "line": 1419
+          },
+          "limit": {
+            "kind": "alias",
+            "name": "PositiveIntegerDefault10Max10000",
+            "optional": true,
+            "line": 1420
+          },
+          "offset": {
+            "kind": "alias",
+            "name": "PositiveIntegerOrZero",
+            "optional": true,
+            "line": 1421
+          },
+          "seekPermission": {
+            "kind": "alias",
+            "name": "BooleanDefaultFalse",
+            "optional": true,
+            "line": 1422
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "totalCertificates": {
+            "kind": "alias",
+            "name": "PositiveIntegerOrZero",
+            "optional": false,
+            "line": 1426
+          },
+          "certificates": {
+            "kind": "array",
+            "item": {
+              "kind": "object",
+              "fields": {
+                "type": {
+                  "kind": "alias",
+                  "name": "Base64String",
+                  "optional": false,
+                  "line": 1428
+                },
+                "subject": {
+                  "kind": "alias",
+                  "name": "PubKeyHex",
+                  "optional": false,
+                  "line": 1429
+                },
+                "serialNumber": {
+                  "kind": "alias",
+                  "name": "Base64String",
+                  "optional": false,
+                  "line": 1430
+                },
+                "certifier": {
+                  "kind": "alias",
+                  "name": "PubKeyHex",
+                  "optional": false,
+                  "line": 1431
+                },
+                "revocationOutpoint": {
+                  "kind": "alias",
+                  "name": "OutpointString",
+                  "optional": false,
+                  "line": 1432
+                },
+                "signature": {
+                  "kind": "alias",
+                  "name": "HexString",
+                  "optional": false,
+                  "line": 1433
+                },
+                "fields": {
+                  "kind": "record",
+                  "key": {
+                    "kind": "alias",
+                    "name": "CertificateFieldNameUnder50Characters"
+                  },
+                  "value": {
+                    "kind": "alias",
+                    "name": "Base64String"
+                  },
+                  "optional": false,
+                  "line": 1434
+                },
+                "certifierInfo": {
+                  "kind": "object",
+                  "fields": {
+                    "name": {
+                      "kind": "alias",
+                      "name": "EntityNameStringMax100Characters",
+                      "optional": false,
+                      "line": 1436
+                    },
+                    "iconUrl": {
+                      "kind": "alias",
+                      "name": "EntityIconURLStringMax500Characters",
+                      "optional": false,
+                      "line": 1437
+                    },
+                    "description": {
+                      "kind": "alias",
+                      "name": "DescriptionString5to50Characters",
+                      "optional": false,
+                      "line": 1438
+                    },
+                    "trust": {
+                      "kind": "alias",
+                      "name": "PositiveIntegerMax10",
+                      "optional": false,
+                      "line": 1439
+                    }
+                  },
+                  "optional": false,
+                  "line": 1435
+                },
+                "publiclyRevealedKeyring": {
+                  "kind": "record",
+                  "key": {
+                    "kind": "alias",
+                    "name": "CertificateFieldNameUnder50Characters"
+                  },
+                  "value": {
+                    "kind": "alias",
+                    "name": "Base64String"
+                  },
+                  "optional": false,
+                  "line": 1441
+                },
+                "decryptedFields": {
+                  "kind": "record",
+                  "key": {
+                    "kind": "alias",
+                    "name": "CertificateFieldNameUnder50Characters"
+                  },
+                  "value": {
+                    "kind": "string"
+                  },
+                  "optional": false,
+                  "line": 1445
+                }
+              }
+            },
+            "optional": false,
+            "line": 1427
+          }
+        }
+      }
+    },
+    "isAuthenticated": {
+      "line": 1456,
+      "input": {
+        "kind": "object",
+        "fields": {}
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "authenticated": {
+            "kind": "boolean",
+            "optional": false,
+            "line": 1459
+          }
+        }
+      }
+    },
+    "waitForAuthentication": {
+      "line": 1468,
+      "input": {
+        "kind": "object",
+        "fields": {}
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "authenticated": {
+            "kind": "literal",
+            "value": true,
+            "optional": false,
+            "line": 1471
+          }
+        }
+      }
+    },
+    "getHeight": {
+      "line": 1480,
+      "input": {
+        "kind": "object",
+        "fields": {}
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "height": {
+            "kind": "alias",
+            "name": "PositiveInteger",
+            "optional": false,
+            "line": 1483
+          }
+        }
+      }
+    },
+    "getHeaderForHeight": {
+      "line": 1493,
+      "input": {
+        "kind": "object",
+        "fields": {
+          "height": {
+            "kind": "alias",
+            "name": "PositiveInteger",
+            "optional": false,
+            "line": 1494
+          }
+        }
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "header": {
+            "kind": "alias",
+            "name": "HexString",
+            "optional": false,
+            "line": 1496
+          }
+        }
+      }
+    },
+    "getNetwork": {
+      "line": 1505,
+      "input": {
+        "kind": "object",
+        "fields": {}
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "network": {
+            "kind": "union",
+            "variants": [
+              {
+                "kind": "literal",
+                "value": "mainnet"
+              },
+              {
+                "kind": "literal",
+                "value": "testnet"
+              }
+            ],
+            "optional": false,
+            "line": 1508
+          }
+        }
+      }
+    },
+    "getVersion": {
+      "line": 1517,
+      "input": {
+        "kind": "object",
+        "fields": {}
+      },
+      "output": {
+        "kind": "object",
+        "fields": {
+          "version": {
+            "kind": "alias",
+            "name": "VersionString7To30Characters",
+            "optional": false,
+            "line": 1520
+          }
+        }
+      }
+    }
+  }
+}

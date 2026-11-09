@@ -7,6 +7,9 @@ import { LookupResolver, PrivateKey } from '@bsv/sdk'
 import { ControlledWalletServices } from './services.js'
 import { createFixtureWallet } from '../storage-sync/fixture-wallet.js'
 import { runWalletBoundaryCorpus, type BoundaryWallet } from './boundary-corpus.js'
+import { EvidenceBundle } from './evidence.js'
+import { runNativeClauseConformance } from './native/conformance-clauses.js'
+import { verifyNativeClauseConformance } from './native/verify-conformance-clauses.js'
 
 const root = path.resolve(import.meta.dirname, '../../..')
 const [target, storage = 'typescript'] = process.argv.slice(2)
@@ -54,6 +57,12 @@ try {
     await wallet!.settingsManager.set(settings)
     publication = await publishIdentityCertificate({ wallet, origin: overlay.origin, certificate })
   } })
+  if (process.argv.includes('--clauses')) {
+    const evidence = new EvidenceBundle(path.join(output, 'clauses'))
+    const clauses = await runNativeClauseConformance({ wallet: wallet as unknown as BoundaryWallet, evidence, boundaryReport: corpus, substrate: 'reference-toolbox-public-api' })
+    evidence.flush()
+    fs.writeFileSync(path.join(output, 'clauses-verification.json'), JSON.stringify(await verifyNativeClauseConformance(clauses, corpus), null, 2) + '\n')
+  }
 } catch (error) { failure = error instanceof Error ? { name: error.name, message: error.message, stack: error.stack } : String(error) }
 finally {
   for (const [name, close] of [['wallet', () => wallet?.destroy()], ['funder', () => funder?.destroy()], ['overlay', () => overlay?.close()], ['mongo', () => mongo?.stop()], ['services', () => services.close()]] as Array<[string, () => unknown]>) {

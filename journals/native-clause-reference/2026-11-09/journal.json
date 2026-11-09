@@ -1,0 +1,434 @@
+{
+  "schema": "tpnil-native-clause-reference-journal@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "nativeQualification": false,
+  "sourceBoundary": "Uncommitted diagnostic workspaces before the scored source freeze; no exact historical source identity is claimed for diagnostic attempts. The final source is recorded by the containing repository commit.",
+  "attempts": [
+    {
+      "attempt": "clauses-reference-go-20261109-1",
+      "archive": "clauses-reference-go-20261109-1.zip",
+      "archiveBytes": 228127,
+      "archiveSha256": "cadcc35d54a3187bcb7d82893a732216b738b17b630509a49634e62980ff3ef4",
+      "recordedCounts": {
+        "PASS": 130,
+        "FAIL": 100,
+        "BLOCKED": 2
+      },
+      "files": [
+        {
+          "path": "clauses-reference-go-20261109-1/clauses/evidence/conformance/clauses.json",
+          "bytes": 1419871,
+          "sha256": "61ebe3a193f5ff17e1db86d08ce825151c0722027d19a369476cf29c9a930c78"
+        },
+        {
+          "path": "clauses-reference-go-20261109-1/clauses-verification.json",
+          "bytes": 353016,
+          "sha256": "4dc1d82d75da0d846737fd25cce1f92772f92c51577c19b11c1ce2d72f9d8f0f"
+        },
+        {
+          "path": "clauses-reference-go-20261109-1/coverage.json",
+          "bytes": 46100,
+          "sha256": "8e701a7c23edb8a951e48d9fdd782f4225fbaa6c1ee37489d9f01e65378b25fd"
+        },
+        {
+          "path": "clauses-reference-go-20261109-1/observations.json",
+          "bytes": 460014,
+          "sha256": "166d5fb7709eca710aa5555141268439d2d4980637cf2be6ddfca629bbf8c2c3"
+        },
+        {
+          "path": "clauses-reference-go-20261109-1/result.json",
+          "bytes": 8043,
+          "sha256": "874c7b16528a9f1c9e2a57ca5eebb7d2a71f1484e09ce8c59e47c3a288b128e0"
+        },
+        {
+          "path": "clauses-reference-go-20261109-1.log",
+          "bytes": 13685,
+          "sha256": "63d8f24699fca77aa9ce9716b641cc7662d2a876a0388bc0d8081d8f9021008d"
+        }
+      ]
+    },
+    {
+      "attempt": "clauses-reference-go-20261109-2",
+      "archive": "clauses-reference-go-20261109-2.zip",
+      "archiveBytes": 238766,
+      "archiveSha256": "e5ffcea51e07cf7bb267be0b71f12e4e15c913ce444f1e2e9bc0fb37ee655c27",
+      "recordedCounts": {
+        "PASS": 131,
+        "FAIL": 100,
+        "BLOCKED": 1
+      },
+      "files": [
+        {
+          "path": "clauses-reference-go-20261109-2/clauses/evidence/conformance/clauses.json",
+          "bytes": 1544648,
+          "sha256": "188a8508d2691cc90427d5c026c7487be7e0809e6670ccd9dc9d6a5e58245efb"
+        },
+        {
+          "path": "clauses-reference-go-20261109-2/clauses-verification.json",
+          "bytes": 367098,
+          "sha256": "6ddd015a3e53b19c3fda8ad87443c3c50f351a2b988a199b4c559b153ffb58fc"
+        },
+        {
+          "path": "clauses-reference-go-20261109-2/coverage.json",
+          "bytes": 46100,
+          "sha256": "8e701a7c23edb8a951e48d9fdd782f4225fbaa6c1ee37489d9f01e65378b25fd"
+        },
+        {
+          "path": "clauses-reference-go-20261109-2/observations.json",
+          "bytes": 460647,
+          "sha256": "b4d366e6fe3de1cfe8746d6830171e948e63fe7e0347b5707482b968e4310213"
+        },
+        {
+          "path": "clauses-reference-go-20261109-2/result.json",
+          "bytes": 8043,
+          "sha256": "69290595cefeb5f457b9d1a259dbe64c1227406de23bc36feb3eb34044a715c2"
+        },
+        {
+          "path": "clauses-reference-go-20261109-2.log",
+          "bytes": 13685,
+          "sha256": "4a47b61802be867cf326f5bb4e409264fb212758e79d4995ce74b9628de6c156"
+        }
+      ]
+    },
+    {
+      "attempt": "clauses-reference-go-20261109-3",
+      "archive": "clauses-reference-go-20261109-3.zip",
+      "archiveBytes": 238635,
+      "archiveSha256": "4e23d6afa0f3d3a0a238e651272910accda410f56dcb24b8c16ff71212ab347e",
+      "recordedCounts": {
+        "PASS": 132,
+        "FAIL": 99,
+        "BLOCKED": 1
+      },
+      "files": [
+        {
+          "path": "clauses-reference-go-20261109-3/clauses/evidence/conformance/clauses.json",
+          "bytes": 1543941,
+          "sha256": "0ce38d89fd45fadcc33c1398a75cd219b58d04dabccb85d2a5acf4ad296ff13e"
+        },
+        {
+          "path": "clauses-reference-go-20261109-3/clauses-verification.json",
+          "bytes": 366762,
+          "sha256": "52b433508a184bdc52367418933242b705158f90e37591871b472ffe3f195768"
+        },
+        {
+          "path": "clauses-reference-go-20261109-3/coverage.json",
+          "bytes": 46100,
+          "sha256": "8e701a7c23edb8a951e48d9fdd782f4225fbaa6c1ee37489d9f01e65378b25fd"
+        },
+        {
+          "path": "clauses-reference-go-20261109-3/observations.json",
+          "bytes": 460494,
+          "sha256": "39e629c3a960df0066c4ab735c41f63f95a3388cffc18d7b522f2d7547546bb6"
+        },
+        {
+          "path": "clauses-reference-go-20261109-3/result.json",
+          "bytes": 8043,
+          "sha256": "103f18b97373f9ed37e1a5c6b7937183c4b86be283df415cc6bdf29d53af7c54"
+        },
+        {
+          "path": "clauses-reference-go-20261109-3.log",
+          "bytes": 13674,
+          "sha256": "088239b849e1814fe59eaae8691a7c06de3878e0bd84bcd4fe8430095f035c61"
+        }
+      ]
+    },
+    {
+      "attempt": "clauses-reference-typescript-20261109-1",
+      "archive": "clauses-reference-typescript-20261109-1.zip",
+      "archiveBytes": 50522,
+      "archiveSha256": "adbb0443f90f4f87758e27751b31f79a37904c63ab9531ad0dc3f7d60f23fa4c",
+      "recordedCounts": {},
+      "files": [
+        {
+          "path": "clauses-reference-typescript-20261109-1/coverage.json",
+          "bytes": 46100,
+          "sha256": "8e701a7c23edb8a951e48d9fdd782f4225fbaa6c1ee37489d9f01e65378b25fd"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-1/observations.json",
+          "bytes": 459377,
+          "sha256": "5ffec3e6354372ca3da332c9e32621dd2562efbb29c397af5c6bd87c487cd9d3"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-1/result.json",
+          "bytes": 9411,
+          "sha256": "f7dcec3b6071ee47a1fef11410327008e7717ccb73626660bad7fc769748a272"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-1.log",
+          "bytes": 15109,
+          "sha256": "4e8a0a6d071d331c0dea5b76e64685c45b271a2e831a21be7b44a6b3afc992c8"
+        }
+      ]
+    },
+    {
+      "attempt": "clauses-reference-typescript-20261109-2",
+      "archive": "clauses-reference-typescript-20261109-2.zip",
+      "archiveBytes": 94459,
+      "archiveSha256": "a19b22e1cb2f97baa0dc2cd3b3a2d7487e3c42af28c9b4bb168547b9e1cd61e5",
+      "recordedCounts": {
+        "PASS": 100,
+        "FAIL": 131,
+        "BLOCKED": 1
+      },
+      "files": [
+        {
+          "path": "clauses-reference-typescript-20261109-2/clauses/evidence/conformance/clauses.json",
+          "bytes": 430312,
+          "sha256": "ca3e494eddd9280584b8c1db634883d7996677cd2ce3e4e12c26e0ded0d62e52"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-2/coverage.json",
+          "bytes": 46100,
+          "sha256": "8e701a7c23edb8a951e48d9fdd782f4225fbaa6c1ee37489d9f01e65378b25fd"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-2/observations.json",
+          "bytes": 460876,
+          "sha256": "7ccf1e141bc4d55df7aecfac890dde76f45cfa22792f99c6da0bbe0f30ef938c"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-2/result.json",
+          "bytes": 11857,
+          "sha256": "1541bddda320f936697e7b80b6df6ee2f90200dc2a18d82c2fa0f4e9745b648b"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-2.log",
+          "bytes": 17537,
+          "sha256": "b4adfcfe3f9960550b33d5229e39d5a9d456facccb5e2aa8ab43c7885dfc9599"
+        }
+      ]
+    },
+    {
+      "attempt": "clauses-reference-typescript-20261109-3",
+      "archive": "clauses-reference-typescript-20261109-3.zip",
+      "archiveBytes": 143783,
+      "archiveSha256": "73e7373b9efc98910a86ad98533e6081391a2355167acd457fabfb5fd5463487",
+      "recordedCounts": {
+        "PASS": 98,
+        "FAIL": 133,
+        "BLOCKED": 1
+      },
+      "files": [
+        {
+          "path": "clauses-reference-typescript-20261109-3/clauses/evidence/conformance/clauses.json",
+          "bytes": 831363,
+          "sha256": "9bed85dce60f284b46024f218fe3e3272401296a629a63ad901379346d0bef04"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-3/clauses-verification.json",
+          "bytes": 108440,
+          "sha256": "04cf954cafeaf8db6bfe4cc8b8039efa17704eadf3e74468c2c140588c72e286"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-3/coverage.json",
+          "bytes": 46100,
+          "sha256": "8e701a7c23edb8a951e48d9fdd782f4225fbaa6c1ee37489d9f01e65378b25fd"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-3/observations.json",
+          "bytes": 457802,
+          "sha256": "84708cc67ce0cf799a27a271433daf4f6ea89b2c3faf65a0222e29b30c7c7e6f"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-3/result.json",
+          "bytes": 8051,
+          "sha256": "fe7af8f373d201fac937cb7cb292a381049917c12308a98bcc38259a5e070525"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-3.log",
+          "bytes": 13731,
+          "sha256": "cc0bb3bd13ecd007cafe122a6ab1bac4ec480dbf8aa7bcf35fdad73d7bc4a6fa"
+        }
+      ]
+    },
+    {
+      "attempt": "clauses-reference-typescript-20261109-4",
+      "archive": "clauses-reference-typescript-20261109-4.zip",
+      "archiveBytes": 234345,
+      "archiveSha256": "1b39aae12aebaba832ea2774145a05666635db3174418fe68e5f065817f21688",
+      "recordedCounts": {
+        "PASS": 125,
+        "FAIL": 96,
+        "BLOCKED": 11
+      },
+      "files": [
+        {
+          "path": "clauses-reference-typescript-20261109-4/clauses/evidence/conformance/clauses.json",
+          "bytes": 1369206,
+          "sha256": "8b250a8b7ace0e079790a49b37d269d3ead72efcbea130ed3e2bc983c988877c"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-4/clauses-verification.json",
+          "bytes": 415925,
+          "sha256": "acf8a3708e774487225924eb445f8ac1bd06cd4cbb146462a893fb3f730a9c70"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-4/coverage.json",
+          "bytes": 46100,
+          "sha256": "8e701a7c23edb8a951e48d9fdd782f4225fbaa6c1ee37489d9f01e65378b25fd"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-4/observations.json",
+          "bytes": 457464,
+          "sha256": "638e55637d723509eb091dc9a5f6626095233a74603e7c9b0035f534dcb7b479"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-4/result.json",
+          "bytes": 8051,
+          "sha256": "32558549bcecbb69d5c16ff305b5351d4eaa7d7438a88d4ffb7f475dabd585af"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-4.log",
+          "bytes": 13740,
+          "sha256": "0a701cc738ab5ab2e6e6408ac28e7d6b9aed4eeacfc7100423e71dd6ebc9971a"
+        }
+      ]
+    },
+    {
+      "attempt": "clauses-reference-typescript-20261109-5",
+      "archive": "clauses-reference-typescript-20261109-5.zip",
+      "archiveBytes": 245282,
+      "archiveSha256": "9f84c9ad31cf1c5f49ee6d11769af18fe837442091e316f4e013bab716465b35",
+      "recordedCounts": {
+        "PASS": 131,
+        "FAIL": 100,
+        "BLOCKED": 1
+      },
+      "files": [
+        {
+          "path": "clauses-reference-typescript-20261109-5/clauses/evidence/conformance/clauses.json",
+          "bytes": 1517998,
+          "sha256": "9b895585cb5583200d3b76c957a3a3b3ccadf81f8d50402b9b1a810dd93aeeb8"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-5/clauses-verification.json",
+          "bytes": 427538,
+          "sha256": "aaacaa6539d3b09a899f792573157d154ddaf5ffa0d445bf81149ca2f74c85df"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-5/coverage.json",
+          "bytes": 46100,
+          "sha256": "8e701a7c23edb8a951e48d9fdd782f4225fbaa6c1ee37489d9f01e65378b25fd"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-5/observations.json",
+          "bytes": 457491,
+          "sha256": "380280f4c3ab6fa89f767451dbbca71f15f571aaa052017e2c5d2512fc2d14cc"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-5/result.json",
+          "bytes": 8051,
+          "sha256": "b985aa0ac7378dd14fca884b7e3b06341166739c22896487969a9983a6c52947"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-5.log",
+          "bytes": 13738,
+          "sha256": "1ba6ed29700341e324b5691833296108c5d4994ccfb3c91e0c3ec1671277b4e2"
+        }
+      ]
+    },
+    {
+      "attempt": "clauses-reference-typescript-20261109-6",
+      "archive": "clauses-reference-typescript-20261109-6.zip",
+      "archiveBytes": 257204,
+      "archiveSha256": "4d636e3d4818e31585212cb31ffc51f21cf812392d85ae4552a6ed4600bd12d0",
+      "recordedCounts": {
+        "PASS": 131,
+        "FAIL": 100,
+        "BLOCKED": 1
+      },
+      "files": [
+        {
+          "path": "clauses-reference-typescript-20261109-6/clauses/evidence/conformance/clauses.json",
+          "bytes": 1652743,
+          "sha256": "6f4c9e8bf1a78ec478f594a96645f0cfc0e44cedfa4d10b3676ef9cbea8609d1"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-6/clauses-verification.json",
+          "bytes": 450588,
+          "sha256": "27f43664dcf60373e0868c6bda032b3d4a2fabc5ae27410ebbb5943428e3a1fc"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-6/coverage.json",
+          "bytes": 46100,
+          "sha256": "8e701a7c23edb8a951e48d9fdd782f4225fbaa6c1ee37489d9f01e65378b25fd"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-6/observations.json",
+          "bytes": 457478,
+          "sha256": "e10a824d4cb80b293799e26aa57aaaf77457ad2e70f12b2483414fec3da5e786"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-6/result.json",
+          "bytes": 8051,
+          "sha256": "4cebe4010eb2116ea75e2c9ec8ed59e5ef5994573bf8c1f33c24e935e60a4689"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-6.log",
+          "bytes": 13751,
+          "sha256": "34197f3946893a04ab2904360c4319562974dc985a101761a170ed61fbb1f364"
+        }
+      ]
+    },
+    {
+      "attempt": "clauses-reference-typescript-20261109-7",
+      "archive": "clauses-reference-typescript-20261109-7.zip",
+      "archiveBytes": 257193,
+      "archiveSha256": "3d8e77bf4426025a3b4adda83c657ee70877543d156d728f146b89e86a3d6635",
+      "recordedCounts": {
+        "PASS": 132,
+        "FAIL": 99,
+        "BLOCKED": 1
+      },
+      "files": [
+        {
+          "path": "clauses-reference-typescript-20261109-7/clauses/evidence/conformance/clauses.json",
+          "bytes": 1650694,
+          "sha256": "24642ce3b8533bacf6185731b53bf30a74ae12d9d3d154941210d39601975691"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-7/clauses-verification.json",
+          "bytes": 450340,
+          "sha256": "9e61b71b2608c9da85b63837b8e7758101b1d7f9334e8c4988e475bf85e78da5"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-7/coverage.json",
+          "bytes": 46100,
+          "sha256": "8e701a7c23edb8a951e48d9fdd782f4225fbaa6c1ee37489d9f01e65378b25fd"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-7/observations.json",
+          "bytes": 457438,
+          "sha256": "3e2934963cd2b05f8889589a86934c4c3ee74944698880a92948c498260ef412"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-7/result.json",
+          "bytes": 8051,
+          "sha256": "8c4843b521344d3b0d26610a2689a0b8ac014df3dfae191b92c67000988fc7d5"
+        },
+        {
+          "path": "clauses-reference-typescript-20261109-7.log",
+          "bytes": 13740,
+          "sha256": "eafcc4632cdad7644011f303dc3f77ff8e4f9474fb0da66683fde28c9f10dab8"
+        }
+      ]
+    }
+  ],
+  "finalReplayedAttempts": [
+    "clauses-reference-typescript-20261109-7",
+    "clauses-reference-go-20261109-3"
+  ],
+  "finalCounts": {
+    "PASS": 132,
+    "FAIL": 99,
+    "BLOCKED": 1
+  },
+  "knownGoCleanupObservation": "After malformed signAction.sendWith, Go reports the action already aborted when the cleanup abort is attempted. This error is retained. All outer wallets, services, overlay and Mongo processes closed successfully.",
+  "costBoundary": {
+    "paidDeviceOrCloudCapacityCharges": 0,
+    "productionBroadcasts": 0,
+    "operatorAndAgentAndOwnedCapacityCost": "UNKNOWN_NOT_ZERO"
+  }
+}
