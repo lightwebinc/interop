@@ -1,0 +1,12 @@
+{
+  "claim": "LOCAL_REVIEWER_RECEIPT_SHAPE_ERROR",
+  "sourceVerifierExitCode": 0,
+  "sourceVerifierReceipt": {
+    "result": "PASS",
+    "runs": 8,
+    "assertions": 88
+  },
+  "error": "Wrapper expected verified:true for storage-sync, whose frozen contract returns result:PASS, runs8 and assertions88",
+  "correction": "Check each frozen child receipt shape explicitly. Preserve first stdout/stderr unchanged.",
+  "scriptSha256": "b4a1c25e65b0599cb00c9e03d2530c73d9579a4840bddc65a1e5ad63d62faff0"
+}

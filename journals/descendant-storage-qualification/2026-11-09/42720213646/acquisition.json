@@ -1,0 +1,71 @@
+{
+  "schema": "tpnil-original-ci-acquisition@1",
+  "runId": 42720213646,
+  "source": "8055aabb731df2c2a4020c885445ae621b57e492",
+  "conclusion": "success",
+  "workflowUrl": "https://github.com/p2ppsr/interop/actions/runs/42720213646",
+  "acquiredAt": "2026-11-11T16:13:00.557Z",
+  "artifacts": [
+    {
+      "id": 13721345778,
+      "name": "integrated-lab",
+      "path": "out/foundation-42720213646-receipts/integrated-lab.zip",
+      "extractionPath": "out/foundation-42720213646/integrated-lab",
+      "size": 3360172,
+      "sha256": "12ed1bd76c95132a560d1f0889432823a7ab4920c658240d901318f92ee846e0",
+      "githubDigestVerified": true,
+      "extraction": {
+        "entries": 193,
+        "bytes": 29807765
+      }
+    },
+    {
+      "id": 13720687119,
+      "name": "descendant-storage-sync",
+      "path": "out/foundation-42720213646-receipts/descendant-storage-sync.zip",
+      "extractionPath": "out/foundation-42720213646/descendant-storage-sync",
+      "size": 1525390,
+      "sha256": "cf139c2287c07cf91c4b367609d68f3eccc4e7080c27480a09f2465ea07cf775",
+      "githubDigestVerified": true,
+      "extraction": {
+        "entries": 51,
+        "bytes": 12794289
+      }
+    },
+    {
+      "id": 13719523360,
+      "name": "itcve-go-components",
+      "path": "out/foundation-42720213646-receipts/itcve-go-components.zip",
+      "extractionPath": "out/foundation-42720213646/itcve-go-components",
+      "size": 61705,
+      "sha256": "d5358837459f749c0f313dbf6ab7375c45b39e5c820d9d99963f1121c190d898",
+      "githubDigestVerified": true,
+      "extraction": {
+        "entries": 18,
+        "bytes": 769997
+      }
+    }
+  ],
+  "logs": {
+    "size": 54143,
+    "sha256": "9776c0234550fd01ba80d5117b23c636448d85d0118fc3a3bc3a75d70d5d3e29",
+    "zipIntegrity": "PASS"
+  },
+  "api": [
+    {
+      "name": "run.json",
+      "size": 11952,
+      "sha256": "d8153ae53799f70eb27a906db6d60c4aa5277bd1c055ba329203f7ecafccb4d0"
+    },
+    {
+      "name": "jobs.json",
+      "size": 13060,
+      "sha256": "0792180a19b9fad69bef45f2cbe310e41ffb71d2512b3c4e535226f837be8ee3"
+    },
+    {
+      "name": "artifacts.json",
+      "size": 2167,
+      "sha256": "78fcf7c87071dc7046e66137801749f717d5af4297d82226d5e9d8778ad930f9"
+    }
+  ]
+}

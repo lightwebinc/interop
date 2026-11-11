@@ -1,0 +1,1469 @@
+{
+  "schema": "tpnil-explicit-canonical-child-replay@1",
+  "source": "8055aabb731df2c2a4020c885445ae621b57e492",
+  "sourcePath": "/Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/frozen-foundation-source-8055aab",
+  "sourceRealPath": "/Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/frozen-foundation-source-8055aab",
+  "allCliPathsCanonical": true,
+  "allChildrenProducedNonemptyVerifiedReceipts": true,
+  "children": [
+    {
+      "lane": "storage-sync",
+      "repetition": 1,
+      "script": "verify-storage-sync.mjs",
+      "pathCanonical": true,
+      "exitCode": 0,
+      "stdoutBytes": 303,
+      "stdoutSha256": "faaaa2b8aa57e1cd368130870ddc2580faaadfe46ac2fba731ad3cfa8a27c69f",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true,
+      "receipt": {
+        "result": "PASS",
+        "runs": 8,
+        "assertions": 88,
+        "oracle": "raw logical projections, anchored proof, authenticated denial, replacement and cleanup",
+        "tamper": {
+          "rejected": [
+            "providedBy-with-rebound-digest",
+            "proof-with-rebound-digest",
+            "history-instant-with-rebound-digest",
+            "history-calendar-with-rebound-digest"
+          ]
+        }
+      }
+    },
+    {
+      "lane": "descendant-storage-sync",
+      "repetition": 1,
+      "script": "verify-descendant-storage-matrix.mjs",
+      "pathCanonical": true,
+      "exitCode": 0,
+      "stdoutBytes": 991,
+      "stdoutSha256": "4dd45d2a069f668374228431a4f88d4bfead084dc9f12a4c5c4ab117e6a533eb",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true,
+      "receipt": {
+        "verified": true,
+        "result": "PASS",
+        "projection": {
+          "profile": "ISI-3/descendant-storage@2.0.0",
+          "projectionPolicy": "tpnil-storage-history-projection@2.0.0",
+          "projectionManifestSha256": "3549779398c8c562cd01e7253377b6c4c9b5a2f636028940ff7ddf817a6c9fb2",
+          "storageProjection": {
+            "profile": "ISI-3/storage-http-sync@2.0.0",
+            "projectionPolicy": "tpnil-storage-history-projection@2.0.0",
+            "projectionManifestSha256": "02d213f1215ecdde54b813e04d93b9a8be8464063fbfdefb07c1a3ad4b740062"
+          }
+        },
+        "directions": 4,
+        "freshExecutions": 8,
+        "independentIdentities": 8,
+        "assertions": 80,
+        "binarySha256": "9339f7976158fca05d58532c8acf331aa245dd5860271403bda0948ee6ff7a39",
+        "sourceCommit": "8055aabb731df2c2a4020c885445ae621b57e492",
+        "claim": "ENGINEERING_REFERENCE_STORAGE_QUALIFICATION_ONLY"
+      }
+    },
+    {
+      "lane": "overlay-identity",
+      "repetition": 1,
+      "script": "verify-overlay-identity.mjs",
+      "pathCanonical": true,
+      "exitCode": 0,
+      "stdoutBytes": 50,
+      "stdoutSha256": "1ec2d16078afd925c46a50d60ee7a0a9b98a3a6e0c7836a031905cdd2bac0f4e",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true,
+      "receipt": {
+        "verified": true,
+        "result": "PASS",
+        "assertions": 14
+      }
+    },
+    {
+      "lane": "overlay-identity",
+      "repetition": 2,
+      "script": "verify-overlay-identity.mjs",
+      "pathCanonical": true,
+      "exitCode": 0,
+      "stdoutBytes": 50,
+      "stdoutSha256": "1ec2d16078afd925c46a50d60ee7a0a9b98a3a6e0c7836a031905cdd2bac0f4e",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true,
+      "receipt": {
+        "verified": true,
+        "result": "PASS",
+        "assertions": 14
+      }
+    },
+    {
+      "lane": "messaging",
+      "repetition": 1,
+      "script": "verify-messaging.mjs",
+      "pathCanonical": true,
+      "exitCode": 0,
+      "stdoutBytes": 258,
+      "stdoutSha256": "14e311fc4f95fa4e8b4a1442ab7c3d45e727189644661d6ddf4fc15812d2ed23",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true,
+      "receipt": {
+        "verified": true,
+        "assertions": 41,
+        "pass": 38,
+        "fail": 3,
+        "blocked": 0,
+        "paidTransactions": [
+          "4f2ab474d60c60e1d950e9d2e96bed08df234c855736a5eebbf47d5558ae0cd7",
+          "2ddeb1ed9a77e34a231dd011842a6ff0f707b0f5b1462e8428d99eefdd9ab5eb"
+        ]
+      }
+    },
+    {
+      "lane": "messaging",
+      "repetition": 2,
+      "script": "verify-messaging.mjs",
+      "pathCanonical": true,
+      "exitCode": 0,
+      "stdoutBytes": 258,
+      "stdoutSha256": "e4b3ce4bd20c28ccbd9a96dfbfaa0e04bf05b63bbdb687c4e989e41d4a55f0f7",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true,
+      "receipt": {
+        "verified": true,
+        "assertions": 41,
+        "pass": 38,
+        "fail": 3,
+        "blocked": 0,
+        "paidTransactions": [
+          "7ce1a40de2052f9b1d6546f23383e50718812fca2be27777685a1586fdd23b38",
+          "0cf5491184af7b8b9801c040bc0fe5ae801f343f9d050aec6ef581dad0982461"
+        ]
+      }
+    },
+    {
+      "lane": "transport-typescript",
+      "repetition": 1,
+      "script": "verify-transport.mjs",
+      "pathCanonical": true,
+      "exitCode": 0,
+      "stdoutBytes": 189,
+      "stdoutSha256": "35bff47d25e4f09d02957b4cf66734debc0a838ef07ebd04b7cdfa9f6f63567b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true,
+      "receipt": {
+        "verified": true,
+        "assertions": 17,
+        "paidTransactions": [
+          "481006f0e7b080c8f7e0b3077d57641eab0ecc22bd01df37c94d70372fceef62",
+          "6b7e4347689e24da8179c3cd24897b23ce822bac1b53771d233dd1652d884a83"
+        ]
+      }
+    },
+    {
+      "lane": "transport-typescript",
+      "repetition": 2,
+      "script": "verify-transport.mjs",
+      "pathCanonical": true,
+      "exitCode": 0,
+      "stdoutBytes": 189,
+      "stdoutSha256": "0ec75c79af5091e4aaaf5d8ae66224e625df22e295160e8ac5d80b599bf5d3f3",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true,
+      "receipt": {
+        "verified": true,
+        "assertions": 17,
+        "paidTransactions": [
+          "57cc3efaa19e864c88dd896eecb4761036c8a97d0ab655b19b9a30ee298d42a9",
+          "f15e80e6aa6b725a073e709b41bb5a809fdba9075c738b85423119999b74be21"
+        ]
+      }
+    },
+    {
+      "lane": "transport-go",
+      "repetition": 1,
+      "script": "verify-transport.mjs",
+      "pathCanonical": true,
+      "exitCode": 0,
+      "stdoutBytes": 189,
+      "stdoutSha256": "b24441df3cdf10c3ee896e9356189727c6cd076584b5040224b28e06bd9eac08",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true,
+      "receipt": {
+        "verified": true,
+        "assertions": 17,
+        "paidTransactions": [
+          "35d567e4ac4cde4195ae115a43d4c2c457acd5e6310fa34a1e27194f1bf1bf43",
+          "2b77c5bbfefd2bd3af4b4fa579ecfaed00a74f63cbad290933b5f33faf1fd750"
+        ]
+      }
+    },
+    {
+      "lane": "transport-go",
+      "repetition": 2,
+      "script": "verify-transport.mjs",
+      "pathCanonical": true,
+      "exitCode": 0,
+      "stdoutBytes": 189,
+      "stdoutSha256": "c39b8137261ed21224a3c8e1734a8f8bf60d648cdb10ba939ca2793fa06c7add",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true,
+      "receipt": {
+        "verified": true,
+        "assertions": 17,
+        "paidTransactions": [
+          "c08edd9f98028d287aa4c5bd8e4366c9dcee6c6ec63d828e085128aaed4bde30",
+          "72c781ef690d5eb3da98fb07ad756a7dc1f52807a684f9af0c8591bb430dda35"
+        ]
+      }
+    },
+    {
+      "lane": "boundary-typescript",
+      "repetition": 1,
+      "script": "verify-wallet-boundary.mjs",
+      "pathCanonical": true,
+      "exitCode": 0,
+      "stdoutBytes": 3562,
+      "stdoutSha256": "825b62981e40ae318102877242012d45a70800f417afe2e22929d18b1ddcde4e",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true,
+      "receipt": {
+        "verified": true,
+        "outcome": "PASS",
+        "assertions": [
+          {
+            "id": "getPublicKey.identity",
+            "result": "PASS"
+          },
+          {
+            "id": "getNetwork.mainnet",
+            "result": "PASS"
+          },
+          {
+            "id": "getVersion.nonempty",
+            "result": "PASS"
+          },
+          {
+            "id": "isAuthenticated.true",
+            "result": "PASS"
+          },
+          {
+            "id": "waitForAuthentication.true",
+            "result": "PASS"
+          },
+          {
+            "id": "getHeight.controlled",
+            "result": "PASS"
+          },
+          {
+            "id": "getHeaderForHeight.genesis",
+            "result": "PASS"
+          },
+          {
+            "id": "encrypt.bytes",
+            "result": "PASS"
+          },
+          {
+            "id": "decrypt.roundtrip",
+            "result": "PASS"
+          },
+          {
+            "id": "createSignature.independent-verification",
+            "result": "PASS"
+          },
+          {
+            "id": "verifySignature.valid",
+            "result": "PASS"
+          },
+          {
+            "id": "createHmac.length",
+            "result": "PASS"
+          },
+          {
+            "id": "verifyHmac.valid",
+            "result": "PASS"
+          },
+          {
+            "id": "revealCounterpartyKeyLinkage.independent-secret",
+            "result": "PASS"
+          },
+          {
+            "id": "revealSpecificKeyLinkage.independent-secret",
+            "result": "PASS"
+          },
+          {
+            "id": "internalizeAction.mined-descendant-payment",
+            "result": "PASS"
+          },
+          {
+            "id": "createAction.serialized-outputs",
+            "result": "PASS"
+          },
+          {
+            "id": "listActions.metadata",
+            "result": "PASS"
+          },
+          {
+            "id": "listOutputs.metadata",
+            "result": "PASS"
+          },
+          {
+            "id": "abortAction.releases-reservation",
+            "result": "PASS"
+          },
+          {
+            "id": "signAction.serialized-spend",
+            "result": "PASS"
+          },
+          {
+            "id": "relinquishOutput.removes-basket-membership",
+            "result": "PASS"
+          },
+          {
+            "id": "acquireCertificate.signed-fields",
+            "result": "PASS"
+          },
+          {
+            "id": "listCertificates.issuer-scope",
+            "result": "PASS"
+          },
+          {
+            "id": "proveCertificate.selective-disclosure",
+            "result": "PASS"
+          },
+          {
+            "id": "identity-service.publish",
+            "result": "PASS"
+          },
+          {
+            "id": "discoverByIdentityKey.identity-service",
+            "result": "PASS"
+          },
+          {
+            "id": "discoverByAttributes.identity-service",
+            "result": "PASS"
+          },
+          {
+            "id": "relinquishCertificate.tombstone",
+            "result": "PASS"
+          },
+          {
+            "id": "getPublicKey.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "decrypt.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "verifyHmac.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "verifySignature.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "createAction.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "signAction.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "listOutputs.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "listActions.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "internalizeAction.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "getHeaderForHeight.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "acquireCertificate.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "proveCertificate.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "listCertificates.specified-rejection",
+            "result": "PASS"
+          }
+        ],
+        "methodCalls": [
+          {
+            "method": "createAction",
+            "calls": 4
+          },
+          {
+            "method": "signAction",
+            "calls": 2
+          },
+          {
+            "method": "abortAction",
+            "calls": 1
+          },
+          {
+            "method": "listActions",
+            "calls": 2
+          },
+          {
+            "method": "internalizeAction",
+            "calls": 2
+          },
+          {
+            "method": "listOutputs",
+            "calls": 5
+          },
+          {
+            "method": "relinquishOutput",
+            "calls": 1
+          },
+          {
+            "method": "getPublicKey",
+            "calls": 3
+          },
+          {
+            "method": "revealCounterpartyKeyLinkage",
+            "calls": 1
+          },
+          {
+            "method": "revealSpecificKeyLinkage",
+            "calls": 1
+          },
+          {
+            "method": "encrypt",
+            "calls": 1
+          },
+          {
+            "method": "decrypt",
+            "calls": 2
+          },
+          {
+            "method": "createHmac",
+            "calls": 1
+          },
+          {
+            "method": "verifyHmac",
+            "calls": 2
+          },
+          {
+            "method": "createSignature",
+            "calls": 1
+          },
+          {
+            "method": "verifySignature",
+            "calls": 2
+          },
+          {
+            "method": "acquireCertificate",
+            "calls": 2
+          },
+          {
+            "method": "listCertificates",
+            "calls": 3
+          },
+          {
+            "method": "proveCertificate",
+            "calls": 3
+          },
+          {
+            "method": "relinquishCertificate",
+            "calls": 1
+          },
+          {
+            "method": "discoverByIdentityKey",
+            "calls": 1
+          },
+          {
+            "method": "discoverByAttributes",
+            "calls": 1
+          },
+          {
+            "method": "isAuthenticated",
+            "calls": 1
+          },
+          {
+            "method": "waitForAuthentication",
+            "calls": 1
+          },
+          {
+            "method": "getHeight",
+            "calls": 1
+          },
+          {
+            "method": "getHeaderForHeight",
+            "calls": 2
+          },
+          {
+            "method": "getNetwork",
+            "calls": 1
+          },
+          {
+            "method": "getVersion",
+            "calls": 1
+          }
+        ],
+        "completeBRC100Conformance": false,
+        "tamper": {
+          "changedReturnedHeightRejected": true
+        }
+      }
+    },
+    {
+      "lane": "boundary-typescript",
+      "repetition": 2,
+      "script": "verify-wallet-boundary.mjs",
+      "pathCanonical": true,
+      "exitCode": 0,
+      "stdoutBytes": 3562,
+      "stdoutSha256": "825b62981e40ae318102877242012d45a70800f417afe2e22929d18b1ddcde4e",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true,
+      "receipt": {
+        "verified": true,
+        "outcome": "PASS",
+        "assertions": [
+          {
+            "id": "getPublicKey.identity",
+            "result": "PASS"
+          },
+          {
+            "id": "getNetwork.mainnet",
+            "result": "PASS"
+          },
+          {
+            "id": "getVersion.nonempty",
+            "result": "PASS"
+          },
+          {
+            "id": "isAuthenticated.true",
+            "result": "PASS"
+          },
+          {
+            "id": "waitForAuthentication.true",
+            "result": "PASS"
+          },
+          {
+            "id": "getHeight.controlled",
+            "result": "PASS"
+          },
+          {
+            "id": "getHeaderForHeight.genesis",
+            "result": "PASS"
+          },
+          {
+            "id": "encrypt.bytes",
+            "result": "PASS"
+          },
+          {
+            "id": "decrypt.roundtrip",
+            "result": "PASS"
+          },
+          {
+            "id": "createSignature.independent-verification",
+            "result": "PASS"
+          },
+          {
+            "id": "verifySignature.valid",
+            "result": "PASS"
+          },
+          {
+            "id": "createHmac.length",
+            "result": "PASS"
+          },
+          {
+            "id": "verifyHmac.valid",
+            "result": "PASS"
+          },
+          {
+            "id": "revealCounterpartyKeyLinkage.independent-secret",
+            "result": "PASS"
+          },
+          {
+            "id": "revealSpecificKeyLinkage.independent-secret",
+            "result": "PASS"
+          },
+          {
+            "id": "internalizeAction.mined-descendant-payment",
+            "result": "PASS"
+          },
+          {
+            "id": "createAction.serialized-outputs",
+            "result": "PASS"
+          },
+          {
+            "id": "listActions.metadata",
+            "result": "PASS"
+          },
+          {
+            "id": "listOutputs.metadata",
+            "result": "PASS"
+          },
+          {
+            "id": "abortAction.releases-reservation",
+            "result": "PASS"
+          },
+          {
+            "id": "signAction.serialized-spend",
+            "result": "PASS"
+          },
+          {
+            "id": "relinquishOutput.removes-basket-membership",
+            "result": "PASS"
+          },
+          {
+            "id": "acquireCertificate.signed-fields",
+            "result": "PASS"
+          },
+          {
+            "id": "listCertificates.issuer-scope",
+            "result": "PASS"
+          },
+          {
+            "id": "proveCertificate.selective-disclosure",
+            "result": "PASS"
+          },
+          {
+            "id": "identity-service.publish",
+            "result": "PASS"
+          },
+          {
+            "id": "discoverByIdentityKey.identity-service",
+            "result": "PASS"
+          },
+          {
+            "id": "discoverByAttributes.identity-service",
+            "result": "PASS"
+          },
+          {
+            "id": "relinquishCertificate.tombstone",
+            "result": "PASS"
+          },
+          {
+            "id": "getPublicKey.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "decrypt.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "verifyHmac.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "verifySignature.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "createAction.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "signAction.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "listOutputs.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "listActions.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "internalizeAction.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "getHeaderForHeight.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "acquireCertificate.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "proveCertificate.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "listCertificates.specified-rejection",
+            "result": "PASS"
+          }
+        ],
+        "methodCalls": [
+          {
+            "method": "createAction",
+            "calls": 4
+          },
+          {
+            "method": "signAction",
+            "calls": 2
+          },
+          {
+            "method": "abortAction",
+            "calls": 1
+          },
+          {
+            "method": "listActions",
+            "calls": 2
+          },
+          {
+            "method": "internalizeAction",
+            "calls": 2
+          },
+          {
+            "method": "listOutputs",
+            "calls": 5
+          },
+          {
+            "method": "relinquishOutput",
+            "calls": 1
+          },
+          {
+            "method": "getPublicKey",
+            "calls": 3
+          },
+          {
+            "method": "revealCounterpartyKeyLinkage",
+            "calls": 1
+          },
+          {
+            "method": "revealSpecificKeyLinkage",
+            "calls": 1
+          },
+          {
+            "method": "encrypt",
+            "calls": 1
+          },
+          {
+            "method": "decrypt",
+            "calls": 2
+          },
+          {
+            "method": "createHmac",
+            "calls": 1
+          },
+          {
+            "method": "verifyHmac",
+            "calls": 2
+          },
+          {
+            "method": "createSignature",
+            "calls": 1
+          },
+          {
+            "method": "verifySignature",
+            "calls": 2
+          },
+          {
+            "method": "acquireCertificate",
+            "calls": 2
+          },
+          {
+            "method": "listCertificates",
+            "calls": 3
+          },
+          {
+            "method": "proveCertificate",
+            "calls": 3
+          },
+          {
+            "method": "relinquishCertificate",
+            "calls": 1
+          },
+          {
+            "method": "discoverByIdentityKey",
+            "calls": 1
+          },
+          {
+            "method": "discoverByAttributes",
+            "calls": 1
+          },
+          {
+            "method": "isAuthenticated",
+            "calls": 1
+          },
+          {
+            "method": "waitForAuthentication",
+            "calls": 1
+          },
+          {
+            "method": "getHeight",
+            "calls": 1
+          },
+          {
+            "method": "getHeaderForHeight",
+            "calls": 2
+          },
+          {
+            "method": "getNetwork",
+            "calls": 1
+          },
+          {
+            "method": "getVersion",
+            "calls": 1
+          }
+        ],
+        "completeBRC100Conformance": false,
+        "tamper": {
+          "changedReturnedHeightRejected": true
+        }
+      }
+    },
+    {
+      "lane": "boundary-go",
+      "repetition": 1,
+      "script": "verify-wallet-boundary.mjs",
+      "pathCanonical": true,
+      "exitCode": 0,
+      "stdoutBytes": 3562,
+      "stdoutSha256": "825b62981e40ae318102877242012d45a70800f417afe2e22929d18b1ddcde4e",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true,
+      "receipt": {
+        "verified": true,
+        "outcome": "PASS",
+        "assertions": [
+          {
+            "id": "getPublicKey.identity",
+            "result": "PASS"
+          },
+          {
+            "id": "getNetwork.mainnet",
+            "result": "PASS"
+          },
+          {
+            "id": "getVersion.nonempty",
+            "result": "PASS"
+          },
+          {
+            "id": "isAuthenticated.true",
+            "result": "PASS"
+          },
+          {
+            "id": "waitForAuthentication.true",
+            "result": "PASS"
+          },
+          {
+            "id": "getHeight.controlled",
+            "result": "PASS"
+          },
+          {
+            "id": "getHeaderForHeight.genesis",
+            "result": "PASS"
+          },
+          {
+            "id": "encrypt.bytes",
+            "result": "PASS"
+          },
+          {
+            "id": "decrypt.roundtrip",
+            "result": "PASS"
+          },
+          {
+            "id": "createSignature.independent-verification",
+            "result": "PASS"
+          },
+          {
+            "id": "verifySignature.valid",
+            "result": "PASS"
+          },
+          {
+            "id": "createHmac.length",
+            "result": "PASS"
+          },
+          {
+            "id": "verifyHmac.valid",
+            "result": "PASS"
+          },
+          {
+            "id": "revealCounterpartyKeyLinkage.independent-secret",
+            "result": "PASS"
+          },
+          {
+            "id": "revealSpecificKeyLinkage.independent-secret",
+            "result": "PASS"
+          },
+          {
+            "id": "internalizeAction.mined-descendant-payment",
+            "result": "PASS"
+          },
+          {
+            "id": "createAction.serialized-outputs",
+            "result": "PASS"
+          },
+          {
+            "id": "listActions.metadata",
+            "result": "PASS"
+          },
+          {
+            "id": "listOutputs.metadata",
+            "result": "PASS"
+          },
+          {
+            "id": "abortAction.releases-reservation",
+            "result": "PASS"
+          },
+          {
+            "id": "signAction.serialized-spend",
+            "result": "PASS"
+          },
+          {
+            "id": "relinquishOutput.removes-basket-membership",
+            "result": "PASS"
+          },
+          {
+            "id": "acquireCertificate.signed-fields",
+            "result": "PASS"
+          },
+          {
+            "id": "listCertificates.issuer-scope",
+            "result": "PASS"
+          },
+          {
+            "id": "proveCertificate.selective-disclosure",
+            "result": "PASS"
+          },
+          {
+            "id": "identity-service.publish",
+            "result": "PASS"
+          },
+          {
+            "id": "discoverByIdentityKey.identity-service",
+            "result": "PASS"
+          },
+          {
+            "id": "discoverByAttributes.identity-service",
+            "result": "PASS"
+          },
+          {
+            "id": "relinquishCertificate.tombstone",
+            "result": "PASS"
+          },
+          {
+            "id": "getPublicKey.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "decrypt.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "verifyHmac.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "verifySignature.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "createAction.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "signAction.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "listOutputs.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "listActions.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "internalizeAction.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "getHeaderForHeight.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "acquireCertificate.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "proveCertificate.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "listCertificates.specified-rejection",
+            "result": "PASS"
+          }
+        ],
+        "methodCalls": [
+          {
+            "method": "createAction",
+            "calls": 4
+          },
+          {
+            "method": "signAction",
+            "calls": 2
+          },
+          {
+            "method": "abortAction",
+            "calls": 1
+          },
+          {
+            "method": "listActions",
+            "calls": 2
+          },
+          {
+            "method": "internalizeAction",
+            "calls": 2
+          },
+          {
+            "method": "listOutputs",
+            "calls": 5
+          },
+          {
+            "method": "relinquishOutput",
+            "calls": 1
+          },
+          {
+            "method": "getPublicKey",
+            "calls": 3
+          },
+          {
+            "method": "revealCounterpartyKeyLinkage",
+            "calls": 1
+          },
+          {
+            "method": "revealSpecificKeyLinkage",
+            "calls": 1
+          },
+          {
+            "method": "encrypt",
+            "calls": 1
+          },
+          {
+            "method": "decrypt",
+            "calls": 2
+          },
+          {
+            "method": "createHmac",
+            "calls": 1
+          },
+          {
+            "method": "verifyHmac",
+            "calls": 2
+          },
+          {
+            "method": "createSignature",
+            "calls": 1
+          },
+          {
+            "method": "verifySignature",
+            "calls": 2
+          },
+          {
+            "method": "acquireCertificate",
+            "calls": 2
+          },
+          {
+            "method": "listCertificates",
+            "calls": 3
+          },
+          {
+            "method": "proveCertificate",
+            "calls": 3
+          },
+          {
+            "method": "relinquishCertificate",
+            "calls": 1
+          },
+          {
+            "method": "discoverByIdentityKey",
+            "calls": 1
+          },
+          {
+            "method": "discoverByAttributes",
+            "calls": 1
+          },
+          {
+            "method": "isAuthenticated",
+            "calls": 1
+          },
+          {
+            "method": "waitForAuthentication",
+            "calls": 1
+          },
+          {
+            "method": "getHeight",
+            "calls": 1
+          },
+          {
+            "method": "getHeaderForHeight",
+            "calls": 2
+          },
+          {
+            "method": "getNetwork",
+            "calls": 1
+          },
+          {
+            "method": "getVersion",
+            "calls": 1
+          }
+        ],
+        "completeBRC100Conformance": false,
+        "tamper": {
+          "changedReturnedHeightRejected": true
+        }
+      }
+    },
+    {
+      "lane": "boundary-go",
+      "repetition": 2,
+      "script": "verify-wallet-boundary.mjs",
+      "pathCanonical": true,
+      "exitCode": 0,
+      "stdoutBytes": 3562,
+      "stdoutSha256": "825b62981e40ae318102877242012d45a70800f417afe2e22929d18b1ddcde4e",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true,
+      "receipt": {
+        "verified": true,
+        "outcome": "PASS",
+        "assertions": [
+          {
+            "id": "getPublicKey.identity",
+            "result": "PASS"
+          },
+          {
+            "id": "getNetwork.mainnet",
+            "result": "PASS"
+          },
+          {
+            "id": "getVersion.nonempty",
+            "result": "PASS"
+          },
+          {
+            "id": "isAuthenticated.true",
+            "result": "PASS"
+          },
+          {
+            "id": "waitForAuthentication.true",
+            "result": "PASS"
+          },
+          {
+            "id": "getHeight.controlled",
+            "result": "PASS"
+          },
+          {
+            "id": "getHeaderForHeight.genesis",
+            "result": "PASS"
+          },
+          {
+            "id": "encrypt.bytes",
+            "result": "PASS"
+          },
+          {
+            "id": "decrypt.roundtrip",
+            "result": "PASS"
+          },
+          {
+            "id": "createSignature.independent-verification",
+            "result": "PASS"
+          },
+          {
+            "id": "verifySignature.valid",
+            "result": "PASS"
+          },
+          {
+            "id": "createHmac.length",
+            "result": "PASS"
+          },
+          {
+            "id": "verifyHmac.valid",
+            "result": "PASS"
+          },
+          {
+            "id": "revealCounterpartyKeyLinkage.independent-secret",
+            "result": "PASS"
+          },
+          {
+            "id": "revealSpecificKeyLinkage.independent-secret",
+            "result": "PASS"
+          },
+          {
+            "id": "internalizeAction.mined-descendant-payment",
+            "result": "PASS"
+          },
+          {
+            "id": "createAction.serialized-outputs",
+            "result": "PASS"
+          },
+          {
+            "id": "listActions.metadata",
+            "result": "PASS"
+          },
+          {
+            "id": "listOutputs.metadata",
+            "result": "PASS"
+          },
+          {
+            "id": "abortAction.releases-reservation",
+            "result": "PASS"
+          },
+          {
+            "id": "signAction.serialized-spend",
+            "result": "PASS"
+          },
+          {
+            "id": "relinquishOutput.removes-basket-membership",
+            "result": "PASS"
+          },
+          {
+            "id": "acquireCertificate.signed-fields",
+            "result": "PASS"
+          },
+          {
+            "id": "listCertificates.issuer-scope",
+            "result": "PASS"
+          },
+          {
+            "id": "proveCertificate.selective-disclosure",
+            "result": "PASS"
+          },
+          {
+            "id": "identity-service.publish",
+            "result": "PASS"
+          },
+          {
+            "id": "discoverByIdentityKey.identity-service",
+            "result": "PASS"
+          },
+          {
+            "id": "discoverByAttributes.identity-service",
+            "result": "PASS"
+          },
+          {
+            "id": "relinquishCertificate.tombstone",
+            "result": "PASS"
+          },
+          {
+            "id": "getPublicKey.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "decrypt.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "verifyHmac.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "verifySignature.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "createAction.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "signAction.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "listOutputs.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "listActions.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "internalizeAction.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "getHeaderForHeight.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "acquireCertificate.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "proveCertificate.specified-rejection",
+            "result": "PASS"
+          },
+          {
+            "id": "listCertificates.specified-rejection",
+            "result": "PASS"
+          }
+        ],
+        "methodCalls": [
+          {
+            "method": "createAction",
+            "calls": 4
+          },
+          {
+            "method": "signAction",
+            "calls": 2
+          },
+          {
+            "method": "abortAction",
+            "calls": 1
+          },
+          {
+            "method": "listActions",
+            "calls": 2
+          },
+          {
+            "method": "internalizeAction",
+            "calls": 2
+          },
+          {
+            "method": "listOutputs",
+            "calls": 5
+          },
+          {
+            "method": "relinquishOutput",
+            "calls": 1
+          },
+          {
+            "method": "getPublicKey",
+            "calls": 3
+          },
+          {
+            "method": "revealCounterpartyKeyLinkage",
+            "calls": 1
+          },
+          {
+            "method": "revealSpecificKeyLinkage",
+            "calls": 1
+          },
+          {
+            "method": "encrypt",
+            "calls": 1
+          },
+          {
+            "method": "decrypt",
+            "calls": 2
+          },
+          {
+            "method": "createHmac",
+            "calls": 1
+          },
+          {
+            "method": "verifyHmac",
+            "calls": 2
+          },
+          {
+            "method": "createSignature",
+            "calls": 1
+          },
+          {
+            "method": "verifySignature",
+            "calls": 2
+          },
+          {
+            "method": "acquireCertificate",
+            "calls": 2
+          },
+          {
+            "method": "listCertificates",
+            "calls": 3
+          },
+          {
+            "method": "proveCertificate",
+            "calls": 3
+          },
+          {
+            "method": "relinquishCertificate",
+            "calls": 1
+          },
+          {
+            "method": "discoverByIdentityKey",
+            "calls": 1
+          },
+          {
+            "method": "discoverByAttributes",
+            "calls": 1
+          },
+          {
+            "method": "isAuthenticated",
+            "calls": 1
+          },
+          {
+            "method": "waitForAuthentication",
+            "calls": 1
+          },
+          {
+            "method": "getHeight",
+            "calls": 1
+          },
+          {
+            "method": "getHeaderForHeight",
+            "calls": 2
+          },
+          {
+            "method": "getNetwork",
+            "calls": 1
+          },
+          {
+            "method": "getVersion",
+            "calls": 1
+          }
+        ],
+        "completeBRC100Conformance": false,
+        "tamper": {
+          "changedReturnedHeightRejected": true
+        }
+      }
+    },
+    {
+      "lane": "rust",
+      "repetition": 1,
+      "script": "verify-rust.mjs",
+      "pathCanonical": true,
+      "exitCode": 0,
+      "stdoutBytes": 109,
+      "stdoutSha256": "9502a55a2ed6a5919f7530591a5514fe6e18699cf6a7ec1043b5951af55af1c8",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true,
+      "receipt": {
+        "verified": true,
+        "outcome": "PASS",
+        "calls": 35,
+        "assertions": 36,
+        "independentReplay": true,
+        "parentInputsBound": 3
+      }
+    },
+    {
+      "lane": "rust",
+      "repetition": 2,
+      "script": "verify-rust.mjs",
+      "pathCanonical": true,
+      "exitCode": 0,
+      "stdoutBytes": 109,
+      "stdoutSha256": "9502a55a2ed6a5919f7530591a5514fe6e18699cf6a7ec1043b5951af55af1c8",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "verified": true,
+      "receipt": {
+        "verified": true,
+        "outcome": "PASS",
+        "calls": 35,
+        "assertions": 36,
+        "independentReplay": true,
+        "parentInputsBound": 3
+      }
+    }
+  ]
+}

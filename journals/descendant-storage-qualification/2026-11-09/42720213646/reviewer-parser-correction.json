@@ -1,0 +1,9 @@
+{
+  "schema": "tpnil-reviewer-json-parser-correction@1",
+  "originalVerifierExitCode": 0,
+  "originalVerifierStderrBytes": 0,
+  "originalStdoutSha256": "0d21cd94ecb38ba8fcadfc656c346c52cd6a9028c24c256cecfbfbe941471e10",
+  "initialWrapperError": "JSON.parse of complete stdout rejected dotenv diagnostics preceding the successful JSON result",
+  "correction": "Parse complete JSON object beginning at a standalone opening-brace line; raw stdout and all original evidence retained unchanged",
+  "sourceVerifierRerunRequired": false
+}
