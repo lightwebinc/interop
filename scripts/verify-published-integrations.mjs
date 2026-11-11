@@ -5,7 +5,7 @@ import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import { inflateRawSync, crc32 } from 'node:zlib'
 import { spawnSync } from 'node:child_process'
-import { prepareFrozenComponentReplay } from './frozen-component-replay.mjs'
+import { prepareFrozenComponentReplay, requireVerifierReceipt } from './frozen-component-replay.mjs'
 
 const repository = path.resolve(import.meta.dirname, '..')
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex')
@@ -175,6 +175,7 @@ export function verifyArchiveSemantics(bundle, { root = repository } = {}) {
     const replayRoot=prepareFrozenComponentReplay(root,bundle.source,frozenSource).root
     const child = spawnSync(process.execPath, [path.join(replayRoot, 'scripts', script), temporary], { cwd: replayRoot, env:{...process.env,RUSTUP_TOOLCHAIN:'1.88.0',TPNIL_REPLAY_GIT_ROOT:process.env.TPNIL_REPLAY_GIT_ROOT??root}, encoding: 'utf8', timeout: 600000, maxBuffer: 16 * 1024 * 1024 })
     assert.equal(child.status, 0, `${script} failed: ${child.stderr}\n${child.stdout}`)
+    requireVerifierReceipt(child.stdout,bundle.kind==='native'?{schema:bundle.qualification.schema,source:bundle.source,qualifiedEnvironment:true}:bundle.kind==='component'?{verified:true,childOraclesVerified:true,source:bundle.source,profile:bundle.qualification.profile}:{verified:true,claim:'RETAINED_NATIVE_EVIDENCE_REEVALUATION',evaluatorSource:bundle.source})
     if (bundle.kind === 'component') {
       const summary = componentArchiveSummary(temporary)
       for (const [name, value] of Object.entries(summary)) assert.deepEqual(bundle.qualification[name], value, `Published component ${name} differs from verified evidence`)

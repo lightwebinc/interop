@@ -456,6 +456,16 @@ These are coverage obligations in addition to observed failures. New criteria
 and any changed wallet artifact require a separately frozen qualification;
 closing coverage does not erase earlier failures.
 
+[Foundation42720213646](https://github.com/p2ppsr/interop/actions/runs/42720213646)
+passes all three jobs on8055aab:108 core,344 synthesis with ten gated skips,
+11 Go,14 actual shutdown/listener, eight transport,14 service, one default
+Rust plus14 Rust3 and five Python tests. Its
+[component archive](../journals/integrated-component-qualification/2026-11-09/42720213646/README.md)
+and [descendant archive](../journals/descendant-storage-qualification/2026-11-09/42720213646/README.md)
+retain all262 original artifact members,584 PASS/six unchanged Go FAIL out of590,
+and the included80 descendant PASS. All16 child invocations independently
+execute from canonical paths and emit valid nonempty receipts.
+
 ## Retained reevaluation attempts
 
 The first separate CI reevaluation,
@@ -471,6 +481,24 @@ retains all192 partial members, the original ZIP, API/job logs and two independe
 reviews. All186 nested original native members remain unchanged. This attempt
 starts zero native sessions. Dependency preparation is corrected separately;
 the original evidence, native criteria and Rust3 predicates remain unchanged.
+
+A November11 independent audit also identifies three silently skipped invocations
+in the earlier macOS local1 preflight: original Rust corpus2 and native messaging
+in both repetitions. The operating system's `/var` alias differs from Node's
+canonical `/private/var` module path, so the legacy CLI guards return exit0
+without running. The full local1 replay claim is withdrawn; its original
+receipt and empty logs are preserved. Native base admission, the other child
+checks and current-root Rust3 runs produced substantive receipts. The separate
+Rust engineering journal already used canonical paths and remains unaffected.
+
+The corrected evaluator canonicalizes extracted source paths and requires the
+final structured receipt from every child. Silent success, incomplete receipts,
+wrong source/schema and truncated nested JSON fail. Original Rust replay must
+explicitly report48 assertions, four bound inputs and its retained FAIL; new
+Rust3 must report48 PASS. A distinct `CANONICAL-REEVALUATION` plan identity
+freezes this invocation correction without changing original native inputs or
+Rust predicates. Its complete committed-source replay and CI result are recorded
+separately from the withdrawn local1 claim.
 
 ## Reevaluate retained native evidence
 

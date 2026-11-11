@@ -4,7 +4,7 @@ import os from 'node:os'
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import { execFileSync, spawnSync } from 'node:child_process'
-import { prepareFrozenComponentReplay } from './frozen-component-replay.mjs'
+import { prepareFrozenComponentReplay, requireVerifierReceipt } from './frozen-component-replay.mjs'
 import { extractZipSafely } from './verify-published-integrations.mjs'
 export const reevaluationSchema = 'tpnil-native-integrated-reevaluation@1'
 export const reevaluationInputNames = ['paid-http.json','messaging.json','synthesis-transactions.json','identity-trust.json']
@@ -42,10 +42,11 @@ export function validateOriginalEvidence(plan,zip,directory) {
   assert.ok(!fs.existsSync(path.join(directory,'integrated-qualification.json')),'This recovery plan must retain the original failed whole-pack boundary')
   return {lock,base}
 }
-function execute(command,args,root,log) {
+function execute(command,args,root,log,expectedReceipt={verified:true}) {
   const result=spawnSync(command,args,{cwd:root,env:{...process.env,RUSTUP_TOOLCHAIN:'1.88.0',CARGO_NET_OFFLINE:'true'},encoding:'utf8',timeout:300000,maxBuffer:32*1024*1024})
   if(log)fs.writeFileSync(log,result.stdout+'\n'+result.stderr,{flag:'wx'})
   assert.equal(result.status,0,`${args[0]} failed: ${result.stderr}\n${result.stdout}`)
+  return requireVerifierReceipt(result.stdout,expectedReceipt)
 }
 function verifyIntegratedChildren(frozen,directory,index,logDirectory) {
   const base=path.join(directory,`repetition-${index}`),integrated=path.join(base,'evidence/integrated'),get=name=>read(path.join(integrated,name)),record=read(path.join(base,'record.json'))
@@ -82,7 +83,7 @@ export function validateReevaluationLock(runLock,root) {
 export function evaluateNativeReevaluation({root,output,produce=false}) {
   const runLock=read(path.join(output,'run-lock.json')),plan=validateReevaluationLock(runLock,root)
   const original=path.join(output,'original'),zip=fs.readFileSync(path.join(output,'original-native.zip')),{base}=validateOriginalEvidence(plan,zip,original)
-  const originalBefore=inventory(original),scratch=fs.mkdtempSync(path.join(os.tmpdir(),'tpnil-native-reevaluation-')),frozen=path.join(scratch,'source'),copy=path.join(scratch,'evidence')
+  const originalBefore=inventory(original),scratch=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'tpnil-native-reevaluation-'))),frozen=path.join(scratch,'source'),copy=path.join(scratch,'evidence')
   const logDirectory=produce?path.join(output,'logs'):undefined;if(logDirectory)fs.mkdirSync(logDirectory)
   try {
     prepareFrozenComponentReplay(root,plan.original.source,frozen);fs.cpSync(original,copy,{recursive:true})
@@ -92,12 +93,12 @@ export function evaluateNativeReevaluation({root,output,produce=false}) {
     // The failed original corpus is itself replayed; its FAIL remains an observation.
     for(const index of [1,2]) if(fs.existsSync(path.join(original,`rust-repetition-${index}/result.json`))) {
       const inputs=reevaluationInputNames.map(name=>path.join(original,`repetition-${index}/evidence/integrated`,name))
-      execute(process.execPath,[path.join(frozen,'scripts/verify-rust.mjs'),path.join(original,`rust-repetition-${index}`),...inputs],frozen,logDirectory?path.join(logDirectory,`original-rust-${index}.log`):undefined)
+      execute(process.execPath,[path.join(frozen,'scripts/verify-rust.mjs'),path.join(original,`rust-repetition-${index}`),...inputs],frozen,logDirectory?path.join(logDirectory,`original-rust-${index}.log`):undefined,{verified:true,assertions:48,parentInputsBound:4,independentReplay:true,outcome:read(path.join(original,`rust-repetition-${index}/result.json`)).outcome})
     }
     for(const index of [1,2]) {
       const integration=verifyIntegratedChildren(frozen,original,index,logDirectory),inputs=reevaluationInputNames.map(name=>path.join(original,`repetition-${index}/evidence/integrated`,name)),rustDirectory=path.join(output,`rust-repetition-${index}`)
-      if(produce)execute(process.execPath,[path.join(root,'scripts/run-rust.mjs'),rustDirectory,...inputs,'--corpus-v3'],root,path.join(logDirectory,`rust-${index}-run.log`))
-      execute(process.execPath,[path.join(root,'scripts/verify-rust.mjs'),rustDirectory,...inputs,'--corpus-v3'],root,logDirectory?path.join(logDirectory,`rust-${index}-verify.log`):undefined)
+      if(produce)execute(process.execPath,[path.join(root,'scripts/run-rust.mjs'),rustDirectory,...inputs,'--corpus-v3'],root,path.join(logDirectory,`rust-${index}-run.log`),{schema:'tpnil-component-result@1',corpus:plan.rust.corpus,outcome:'PASS'})
+      execute(process.execPath,[path.join(root,'scripts/verify-rust.mjs'),rustDirectory,...inputs,'--corpus-v3'],root,logDirectory?path.join(logDirectory,`rust-${index}-verify.log`):undefined,{verified:true,assertions:48,parentInputsBound:4,independentReplay:true,outcome:'PASS'})
       const rust=read(path.join(rustDirectory,'result.json'));assert.equal(rust.corpus,plan.rust.corpus);assert.equal(rust.outcome,'PASS');assert.equal(rust.assertions.length,48)
       const record=read(path.join(original,`repetition-${index}/record.json`)),native=record.vectors.flatMap(row=>row.assertions);assert.equal(native.length,280)
       repetitions.push({index,...integration,native:{assertions:280,counts:counts(native),vectors:record.vectors.map(({id,outcome})=>({id,outcome}))},rust:{corpus:rust.corpus,assertions:48,counts:counts(rust.assertions),outcome:rust.outcome,resultSha256:sha256(fs.readFileSync(path.join(rustDirectory,'result.json'))),inputs:inputs.map((file,i)=>({name:reevaluationInputNames[i],sha256:sha256(fs.readFileSync(file))}))}})

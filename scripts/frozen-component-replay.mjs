@@ -18,6 +18,9 @@ export function prepareFrozenComponentReplay(root,source,directory,{repository=p
     assert.ok(!path.isAbsolute(name)&&name.split('/').every(part=>part&&part!=='.'&&part!=='..'),'Unsafe frozen source path')
   }
   fs.mkdirSync(directory,{recursive:true})
+  // Node canonicalizes import.meta.filename. Legacy CLI guards compare it to
+  // argv[1], so every extracted entry point must use the same physical path.
+  directory=fs.realpathSync(directory)
   const present=[...new Set(tree.map(row=>row.slice(row.indexOf('\t')+1).split('/')[0]))]
   const archive=execFileSync('git',['archive','--format=tar',source,'--',...present],{cwd:repository,maxBuffer:128*1024*1024})
   const unpack=spawnSync('tar',['-xf','-','-C',directory],{input:archive});assert.equal(unpack.status,0,String(unpack.stderr))
@@ -36,4 +39,20 @@ export function prepareFrozenComponentReplay(root,source,directory,{repository=p
     fs.symlinkSync(path.join(root,cache),path.join(directory,cache),'dir');reused.push(cache)
   }
   return {root:directory,source,files:tree.length,reused}
+}
+
+/** A successful process exit alone cannot prove that a guarded CLI executed.
+ * Accept the final complete JSON receipt, allowing earlier diagnostic lines. */
+export function requireVerifierReceipt(stdout,expected={verified:true}) {
+  assert.equal(typeof stdout,'string')
+  let receipt
+  // These CLIs emit top-level receipts at column zero. An indented nested
+  // object in a truncated pretty-printed envelope is not a receipt.
+  const starts=[...stdout.matchAll(/^\{/gm)].map(match=>match.index)
+  for(const start of starts.reverse()) {
+    try {receipt=JSON.parse(stdout.slice(start).trim());break} catch {}
+  }
+  assert.ok(receipt&&typeof receipt==='object'&&!Array.isArray(receipt),'Verifier did not emit a complete JSON receipt')
+  for(const [key,value] of Object.entries(expected))assert.deepEqual(receipt[key],value,`Verifier receipt field differs: ${key}`)
+  return receipt
 }
