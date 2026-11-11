@@ -1,0 +1,186 @@
+{
+  "schema": "tpnil-native-invocation-correction@1",
+  "claim": "ENGINEERING_CORRECTION_NOT_NATIVE_QUALIFICATION",
+  "recordedAt": "2026-11-11T16:25:09.405147+00:00",
+  "originalLocalSource": "8055aabb731df2c2a4020c885445ae621b57e492",
+  "originalNativeSource": "c338a93c97ffebeeef318e679ff82b7dbf309dd5",
+  "correctionSource": "136a867246a62dca1663573adbb574bae6a451d8",
+  "correctionInputs": {
+    "scripts/frozen-component-replay.mjs": {
+      "bytes": 4180,
+      "sha256": "9f9201d3061b96dffa2822d631817f5518b64cd2a7721165c141989730dadcf8"
+    },
+    "scripts/native-reevaluation.mjs": {
+      "bytes": 15029,
+      "sha256": "c236eae5d04fc7e125f9af45668078c110838e8dc035ddaa0e666234b6c26d11"
+    },
+    "scripts/verify-published-integrations.mjs": {
+      "bytes": 19120,
+      "sha256": "627dc9350b2930a93f1768a2749d5c32ca35abee309e2c062fdd1144dd9e6a69"
+    },
+    "test/frozen-component-replay.test.mjs": {
+      "bytes": 4727,
+      "sha256": "d655208af3893a11ccde87b21f4c81634466e21e70f6c0e0d69f152299db0c09"
+    }
+  },
+  "preservedReferences": {
+    "originalLocalReceipt": {
+      "path": "out/reevaluation-preflight/local-1-receipt.json",
+      "bytes": 1540,
+      "sha256": "d99e4a7f93639a175b2cb73882157cc9dc0e3d544f00a2053bebb087e029789b"
+    },
+    "scopeReview": {
+      "path": "out/rust-v3-independent-review/local-invocation-scope-review.json",
+      "bytes": 6009,
+      "sha256": "956056f352155047770d05c251d8efbce2e470efee59bff262beff993e0f14fe"
+    },
+    "aliasReproduction": {
+      "path": "out/rust-v3-independent-review/path-alias-reproduction.json",
+      "bytes": 777,
+      "sha256": "84a25bbe72e480111b5b52b7ccb6345e98db87f5fdc3787aafead385731dee7c"
+    },
+    "correctionReview": {
+      "path": "out/rust-v3-independent-review/cli-invocation-correction-review.json",
+      "bytes": 3242,
+      "sha256": "342f137f779681b21aa3fa338e7d2f1aa1d231d6c214e99a664b0a492c121f7b"
+    },
+    "focusedTests": {
+      "path": "out/rust-v3-independent-review/cli-invocation-correction-final-tests.log",
+      "bytes": 2689,
+      "sha256": "0e972b2180f89cfd254f9542ecaa7661417c17d6f005a1919ee1cec7c28adb13"
+    },
+    "coreTests": {
+      "path": "out/canonical-invocation-core-20261111.log",
+      "bytes": 10485,
+      "sha256": "e8be44ad38c9ad51fb332201b71bd22d46ade3f53e752657692d3260826c8cbb"
+    }
+  },
+  "withdrawnClaim": "The original local1 receipt does not establish complete independent replay: original corpus2 Rust and both frozen messaging invocations silently skipped. Its original receipt and results remain byte-for-byte retained.",
+  "originalLocalReceiptChanged": false,
+  "nativeSessionsExecuted": 0,
+  "unaffectedScope": [
+    "Native9 original186-member artifact and native180PASS/99FAIL/1BLOCKED in each repetition",
+    "Local1 native base, both transport/synthesis/trust/boundary and new Rust3 producer/verifier substantive outputs",
+    "Separately source-bound Rust3 engineering journal with canonical paths and parsed verifier receipts",
+    "Linux CI42720214271 actually invokes frozen messaging and fails on its missing pinned SDK dependency"
+  ],
+  "newEngineeringEvidence": {
+    "canonicalMessagingReplayAssertions": [
+      6,
+      6
+    ],
+    "exportedMessagingReplayAssertions": [
+      6,
+      6
+    ],
+    "focusedTestsPassed": 27,
+    "coreTestsPassed": 112,
+    "fullCorrectedReevaluation": "PENDING_SEPARATE_FROZEN_RUN"
+  },
+  "evidenceZip": {
+    "bytes": 39028,
+    "sha256": "43eead35ae68d8d85e5dc5573d6dc333b2cae5259d412b2703923c4cd586c784"
+  },
+  "members": {
+    "checks/canonical-invocation-core-20261111.log": {
+      "bytes": 10485,
+      "sha256": "e8be44ad38c9ad51fb332201b71bd22d46ade3f53e752657692d3260826c8cbb"
+    },
+    "checks/cli-invocation-correction-final-tests.log": {
+      "bytes": 2689,
+      "sha256": "0e972b2180f89cfd254f9542ecaa7661417c17d6f005a1919ee1cec7c28adb13"
+    },
+    "corrected-source/scripts/frozen-component-replay.mjs": {
+      "bytes": 4180,
+      "sha256": "9f9201d3061b96dffa2822d631817f5518b64cd2a7721165c141989730dadcf8"
+    },
+    "corrected-source/scripts/native-reevaluation.mjs": {
+      "bytes": 15029,
+      "sha256": "c236eae5d04fc7e125f9af45668078c110838e8dc035ddaa0e666234b6c26d11"
+    },
+    "corrected-source/scripts/verify-published-integrations.mjs": {
+      "bytes": 19120,
+      "sha256": "627dc9350b2930a93f1768a2749d5c32ca35abee309e2c062fdd1144dd9e6a69"
+    },
+    "corrected-source/test/frozen-component-replay.test.mjs": {
+      "bytes": 4727,
+      "sha256": "d655208af3893a11ccde87b21f4c81634466e21e70f6c0e0d69f152299db0c09"
+    },
+    "messaging-review/repetition-1-canonical.log": {
+      "bytes": 425,
+      "sha256": "2c955598576317901cad4c8429412ab5e0eff99f39a74b44a3f3548f4f799b1f"
+    },
+    "messaging-review/repetition-1-exported.log": {
+      "bytes": 391,
+      "sha256": "6dbf5953ef5743b58b23d7b172b163a97c5ec0c470fabffc53d849c19188a358"
+    },
+    "messaging-review/repetition-1-noncanonical.log": {
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    "messaging-review/repetition-2-canonical.log": {
+      "bytes": 425,
+      "sha256": "e329ffb1d40e1eb5b9f4b332008cf75bf593a1306014c61c2ca61e9867773ae5"
+    },
+    "messaging-review/repetition-2-exported.log": {
+      "bytes": 391,
+      "sha256": "e0290e0d5a3d4c223ad953ba57ad5cffadbb276cf78d3a9c6301790842868295"
+    },
+    "messaging-review/replay-canonical.mjs": {
+      "bytes": 2914,
+      "sha256": "377057f98e1536823c8b5157a2e3359c7a7d5120c8feb9b4c3965d6b0a16f654"
+    },
+    "messaging-review/replay-exported.mjs": {
+      "bytes": 3170,
+      "sha256": "d1c9d4e9a31eda3f244426152cff4fd0ae11134baab734ce15a0bf18e2399a86"
+    },
+    "messaging-review/replay-review-canonical.json": {
+      "bytes": 2367,
+      "sha256": "c0f7bc8c801393e9090d7949e9bfd4e2e456907af9661730bfe30ea9e12a6069"
+    },
+    "messaging-review/replay-review-exported.json": {
+      "bytes": 2367,
+      "sha256": "b643284b21a383e9231765bfcc18d4947fba69090fb56141ba33f0746e860b36"
+    },
+    "messaging-review/replay-v1-noncanonical-path.mjs": {
+      "bytes": 2877,
+      "sha256": "dbbc14cbda3b9fb6009c57cb278685c6467e7c358832120e1e0b2dbab064bea2"
+    },
+    "original-source/scripts/verify-native-messaging.mjs": {
+      "bytes": 10081,
+      "sha256": "5286bbd5ab9e5fa8a7a8094d80a90c635611eb5028db357a16f747ef83dd0820"
+    },
+    "original-source/scripts/verify-rust.mjs": {
+      "bytes": 4107,
+      "sha256": "5ddf1e11f96434df80483d11d5ea7253a5bde3f6b2450b3365ffc6ed9ee19609"
+    },
+    "original/local-1-receipt.json": {
+      "bytes": 1540,
+      "sha256": "d99e4a7f93639a175b2cb73882157cc9dc0e3d544f00a2053bebb087e029789b"
+    },
+    "original/logs/original-rust-1.log": {
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    "original/logs/repetition-1-verify-native-messaging.mjs.log": {
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    "original/logs/repetition-2-verify-native-messaging.mjs.log": {
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    "review/cli-invocation-correction-review.json": {
+      "bytes": 3242,
+      "sha256": "342f137f779681b21aa3fa338e7d2f1aa1d231d6c214e99a664b0a492c121f7b"
+    },
+    "review/local-invocation-scope-review.json": {
+      "bytes": 6009,
+      "sha256": "956056f352155047770d05c251d8efbce2e470efee59bff262beff993e0f14fe"
+    },
+    "review/path-alias-reproduction.json": {
+      "bytes": 777,
+      "sha256": "84a25bbe72e480111b5b52b7ccb6345e98db87f5fdc3787aafead385731dee7c"
+    }
+  }
+}
