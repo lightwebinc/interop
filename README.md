@@ -2,7 +2,7 @@
 
 **TPNIL** is a BSV Blockchain initiative for impartial interoperability evaluation, without fear or favor. The laboratory brings published requirements, canonical software artifacts, integrated test environments, deterministic results, and durable evidence into a common framework open to equal participation.
 
-**Version 0.5.0 — public experimental release.** The laboratory executes the causally joined transaction-processing reference stack and an admitted production-wallet BRC-100 lane. The latest two clean Yours Wallet 5.1.0 repetitions on the Go-backed ITCVE-1 2.0.0 profile match: V001–V007 pass and V008 fails, with 180 PASS, 99 FAIL and one BLOCKED predicate each. [Native findings and retained workflow boundaries](docs/native-conformance-results-2026-11-09.md) distinguish environment admission, remaining wallet findings and the separately versioned Rust observer correction. The component-only ITCVE-1 3.0.0 profile independently records 584 PASS and six unchanged Go Message Box FAIL observations across 590 assertions. Four controlled-WAB Metanet Explorer runs completed activation, mined-output funding and UMP publication, then submitted a ToDo token; each stopped at the WebView wallet-response and task-visibility boundary. A BSV Browser source candidate reached an authenticated 28-method BRC-100 context and the ToDo funding boundary. These are experimental results and engineering observations. Certification remains unavailable. [Implementation status](docs/implementation-status.md) records the exact boundary.
+**Version 0.5.0 — public experimental release.** The laboratory executes the causally joined transaction-processing reference stack and an admitted production-wallet BRC-100 lane. The latest two clean Yours Wallet 5.1.0 repetitions on the Go-backed ITCVE-1 2.0.0 profile match: V001–V007 pass and V008 fails, with 180 PASS, 99 FAIL and one BLOCKED predicate each. [Native findings and retained workflow boundaries](docs/native-conformance-results-2026-11-09.md) distinguish environment admission, remaining wallet findings and the separately qualified Rust3 reevaluation: 77 integration and 48 Rust checks pass per repetition on the unchanged native observations. The component-only ITCVE-1 3.0.0 profile independently records 584 PASS and six unchanged Go Message Box FAIL observations across 590 assertions. Four controlled-WAB Metanet Explorer runs completed activation, mined-output funding and UMP publication, then submitted a ToDo token; each stopped at the WebView wallet-response and task-visibility boundary. A BSV Browser source candidate reached an authenticated 28-method BRC-100 context and the ToDo funding boundary. These are experimental results and engineering observations. Certification remains unavailable. [Implementation status](docs/implementation-status.md) records the exact boundary.
 
 ## The laboratory
 
@@ -90,5 +90,8 @@ retains each failed attempt, engineering preflight and component qualification.
 Its Linux run retains matching portability results but differing permission
 observations and does not qualify. [ITCVE-1 2.0.0](itcves/ITCVE-1/2.0.0/README.md)
 separately introduces trusted click capture and shutdown-final submission
-evidence. Its native qualification remains pending; complete BRC-100 conformance
-remains unproven. Historical profiles and findings remain unchanged.
+evidence. Both native repetitions pass base admission and V001–V007; V008
+retains 99 FAIL and one BLOCKED. The separately qualified Rust3 retained-evidence
+reevaluation passes 48/48 checks per repetition without another wallet session.
+Complete BRC-100 conformance remains unproven. Historical profiles and findings
+remain unchanged.

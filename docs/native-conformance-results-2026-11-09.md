@@ -45,8 +45,9 @@ The whole original workflow still fails in its Rust observer. Corpus2 records
 original BEEF already contains its complete ancestors, but the observer
 incorrectly rejects the pinned SDK's shallow representation of a shared
 ancestor before resolving the full transaction elsewhere in the same graph.
-A separately versioned corpus 3 reevaluation is required; original corpus 2
-results and the failed workflow are not replaced or promoted.
+The separately versioned corpus 3 reevaluation now qualifies the retained
+evidence as described below; original corpus 2 results and the failed workflow
+remain unchanged.
 
 [Foundation run 42711677744](https://github.com/p2ppsr/interop/actions/runs/42711677744)
 qualifies the separate component-only ITCVE-1 3.0.0 profile: **584 PASS and six
@@ -57,6 +58,31 @@ already included in 590, and the separate descendant upload is the same bytes.
 [Original aggregate evidence](../journals/integrated-component-qualification/2026-11-09/42711677744/README.md)
 and [descendant evidence](../journals/descendant-storage-qualification/2026-11-09/42711677744/README.md)
 independently replay against the exact recorded source. All three CI jobs pass.
+
+## November 11 retained-evidence qualification
+
+[Reevaluation 43059172140](https://github.com/p2ppsr/interop/actions/runs/43059172140)
+passes on frozen evaluator source `9cded11`, with the separately identified
+`CANONICAL-REEVALUATION` plan. Independent canonical replay verifies all 220
+original artifact members unchanged, including all 186 original native members
+and the original failed native ZIP. The [accepted derived archive](../journals/native-integrated-reevaluation/2026-11-11/43059172140/README.md)
+retains both original and derived evidence, the pinned dependency preparation,
+complete API/job logs and independent receipts.
+
+Each repetition independently retains **180 PASS / 99 FAIL / 1 BLOCKED** native
+predicates and **77 integration PASS**, while new Rust corpus3 verifies **48/48
+PASS**. All 16 producer verifier receipts are present and valid. Original Rust
+corpus 2 remains 42 PASS/six FAIL in repetition 1 and NOT_EXECUTED in repetition 2.
+The original workflow still fails; the separate completed reevaluation has
+`qualifiedRetainedEvidence:true`, `nativeOutcome:FAIL` and combined `outcome:FAIL`.
+It starts zero new wallet sessions and establishes no complete BRC-100 claim.
+
+The main CI artifact is 8,916,753 bytes, SHA256
+`4f2c50c5481700d0ce69d8607d87dcb10637935705c2322185d0fe290af2c51c`.
+The separately retained dependency-preparation ZIP is 1,572 bytes, SHA256
+`1613dbcf6bf23f6f49f6100f7162b02d34eeca2e49f10bf9479899ca2a74a494`.
+Its exact source, package lock and SDK match the local preflight. The two earlier
+reevaluation defects and their original evidence remain documented below.
 
 ## Retained attempts
 
@@ -189,7 +215,8 @@ publishing ready endpoints. Restart preserves the published port and fails
 explicitly if it is occupied. Nineteen focused checks pass, including concurrent
 actual TS/Go services, authentication, routing, restart, occupied-port failure,
 post-close refusal and partial-startup cleanup. Native 42705211560 was canceled
-before wallet execution so this runtime correction requires fresh qualification.
+before wallet execution. Native 42711700295 subsequently executed this runtime
+correction in both fresh repetitions and passed frozen base admission.
 
 Foundation 42706097914 passes 289 synthesis tests with nine gated skips,
 90 core tests, five Python tests and the actual TS/Go shutdown checks. Its two
@@ -297,7 +324,7 @@ This is a fresh-counterpart replacement contract. It does not establish repair
 of a previously synchronized incomplete counterpart whose equal-time merge rules
 skip unchanged rows. Existing historical profiles remain separately reproducible.
 
-V008 executes 232 source-linked predicates with
+The historical V008 oracle3 profile executes 232 source-linked predicates with
 [`tpnil-brc100-clause-oracle@3.0.0`](../programs/ISI-4/profiles/native-conformance-2.0.0/oracle-3.0.0.json):
 28 return contracts, 181 invalid-input leaves, 11 cryptographic predicates,
 seven namespace rules, three metadata predicates, structured errors and an
@@ -306,6 +333,8 @@ direct acceptance of a known malformed value remains FAIL even if its control fa
 timeouts, denied permission, insufficient funds and JavaScript engine errors
 cannot stand in for specified validation errors. Every observation retains
 its public call arguments, result or error, source locator and causal controls.
+The latest native2 run instead executes oracle4's 233 clause predicates,
+including its added returned-change predicate, within 280 total predicates.
 
 The external certificate issuer now preserves all 32 random symmetric-key bytes.
 Its previous integer conversion occasionally stripped a leading zero and
@@ -323,7 +352,7 @@ signed task spend with valid ancestry and successful replacement processing
 before the final read, final snapshot and source restoration. Exact rendered
 active-status lines permit case and whitespace normalization only.
 
-The [new permission lifecycle](../journals/native-permission-lifecycle/2026-11-09/README.md) uses native basket, certificate and one-shot
+The [historical profile 1.5 permission lifecycle](../journals/native-permission-lifecycle/2026-11-09/README.md) uses native basket, certificate and one-shot
 spending prompts, Settings individual revocation and origin-wide revocation.
 Subsequent native requests prove denied access, restored access and isolation
 of unrelated grants and the other origin. Independent certificate decryption,
@@ -332,10 +361,11 @@ receipt windows supply effects beyond UI text. No private permission store is
 edited, and the scenario introduces no funding. Permission denial observations
 are bounded by the retained ledger: the module checks its full receipt window,
 and publication review also checks the final captured global tail for matching
-denied payments. The frozen driver captures that global ledger before browser
+denied payments. That profile's frozen driver captures the global ledger before browser
 and service shutdown, so it does not establish absence through shutdown. A
-future shutdown-final receipt needs separate runtime evidence; no later
-observation is invented for this run.
+shutdown-final receipt needs separate runtime evidence; no later observation
+is invented for that historical run. Native2 subsequently supplies that separate
+evidence in both repetitions of 42711700295, retaining all 53 submissions each.
 
 [Clause oracle 4 engineering evidence](../journals/native-nosend-change/2026-11-09/oracle4-preflight/README.md)
 establishes a valid caller input from final signed transaction bytes and matching
@@ -344,8 +374,9 @@ returns a stale unsigned-transaction outpoint, which separately fails the new
 return predicate. TypeScript and Go references pass both. Optional absent/empty
 returns remain BLOCKED for that unexercised branch; a valid nonempty subset is
 allowed. No returned value is silently repaired and no oracle 3 BLOCKED result
-is rewritten. These macOS/reference checks are engineering evidence; the new
-Linux native profile still requires its own complete retained qualification.
+is rewritten. These macOS/reference checks are engineering evidence. Linux
+native 42711700295 subsequently executes the separate native2 profile, passes
+base admission and retains the returned-change failure in both repetitions.
 
 [ITCVE-1 2.0.0](../itcves/ITCVE-1/2.0.0/README.md) and
 [ISI-4 4.0.0](../programs/ISI-4/4.0.0/README.md) separately version the stronger
@@ -363,9 +394,10 @@ and includes every provider suffix with explicit provenance. It does not invent
 a chronological order between providers. Independent verification rejects
 delayed matching denied payments, missing providers or truncated prefixes; only
 the separately verified approved five-satoshi transaction within its exact grant
-window is exempt. This requires new native execution, not a reinterpretation of
-the earlier pre-shutdown snapshot. The 280 conformance predicate identifiers
-remain; new environment admission and oracle requirements are frozen separately.
+window is exempt. Native 42711700295 supplies the required new execution in
+both repetitions; the earlier pre-shutdown snapshot remains unchanged. The 280
+conformance predicate identifiers remain; native2 environment admission and
+oracle requirements are frozen separately.
 
 ## Reference evidence and unresolved scope
 
@@ -456,14 +488,14 @@ These are coverage obligations in addition to observed failures. New criteria
 and any changed wallet artifact require a separately frozen qualification;
 closing coverage does not erase earlier failures.
 
-[Foundation42720213646](https://github.com/p2ppsr/interop/actions/runs/42720213646)
-passes all three jobs on8055aab:108 core,344 synthesis with ten gated skips,
-11 Go,14 actual shutdown/listener, eight transport,14 service, one default
-Rust plus14 Rust3 and five Python tests. Its
+[Foundation 42720213646](https://github.com/p2ppsr/interop/actions/runs/42720213646)
+passes all three jobs on `8055aab`: 108 core, 344 synthesis with ten gated skips,
+11 Go, 14 actual shutdown/listener, eight transport, 14 service, one default
+Rust plus 14 Rust3 and five Python tests. Its
 [component archive](../journals/integrated-component-qualification/2026-11-09/42720213646/README.md)
 and [descendant archive](../journals/descendant-storage-qualification/2026-11-09/42720213646/README.md)
-retain all262 original artifact members,584 PASS/six unchanged Go FAIL out of590,
-and the included80 descendant PASS. All16 child invocations independently
+retain all 262 original artifact members, 584 PASS/six unchanged Go FAIL out of 590,
+and the included 80 descendant PASS. All 16 child invocations independently
 execute from canonical paths and emit valid nonempty receipts.
 
 ## Retained reevaluation attempts
@@ -472,30 +504,30 @@ The first separate CI reevaluation,
 [42720214271](https://github.com/p2ppsr/interop/actions/runs/42720214271),
 fails because its clean runner lacks the frozen TypeScript Message Box package
 needed by `verify-native-messaging.mjs`. Local preparation already contained
-that package. Native base admission, original Rust corpus2 replay and transport
+that package. Native base admission, original Rust corpus 2 replay and transport
 verification complete before the missing dependency stops execution. Rust3
 does not execute and no completed reevaluation result is issued.
 
 The [failed attempt archive](../journals/integrated-native-attempts/2026-11-09/42720214271/README.md)
-retains all192 partial members, the original ZIP, API/job logs and two independent
-reviews. All186 nested original native members remain unchanged. This attempt
+retains all 192 partial members, the original ZIP, API/job logs and two independent
+reviews. All 186 nested original native members remain unchanged. This attempt
 starts zero native sessions. Dependency preparation is corrected separately;
 the original evidence, native criteria and Rust3 predicates remain unchanged.
 
-A November11 independent audit also identifies three silently skipped invocations
-in the earlier macOS local1 preflight: original Rust corpus2 and native messaging
+A November 11 independent audit also identifies three silently skipped invocations
+in the earlier macOS local1 preflight: original Rust corpus 2 and native messaging
 in both repetitions. The operating system's `/var` alias differs from Node's
-canonical `/private/var` module path, so the legacy CLI guards return exit0
+canonical `/private/var` module path, so the legacy CLI guards return exit code 0
 without running. The full local1 replay claim is withdrawn; its original
-receipt and empty logs are preserved. Native base admission, the other child
+receipt and empty logs are preserved in the [invocation correction journal](../journals/native-invocation/2026-11-11/canonical-paths/README.md). Native base admission, the other child
 checks and current-root Rust3 runs produced substantive receipts. The separate
 Rust engineering journal already used canonical paths and remains unaffected.
 
 The corrected evaluator canonicalizes extracted source paths and requires the
 final structured receipt from every child. Silent success, incomplete receipts,
 wrong source/schema and truncated nested JSON fail. Original Rust replay must
-explicitly report48 assertions, four bound inputs and its retained FAIL; new
-Rust3 must report48 PASS. A distinct `CANONICAL-REEVALUATION` plan identity
+explicitly report 48 assertions, four bound inputs and its retained FAIL; new
+Rust3 must report 48 PASS. A distinct `CANONICAL-REEVALUATION` plan identity
 freezes this invocation correction without changing original native inputs or
 Rust predicates. Its complete committed-source replay and CI result are recorded
 separately from the withdrawn local1 claim.
@@ -503,11 +535,11 @@ separately from the withdrawn local1 claim.
 ## Reevaluate retained native evidence
 
 The separate [frozen reevaluation plan](../infra/native/conformance/reevaluation-42711700295-rust-3.0.0.json)
-binds the original native9 archive, its source and qualification hashes,
+binds the original run 42711700295 archive, its source and qualification hashes,
 two repetitions, all four original reports per repetition, and the new
 [Rust graph oracle3](../components/rust/graph-oracle-3.0.0.json). The evaluator
 replays the original frozen base and every integrated child oracle before
-running the indexed Rust observer. It forces Cargo offline, verifies all186
+running the indexed Rust observer. It forces Cargo offline, verifies all 186
 original members unchanged, and writes separate derived results. A committed
 plan/source mismatch or incomplete repetition prevents acceptance.
 
@@ -534,9 +566,9 @@ The broader native conformance result remains FAIL.
 Future native execution can explicitly select
 `integrated-native-conformance-closure-rust-v3`. Its
 [compatibility manifest](../infra/native/conformance/rust-graph-3.0.0.json)
-binds the unchanged native2 plan, Rust3 policy and exact execution-source
+binds the unchanged ITCVE-1 2.0.0 plan, Rust3 policy and exact execution-source
 selector, runner, verifier and workflow. A missing or altered binding fails;
-old choices retain corpus2. The new option is source-tested here; the retained
+old choices retain corpus 2. The new option is source-tested here; the retained
 reevaluation does not claim that another native session executed under it.
 
 ## Reproduction and cost boundary
