@@ -1,0 +1,219 @@
+{
+  "schema": "tpnil-portability-reference-summary@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "nativeExecution": false,
+  "sourceRevision": "ac678b79fa483e6af6fb6f60a5146410a7835e27",
+  "workingTree": "Engineering runs preceded the prospective source commit. This archive preserves all original observations and logs; the current source-file snapshot below records the final verifier and fixture implementation, not an assertion that every earlier attempt used identical source. Authoritative native CI must bind the committed source.",
+  "archive": {
+    "path": "evidence.json.gz",
+    "size": 831005,
+    "sha256": "d1db1fa684f790f662cc510ae255c232133a2ad2aa120acbf7398a1450fba6fe",
+    "files": 35
+  },
+  "finalRuns": [
+    {
+      "directory": "out/portability-reference-ts-final",
+      "implementation": "typescript",
+      "assertions": 9,
+      "result": "PASS"
+    },
+    {
+      "directory": "out/portability-reference-go-terminal",
+      "implementation": "go",
+      "wire": "direct upstream StorageClient without synchronization transformations",
+      "assertions": 9,
+      "result": "PASS",
+      "fixtureSubmissionPolicy": "terminal-rejection-v1",
+      "binarySha256": "e6f7a6ab310e251f515604fbcd41a8411c06d20dccbf26be08253d83159324f9"
+    }
+  ],
+  "retainedFailures": [
+    {
+      "directory": "out/portability-reference-ts-1",
+      "classification": "Reference runner close propagated the expected unavailable-source error before cold recreation; raw failed sample retained."
+    },
+    {
+      "directory": "out/portability-reference-ts-2",
+      "classification": "All runtime predicates passed; first independent oracle selected an earlier identical listOutputs observation. Reverse chronological selection fixes observer chronology; original log retained."
+    },
+    {
+      "directory": "out/portability-reference-go-wire-1",
+      "classification": "All runtime predicates passed; stricter RPC replay initially compared wire timestamps without StorageClient Date normalization. Original failed verification log retained; later exact replay passes."
+    },
+    {
+      "path": "out/portability-tests.log",
+      "classification": "Test cleanup called a non-idempotent pre-existing proxy close twice; service behavior checks had passed. The test now closes adopted services exactly once; original failed log retained."
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "synthesis/src/wallet-lab/services.ts",
+      "sha256": "0fc0cb7d7e6982ee4024c04b7cb28b075210986c538c38f01a0ee4194b6baf3d"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/conformance-portability.ts",
+      "sha256": "b57b18f4dc24b83d6bdb493edd465b5521dd59c06e1f79f020cf6c0f95f9af2c"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/run-portability-reference.ts",
+      "sha256": "91a29b81e13a857530587c49af299c938c0ab1cc65b254d17e5103647003ef20"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/verify-conformance-portability.ts",
+      "sha256": "7e0e9ad1de65a45457029cc5db8cd1f986911de87eb011ddc94fe0cee75e902a"
+    },
+    {
+      "path": "synthesis/src/storage-sync/fixture-wallet.ts",
+      "sha256": "33991ea24ee8cf150f86aa3c9389d330b66ff311ef64995a61017c4219bdbb23"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/go-services.ts",
+      "sha256": "ec3293cb2053fb10e8e07ce67aaaeebff7f91c0bbaeeb8ca72bf496cddee104a"
+    },
+    {
+      "path": "synthesis/go/cmd/itcve-services/main.go",
+      "sha256": "21d78660ca93cbc32069976fda7af65fcdfe670acf3c0b7977dcfb502f5caba9"
+    },
+    {
+      "path": "synthesis/package-lock.json",
+      "sha256": "14b17cdddc06c8d10788d32ea6ba9938e64631e533160f731fc55aa77b0a5790"
+    },
+    {
+      "path": "fixtures/teranode/wab-funding-v1.json",
+      "sha256": "7c4fd4d2c98f8c80b4ac41614b09c9baed91c087b1a418e0f15edc6b8e55560a"
+    }
+  ],
+  "sourceInspection": {
+    "artifact": "yours-wallet-v5.1.0/pw-v5.1.0.zip",
+    "sha256": "d55abda7dc8790ecfdd57ed0f5f4dd4a28187bb4833715f7612b067625eabc52",
+    "publicPath": "Settings \u2192 Wallet Backup \u2192 Remote Backup: Add Custom Remote, Sync Now, Make Active, Remove; Settings \u2192 Lock Wallet \u2192 Unlock.",
+    "privateStateRead": false,
+    "inspectedFiles": [
+      {
+        "name": "App.tsx",
+        "sha256": "e23f6830a3fc5948637f26f5f15587b92d4e3a17e6b5e39632c9b12d813fc21e"
+      },
+      {
+        "name": "AppsAndTools.tsx",
+        "sha256": "edf37f2bde113366363fc144c5194fe28f43725445087681be5d77ccffe35478"
+      },
+      {
+        "name": "BottomMenu.tsx",
+        "sha256": "871321435df0a14a8ac6c11c352cc8c5b1b7ce803d0a52f48a3c779ea86af770"
+      },
+      {
+        "name": "BottomMenuProvider.tsx",
+        "sha256": "8d4a111e51b096badb1b73649e64a6675e7b3de43d8253dc7357c3c7abcc6640"
+      },
+      {
+        "name": "BsvWallet.tsx",
+        "sha256": "3cb5cf7f26e2bdb083c343b5f41f2fe3eddd7aa48a053cc1a65d10874fd58fcf"
+      },
+      {
+        "name": "CounterpartyPermissionRequest.tsx",
+        "sha256": "e1a2829999f3b6a0167f6cb332bb6052f33655d1dfd36e55d8d25c0505307035"
+      },
+      {
+        "name": "CreateAccount.tsx",
+        "sha256": "b8ef9c86975c4a985c852df19779e558cb5a52e6e05439e83c2f4e086d6cccce"
+      },
+      {
+        "name": "GroupedPermissionRequest.tsx",
+        "sha256": "5b6e2050d9df1ec9aff1e49d325d3b338b6f2444e9a4ca272ece496469f40bba"
+      },
+      {
+        "name": "ImportAccount.tsx",
+        "sha256": "88f60221bf38dc5773d3a168e1a6f90f64c0330ece576a6620dcb7f7716ee99f"
+      },
+      {
+        "name": "OneSatPermissionRequest.tsx",
+        "sha256": "cc2d7303625a28ac35570f5d06b9c2c5595dcf8c068e15ee4c54014b08662a8d"
+      },
+      {
+        "name": "PermissionRequest.tsx",
+        "sha256": "24dc32c8eeda40982941b7139f6799fd38934d53ed252e33410a4ca933ac2c58"
+      },
+      {
+        "name": "ProviderPicker.tsx",
+        "sha256": "4b928034b65a769e930f4ac835bd4205ef61c25b78cf33ce0354f7d5c38ee976"
+      },
+      {
+        "name": "RestoreAccount.tsx",
+        "sha256": "011d3d3d3c5eb1ff8f7ee2aa92f7dfb7bf4ebb9f65bc86835c4a3f1557d4e46d"
+      },
+      {
+        "name": "ServiceProvider.tsx",
+        "sha256": "4b1fad3666e685dce047ea1999100fb5ca8af3a6a6cad22122946058b62599d7"
+      },
+      {
+        "name": "Settings.tsx",
+        "sha256": "1e8805334829d7ed70ba319f5c61e2905f1b661437c403900ab847c7314be2ca"
+      },
+      {
+        "name": "Start.tsx",
+        "sha256": "dc51b9aba906c010753c94c075a6506ead16809ffb4258342cd5581039ae819b"
+      },
+      {
+        "name": "StorageStatus.tsx",
+        "sha256": "128eccfbcc53ea5dff3b24564553634c52dff22a903bbc04fd418299edb777cf"
+      },
+      {
+        "name": "TopNav.tsx",
+        "sha256": "433768665b30a1301a5b0fa650b379bebccfe9de34eb096d197ef12235acff0e"
+      },
+      {
+        "name": "UnlockWallet.tsx",
+        "sha256": "700716ee0bb62b8d1fcbbb44200c73be39501d61174b2c039615686517ade009"
+      },
+      {
+        "name": "UsbFlow.tsx",
+        "sha256": "232034b172ca41f3c3d76670bb616bbd63713327f85ac4f87981a3f4c189cba9"
+      },
+      {
+        "name": "UsbGate.tsx",
+        "sha256": "3bf58895ad6368750531aaa73956564acd616b973b39d85751cd54cf3c5e3a17"
+      },
+      {
+        "name": "prompt-tab.tsx",
+        "sha256": "1c5ebec89b87fa68ae5580c00049f7447ebfdd9748f343d971c1d412b3b325c7"
+      },
+      {
+        "name": "useBottomMenu.tsx",
+        "sha256": "5efe6195fd0fdc312f4e3fc8b3d28690225d279073106d982bfe72e6ac9ed525"
+      },
+      {
+        "name": "BottomMenuContext.ts",
+        "sha256": "9d80db7e5d6a68d19a9e03d6b75938d4c0039ba5ef546c2dd08bb8789ca6c8ed"
+      },
+      {
+        "name": "ServiceContext.ts",
+        "sha256": "42f68670e4e7bbf79ce64afca20d8501009c1b3ad811471d3aadbeacc35a47e7"
+      },
+      {
+        "name": "background.ts",
+        "sha256": "b335c86549135f3a1dd9e146057130961858384de869d431469855bbf35017d4"
+      },
+      {
+        "name": "usbPresence.ts",
+        "sha256": "bd12c023abf0c9d7dcdb4a1761a465171a8c45d90fef90d53130b2dbb239b7da"
+      }
+    ],
+    "runtimeContextRetirementLogPresent": "build/background.js: dropWalletContext ... gone immediately"
+  },
+  "sourceRevisionAtArchive": "ac678b79fa483e6af6fb6f60a5146410a7835e27",
+  "tests": {
+    "command": "npm --prefix synthesis test -- test/native-conformance-portability.test.ts test/storage-sync.test.ts test/wallet-services.test.ts",
+    "files": 3,
+    "passed": 15,
+    "semanticTamperCases": 22,
+    "log": "out/portability-tests-complete.log",
+    "typecheck": "PASS",
+    "typecheckLog": "out/portability-typecheck-complete.log"
+  },
+  "archiveReplay": {
+    "path": "archive-replay.txt",
+    "sha256": "c84c1aa00b5fddd86c1e3d0331aa77c98500cb9caff69602f9d02cfec70d19e2",
+    "tests": 3,
+    "result": "PASS"
+  }
+}

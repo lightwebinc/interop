@@ -1,0 +1,12 @@
+{
+  "root": "/Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/frozen-foundation-source-8055aab",
+  "source": "8055aabb731df2c2a4020c885445ae621b57e492",
+  "files": 467,
+  "reused": [
+    "synthesis/node_modules",
+    "integrations/services/node_modules",
+    "components/transport/node_modules",
+    "components/rust/target",
+    "out"
+  ]
+}

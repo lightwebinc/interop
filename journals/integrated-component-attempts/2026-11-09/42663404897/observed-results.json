@@ -1,0 +1,282 @@
+{
+  "source": "8f23d1c638fd97d176e12c6d634e65401c03e82f",
+  "laneCount": 8,
+  "laneRuns": 15,
+  "isolatedExecutions": 22,
+  "assertions": {
+    "total": 510,
+    "outcomes": {
+      "PASS": 501,
+      "FAIL": 9
+    }
+  },
+  "lanes": [
+    {
+      "id": "storage-sync",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "storage-sync/result.json",
+          "assertions": 88,
+          "outcomes": {
+            "PASS": 88
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "overlay-identity",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "overlay-identity-1/result.json",
+          "assertions": 14,
+          "outcomes": {
+            "PASS": 14
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "overlay-identity-2/result.json",
+          "assertions": 14,
+          "outcomes": {
+            "PASS": 14
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "messaging",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "messaging-1/result.json",
+          "assertions": 41,
+          "outcomes": {
+            "PASS": 38,
+            "FAIL": 3
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "messaging-2/result.json",
+          "assertions": 41,
+          "outcomes": {
+            "PASS": 38,
+            "FAIL": 3
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "transport-typescript",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "transport-typescript-1/result.json",
+          "assertions": 17,
+          "outcomes": {
+            "PASS": 17
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "transport-typescript-2/result.json",
+          "assertions": 17,
+          "outcomes": {
+            "PASS": 17
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "transport-go",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "transport-go-1/result.json",
+          "assertions": 17,
+          "outcomes": {
+            "PASS": 17
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "transport-go-2/result.json",
+          "assertions": 17,
+          "outcomes": {
+            "PASS": 17
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "boundary-typescript",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "boundary-typescript-1/result.json",
+          "assertions": 43,
+          "outcomes": {
+            "PASS": 43
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "boundary-typescript-2/result.json",
+          "assertions": 43,
+          "outcomes": {
+            "PASS": 40,
+            "FAIL": 3
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "boundary-go",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "boundary-go-1/result.json",
+          "assertions": 43,
+          "outcomes": {
+            "PASS": 43
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "boundary-go-2/result.json",
+          "assertions": 43,
+          "outcomes": {
+            "PASS": 43
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "rust",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "rust-1/result.json",
+          "assertions": 36,
+          "outcomes": {
+            "PASS": 36
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "rust-2/result.json",
+          "assertions": 36,
+          "outcomes": {
+            "PASS": 36
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "lane": "messaging",
+      "repetition": 1,
+      "resultPath": "messaging-1/result.json",
+      "implementation": "go",
+      "id": "paid-internalization",
+      "result": "FAIL"
+    },
+    {
+      "lane": "messaging",
+      "repetition": 1,
+      "resultPath": "messaging-1/result.json",
+      "implementation": "go",
+      "id": "payment-replay-after-acknowledgment",
+      "result": "FAIL"
+    },
+    {
+      "lane": "messaging",
+      "repetition": 1,
+      "resultPath": "messaging-1/result.json",
+      "implementation": "go",
+      "id": "payment-replay-rejected",
+      "result": "FAIL"
+    },
+    {
+      "lane": "messaging",
+      "repetition": 2,
+      "resultPath": "messaging-2/result.json",
+      "implementation": "go",
+      "id": "paid-internalization",
+      "result": "FAIL"
+    },
+    {
+      "lane": "messaging",
+      "repetition": 2,
+      "resultPath": "messaging-2/result.json",
+      "implementation": "go",
+      "id": "payment-replay-after-acknowledgment",
+      "result": "FAIL"
+    },
+    {
+      "lane": "messaging",
+      "repetition": 2,
+      "resultPath": "messaging-2/result.json",
+      "implementation": "go",
+      "id": "payment-replay-rejected",
+      "result": "FAIL"
+    },
+    {
+      "lane": "boundary-typescript",
+      "repetition": 2,
+      "resultPath": "boundary-typescript-2/result.json",
+      "implementation": null,
+      "id": "discoverByAttributes.identity-service",
+      "result": "FAIL"
+    },
+    {
+      "lane": "boundary-typescript",
+      "repetition": 2,
+      "resultPath": "boundary-typescript-2/result.json",
+      "implementation": null,
+      "id": "discoverByIdentityKey.identity-service",
+      "result": "FAIL"
+    },
+    {
+      "lane": "boundary-typescript",
+      "repetition": 2,
+      "resultPath": "boundary-typescript-2/result.json",
+      "implementation": null,
+      "id": "identity-service.publish",
+      "result": "FAIL"
+    }
+  ]
+}

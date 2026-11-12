@@ -1,0 +1,135 @@
+{
+  "schema": "tpnil-native-lifecycle-engineering-archive@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "purpose": "Prospective explicit receipt policy and separately observed public storage terminal result; historical defaults remain unchanged",
+  "baseSource": "e4cca107e37a065a81e2a34b48024e958a71e03b",
+  "hostSourceSha256": "21d78660ca93cbc32069976fda7af65fcdfe670acf3c0b7977dcfb502f5caba9",
+  "oracleSourcesAtArchiveVerification": [
+    {
+      "path": "synthesis/go/cmd/itcve-services/main.go",
+      "sha256": "21d78660ca93cbc32069976fda7af65fcdfe670acf3c0b7977dcfb502f5caba9"
+    },
+    {
+      "path": "synthesis/go/cmd/itcve-services/lifecycle_test.go",
+      "sha256": "6d63402316c9a3f2193d846df99164d1a47a24c1074e92619b1c172f39af3044"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/go-services.ts",
+      "sha256": "ec3293cb2053fb10e8e07ce67aaaeebff7f91c0bbaeeb8ca72bf496cddee104a"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/services.ts",
+      "sha256": "79a5bd527acf6c564345de9249b6fb78da917aaa9e2f916c3dda4c5f75c2e92a"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/conformance-lifecycle.ts",
+      "sha256": "bf15366841308a18eaffd7d982efdbf21fa597e655f19e2cc721a96ad554fe00"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/verify-conformance-lifecycle.ts",
+      "sha256": "37bf4dbffcee98e2a6248db0bc732643ca3578efa87c79cad6fbc874e0fcab83"
+    },
+    {
+      "path": "scripts/run-conformance-lifecycle-reference.mjs",
+      "sha256": "4cfa37735f01aac22e2a6639a19874a8d1eb3d01e4b8eac0fbc3405fe5ce689e"
+    }
+  ],
+  "archive": {
+    "path": "evidence.json.gz",
+    "size": 95886,
+    "sha256": "941d66d143d65910ebc78825e87ba3e507173a23c41b058a2785fe7e1bb09ade"
+  },
+  "runs": [
+    {
+      "directory": "terminal-policy",
+      "storage": "go",
+      "cleanup": true,
+      "outcome": "PASS",
+      "assertions": [
+        {
+          "id": "accepted-service-verdict-observed",
+          "result": "PASS"
+        },
+        {
+          "id": "rejection-preserves-wallet-state",
+          "result": "PASS"
+        },
+        {
+          "id": "post-rejection-recovery",
+          "result": "PASS"
+        }
+      ],
+      "binarySha256": "83ce03e5893d70423beca53927b1fe520d976d118e778f9da9c547e96aff426f"
+    },
+    {
+      "directory": "legacy-policy",
+      "storage": "go",
+      "cleanup": true,
+      "outcome": "FAIL",
+      "assertions": [
+        {
+          "id": "accepted-service-verdict-observed",
+          "result": "PASS"
+        },
+        {
+          "id": "rejection-preserves-wallet-state",
+          "result": "FAIL"
+        },
+        {
+          "id": "post-rejection-recovery",
+          "result": "FAIL"
+        }
+      ],
+      "binarySha256": "83ce03e5893d70423beca53927b1fe520d976d118e778f9da9c547e96aff426f"
+    },
+    {
+      "directory": "storage-receipts",
+      "storage": "go",
+      "cleanup": true,
+      "outcome": "PASS",
+      "assertions": [
+        {
+          "id": "accepted-service-verdict-observed",
+          "result": "PASS"
+        },
+        {
+          "id": "rejection-preserves-wallet-state",
+          "result": "PASS"
+        },
+        {
+          "id": "post-rejection-recovery",
+          "result": "PASS"
+        }
+      ],
+      "binarySha256": "83ce03e5893d70423beca53927b1fe520d976d118e778f9da9c547e96aff426f"
+    },
+    {
+      "directory": "storage-receipts-message-only",
+      "storage": "go",
+      "cleanup": true,
+      "outcome": "PASS",
+      "assertions": [
+        {
+          "id": "accepted-service-verdict-observed",
+          "result": "PASS"
+        },
+        {
+          "id": "rejection-preserves-wallet-state",
+          "result": "PASS"
+        },
+        {
+          "id": "post-rejection-recovery",
+          "result": "PASS"
+        }
+      ],
+      "binarySha256": "83ce03e5893d70423beca53927b1fe520d976d118e778f9da9c547e96aff426f",
+      "errorTransport": "message-only-reference-facade"
+    }
+  ],
+  "limitations": [
+    "Reference Toolbox wallet, not native qualification.",
+    "Message-only case uses an explicit reference facade that removes structured errors to exercise the unchanged native interface limitation; it does not claim to be that native wallet.",
+    "Browser transport case uses synthetic page errors and proves only the Playwright bridge serialization.",
+    "Source hashes name the independent verification snapshot; exact host binary digests bind every execution."
+  ]
+}

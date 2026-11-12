@@ -1,0 +1,11 @@
+{
+  "verified": true,
+  "claim": "RETAINED_NATIVE_EVIDENCE_REEVALUATION",
+  "originalNativeSource": "c338a93c97ffebeeef318e679ff82b7dbf309dd5",
+  "evaluatorSource": "9cded11fae9c8a48fc23894157bbab0b561077e5",
+  "newNativeSessions": 0,
+  "nativeOutcome": "FAIL",
+  "integrationOutcome": "PASS",
+  "rustOutcome": "PASS",
+  "repetitions": 2
+}

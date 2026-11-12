@@ -1,0 +1,48 @@
+{
+  "schema": "tpnil-exact-source-review-bindings@1",
+  "source": "d02414f58d888e3d11913dedd888a3e5871bf29f",
+  "method": "read-only git archive; compared every listed byte against git show exact revision",
+  "cache": "out/frozen-descendant-source-d02414f",
+  "files": [
+    {
+      "path": "synthesis/src/wallet-lab/native/verify-conformance-portability.ts",
+      "bytes": 18805,
+      "sha256": "a8b20850656d2d9c12832a5588b413b072258068f1a6306639be43a3e1734f40"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/portability-proof.ts",
+      "bytes": 3031,
+      "sha256": "ced0e10136e91fc10f0caff87842b6cc9eebc5ad9123557da768754489d60fb8"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/conformance-portability.ts",
+      "bytes": 20808,
+      "sha256": "59d981bf5e1230555304b98dc5dfedd3bf3ea258942fc965a02a0defd7770d08"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/go-services.ts",
+      "bytes": 16855,
+      "sha256": "6a3d7c123ef3eccdd214bbaed3658b7ee4a814e4454fd5d84f0c3b2d5d32da41"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/services.ts",
+      "bytes": 54500,
+      "sha256": "ecf0f4f350d8c747ad057f759d0bbf7dc566f2ac398dfb0b0f61078bc7b56fff"
+    },
+    {
+      "path": "infra/adapters/storage-portability/patch.lock.json",
+      "bytes": 1024,
+      "sha256": "b9f229391f4fd8a953fd76b6c73cc7585818d91fe6c1802e9fc8667a86c1fcef"
+    },
+    {
+      "path": "infra/native/conformance/plan.json",
+      "bytes": 4875,
+      "sha256": "208837ffda4b126b9f1023f655579fbe07dd490cf076123e8f7a3d99da57c660"
+    },
+    {
+      "path": "synthesis/package-lock.json",
+      "bytes": 119650,
+      "sha256": "14b17cdddc06c8d10788d32ea6ba9938e64631e533160f731fc55aa77b0a5790"
+    }
+  ]
+}

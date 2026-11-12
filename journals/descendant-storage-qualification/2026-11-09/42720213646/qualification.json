@@ -1,0 +1,936 @@
+{
+  "schema": "tpnil-descendant-storage-ci-qualification@2",
+  "claim": "ENGINEERING_REFERENCE_STORAGE_QUALIFICATION_ONLY",
+  "nativeQualification": false,
+  "source": "8055aabb731df2c2a4020c885445ae621b57e492",
+  "workflowRun": 42720213646,
+  "workflowUrl": "https://github.com/p2ppsr/interop/actions/runs/42720213646",
+  "workflowConclusion": "success",
+  "projection": {
+    "profile": "ISI-3/descendant-storage@2.0.0",
+    "projectionPolicy": "tpnil-storage-history-projection@2.0.0",
+    "projectionManifestSha256": "3549779398c8c562cd01e7253377b6c4c9b5a2f636028940ff7ddf817a6c9fb2",
+    "storageProjection": {
+      "profile": "ISI-3/storage-http-sync@2.0.0",
+      "projectionPolicy": "tpnil-storage-history-projection@2.0.0",
+      "projectionManifestSha256": "02d213f1215ecdde54b813e04d93b9a8be8464063fbfdefb07c1a3ad4b740062"
+    }
+  },
+  "artifact": {
+    "id": 13720687119,
+    "name": "descendant-storage-sync",
+    "bytes": 1525390,
+    "sha256": "cf139c2287c07cf91c4b367609d68f3eccc4e7080c27480a09f2465ea07cf775",
+    "url": "https://github.com/p2ppsr/interop/actions/runs/42720213646/artifacts/13720687119"
+  },
+  "verification": {
+    "verified": true,
+    "command": "node out/frozen-foundation-source-8055aab/scripts/verify-descendant-storage-matrix.mjs out/foundation-42720213646/descendant-storage-sync --exact-history",
+    "source": "8055aabb731df2c2a4020c885445ae621b57e492",
+    "sourceInputsMatchGit": true,
+    "originalMembersUnchanged": 51,
+    "platform": "darwin-arm64",
+    "node": "24.22.1"
+  },
+  "directions": 4,
+  "freshExecutions": 8,
+  "distinctIdentities": 8,
+  "assertions": {
+    "total": 80,
+    "PASS": 80,
+    "FAIL": 0,
+    "BLOCKED": 0
+  },
+  "runs": [
+    {
+      "name": "typescript-to-typescript/rep-1",
+      "repetition": 1,
+      "source": "typescript",
+      "destination": "typescript",
+      "result": "PASS",
+      "identity": "03d54cd37930b0c5587333d55bf4841843a922a5af7546818ba8ac2c5cfa2cf93d",
+      "assertions": [
+        {
+          "id": "descendant-only-owner",
+          "result": "PASS"
+        },
+        {
+          "id": "empty-replacement",
+          "result": "PASS"
+        },
+        {
+          "id": "proof-expansion-pagination",
+          "result": "PASS"
+        },
+        {
+          "id": "owner-scoped-export",
+          "result": "PASS"
+        },
+        {
+          "id": "source-export-proof-closure",
+          "result": "PASS"
+        },
+        {
+          "id": "destination-export-proof-closure",
+          "result": "PASS"
+        },
+        {
+          "id": "source-offline",
+          "result": "PASS"
+        },
+        {
+          "id": "cold-list-and-decrypt",
+          "result": "PASS"
+        },
+        {
+          "id": "cold-redemption",
+          "result": "PASS"
+        },
+        {
+          "id": "cleanup",
+          "result": "PASS"
+        }
+      ],
+      "report": {
+        "file": "typescript-to-typescript/rep-1/observations.json",
+        "sha256": "67ed16024363d74a79fa54cafaeafbce9adaea585a93b97c78c3442f224b0b6e",
+        "bytes": 1780890
+      },
+      "log": {
+        "file": "typescript-to-typescript/rep-1.log",
+        "sha256": "01d669824c9048c42130dd70b5a86e1e9bef8159e52576f5fce62ecb758081e4",
+        "bytes": 2784
+      }
+    },
+    {
+      "name": "typescript-to-typescript/rep-2",
+      "repetition": 2,
+      "source": "typescript",
+      "destination": "typescript",
+      "result": "PASS",
+      "identity": "03ab5d2e79cfd621b1b027ffb24e2453ed7fb571ba9a841ff0e2473466cabd168d",
+      "assertions": [
+        {
+          "id": "descendant-only-owner",
+          "result": "PASS"
+        },
+        {
+          "id": "empty-replacement",
+          "result": "PASS"
+        },
+        {
+          "id": "proof-expansion-pagination",
+          "result": "PASS"
+        },
+        {
+          "id": "owner-scoped-export",
+          "result": "PASS"
+        },
+        {
+          "id": "source-export-proof-closure",
+          "result": "PASS"
+        },
+        {
+          "id": "destination-export-proof-closure",
+          "result": "PASS"
+        },
+        {
+          "id": "source-offline",
+          "result": "PASS"
+        },
+        {
+          "id": "cold-list-and-decrypt",
+          "result": "PASS"
+        },
+        {
+          "id": "cold-redemption",
+          "result": "PASS"
+        },
+        {
+          "id": "cleanup",
+          "result": "PASS"
+        }
+      ],
+      "report": {
+        "file": "typescript-to-typescript/rep-2/observations.json",
+        "sha256": "afcace3b1293f5addd263ef234647f8512aa7b729631b8468a8d0b24c19d4a8d",
+        "bytes": 1779726
+      },
+      "log": {
+        "file": "typescript-to-typescript/rep-2.log",
+        "sha256": "e015c804b52a0c8028ba23e6c15bc586b38dcd773a92fb5584c88687c0650058",
+        "bytes": 2790
+      }
+    },
+    {
+      "name": "typescript-to-go/rep-1",
+      "repetition": 1,
+      "source": "typescript",
+      "destination": "go",
+      "result": "PASS",
+      "identity": "036b7eb04e07af07b5d82e463660f9e3e4eaf9c854e5aa47391d6daa8e9ac01a35",
+      "assertions": [
+        {
+          "id": "descendant-only-owner",
+          "result": "PASS"
+        },
+        {
+          "id": "empty-replacement",
+          "result": "PASS"
+        },
+        {
+          "id": "proof-expansion-pagination",
+          "result": "PASS"
+        },
+        {
+          "id": "owner-scoped-export",
+          "result": "PASS"
+        },
+        {
+          "id": "source-export-proof-closure",
+          "result": "PASS"
+        },
+        {
+          "id": "destination-export-proof-closure",
+          "result": "PASS"
+        },
+        {
+          "id": "source-offline",
+          "result": "PASS"
+        },
+        {
+          "id": "cold-list-and-decrypt",
+          "result": "PASS"
+        },
+        {
+          "id": "cold-redemption",
+          "result": "PASS"
+        },
+        {
+          "id": "cleanup",
+          "result": "PASS"
+        }
+      ],
+      "report": {
+        "file": "typescript-to-go/rep-1/observations.json",
+        "sha256": "18a592796cf0653c7d6aea29d1f68ee504f8f7f08d06c5718489f8658c848e5f",
+        "bytes": 1486424
+      },
+      "log": {
+        "file": "typescript-to-go/rep-1.log",
+        "sha256": "cd4e538e74fb62efed38fcb09d457efacf46635267270ce79549b3d3585eb44d",
+        "bytes": 2728
+      }
+    },
+    {
+      "name": "typescript-to-go/rep-2",
+      "repetition": 2,
+      "source": "typescript",
+      "destination": "go",
+      "result": "PASS",
+      "identity": "03def24e149639253723c9876cf0078a0567f21cc32d0c9454c863930b26f11fad",
+      "assertions": [
+        {
+          "id": "descendant-only-owner",
+          "result": "PASS"
+        },
+        {
+          "id": "empty-replacement",
+          "result": "PASS"
+        },
+        {
+          "id": "proof-expansion-pagination",
+          "result": "PASS"
+        },
+        {
+          "id": "owner-scoped-export",
+          "result": "PASS"
+        },
+        {
+          "id": "source-export-proof-closure",
+          "result": "PASS"
+        },
+        {
+          "id": "destination-export-proof-closure",
+          "result": "PASS"
+        },
+        {
+          "id": "source-offline",
+          "result": "PASS"
+        },
+        {
+          "id": "cold-list-and-decrypt",
+          "result": "PASS"
+        },
+        {
+          "id": "cold-redemption",
+          "result": "PASS"
+        },
+        {
+          "id": "cleanup",
+          "result": "PASS"
+        }
+      ],
+      "report": {
+        "file": "typescript-to-go/rep-2/observations.json",
+        "sha256": "ba29c20c403ab1ebc78e9c52525ba65b0f0ad108dfb81a49c01cc6b296475b8b",
+        "bytes": 1480157
+      },
+      "log": {
+        "file": "typescript-to-go/rep-2.log",
+        "sha256": "ef2b107fb5a4dcaadadb22f7c26d88004623367399cf15fb0f1b14ebe9ec0f3b",
+        "bytes": 2737
+      }
+    },
+    {
+      "name": "go-to-typescript/rep-1",
+      "repetition": 1,
+      "source": "go",
+      "destination": "typescript",
+      "result": "PASS",
+      "identity": "036c84cce49f2187fb80d41efa851aa62def60c74bcc07b9eb78d880f2bf9940f6",
+      "assertions": [
+        {
+          "id": "descendant-only-owner",
+          "result": "PASS"
+        },
+        {
+          "id": "empty-replacement",
+          "result": "PASS"
+        },
+        {
+          "id": "proof-expansion-pagination",
+          "result": "PASS"
+        },
+        {
+          "id": "owner-scoped-export",
+          "result": "PASS"
+        },
+        {
+          "id": "source-export-proof-closure",
+          "result": "PASS"
+        },
+        {
+          "id": "destination-export-proof-closure",
+          "result": "PASS"
+        },
+        {
+          "id": "source-offline",
+          "result": "PASS"
+        },
+        {
+          "id": "cold-list-and-decrypt",
+          "result": "PASS"
+        },
+        {
+          "id": "cold-redemption",
+          "result": "PASS"
+        },
+        {
+          "id": "cleanup",
+          "result": "PASS"
+        }
+      ],
+      "report": {
+        "file": "go-to-typescript/rep-1/observations.json",
+        "sha256": "0dffbd6a224ac4f5c851484bb952b1b90b28ec0bb3f9d7ccb242d96eae559662",
+        "bytes": 1491061
+      },
+      "log": {
+        "file": "go-to-typescript/rep-1.log",
+        "sha256": "6b01cde3d1289457675220b09a12f330a51dd3c6ccadfebade117ae8962dc64e",
+        "bytes": 2724
+      }
+    },
+    {
+      "name": "go-to-typescript/rep-2",
+      "repetition": 2,
+      "source": "go",
+      "destination": "typescript",
+      "result": "PASS",
+      "identity": "02e8c20537e368bbc1f15b99159088c265444bb3365cbea99c16f94bfddc23aeeb",
+      "assertions": [
+        {
+          "id": "descendant-only-owner",
+          "result": "PASS"
+        },
+        {
+          "id": "empty-replacement",
+          "result": "PASS"
+        },
+        {
+          "id": "proof-expansion-pagination",
+          "result": "PASS"
+        },
+        {
+          "id": "owner-scoped-export",
+          "result": "PASS"
+        },
+        {
+          "id": "source-export-proof-closure",
+          "result": "PASS"
+        },
+        {
+          "id": "destination-export-proof-closure",
+          "result": "PASS"
+        },
+        {
+          "id": "source-offline",
+          "result": "PASS"
+        },
+        {
+          "id": "cold-list-and-decrypt",
+          "result": "PASS"
+        },
+        {
+          "id": "cold-redemption",
+          "result": "PASS"
+        },
+        {
+          "id": "cleanup",
+          "result": "PASS"
+        }
+      ],
+      "report": {
+        "file": "go-to-typescript/rep-2/observations.json",
+        "sha256": "d47f030673fd1af56ee4e082981b16241f9482f357e6f79f612260706cfd8c59",
+        "bytes": 1491822
+      },
+      "log": {
+        "file": "go-to-typescript/rep-2.log",
+        "sha256": "86dd723d104188698df6d32b4fe975866bc9867b6af819ca8ae46e906884b64b",
+        "bytes": 2722
+      }
+    },
+    {
+      "name": "go-to-go/rep-1",
+      "repetition": 1,
+      "source": "go",
+      "destination": "go",
+      "result": "PASS",
+      "identity": "03f9a90979edaa7a3dcc603124038399269826a173e54b6a7beb237f422f5f40ca",
+      "assertions": [
+        {
+          "id": "descendant-only-owner",
+          "result": "PASS"
+        },
+        {
+          "id": "empty-replacement",
+          "result": "PASS"
+        },
+        {
+          "id": "proof-expansion-pagination",
+          "result": "PASS"
+        },
+        {
+          "id": "owner-scoped-export",
+          "result": "PASS"
+        },
+        {
+          "id": "source-export-proof-closure",
+          "result": "PASS"
+        },
+        {
+          "id": "destination-export-proof-closure",
+          "result": "PASS"
+        },
+        {
+          "id": "source-offline",
+          "result": "PASS"
+        },
+        {
+          "id": "cold-list-and-decrypt",
+          "result": "PASS"
+        },
+        {
+          "id": "cold-redemption",
+          "result": "PASS"
+        },
+        {
+          "id": "cleanup",
+          "result": "PASS"
+        }
+      ],
+      "report": {
+        "file": "go-to-go/rep-1/observations.json",
+        "sha256": "b4f904c588d0c2b2d894128108c7bd7d5f3b9778c29e5bb3b09038ba996c22fa",
+        "bytes": 1385786
+      },
+      "log": {
+        "file": "go-to-go/rep-1.log",
+        "sha256": "f56e216c34d1f9d1ea1eaf3d064c969232a897934fda3b1644bf2450654db726",
+        "bytes": 2657
+      }
+    },
+    {
+      "name": "go-to-go/rep-2",
+      "repetition": 2,
+      "source": "go",
+      "destination": "go",
+      "result": "PASS",
+      "identity": "02d983f45f02fc0391ad85b96826505f1f503f15bbfa8e7673309559d96f02eb81",
+      "assertions": [
+        {
+          "id": "descendant-only-owner",
+          "result": "PASS"
+        },
+        {
+          "id": "empty-replacement",
+          "result": "PASS"
+        },
+        {
+          "id": "proof-expansion-pagination",
+          "result": "PASS"
+        },
+        {
+          "id": "owner-scoped-export",
+          "result": "PASS"
+        },
+        {
+          "id": "source-export-proof-closure",
+          "result": "PASS"
+        },
+        {
+          "id": "destination-export-proof-closure",
+          "result": "PASS"
+        },
+        {
+          "id": "source-offline",
+          "result": "PASS"
+        },
+        {
+          "id": "cold-list-and-decrypt",
+          "result": "PASS"
+        },
+        {
+          "id": "cold-redemption",
+          "result": "PASS"
+        },
+        {
+          "id": "cleanup",
+          "result": "PASS"
+        }
+      ],
+      "report": {
+        "file": "go-to-go/rep-2/observations.json",
+        "sha256": "32427f81635458a4bcfd93c144b1732502c33103c3edb3b62ee5a6e29ea28ddf",
+        "bytes": 1388006
+      },
+      "log": {
+        "file": "go-to-go/rep-2.log",
+        "sha256": "3cca122ef122d291819ad34f90614bece1e164abf278c73a73574a17db0cf70d",
+        "bytes": 2661
+      }
+    }
+  ],
+  "binarySha256": "9339f7976158fca05d58532c8acf331aa245dd5860271403bda0948ee6ff7a39",
+  "inputs": {
+    "fixtures/teranode/wab-funding-v1.json": {
+      "sha256": "7c4fd4d2c98f8c80b4ac41614b09c9baed91c087b1a418e0f15edc6b8e55560a",
+      "bytes": 2563
+    },
+    "synthesis/src/storage-sync/descendant-inputs.ts": {
+      "sha256": "9e08a5658e290161f15f15debc0ce404cf662297e63ceb273e5c82bf9d671716",
+      "bytes": 2006
+    },
+    "synthesis/src/storage-sync/descendant-export.ts": {
+      "sha256": "76c5763ade731d53e4411b0ae47a831ad87f93951ccc14184ae83a4453bca8f9",
+      "bytes": 4076
+    },
+    "synthesis/src/storage-sync/descendant-funding.ts": {
+      "sha256": "2ae7d3efc8fef1fb6ce412583a0b3e69c676fa3211bbf9ae5f62bde557b070ed",
+      "bytes": 20991
+    },
+    "synthesis/src/storage-sync/verify-descendant.ts": {
+      "sha256": "a9b6bb00f75dce4918d73f7cc45826614d4c5a45981ee12a76d50e014fc25232",
+      "bytes": 15552
+    },
+    "synthesis/src/storage-sync/fixture-wallet.ts": {
+      "sha256": "33991ea24ee8cf150f86aa3c9389d330b66ff311ef64995a61017c4219bdbb23",
+      "bytes": 1928
+    },
+    "synthesis/src/storage-sync/run.ts": {
+      "sha256": "37fa7d89c9813b32b04f3bc723e4d55074b4cc2035b77b3f43af309a7fd19d1e",
+      "bytes": 18299
+    },
+    "synthesis/src/storage-sync/compatibility.ts": {
+      "sha256": "4536126476a56e5a78f406d3d886c96337661555264a4f6649d733ee7007aa47",
+      "bytes": 1716
+    },
+    "synthesis/src/storage-sync/projection.ts": {
+      "sha256": "ab251c8a1abd30aef5c246f6434fd786310b8ef69813f94005626652c479dc48",
+      "bytes": 7522
+    },
+    "synthesis/src/determinism.ts": {
+      "sha256": "429d62abc8127234e231cb84238e47349f9aa3c6569d7d9298f63233f7096599",
+      "bytes": 2484
+    },
+    "synthesis/src/wallet-lab/services.ts": {
+      "sha256": "736218e1f689d6c309c62b116f91e35b0aeaf97be0f5a10a4a38978fca7958a5",
+      "bytes": 55567
+    },
+    "synthesis/src/wallet-lab/go-services.ts": {
+      "sha256": "ec6935176ec79eb347b6d49e0ac9ee181b8ea1c9368107d85a52040fe0093535",
+      "bytes": 17237
+    },
+    "synthesis/src/wallet-lab/submission-verdicts.ts": {
+      "sha256": "0371135cc1f81e57143074a1adf7ec61b694c6a79c0e234a4d29e3780213a39f",
+      "bytes": 2157
+    },
+    "synthesis/package.json": {
+      "sha256": "82f8d5d3acafc8590e63ac38557688be25e9b037a678093be64560d165dfe40c",
+      "bytes": 1329
+    },
+    "synthesis/package-lock.json": {
+      "sha256": "14b17cdddc06c8d10788d32ea6ba9938e64631e533160f731fc55aa77b0a5790",
+      "bytes": 119650
+    },
+    "synthesis/go/components.lock.json": {
+      "sha256": "c217fef579707eb1f5614ea6b97fc932674296c67aaf7fabc297383f7f481047",
+      "bytes": 1159
+    },
+    "synthesis/go/go.mod": {
+      "sha256": "6591deefcb01570359a07e69e39d4898b78e71f1f3838835c58695fd25b61a4c",
+      "bytes": 15823
+    },
+    "synthesis/go/go.sum": {
+      "sha256": "957658a619b1821ef677152de04e71d9ce1a37f5648de2c2c45851e1ea74338a",
+      "bytes": 85700
+    },
+    "synthesis/go/cmd/itcve-services/main.go": {
+      "sha256": "21d78660ca93cbc32069976fda7af65fcdfe670acf3c0b7977dcfb502f5caba9",
+      "bytes": 26036
+    },
+    "synthesis/go/cmd/itcve-services/sync.go": {
+      "sha256": "6096b3f8571560dca893eda2ad2758fcc3779497942246f1f4da82c7228b2463",
+      "bytes": 2278
+    },
+    "infra/adapters/storage-sync/patch.lock.json": {
+      "sha256": "73b327cb785ab061d58678ff6c26eefa46a9aa838d09d5f8bfee50aae3fb4391",
+      "bytes": 1923
+    },
+    "infra/adapters/storage-sync/go-wallet-toolbox-v0.191.4.patch": {
+      "sha256": "197f465236907f146297015b609e193c5815006ce6e8ae920db55779f90e2074",
+      "bytes": 7955
+    },
+    "infra/adapters/storage-portability/typescript-descendant-export.json": {
+      "sha256": "2db5cb544cdaf7fef14718936f5d1513f5ae885a0442bf1fed9830e9a1e857c7",
+      "bytes": 2636
+    },
+    "infra/adapters/storage-portability/patch.lock.json": {
+      "sha256": "b9f229391f4fd8a953fd76b6c73cc7585818d91fe6c1802e9fc8667a86c1fcef",
+      "bytes": 1024
+    },
+    "infra/adapters/storage-portability/go-wallet-toolbox-v0.191.4.patch": {
+      "sha256": "5e1fff193191565fa0032f2b9954bf07054c9806a78e6103049a14122a947e0c",
+      "bytes": 14641
+    },
+    "scripts/prepare-storage-portability-go.mjs": {
+      "sha256": "160b27079280c9988607810136512e163091a748186358119eed102edc5574ef",
+      "bytes": 4383
+    },
+    "scripts/run-descendant-storage-sync.mjs": {
+      "sha256": "8540399de9db1cc2018626c0d3c897b45ebc00131d95bc7d960515a2e0e0117d",
+      "bytes": 1472
+    },
+    "scripts/run-descendant-storage-matrix.mjs": {
+      "sha256": "10a41a9b00d07bc34086b6e23dbbcdcc4b3b1d0bdf2c4a03f9e8256b168fbfdf",
+      "bytes": 4880
+    },
+    "scripts/verify-descendant-storage-matrix.mjs": {
+      "sha256": "1dd6de6b040bf3ae0a27f6e4bc6a28b033c79d53ef326e39f8847ee48577809c",
+      "bytes": 6191
+    },
+    "synthesis/src/storage-sync/history-projection.ts": {
+      "sha256": "b48883ea782171df9de7e3bafd512419a95e31ddb5b37adf6e6f46548d0e1f81",
+      "bytes": 2313
+    },
+    "synthesis/src/storage-sync/projection-profile.ts": {
+      "sha256": "029925a11e3d76c04248ec9cf0eb4f09b447194c77a1a0c8d4ea2e010d480080",
+      "bytes": 2015
+    },
+    "synthesis/src/storage-sync/descendant-profile.ts": {
+      "sha256": "553dc7046a5c453d8bbd5d2a2571c21c95913fe5b08738c7e323908fdd5fbbda",
+      "bytes": 2522
+    },
+    "programs/ISI-3/profiles/storage-http-sync-2.0.0/profile.json": {
+      "sha256": "02d213f1215ecdde54b813e04d93b9a8be8464063fbfdefb07c1a3ad4b740062",
+      "bytes": 2167
+    },
+    "programs/ISI-3/profiles/descendant-storage-2.0.0/profile.json": {
+      "sha256": "3549779398c8c562cd01e7253377b6c4c9b5a2f636028940ff7ddf817a6c9fb2",
+      "bytes": 1804
+    }
+  },
+  "members": [
+    {
+      "path": "go-to-go/rep-1.log",
+      "size": 2657,
+      "sha256": "f56e216c34d1f9d1ea1eaf3d064c969232a897934fda3b1644bf2450654db726"
+    },
+    {
+      "path": "go-to-go/rep-1/observations.json",
+      "size": 1385786,
+      "sha256": "b4f904c588d0c2b2d894128108c7bd7d5f3b9778c29e5bb3b09038ba996c22fa"
+    },
+    {
+      "path": "go-to-go/rep-2.log",
+      "size": 2661,
+      "sha256": "3cca122ef122d291819ad34f90614bece1e164abf278c73a73574a17db0cf70d"
+    },
+    {
+      "path": "go-to-go/rep-2/observations.json",
+      "size": 1388006,
+      "sha256": "32427f81635458a4bcfd93c144b1732502c33103c3edb3b62ee5a6e29ea28ddf"
+    },
+    {
+      "path": "go-to-typescript/rep-1.log",
+      "size": 2724,
+      "sha256": "6b01cde3d1289457675220b09a12f330a51dd3c6ccadfebade117ae8962dc64e"
+    },
+    {
+      "path": "go-to-typescript/rep-1/observations.json",
+      "size": 1491061,
+      "sha256": "0dffbd6a224ac4f5c851484bb952b1b90b28ec0bb3f9d7ccb242d96eae559662"
+    },
+    {
+      "path": "go-to-typescript/rep-2.log",
+      "size": 2722,
+      "sha256": "86dd723d104188698df6d32b4fe975866bc9867b6af819ca8ae46e906884b64b"
+    },
+    {
+      "path": "go-to-typescript/rep-2/observations.json",
+      "size": 1491822,
+      "sha256": "d47f030673fd1af56ee4e082981b16241f9482f357e6f79f612260706cfd8c59"
+    },
+    {
+      "path": "matrix.json",
+      "size": 28615,
+      "sha256": "b20e84396b457e97b3e111ab79f7564b80460492abbc7891f1b3dd8e3fce059c"
+    },
+    {
+      "path": "source-inputs/fixtures/teranode/wab-funding-v1.json",
+      "size": 2563,
+      "sha256": "7c4fd4d2c98f8c80b4ac41614b09c9baed91c087b1a418e0f15edc6b8e55560a"
+    },
+    {
+      "path": "source-inputs/infra/adapters/storage-portability/go-wallet-toolbox-v0.191.4.patch",
+      "size": 14641,
+      "sha256": "5e1fff193191565fa0032f2b9954bf07054c9806a78e6103049a14122a947e0c"
+    },
+    {
+      "path": "source-inputs/infra/adapters/storage-portability/patch.lock.json",
+      "size": 1024,
+      "sha256": "b9f229391f4fd8a953fd76b6c73cc7585818d91fe6c1802e9fc8667a86c1fcef"
+    },
+    {
+      "path": "source-inputs/infra/adapters/storage-portability/typescript-descendant-export.json",
+      "size": 2636,
+      "sha256": "2db5cb544cdaf7fef14718936f5d1513f5ae885a0442bf1fed9830e9a1e857c7"
+    },
+    {
+      "path": "source-inputs/infra/adapters/storage-sync/go-wallet-toolbox-v0.191.4.patch",
+      "size": 7955,
+      "sha256": "197f465236907f146297015b609e193c5815006ce6e8ae920db55779f90e2074"
+    },
+    {
+      "path": "source-inputs/infra/adapters/storage-sync/patch.lock.json",
+      "size": 1923,
+      "sha256": "73b327cb785ab061d58678ff6c26eefa46a9aa838d09d5f8bfee50aae3fb4391"
+    },
+    {
+      "path": "source-inputs/programs/ISI-3/profiles/descendant-storage-2.0.0/profile.json",
+      "size": 1804,
+      "sha256": "3549779398c8c562cd01e7253377b6c4c9b5a2f636028940ff7ddf817a6c9fb2"
+    },
+    {
+      "path": "source-inputs/programs/ISI-3/profiles/storage-http-sync-2.0.0/profile.json",
+      "size": 2167,
+      "sha256": "02d213f1215ecdde54b813e04d93b9a8be8464063fbfdefb07c1a3ad4b740062"
+    },
+    {
+      "path": "source-inputs/scripts/prepare-storage-portability-go.mjs",
+      "size": 4383,
+      "sha256": "160b27079280c9988607810136512e163091a748186358119eed102edc5574ef"
+    },
+    {
+      "path": "source-inputs/scripts/run-descendant-storage-matrix.mjs",
+      "size": 4880,
+      "sha256": "10a41a9b00d07bc34086b6e23dbbcdcc4b3b1d0bdf2c4a03f9e8256b168fbfdf"
+    },
+    {
+      "path": "source-inputs/scripts/run-descendant-storage-sync.mjs",
+      "size": 1472,
+      "sha256": "8540399de9db1cc2018626c0d3c897b45ebc00131d95bc7d960515a2e0e0117d"
+    },
+    {
+      "path": "source-inputs/scripts/verify-descendant-storage-matrix.mjs",
+      "size": 6191,
+      "sha256": "1dd6de6b040bf3ae0a27f6e4bc6a28b033c79d53ef326e39f8847ee48577809c"
+    },
+    {
+      "path": "source-inputs/synthesis/go/cmd/itcve-services/main.go",
+      "size": 26036,
+      "sha256": "21d78660ca93cbc32069976fda7af65fcdfe670acf3c0b7977dcfb502f5caba9"
+    },
+    {
+      "path": "source-inputs/synthesis/go/cmd/itcve-services/sync.go",
+      "size": 2278,
+      "sha256": "6096b3f8571560dca893eda2ad2758fcc3779497942246f1f4da82c7228b2463"
+    },
+    {
+      "path": "source-inputs/synthesis/go/components.lock.json",
+      "size": 1159,
+      "sha256": "c217fef579707eb1f5614ea6b97fc932674296c67aaf7fabc297383f7f481047"
+    },
+    {
+      "path": "source-inputs/synthesis/go/go.mod",
+      "size": 15823,
+      "sha256": "6591deefcb01570359a07e69e39d4898b78e71f1f3838835c58695fd25b61a4c"
+    },
+    {
+      "path": "source-inputs/synthesis/go/go.sum",
+      "size": 85700,
+      "sha256": "957658a619b1821ef677152de04e71d9ce1a37f5648de2c2c45851e1ea74338a"
+    },
+    {
+      "path": "source-inputs/synthesis/package-lock.json",
+      "size": 119650,
+      "sha256": "14b17cdddc06c8d10788d32ea6ba9938e64631e533160f731fc55aa77b0a5790"
+    },
+    {
+      "path": "source-inputs/synthesis/package.json",
+      "size": 1329,
+      "sha256": "82f8d5d3acafc8590e63ac38557688be25e9b037a678093be64560d165dfe40c"
+    },
+    {
+      "path": "source-inputs/synthesis/src/determinism.ts",
+      "size": 2484,
+      "sha256": "429d62abc8127234e231cb84238e47349f9aa3c6569d7d9298f63233f7096599"
+    },
+    {
+      "path": "source-inputs/synthesis/src/storage-sync/compatibility.ts",
+      "size": 1716,
+      "sha256": "4536126476a56e5a78f406d3d886c96337661555264a4f6649d733ee7007aa47"
+    },
+    {
+      "path": "source-inputs/synthesis/src/storage-sync/descendant-export.ts",
+      "size": 4076,
+      "sha256": "76c5763ade731d53e4411b0ae47a831ad87f93951ccc14184ae83a4453bca8f9"
+    },
+    {
+      "path": "source-inputs/synthesis/src/storage-sync/descendant-funding.ts",
+      "size": 20991,
+      "sha256": "2ae7d3efc8fef1fb6ce412583a0b3e69c676fa3211bbf9ae5f62bde557b070ed"
+    },
+    {
+      "path": "source-inputs/synthesis/src/storage-sync/descendant-inputs.ts",
+      "size": 2006,
+      "sha256": "9e08a5658e290161f15f15debc0ce404cf662297e63ceb273e5c82bf9d671716"
+    },
+    {
+      "path": "source-inputs/synthesis/src/storage-sync/descendant-profile.ts",
+      "size": 2522,
+      "sha256": "553dc7046a5c453d8bbd5d2a2571c21c95913fe5b08738c7e323908fdd5fbbda"
+    },
+    {
+      "path": "source-inputs/synthesis/src/storage-sync/fixture-wallet.ts",
+      "size": 1928,
+      "sha256": "33991ea24ee8cf150f86aa3c9389d330b66ff311ef64995a61017c4219bdbb23"
+    },
+    {
+      "path": "source-inputs/synthesis/src/storage-sync/history-projection.ts",
+      "size": 2313,
+      "sha256": "b48883ea782171df9de7e3bafd512419a95e31ddb5b37adf6e6f46548d0e1f81"
+    },
+    {
+      "path": "source-inputs/synthesis/src/storage-sync/projection-profile.ts",
+      "size": 2015,
+      "sha256": "029925a11e3d76c04248ec9cf0eb4f09b447194c77a1a0c8d4ea2e010d480080"
+    },
+    {
+      "path": "source-inputs/synthesis/src/storage-sync/projection.ts",
+      "size": 7522,
+      "sha256": "ab251c8a1abd30aef5c246f6434fd786310b8ef69813f94005626652c479dc48"
+    },
+    {
+      "path": "source-inputs/synthesis/src/storage-sync/run.ts",
+      "size": 18299,
+      "sha256": "37fa7d89c9813b32b04f3bc723e4d55074b4cc2035b77b3f43af309a7fd19d1e"
+    },
+    {
+      "path": "source-inputs/synthesis/src/storage-sync/verify-descendant.ts",
+      "size": 15552,
+      "sha256": "a9b6bb00f75dce4918d73f7cc45826614d4c5a45981ee12a76d50e014fc25232"
+    },
+    {
+      "path": "source-inputs/synthesis/src/wallet-lab/go-services.ts",
+      "size": 17237,
+      "sha256": "ec6935176ec79eb347b6d49e0ac9ee181b8ea1c9368107d85a52040fe0093535"
+    },
+    {
+      "path": "source-inputs/synthesis/src/wallet-lab/services.ts",
+      "size": 55567,
+      "sha256": "736218e1f689d6c309c62b116f91e35b0aeaf97be0f5a10a4a38978fca7958a5"
+    },
+    {
+      "path": "source-inputs/synthesis/src/wallet-lab/submission-verdicts.ts",
+      "size": 2157,
+      "sha256": "0371135cc1f81e57143074a1adf7ec61b694c6a79c0e234a4d29e3780213a39f"
+    },
+    {
+      "path": "typescript-to-go/rep-1.log",
+      "size": 2728,
+      "sha256": "cd4e538e74fb62efed38fcb09d457efacf46635267270ce79549b3d3585eb44d"
+    },
+    {
+      "path": "typescript-to-go/rep-1/observations.json",
+      "size": 1486424,
+      "sha256": "18a592796cf0653c7d6aea29d1f68ee504f8f7f08d06c5718489f8658c848e5f"
+    },
+    {
+      "path": "typescript-to-go/rep-2.log",
+      "size": 2737,
+      "sha256": "ef2b107fb5a4dcaadadb22f7c26d88004623367399cf15fb0f1b14ebe9ec0f3b"
+    },
+    {
+      "path": "typescript-to-go/rep-2/observations.json",
+      "size": 1480157,
+      "sha256": "ba29c20c403ab1ebc78e9c52525ba65b0f0ad108dfb81a49c01cc6b296475b8b"
+    },
+    {
+      "path": "typescript-to-typescript/rep-1.log",
+      "size": 2784,
+      "sha256": "01d669824c9048c42130dd70b5a86e1e9bef8159e52576f5fce62ecb758081e4"
+    },
+    {
+      "path": "typescript-to-typescript/rep-1/observations.json",
+      "size": 1780890,
+      "sha256": "67ed16024363d74a79fa54cafaeafbce9adaea585a93b97c78c3442f224b0b6e"
+    },
+    {
+      "path": "typescript-to-typescript/rep-2.log",
+      "size": 2790,
+      "sha256": "e015c804b52a0c8028ba23e6c15bc586b38dcd773a92fb5584c88687c0650058"
+    },
+    {
+      "path": "typescript-to-typescript/rep-2/observations.json",
+      "size": 1779726,
+      "sha256": "afcace3b1293f5addd263ef234647f8512aa7b729631b8468a8d0b24c19d4a8d"
+    }
+  ],
+  "integratedArtifactJoin": {
+    "artifactId": 13721345778,
+    "nestedPath": "descendant-storage-sync",
+    "sameMemberBytes": true,
+    "memberCount": 51,
+    "assertionsIncludedInComponentTotal": 80,
+    "additionalExecutions": 0
+  },
+  "limits": [
+    "Reference Toolbox wallet, not native Yours UI.",
+    "Explicit opt-in versioned source adapters and exact-history 2 policy.",
+    "No rejected-branch proof source, destination root seeding or private database copy.",
+    "These exact 8 executions are part of the component 3 artifact, not additional runs."
+  ]
+}

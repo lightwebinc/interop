@@ -1,0 +1,4 @@
+◇ injected env (0) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+{"verified":true,"result":"PASS","assertions":[{"id":"identity-trust.initial-exclusion","result":"PASS"},{"id":"identity-trust.public-settings-token","result":"PASS"},{"id":"identity-trust.cache-expiry","result":"PASS"},{"id":"identity-trust.positive-discovery","result":"PASS"},{"id":"identity-trust.settings-restored","result":"PASS"},{"id":"identity-trust.temporary-token-spent","result":"PASS"},{"id":"identity-trust.public-boundary-only","result":"PASS"},{"id":"identity-trust.cleanup","result":"PASS"}],"transactions":2,"claim":"ENGINEERING_OBSERVATION_ONLY","tamperRejections":["missing-real-cache-expiry","changed-original-settings-restoration","valid-transaction-that-does-not-spend-temporary-token"]}
+

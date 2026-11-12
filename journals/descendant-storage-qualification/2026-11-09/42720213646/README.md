@@ -1,0 +1,9 @@
+# Descendant replacement qualification — 42720213646
+
+The [successful Foundation workflow](https://github.com/p2ppsr/interop/actions/runs/42720213646) executes the four-direction TS/Go descendant-storage2 matrix twice at frozen source `8055aabb731df2c2a4020c885445ae621b57e492`: eight fresh identities and **80 PASS** predicates. Replacement storage independently closes the retained funding ancestry, preserves owner boundaries and metadata, and supports cold read/decryption and signed redemption while source storage is unavailable. This is engineering reference-storage qualification, not native-wallet qualification.
+
+The original descendant ZIP is 1,525,390 bytes, SHA256 `cf139c2287c07cf91c4b367609d68f3eccc4e7080c27480a09f2465ea07cf775`. Exact-source independent replay passes. All 51 original members remain unchanged and equal the nested copy in the [component artifact](../../../integrated-component-qualification/2026-11-09/42720213646/README.md). These are the same eight executions and 80 assertions already included in the component total of 590.
+
+The independent verifier exits zero. Its original stdout contains two dotenv diagnostics before the successful JSON result; the local receipt wrapper initially rejected that preamble. The retained parser-correction receipt records extraction of the complete JSON result without changing the verifier or any original evidence. A separate canonical-path audit then executes the verifier again and requires a nonempty parsed PASS receipt, retained in `cli-execution-review.json`. Run/job/artifact APIs, all job logs, acquisition and immutability receipts are retained.
+
+Extract `descendant-storage-sync.zip` into a fresh directory and run `node scripts/verify-descendant-storage-matrix.mjs DIRECTORY --exact-history` from the recorded source with pinned dependencies. Source hashes, exact history projection, observed UTC and all original findings remain mandatory. Offline replay starts no services.

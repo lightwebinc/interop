@@ -1,0 +1,984 @@
+{
+  "schema": "tpnil-native-portability-independent-review@2",
+  "runId": 42697283161,
+  "sourceRevision": "cc3cf756272b8d3826612d71e8f6356239fed6fa",
+  "oracleSource": "out/frozen-native-source-cc3cf756 exact git archive",
+  "claim": "INDEPENDENT_NATIVE_EVIDENCE_REVIEW",
+  "repetitions": [
+    {
+      "repetition": 1,
+      "evidence": {
+        "path": "out/native-ci-42697283161/repetition-1/evidence/conformance/portability.json",
+        "bytes": 1360430,
+        "sha256": "9d10ff77a7b07dcc01acc8f3b7d82a34fe4c8262147e279f4e83d87bc816b88a"
+      },
+      "schema": "tpnil-native-storage-portability@3",
+      "oracle": "tpnil-native-portability-oracle@3.0.0",
+      "producerResult": "PASS",
+      "assertions": [
+        {
+          "detail": "Independent storage identities and temporary databases back the two counterparts.",
+          "id": "portability.distinct-counterparts",
+          "result": "PASS"
+        },
+        {
+          "detail": "All logical records, bytes, metadata and foreign keys match; the declared proof oracle verifies retained ancestry.",
+          "id": "portability.complete-logical-dataset",
+          "result": "PASS"
+        },
+        {
+          "detail": "The declared wallet mediator sends authenticated processSyncChunk requests; reference mode is not native qualification.",
+          "id": "portability.native-mediated-sync",
+          "result": "PASS"
+        },
+        {
+          "detail": "The source storage TCP listener is stopped while chain, overlay and replacement services remain running.",
+          "id": "portability.source-unavailable",
+          "result": "PASS"
+        },
+        {
+          "detail": "Supported Lock/Unlock retires the native live wallet context; the ToDo client cache is cleared and reloaded.",
+          "id": "portability.cold-wallet-reload",
+          "result": "PASS"
+        },
+        {
+          "detail": "Native wallet identity is unchanged after counterpart replacement and cold reconstruction.",
+          "id": "portability.same-identity",
+          "result": "PASS"
+        },
+        {
+          "detail": "The same unspent encrypted ToDo outpoint is reconstructed and decrypted from the replacement.",
+          "id": "portability.cold-task-recovery",
+          "result": "PASS"
+        },
+        {
+          "detail": "A ToDo redemption is serialized and stored by the replacement while the source listener remains unavailable.",
+          "id": "portability.replacement-redemption",
+          "result": "PASS"
+        },
+        {
+          "detail": "The source listener is restored; caller retires the isolated replacement after evidence collection.",
+          "id": "portability.cleanup",
+          "result": "PASS"
+        }
+      ],
+      "ui": [
+        {
+          "stage": "native-task-visible",
+          "at": "2026-11-09T21:04:17.673Z",
+          "text": "Task successfully created!\nToDo List — Get Rewarded!\nTPNIL native storage replacement\n\n3 satoshis"
+        },
+        {
+          "stage": "before-add",
+          "at": "2026-11-09T21:04:20.292Z",
+          "text": "Coins\nOrdinals\nTools\nSettings\n/\nTPNIL Fixture\nRemote Backup\n\nYour wallet is syncing to a remote server. You can use the same keys on another device and it will stay in sync.\n\nACTIVE STORAGE\nSynced across devices\n\nwallet.1sat.app\n\nAll devices with your keys connect here\n\n0\n\nOutputs\n\n0\n\nTransactions\n\n1\n\nRemotes\n\nSync Now\nRepair Sync\nBACKUP STORAGE\n\nCopies of your data for safety\n\nAdd\nThis Browser\nBACKUP COPY\n4.2 MB / 1.0 GB\nAdvanced"
+        },
+        {
+          "stage": "native-sync-complete",
+          "at": "2026-11-09T21:04:38.398Z",
+          "text": "Coins\nOrdinals\nTools\nSettings\nSync complete\n/\nTPNIL Fixture\nRemote Backup\n\nYour wallet is syncing to a remote server. You can use the same keys on another device and it will stay in sync.\n\nACTIVE STORAGE\nSynced across devices\n\nwallet.1sat.app\n\nAll devices with your keys connect here\n\n0\n\nOutputs\n\n0\n\nTransactions\n\n2\n\nRemotes\n\nSync Now\nRepair Sync\nBACKUP STORAGE\n\nCopies of your data for safety\n\nAdd\nThis Browser\nBACKUP COPY\n4.2 MB / 1.0 GB\nreplacement-wallet.itcve.test\nBACKUP COPY\nOnline\nConnected\nAdvanced"
+        },
+        {
+          "stage": "replacement-active",
+          "at": "2026-11-09T21:04:44.492Z",
+          "text": "Coins\nOrdinals\nTools\nSettings\nActive: replacement-wallet.itcve.test\n/\nTPNIL Fixture\nreplacement-wallet.itcve.test\n\nreplacement-wallet.itcve.test\n\nIN USE\n\nhttps://replacement-wallet.itcve.test\n\nThis is your active storage. To remove it, switch to a different location first."
+        },
+        {
+          "stage": "source-removed-from-config",
+          "at": "2026-11-09T21:05:01.018Z",
+          "text": "Coins\nOrdinals\nTools\nSettings\nRemote removed\n/\nTPNIL Fixture\nRemote Backup\n\nYour wallet is syncing to a remote server. You can use the same keys on another device and it will stay in sync.\n\nACTIVE STORAGE\nSynced across devices\n\nreplacement-wallet.itcve.test\n\nAll devices with your keys connect here\n\n0\n\nOutputs\n\n0\n\nTransactions\n\n1\n\nRemotes\n\nSync Now\nRepair Sync\nBACKUP STORAGE\n\nCopies of your data for safety\n\nAdd\nThis Browser\nBACKUP COPY\n4.3 MB / 1.7 GB\nAdvanced"
+        },
+        {
+          "stage": "native-task-complete",
+          "at": "2026-11-09T21:05:19.226Z",
+          "text": "Congrats! Task complete 🎉\nToDo List — Get Rewarded!\nTPNIL controlled task accepted\n\n2 satoshis\n\nTPNIL controlled task recovered\n\n2 satoshis"
+        }
+      ],
+      "counterparts": {
+        "destination": {
+          "chain": "main",
+          "created_at": "2026-11-09T21:04:14.411445748Z",
+          "dbtype": "SQLite",
+          "maxOutputScript": 1024,
+          "storageIdentityKey": "036360e856310ce5d294e8be33fc807077dc56ac80d95d9cd4ddbd21325eff73f7",
+          "storageName": "tpnil-go-storage",
+          "updated_at": "2026-11-09T21:04:14.411445748Z"
+        },
+        "source": {
+          "chain": "main",
+          "created_at": "2026-11-09T21:03:10.007933009Z",
+          "dbtype": "SQLite",
+          "maxOutputScript": 1024,
+          "storageIdentityKey": "034f355bdcb7cc0af728ef3cceb9615d90684bb5b2ca5f859ab0f0b704075871aa",
+          "storageName": "tpnil-go-storage",
+          "updated_at": "2026-11-09T21:03:10.007933009Z"
+        },
+        "url": "https://replacement-wallet.itcve.test"
+      },
+      "components": {
+        "replacement": {
+          "components": {
+            "chaintracks": "typescript",
+            "overlay": "typescript",
+            "storage": "go"
+          },
+          "go": {
+            "binarySha256": "4a5e7166136bb79e250178434577eaadedd1c7efaa8cf9f76be071d1ffaa8de1",
+            "compatibilityPatch": {
+              "binarySha256": "4a5e7166136bb79e250178434577eaadedd1c7efaa8cf9f76be071d1ffaa8de1",
+              "parentPatchLockSha256": "73b327cb785ab061d58678ff6c26eefa46a9aa838d09d5f8bfee50aae3fb4391",
+              "patchLockSha256": "b9f229391f4fd8a953fd76b6c73cc7585818d91fe6c1802e9fc8667a86c1fcef",
+              "patchSha256": "5e1fff193191565fa0032f2b9954bf07054c9806a78e6103049a14122a947e0c",
+              "replacementModule": "/home/runner/work/interop/interop/out/storage-portability-go-source",
+              "schema": "tpnil-storage-portability-go-build@1.0.0",
+              "toolchain": "go1.27.3",
+              "upstream": {
+                "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+                "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
+                "version": "v0.191.4"
+              }
+            },
+            "components": {
+              "chaintracks": "typescript",
+              "overlay": "typescript",
+              "storage": "go"
+            },
+            "dependencies": {
+              "components": [
+                {
+                  "commit": "b77904e276ea16558e8f7f3a104a8472b95586af",
+                  "module": "github.com/bsv-blockchain/go-overlay-services",
+                  "sum": "h1:3Wx5TppatVoCZf/h/+KsbxlagyDBSEDfFoK96YXc3kU=",
+                  "version": "v1.3.8"
+                },
+                {
+                  "commit": "bb87d3d758176efab664cb73c0204ab5d87a621e",
+                  "module": "github.com/bsv-blockchain/go-chaintracks",
+                  "sum": "h1:DFJwbFt/+JxYp2q1ZNtYRalDf0SGCrQNy4UZAuohquo=",
+                  "version": "v1.4.8"
+                },
+                {
+                  "commit": "0ea046b28d91e48ba0805ede1de767d578ed7e14",
+                  "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+                  "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
+                  "version": "v0.191.4"
+                }
+              ],
+              "moduleFiles": {
+                "go.mod": "6591deefcb01570359a07e69e39d4898b78e71f1f3838835c58695fd25b61a4c",
+                "go.sum": "957658a619b1821ef677152de04e71d9ce1a37f5648de2c2c45851e1ea74338a"
+              },
+              "replacements": [
+                {
+                  "module": "k8s.io/kube-openapi",
+                  "sum": "h1:oXImqH8mQNk7PmvzKhmN3ddJoY6OnyM225MXwGHPm0A=",
+                  "version": "v0.0.0-20260721132016-d427ff9ee9ad"
+                }
+              ],
+              "schema": "tpnil-itcve-go-components@1.0.0",
+              "toolchain": "go1.27.3"
+            },
+            "fixtureSubmissionPolicy": "terminal-rejection-v1",
+            "goModSha256": "6591deefcb01570359a07e69e39d4898b78e71f1f3838835c58695fd25b61a4c",
+            "goSumSha256": "957658a619b1821ef677152de04e71d9ce1a37f5648de2c2c45851e1ea74338a",
+            "schema": "tpnil-go-services@1.0.0"
+          }
+        },
+        "source": {
+          "components": {
+            "chaintracks": "go",
+            "overlay": "go",
+            "storage": "go"
+          },
+          "go": {
+            "binarySha256": "4a5e7166136bb79e250178434577eaadedd1c7efaa8cf9f76be071d1ffaa8de1",
+            "compatibilityPatch": {
+              "binarySha256": "4a5e7166136bb79e250178434577eaadedd1c7efaa8cf9f76be071d1ffaa8de1",
+              "parentPatchLockSha256": "73b327cb785ab061d58678ff6c26eefa46a9aa838d09d5f8bfee50aae3fb4391",
+              "patchLockSha256": "b9f229391f4fd8a953fd76b6c73cc7585818d91fe6c1802e9fc8667a86c1fcef",
+              "patchSha256": "5e1fff193191565fa0032f2b9954bf07054c9806a78e6103049a14122a947e0c",
+              "replacementModule": "/home/runner/work/interop/interop/out/storage-portability-go-source",
+              "schema": "tpnil-storage-portability-go-build@1.0.0",
+              "toolchain": "go1.27.3",
+              "upstream": {
+                "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+                "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
+                "version": "v0.191.4"
+              }
+            },
+            "components": {
+              "chaintracks": "go",
+              "overlay": "go",
+              "storage": "go"
+            },
+            "dependencies": {
+              "components": [
+                {
+                  "commit": "b77904e276ea16558e8f7f3a104a8472b95586af",
+                  "module": "github.com/bsv-blockchain/go-overlay-services",
+                  "sum": "h1:3Wx5TppatVoCZf/h/+KsbxlagyDBSEDfFoK96YXc3kU=",
+                  "version": "v1.3.8"
+                },
+                {
+                  "commit": "bb87d3d758176efab664cb73c0204ab5d87a621e",
+                  "module": "github.com/bsv-blockchain/go-chaintracks",
+                  "sum": "h1:DFJwbFt/+JxYp2q1ZNtYRalDf0SGCrQNy4UZAuohquo=",
+                  "version": "v1.4.8"
+                },
+                {
+                  "commit": "0ea046b28d91e48ba0805ede1de767d578ed7e14",
+                  "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+                  "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
+                  "version": "v0.191.4"
+                }
+              ],
+              "moduleFiles": {
+                "go.mod": "6591deefcb01570359a07e69e39d4898b78e71f1f3838835c58695fd25b61a4c",
+                "go.sum": "957658a619b1821ef677152de04e71d9ce1a37f5648de2c2c45851e1ea74338a"
+              },
+              "replacements": [
+                {
+                  "module": "k8s.io/kube-openapi",
+                  "sum": "h1:oXImqH8mQNk7PmvzKhmN3ddJoY6OnyM225MXwGHPm0A=",
+                  "version": "v0.0.0-20260721132016-d427ff9ee9ad"
+                }
+              ],
+              "schema": "tpnil-itcve-go-components@1.0.0",
+              "toolchain": "go1.27.3"
+            },
+            "fixtureSubmissionPolicy": "terminal-rejection-v1",
+            "goModSha256": "6591deefcb01570359a07e69e39d4898b78e71f1f3838835c58695fd25b61a4c",
+            "goSumSha256": "957658a619b1821ef677152de04e71d9ce1a37f5648de2c2c45851e1ea74338a",
+            "schema": "tpnil-go-services@1.0.0"
+          }
+        }
+      },
+      "coldReload": {
+        "applicationCacheCleared": true,
+        "at": "2026-11-09T21:05:16.059Z",
+        "consoleMessages": [
+          "[background] dropWalletContext (WALLET_LOCKED): gone immediately"
+        ],
+        "contextDropped": true,
+        "locked": true,
+        "mechanism": "native-settings-lock-unlock",
+        "taskVisible": true,
+        "unlocked": true
+      },
+      "outage": {
+        "endedAt": "2026-11-09T21:05:21.043Z",
+        "events": [
+          {
+            "at": "2026-11-09T21:05:01.020Z",
+            "available": false
+          }
+        ],
+        "probe": {
+          "error": "TypeError: fetch failed",
+          "reachable": false
+        },
+        "restorationStartedAt": "2026-11-09T21:05:21.043Z",
+        "startedAt": "2026-11-09T21:05:01.020Z"
+      },
+      "readWindows": {
+        "destination": {
+          "endedAt": "2026-11-09T21:04:39.694Z",
+          "startedAt": "2026-11-09T21:04:39.103Z",
+          "storageEnd": 6,
+          "storageStart": 4
+        },
+        "destinationAfter": {
+          "endedAt": "2026-11-09T21:05:21.043Z",
+          "startedAt": "2026-11-09T21:05:20.396Z",
+          "storageEnd": 10,
+          "storageStart": 8
+        },
+        "redemptionPoll0": {
+          "endedAt": "2026-11-09T21:05:20.148Z",
+          "startedAt": "2026-11-09T21:05:19.228Z",
+          "storageEnd": 8,
+          "storageStart": 6
+        },
+        "source": {
+          "endedAt": "2026-11-09T21:04:39.103Z",
+          "startedAt": "2026-11-09T21:04:38.400Z",
+          "storageEnd": 4,
+          "storageStart": 2
+        }
+      },
+      "redemptionCompletion": {
+        "at": "2026-11-09T21:05:20.314Z",
+        "observation": "redemptionPoll0",
+        "txid": "ce515a584d0f66c7490459162127fce7c8e1d9fbb19b18b470430ff4a2d20d20"
+      },
+      "redemptionPolls": [
+        {
+          "name": "redemptionPoll0",
+          "ready": true,
+          "capturedAt": "2026-11-09T21:05:20.148Z",
+          "txid": "ce515a584d0f66c7490459162127fce7c8e1d9fbb19b18b470430ff4a2d20d20",
+          "receiptCount": 1
+        }
+      ],
+      "outpoint": "305da7101abb5e2efd8578c9390628550e413fa0d971b10171669bc9aa513d52.0",
+      "redemption": {
+        "rawHex": "0100000002523d51aac99b667101b171d9a03f410e55280639c97885fd2e5ebb1a10a75d300000000049483045022100e6c9a5652aa699a0e1dd27dc9f3c81058401fbf478cbaa748ad5b2bda89083c9022019a9d81b25e68b924e65a1c66d49305f3a65b286ccbbb250f26c7b035afc569a41ffffffff523d51aac99b667101b171d9a03f410e55280639c97885fd2e5ebb1a10a75d30010000006b4830450221009a8614b41af16dbce636cbabaeecf3abf08847c14a6508a637cbfed8199e041c02206cc5faf808663e6008cea5ad2dc29b9041c5fce34cc3dd7f3b158bdd5b3c44154121027f74b9c2125fd906837cdc928510ca2bf7b7e27917da4be9abbe9111a4bbb34effffffff0574030000000000001976a914e8c359c8af7a94816b98184abdbbc9e230ca875b88ace8030000000000001976a9141f1ec6d51c7d83ffa6cb47664d86ff6173a5e36888ace8030000000000001976a914b456f858e5d096dccb0f64801b637f0f9b25316788ace8030000000000001976a914c980e336a7e4826a8df25ab1a309ef32bcdaf18f88ace8030000000000001976a9149aa24d2b310e77689d7f488a523305225355e8fb88ac00000000",
+        "transaction": {
+          "created_at": "2026-11-09T21:05:16.463Z",
+          "description": "VhDAqdWNd+c+m611YzznR1FoGNqEa2YrH2WJt33KecfxIaguBW3xC1c3wQfP4xalT7W2XQMmfp6+ZTeS3v8Sxn6hHoGK7THqF4AbKnslMV2ii5xCcO1dRRTATVrag+VnIvwceqjU8VQ=",
+          "inputBEEF": [],
+          "isOutgoing": true,
+          "lockTime": 0,
+          "reference": "+LskjA3Gz05foPgI",
+          "satoshis": -42,
+          "status": "unproven",
+          "transactionId": 13,
+          "txid": "ce515a584d0f66c7490459162127fce7c8e1d9fbb19b18b470430ff4a2d20d20",
+          "updated_at": "2026-11-09T21:05:19.827Z",
+          "userId": 1,
+          "version": 1
+        },
+        "txid": "ce515a584d0f66c7490459162127fce7c8e1d9fbb19b18b470430ff4a2d20d20"
+      },
+      "cleanup": {
+        "replacementOwnedByServiceGraph": true,
+        "retirement": "ControlledWalletServices.close after the complete native scenario",
+        "sourceRestored": true
+      },
+      "independent": {
+        "verified": true,
+        "result": "PASS",
+        "mode": "native-ui",
+        "assertions": [
+          {
+            "id": "portability.distinct-counterparts",
+            "result": "PASS"
+          },
+          {
+            "id": "portability.complete-logical-dataset",
+            "result": "PASS"
+          },
+          {
+            "id": "portability.native-mediated-sync",
+            "result": "PASS"
+          },
+          {
+            "id": "portability.source-unavailable",
+            "result": "PASS"
+          },
+          {
+            "id": "portability.cold-wallet-reload",
+            "result": "PASS"
+          },
+          {
+            "id": "portability.same-identity",
+            "result": "PASS"
+          },
+          {
+            "id": "portability.cold-task-recovery",
+            "result": "PASS"
+          },
+          {
+            "id": "portability.replacement-redemption",
+            "result": "PASS"
+          },
+          {
+            "id": "portability.cleanup",
+            "result": "PASS"
+          }
+        ]
+      },
+      "proofs": [
+        {
+          "dataset": "source",
+          "counts": {
+            "certificateFields": 0,
+            "certificates": 0,
+            "commissions": 0,
+            "outputBaskets": 3,
+            "outputTagMaps": 3,
+            "outputTags": 3,
+            "outputs": 22,
+            "provenTxReqs": 12,
+            "provenTxs": 0,
+            "transactions": 12,
+            "txLabelMaps": 27,
+            "txLabels": 8
+          },
+          "verifiedTxids": [
+            "1749ce862cb3c3437a0d1d81f16023a136c49ea3b98d21ffe9fb5b8c27159ec2",
+            "305da7101abb5e2efd8578c9390628550e413fa0d971b10171669bc9aa513d52",
+            "3a6762b641c1c5807dba67ce267325e33ddcaabfb0abed28eb00ab2703f128ff",
+            "4640c7cf9236104cce0ba8e13cdb4a98020e6566421933303dc6675331ec49ef",
+            "73b1f0df8207c723c428e5210e625d9d971ceb6fd08d1b9f518946843e5e6b58",
+            "89fc269b2ac932729b91b543081a2cec494053dcd1ad7c18f3c03b8f463c1f5a",
+            "8a8f04bfa61f540b953ca03b7358e67f936c6a23749c13fa8cb62cfd5818f94c",
+            "909084293303cae8407b98d15324616df58d296c2f28e8ceae31a6fdc5b69861",
+            "c13c3bc59a5cde31a9755327dc8e27d16f07b33e6b00d74afda0f561c99d47e1",
+            "c6758b8c57ef6de345e1f7416d373d5de4011fcbe103b182d72f9e28e2656bc2",
+            "cf3f97d20b41af7905700949a0f5205f9e47eaf4b69d4cb8c372a8cd49ddb9c4",
+            "e67ad802065f26bf41d02c313782be8a87e13abf09b2aa0466b317a0ab4b9c7e"
+          ],
+          "transactionsInClosure": 13,
+          "bumps": 1
+        },
+        {
+          "dataset": "destination",
+          "counts": {
+            "certificateFields": 0,
+            "certificates": 0,
+            "commissions": 0,
+            "outputBaskets": 3,
+            "outputTagMaps": 3,
+            "outputTags": 3,
+            "outputs": 22,
+            "provenTxReqs": 12,
+            "provenTxs": 0,
+            "transactions": 12,
+            "txLabelMaps": 27,
+            "txLabels": 8
+          },
+          "verifiedTxids": [
+            "1749ce862cb3c3437a0d1d81f16023a136c49ea3b98d21ffe9fb5b8c27159ec2",
+            "305da7101abb5e2efd8578c9390628550e413fa0d971b10171669bc9aa513d52",
+            "3a6762b641c1c5807dba67ce267325e33ddcaabfb0abed28eb00ab2703f128ff",
+            "4640c7cf9236104cce0ba8e13cdb4a98020e6566421933303dc6675331ec49ef",
+            "73b1f0df8207c723c428e5210e625d9d971ceb6fd08d1b9f518946843e5e6b58",
+            "89fc269b2ac932729b91b543081a2cec494053dcd1ad7c18f3c03b8f463c1f5a",
+            "8a8f04bfa61f540b953ca03b7358e67f936c6a23749c13fa8cb62cfd5818f94c",
+            "909084293303cae8407b98d15324616df58d296c2f28e8ceae31a6fdc5b69861",
+            "c13c3bc59a5cde31a9755327dc8e27d16f07b33e6b00d74afda0f561c99d47e1",
+            "c6758b8c57ef6de345e1f7416d373d5de4011fcbe103b182d72f9e28e2656bc2",
+            "cf3f97d20b41af7905700949a0f5205f9e47eaf4b69d4cb8c372a8cd49ddb9c4",
+            "e67ad802065f26bf41d02c313782be8a87e13abf09b2aa0466b317a0ab4b9c7e"
+          ],
+          "transactionsInClosure": 13,
+          "bumps": 1
+        },
+        {
+          "dataset": "destinationAfter",
+          "counts": {
+            "certificateFields": 0,
+            "certificates": 0,
+            "commissions": 0,
+            "outputBaskets": 3,
+            "outputTagMaps": 3,
+            "outputTags": 3,
+            "outputs": 27,
+            "provenTxReqs": 13,
+            "provenTxs": 0,
+            "transactions": 13,
+            "txLabelMaps": 29,
+            "txLabels": 8
+          },
+          "verifiedTxids": [
+            "1749ce862cb3c3437a0d1d81f16023a136c49ea3b98d21ffe9fb5b8c27159ec2",
+            "305da7101abb5e2efd8578c9390628550e413fa0d971b10171669bc9aa513d52",
+            "3a6762b641c1c5807dba67ce267325e33ddcaabfb0abed28eb00ab2703f128ff",
+            "4640c7cf9236104cce0ba8e13cdb4a98020e6566421933303dc6675331ec49ef",
+            "73b1f0df8207c723c428e5210e625d9d971ceb6fd08d1b9f518946843e5e6b58",
+            "89fc269b2ac932729b91b543081a2cec494053dcd1ad7c18f3c03b8f463c1f5a",
+            "8a8f04bfa61f540b953ca03b7358e67f936c6a23749c13fa8cb62cfd5818f94c",
+            "909084293303cae8407b98d15324616df58d296c2f28e8ceae31a6fdc5b69861",
+            "c13c3bc59a5cde31a9755327dc8e27d16f07b33e6b00d74afda0f561c99d47e1",
+            "c6758b8c57ef6de345e1f7416d373d5de4011fcbe103b182d72f9e28e2656bc2",
+            "ce515a584d0f66c7490459162127fce7c8e1d9fbb19b18b470430ff4a2d20d20",
+            "cf3f97d20b41af7905700949a0f5205f9e47eaf4b69d4cb8c372a8cd49ddb9c4",
+            "e67ad802065f26bf41d02c313782be8a87e13abf09b2aa0466b317a0ab4b9c7e"
+          ],
+          "transactionsInClosure": 14,
+          "bumps": 1
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "repetition": 2,
+      "evidence": {
+        "path": "out/native-ci-42697283161/repetition-2/evidence/conformance/portability.json",
+        "bytes": 1358498,
+        "sha256": "64fd657897dc196a9be2f5e136c2a6f73392a3f86e2959d9296cb474b234ad58"
+      },
+      "schema": "tpnil-native-storage-portability@3",
+      "oracle": "tpnil-native-portability-oracle@3.0.0",
+      "producerResult": "PASS",
+      "assertions": [
+        {
+          "detail": "Independent storage identities and temporary databases back the two counterparts.",
+          "id": "portability.distinct-counterparts",
+          "result": "PASS"
+        },
+        {
+          "detail": "All logical records, bytes, metadata and foreign keys match; the declared proof oracle verifies retained ancestry.",
+          "id": "portability.complete-logical-dataset",
+          "result": "PASS"
+        },
+        {
+          "detail": "The declared wallet mediator sends authenticated processSyncChunk requests; reference mode is not native qualification.",
+          "id": "portability.native-mediated-sync",
+          "result": "PASS"
+        },
+        {
+          "detail": "The source storage TCP listener is stopped while chain, overlay and replacement services remain running.",
+          "id": "portability.source-unavailable",
+          "result": "PASS"
+        },
+        {
+          "detail": "Supported Lock/Unlock retires the native live wallet context; the ToDo client cache is cleared and reloaded.",
+          "id": "portability.cold-wallet-reload",
+          "result": "PASS"
+        },
+        {
+          "detail": "Native wallet identity is unchanged after counterpart replacement and cold reconstruction.",
+          "id": "portability.same-identity",
+          "result": "PASS"
+        },
+        {
+          "detail": "The same unspent encrypted ToDo outpoint is reconstructed and decrypted from the replacement.",
+          "id": "portability.cold-task-recovery",
+          "result": "PASS"
+        },
+        {
+          "detail": "A ToDo redemption is serialized and stored by the replacement while the source listener remains unavailable.",
+          "id": "portability.replacement-redemption",
+          "result": "PASS"
+        },
+        {
+          "detail": "The source listener is restored; caller retires the isolated replacement after evidence collection.",
+          "id": "portability.cleanup",
+          "result": "PASS"
+        }
+      ],
+      "ui": [
+        {
+          "stage": "native-task-visible",
+          "at": "2026-11-09T21:13:23.882Z",
+          "text": "Task successfully created!\nToDo List — Get Rewarded!\nTPNIL native storage replacement\n\n3 satoshis\n\nCreate a Task\n\nDescribe your task and set aside some satoshis you'll get back once it's done.\n\nTask to complete\nTask to complete\n\n\n\nCompletion amount\nCompletion amount\nCancel\nOK"
+        },
+        {
+          "stage": "before-add",
+          "at": "2026-11-09T21:13:26.422Z",
+          "text": "Coins\nOrdinals\nTools\nSettings\n/\nTPNIL Fixture\nRemote Backup\n\nYour wallet is syncing to a remote server. You can use the same keys on another device and it will stay in sync.\n\nACTIVE STORAGE\nSynced across devices\n\nwallet.1sat.app\n\nAll devices with your keys connect here\n\n0\n\nOutputs\n\n0\n\nTransactions\n\n1\n\nRemotes\n\nSync Now\nRepair Sync\nBACKUP STORAGE\n\nCopies of your data for safety\n\nAdd\nThis Browser\nBACKUP COPY\n4.2 MB / 1.7 GB\nAdvanced"
+        },
+        {
+          "stage": "native-sync-complete",
+          "at": "2026-11-09T21:13:44.525Z",
+          "text": "Coins\nOrdinals\nTools\nSettings\nSync complete\n/\nTPNIL Fixture\nRemote Backup\n\nYour wallet is syncing to a remote server. You can use the same keys on another device and it will stay in sync.\n\nACTIVE STORAGE\nSynced across devices\n\nwallet.1sat.app\n\nAll devices with your keys connect here\n\n0\n\nOutputs\n\n0\n\nTransactions\n\n2\n\nRemotes\n\nSync Now\nRepair Sync\nBACKUP STORAGE\n\nCopies of your data for safety\n\nAdd\nThis Browser\nBACKUP COPY\n4.2 MB / 1.7 GB\nreplacement-wallet.itcve.test\nBACKUP COPY\nOnline\nConnected\nAdvanced"
+        },
+        {
+          "stage": "replacement-active",
+          "at": "2026-11-09T21:13:50.619Z",
+          "text": "Coins\nOrdinals\nTools\nSettings\nActive: replacement-wallet.itcve.test\n/\nTPNIL Fixture\nreplacement-wallet.itcve.test\n\nreplacement-wallet.itcve.test\n\nIN USE\n\nhttps://replacement-wallet.itcve.test\n\nThis is your active storage. To remove it, switch to a different location first."
+        },
+        {
+          "stage": "source-removed-from-config",
+          "at": "2026-11-09T21:14:07.194Z",
+          "text": "Coins\nOrdinals\nTools\nSettings\nRemote removed\n/\nTPNIL Fixture\nRemote Backup\n\nYour wallet is syncing to a remote server. You can use the same keys on another device and it will stay in sync.\n\nACTIVE STORAGE\nSynced across devices\n\nreplacement-wallet.itcve.test\n\nAll devices with your keys connect here\n\n0\n\nOutputs\n\n0\n\nTransactions\n\n1\n\nRemotes\n\nSync Now\nRepair Sync\nBACKUP STORAGE\n\nCopies of your data for safety\n\nAdd\nThis Browser\nBACKUP COPY\n4.3 MB / 1.7 GB\nAdvanced"
+        },
+        {
+          "stage": "native-task-complete",
+          "at": "2026-11-09T21:14:25.405Z",
+          "text": "Congrats! Task complete 🎉\nToDo List — Get Rewarded!\nTPNIL controlled task accepted\n\n2 satoshis\n\nTPNIL controlled task recovered\n\n2 satoshis\n\nComplete \"\"?\n\nBy marking this task as complete, you'll receive back your satoshis.\n\nCancel\nComplete Task"
+        }
+      ],
+      "counterparts": {
+        "destination": {
+          "chain": "main",
+          "created_at": "2026-11-09T21:13:20.689206295Z",
+          "dbtype": "SQLite",
+          "maxOutputScript": 1024,
+          "storageIdentityKey": "036360e856310ce5d294e8be33fc807077dc56ac80d95d9cd4ddbd21325eff73f7",
+          "storageName": "tpnil-go-storage",
+          "updated_at": "2026-11-09T21:13:20.689206295Z"
+        },
+        "source": {
+          "chain": "main",
+          "created_at": "2026-11-09T21:12:17.430491364Z",
+          "dbtype": "SQLite",
+          "maxOutputScript": 1024,
+          "storageIdentityKey": "034f355bdcb7cc0af728ef3cceb9615d90684bb5b2ca5f859ab0f0b704075871aa",
+          "storageName": "tpnil-go-storage",
+          "updated_at": "2026-11-09T21:12:17.430491364Z"
+        },
+        "url": "https://replacement-wallet.itcve.test"
+      },
+      "components": {
+        "replacement": {
+          "components": {
+            "chaintracks": "typescript",
+            "overlay": "typescript",
+            "storage": "go"
+          },
+          "go": {
+            "binarySha256": "4a5e7166136bb79e250178434577eaadedd1c7efaa8cf9f76be071d1ffaa8de1",
+            "compatibilityPatch": {
+              "binarySha256": "4a5e7166136bb79e250178434577eaadedd1c7efaa8cf9f76be071d1ffaa8de1",
+              "parentPatchLockSha256": "73b327cb785ab061d58678ff6c26eefa46a9aa838d09d5f8bfee50aae3fb4391",
+              "patchLockSha256": "b9f229391f4fd8a953fd76b6c73cc7585818d91fe6c1802e9fc8667a86c1fcef",
+              "patchSha256": "5e1fff193191565fa0032f2b9954bf07054c9806a78e6103049a14122a947e0c",
+              "replacementModule": "/home/runner/work/interop/interop/out/storage-portability-go-source",
+              "schema": "tpnil-storage-portability-go-build@1.0.0",
+              "toolchain": "go1.27.3",
+              "upstream": {
+                "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+                "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
+                "version": "v0.191.4"
+              }
+            },
+            "components": {
+              "chaintracks": "typescript",
+              "overlay": "typescript",
+              "storage": "go"
+            },
+            "dependencies": {
+              "components": [
+                {
+                  "commit": "b77904e276ea16558e8f7f3a104a8472b95586af",
+                  "module": "github.com/bsv-blockchain/go-overlay-services",
+                  "sum": "h1:3Wx5TppatVoCZf/h/+KsbxlagyDBSEDfFoK96YXc3kU=",
+                  "version": "v1.3.8"
+                },
+                {
+                  "commit": "bb87d3d758176efab664cb73c0204ab5d87a621e",
+                  "module": "github.com/bsv-blockchain/go-chaintracks",
+                  "sum": "h1:DFJwbFt/+JxYp2q1ZNtYRalDf0SGCrQNy4UZAuohquo=",
+                  "version": "v1.4.8"
+                },
+                {
+                  "commit": "0ea046b28d91e48ba0805ede1de767d578ed7e14",
+                  "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+                  "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
+                  "version": "v0.191.4"
+                }
+              ],
+              "moduleFiles": {
+                "go.mod": "6591deefcb01570359a07e69e39d4898b78e71f1f3838835c58695fd25b61a4c",
+                "go.sum": "957658a619b1821ef677152de04e71d9ce1a37f5648de2c2c45851e1ea74338a"
+              },
+              "replacements": [
+                {
+                  "module": "k8s.io/kube-openapi",
+                  "sum": "h1:oXImqH8mQNk7PmvzKhmN3ddJoY6OnyM225MXwGHPm0A=",
+                  "version": "v0.0.0-20260721132016-d427ff9ee9ad"
+                }
+              ],
+              "schema": "tpnil-itcve-go-components@1.0.0",
+              "toolchain": "go1.27.3"
+            },
+            "fixtureSubmissionPolicy": "terminal-rejection-v1",
+            "goModSha256": "6591deefcb01570359a07e69e39d4898b78e71f1f3838835c58695fd25b61a4c",
+            "goSumSha256": "957658a619b1821ef677152de04e71d9ce1a37f5648de2c2c45851e1ea74338a",
+            "schema": "tpnil-go-services@1.0.0"
+          }
+        },
+        "source": {
+          "components": {
+            "chaintracks": "go",
+            "overlay": "go",
+            "storage": "go"
+          },
+          "go": {
+            "binarySha256": "4a5e7166136bb79e250178434577eaadedd1c7efaa8cf9f76be071d1ffaa8de1",
+            "compatibilityPatch": {
+              "binarySha256": "4a5e7166136bb79e250178434577eaadedd1c7efaa8cf9f76be071d1ffaa8de1",
+              "parentPatchLockSha256": "73b327cb785ab061d58678ff6c26eefa46a9aa838d09d5f8bfee50aae3fb4391",
+              "patchLockSha256": "b9f229391f4fd8a953fd76b6c73cc7585818d91fe6c1802e9fc8667a86c1fcef",
+              "patchSha256": "5e1fff193191565fa0032f2b9954bf07054c9806a78e6103049a14122a947e0c",
+              "replacementModule": "/home/runner/work/interop/interop/out/storage-portability-go-source",
+              "schema": "tpnil-storage-portability-go-build@1.0.0",
+              "toolchain": "go1.27.3",
+              "upstream": {
+                "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+                "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
+                "version": "v0.191.4"
+              }
+            },
+            "components": {
+              "chaintracks": "go",
+              "overlay": "go",
+              "storage": "go"
+            },
+            "dependencies": {
+              "components": [
+                {
+                  "commit": "b77904e276ea16558e8f7f3a104a8472b95586af",
+                  "module": "github.com/bsv-blockchain/go-overlay-services",
+                  "sum": "h1:3Wx5TppatVoCZf/h/+KsbxlagyDBSEDfFoK96YXc3kU=",
+                  "version": "v1.3.8"
+                },
+                {
+                  "commit": "bb87d3d758176efab664cb73c0204ab5d87a621e",
+                  "module": "github.com/bsv-blockchain/go-chaintracks",
+                  "sum": "h1:DFJwbFt/+JxYp2q1ZNtYRalDf0SGCrQNy4UZAuohquo=",
+                  "version": "v1.4.8"
+                },
+                {
+                  "commit": "0ea046b28d91e48ba0805ede1de767d578ed7e14",
+                  "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+                  "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
+                  "version": "v0.191.4"
+                }
+              ],
+              "moduleFiles": {
+                "go.mod": "6591deefcb01570359a07e69e39d4898b78e71f1f3838835c58695fd25b61a4c",
+                "go.sum": "957658a619b1821ef677152de04e71d9ce1a37f5648de2c2c45851e1ea74338a"
+              },
+              "replacements": [
+                {
+                  "module": "k8s.io/kube-openapi",
+                  "sum": "h1:oXImqH8mQNk7PmvzKhmN3ddJoY6OnyM225MXwGHPm0A=",
+                  "version": "v0.0.0-20260721132016-d427ff9ee9ad"
+                }
+              ],
+              "schema": "tpnil-itcve-go-components@1.0.0",
+              "toolchain": "go1.27.3"
+            },
+            "fixtureSubmissionPolicy": "terminal-rejection-v1",
+            "goModSha256": "6591deefcb01570359a07e69e39d4898b78e71f1f3838835c58695fd25b61a4c",
+            "goSumSha256": "957658a619b1821ef677152de04e71d9ce1a37f5648de2c2c45851e1ea74338a",
+            "schema": "tpnil-go-services@1.0.0"
+          }
+        }
+      },
+      "coldReload": {
+        "applicationCacheCleared": true,
+        "at": "2026-11-09T21:14:22.291Z",
+        "consoleMessages": [
+          "[background] dropWalletContext (WALLET_LOCKED): gone immediately"
+        ],
+        "contextDropped": true,
+        "locked": true,
+        "mechanism": "native-settings-lock-unlock",
+        "taskVisible": true,
+        "unlocked": true
+      },
+      "outage": {
+        "endedAt": "2026-11-09T21:14:27.267Z",
+        "events": [
+          {
+            "at": "2026-11-09T21:14:07.197Z",
+            "available": false
+          }
+        ],
+        "probe": {
+          "error": "TypeError: fetch failed",
+          "reachable": false
+        },
+        "restorationStartedAt": "2026-11-09T21:14:27.267Z",
+        "startedAt": "2026-11-09T21:14:07.197Z"
+      },
+      "readWindows": {
+        "destination": {
+          "endedAt": "2026-11-09T21:13:45.808Z",
+          "startedAt": "2026-11-09T21:13:45.218Z",
+          "storageEnd": 6,
+          "storageStart": 4
+        },
+        "destinationAfter": {
+          "endedAt": "2026-11-09T21:14:27.266Z",
+          "startedAt": "2026-11-09T21:14:26.615Z",
+          "storageEnd": 10,
+          "storageStart": 8
+        },
+        "redemptionPoll0": {
+          "endedAt": "2026-11-09T21:14:26.362Z",
+          "startedAt": "2026-11-09T21:14:25.408Z",
+          "storageEnd": 8,
+          "storageStart": 6
+        },
+        "source": {
+          "endedAt": "2026-11-09T21:13:45.218Z",
+          "startedAt": "2026-11-09T21:13:44.526Z",
+          "storageEnd": 4,
+          "storageStart": 2
+        }
+      },
+      "redemptionCompletion": {
+        "at": "2026-11-09T21:14:26.531Z",
+        "observation": "redemptionPoll0",
+        "txid": "6b0c492787ab6110f7b869a4c192d99ca1de5e552f43dbd407b966e6df8f1321"
+      },
+      "redemptionPolls": [
+        {
+          "name": "redemptionPoll0",
+          "ready": true,
+          "capturedAt": "2026-11-09T21:14:26.362Z",
+          "txid": "6b0c492787ab6110f7b869a4c192d99ca1de5e552f43dbd407b966e6df8f1321",
+          "receiptCount": 1
+        }
+      ],
+      "outpoint": "7b87e0927ff48b8f4fddf824eb00fa32b8ce75f77bf90e94ac28768c43a0dc1d.0",
+      "redemption": {
+        "rawHex": "01000000021ddca0438c7628ac940ef97bf775ceb832fa00eb24f8dd4f8f8bf47f92e0877b0000000048473044022028ab6b7c8f198514c7b329f2cd8667a162e334f2f6f78d9d7bb0d1898fc9f5fe022064b514aeb1adb99535492328aba31174808ffa1f1dccd29c61d710fae91e9d9841ffffffff1ddca0438c7628ac940ef97bf775ceb832fa00eb24f8dd4f8f8bf47f92e0877b010000006b4830450221009f95a61a6b2afa6b7e9a613f2f4ab164b9e2fe3fcdaf2fb32fa7688bc7363ca202206e72ebee46bc8421aced90bdbb7619501dc4a91869768d02c0fd67d30b8802f4412103a89b4b775969c3cea82abcbe699475b1288308e3cdcc196869a187d76cb8dc42ffffffff0574030000000000001976a914468322ff9703d107a85c2a84d721bb743cc9915388ace8030000000000001976a91499a589649ce29750e2f3ceac72a38c1b84e2601e88ace8030000000000001976a914b3d2d4388174eb8989a8f33aea1a3eee88df5ec788ace8030000000000001976a9149f52388c8595bfb20616334c68ee98bbc08a090d88ace8030000000000001976a914bfe8b2d5c9d4652a842a30a6a864f9426134050288ac00000000",
+        "transaction": {
+          "created_at": "2026-11-09T21:14:22.647Z",
+          "description": "WPMe2EF/a1zi4WsqFeMACEAT5/JQ4XudxCZVWG2hsxcOh48SIqYwNIYN73bOMa0psEl9h/dDXd71anmbYWULx8z5bub9O4DQRYfwBZehcJRkvbt7xRBJmBKlNWlY7ZbrrEnbZRDqKWc=",
+          "inputBEEF": [],
+          "isOutgoing": true,
+          "lockTime": 0,
+          "reference": "eKQCluIW2VOdwMH1",
+          "satoshis": -42,
+          "status": "unproven",
+          "transactionId": 13,
+          "txid": "6b0c492787ab6110f7b869a4c192d99ca1de5e552f43dbd407b966e6df8f1321",
+          "updated_at": "2026-11-09T21:14:26.034Z",
+          "userId": 1,
+          "version": 1
+        },
+        "txid": "6b0c492787ab6110f7b869a4c192d99ca1de5e552f43dbd407b966e6df8f1321"
+      },
+      "cleanup": {
+        "replacementOwnedByServiceGraph": true,
+        "retirement": "ControlledWalletServices.close after the complete native scenario",
+        "sourceRestored": true
+      },
+      "independent": {
+        "verified": true,
+        "result": "PASS",
+        "mode": "native-ui",
+        "assertions": [
+          {
+            "id": "portability.distinct-counterparts",
+            "result": "PASS"
+          },
+          {
+            "id": "portability.complete-logical-dataset",
+            "result": "PASS"
+          },
+          {
+            "id": "portability.native-mediated-sync",
+            "result": "PASS"
+          },
+          {
+            "id": "portability.source-unavailable",
+            "result": "PASS"
+          },
+          {
+            "id": "portability.cold-wallet-reload",
+            "result": "PASS"
+          },
+          {
+            "id": "portability.same-identity",
+            "result": "PASS"
+          },
+          {
+            "id": "portability.cold-task-recovery",
+            "result": "PASS"
+          },
+          {
+            "id": "portability.replacement-redemption",
+            "result": "PASS"
+          },
+          {
+            "id": "portability.cleanup",
+            "result": "PASS"
+          }
+        ]
+      },
+      "proofs": [
+        {
+          "dataset": "source",
+          "counts": {
+            "certificateFields": 0,
+            "certificates": 0,
+            "commissions": 0,
+            "outputBaskets": 3,
+            "outputTagMaps": 3,
+            "outputTags": 3,
+            "outputs": 22,
+            "provenTxReqs": 12,
+            "provenTxs": 0,
+            "transactions": 12,
+            "txLabelMaps": 27,
+            "txLabels": 8
+          },
+          "verifiedTxids": [
+            "1ab17fd7565279ef941a55e17b7476558085d6bcebd0598de0352569eaad1243",
+            "704833c5162b9a1ca667bee2fe50c9a5ae6f480f38999b627a85e0aa8800f8fb",
+            "7b87e0927ff48b8f4fddf824eb00fa32b8ce75f77bf90e94ac28768c43a0dc1d",
+            "8625e0c4fc31c457830fda2b1c2beeba613763fc48cd022f783b70cb0d9c8f17",
+            "8a0984b3cdd5bff5acfe86efae7b5f53593ff7d2df50182568edc551ca7280a5",
+            "a5d789e0bac28b1280a6c85aec12edc6a5a927c02b2bafe2aeebc82de815f2a7",
+            "b713f430a9a863b5f7666c498ee8030dc568f0c4837739705b221fff0b8666ca",
+            "f4d646150fc033391bee56a67ee32b6144c21f7966a7f86a21f8144fbd64f5c3",
+            "faacd2cb3d49e8125d01d00f50756522dae24aa08b193794d5c5c1b12fe04e79",
+            "fbe39df8199cfdaa1f05906b7885a898823bd1ebd53e35d054737f1b515caa73",
+            "fbee9b13ab42ac1eb97fe4d6df807a004298f63e493d37e4eea3336fa3680ebe",
+            "fda6f607612a907522fb08df9e27609dd4d6b12e308dc3fb71a1c85e4f2a4e8f"
+          ],
+          "transactionsInClosure": 13,
+          "bumps": 1
+        },
+        {
+          "dataset": "destination",
+          "counts": {
+            "certificateFields": 0,
+            "certificates": 0,
+            "commissions": 0,
+            "outputBaskets": 3,
+            "outputTagMaps": 3,
+            "outputTags": 3,
+            "outputs": 22,
+            "provenTxReqs": 12,
+            "provenTxs": 0,
+            "transactions": 12,
+            "txLabelMaps": 27,
+            "txLabels": 8
+          },
+          "verifiedTxids": [
+            "1ab17fd7565279ef941a55e17b7476558085d6bcebd0598de0352569eaad1243",
+            "704833c5162b9a1ca667bee2fe50c9a5ae6f480f38999b627a85e0aa8800f8fb",
+            "7b87e0927ff48b8f4fddf824eb00fa32b8ce75f77bf90e94ac28768c43a0dc1d",
+            "8625e0c4fc31c457830fda2b1c2beeba613763fc48cd022f783b70cb0d9c8f17",
+            "8a0984b3cdd5bff5acfe86efae7b5f53593ff7d2df50182568edc551ca7280a5",
+            "a5d789e0bac28b1280a6c85aec12edc6a5a927c02b2bafe2aeebc82de815f2a7",
+            "b713f430a9a863b5f7666c498ee8030dc568f0c4837739705b221fff0b8666ca",
+            "f4d646150fc033391bee56a67ee32b6144c21f7966a7f86a21f8144fbd64f5c3",
+            "faacd2cb3d49e8125d01d00f50756522dae24aa08b193794d5c5c1b12fe04e79",
+            "fbe39df8199cfdaa1f05906b7885a898823bd1ebd53e35d054737f1b515caa73",
+            "fbee9b13ab42ac1eb97fe4d6df807a004298f63e493d37e4eea3336fa3680ebe",
+            "fda6f607612a907522fb08df9e27609dd4d6b12e308dc3fb71a1c85e4f2a4e8f"
+          ],
+          "transactionsInClosure": 13,
+          "bumps": 1
+        },
+        {
+          "dataset": "destinationAfter",
+          "counts": {
+            "certificateFields": 0,
+            "certificates": 0,
+            "commissions": 0,
+            "outputBaskets": 3,
+            "outputTagMaps": 3,
+            "outputTags": 3,
+            "outputs": 27,
+            "provenTxReqs": 13,
+            "provenTxs": 0,
+            "transactions": 13,
+            "txLabelMaps": 29,
+            "txLabels": 8
+          },
+          "verifiedTxids": [
+            "1ab17fd7565279ef941a55e17b7476558085d6bcebd0598de0352569eaad1243",
+            "6b0c492787ab6110f7b869a4c192d99ca1de5e552f43dbd407b966e6df8f1321",
+            "704833c5162b9a1ca667bee2fe50c9a5ae6f480f38999b627a85e0aa8800f8fb",
+            "7b87e0927ff48b8f4fddf824eb00fa32b8ce75f77bf90e94ac28768c43a0dc1d",
+            "8625e0c4fc31c457830fda2b1c2beeba613763fc48cd022f783b70cb0d9c8f17",
+            "8a0984b3cdd5bff5acfe86efae7b5f53593ff7d2df50182568edc551ca7280a5",
+            "a5d789e0bac28b1280a6c85aec12edc6a5a927c02b2bafe2aeebc82de815f2a7",
+            "b713f430a9a863b5f7666c498ee8030dc568f0c4837739705b221fff0b8666ca",
+            "f4d646150fc033391bee56a67ee32b6144c21f7966a7f86a21f8144fbd64f5c3",
+            "faacd2cb3d49e8125d01d00f50756522dae24aa08b193794d5c5c1b12fe04e79",
+            "fbe39df8199cfdaa1f05906b7885a898823bd1ebd53e35d054737f1b515caa73",
+            "fbee9b13ab42ac1eb97fe4d6df807a004298f63e493d37e4eea3336fa3680ebe",
+            "fda6f607612a907522fb08df9e27609dd4d6b12e308dc3fb71a1c85e4f2a4e8f"
+          ],
+          "transactionsInClosure": 14,
+          "bumps": 1
+        }
+      ],
+      "result": "PASS"
+    }
+  ],
+  "result": "PASS"
+}

@@ -1,0 +1,1 @@
+{"result":"PASS","runs":8,"assertions":88,"oracle":"raw logical projections, anchored proof, authenticated denial, replacement and cleanup","tamper":{"rejected":["providedBy-with-rebound-digest","proof-with-rebound-digest","history-instant-with-rebound-digest","history-calendar-with-rebound-digest"]}}

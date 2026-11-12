@@ -1,0 +1,135 @@
+{
+  "schema": "tpnil-native-portability-preflight@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "platform": "darwin",
+  "architecture": "arm64",
+  "profile": "Prospective portability oracle3; patched Go storage with TypeScript controlled overlay and Chaintracks",
+  "walletArchive": {
+    "path": "out/sut-artifacts/yours-wallet-v5.1.0/pw-v5.1.0.zip",
+    "sha256": "d55abda7dc8790ecfdd57ed0f5f4dd4a28187bb4833715f7612b067625eabc52"
+  },
+  "artifact": {
+    "path": "evidence.json.gz",
+    "bytes": 3920142,
+    "sha256": "5f6237c95e175fe41518928dd5e4e33c7605303f74b0e700750c0ec9a118fdc8"
+  },
+  "files": [
+    {
+      "path": "out/native-portability-v3-jSZcYn/result.json",
+      "size": 37916889,
+      "sha256": "0175ad74d7c1ff70f72fb976387acca49953baf39d26395febc486ebed383953"
+    },
+    {
+      "path": "out/native-portability-v3-jSZcYn/evidence/conformance/portability.json",
+      "size": 9518277,
+      "sha256": "94686166e17165fcd507bea1d3576288b93c19a513c5238584b82c40aa58e7a7"
+    },
+    {
+      "path": "out/native-portability-v3-preflight-1.log",
+      "size": 2246,
+      "sha256": "3b087b917de5fe1acc0e24994df5c48a35ae842efcb3117aa20628355e93a6fb"
+    },
+    {
+      "path": "out/native-portability-v3-82fKYU/result.json",
+      "size": 18344445,
+      "sha256": "4f1d76e8d030fd441f613d40ea6bcddc2c8f37fb33c718326ddd30fd711915ea"
+    },
+    {
+      "path": "out/native-portability-v3-82fKYU/evidence/conformance/funding-reserves.json",
+      "size": 149262,
+      "sha256": "ce28f6774547d0eb057304cc6714b3865f96f4e59f42c0c815856ca33dd3fefe"
+    },
+    {
+      "path": "out/native-portability-v3-82fKYU/evidence/conformance/portability.json",
+      "size": 4128883,
+      "sha256": "ee40fdb2f117848279990dc3c7ba408afafa50b0d6774dd2ac1d584eb84c4013"
+    },
+    {
+      "path": "out/native-portability-v3-preflight-2.log",
+      "size": 2931,
+      "sha256": "a03b57cdb371621072ee635838901e07a63fb57de13c0c05c23fceb8ca759c41"
+    },
+    {
+      "path": "out/native-portability-v3-BDdEZR/result.json",
+      "size": 2019058,
+      "sha256": "ea30de575bb5ae11a6078bb841e1d8e9bed118d6d067f073ce805759e0a3bef1"
+    },
+    {
+      "path": "out/native-portability-v3-BDdEZR/evidence/conformance/funding-reserves.json",
+      "size": 149657,
+      "sha256": "9b155595168163a455a05e734a180fe8802ee272c02eb31f40bce48b276551d7"
+    },
+    {
+      "path": "out/native-portability-v3-BDdEZR/evidence/conformance/portability.json",
+      "size": 414863,
+      "sha256": "7fff8b1df2e85a47246b367b5ffc6c371d69dbfc01eb004027e7c9c8b92df23f"
+    },
+    {
+      "path": "out/native-portability-v3-preflight-3.log",
+      "size": 2392,
+      "sha256": "51666ebc3690eceab1ff476887378e54ace984a6d9303045a071ee44601b1e3a"
+    },
+    {
+      "path": "out/probe-native-portability-v3.ts",
+      "size": 5662,
+      "sha256": "fe77e0d8b17426eacbece014ef92b69f5f5a59b224261ff3ac93a7ce4a530b74"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/conformance-portability.ts",
+      "size": 25152,
+      "sha256": "137f7e786080f2088f0516317dccac08a4201bdc7b3a2a0039d23bc0ad7e33ea"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/verify-conformance-portability.ts",
+      "size": 23810,
+      "sha256": "ae0fd49a3c5ace7b84c0f43e04db061ca8b32962db0dd5cde581c85aba8f0ad2"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/portability-proof.ts",
+      "size": 3031,
+      "sha256": "ced0e10136e91fc10f0caff87842b6cc9eebc5ad9123557da768754489d60fb8"
+    },
+    {
+      "path": "programs/ISI-4/profiles/native-conformance-3.0.0/portability-oracle-3.0.0.json",
+      "size": 2490,
+      "sha256": "266c34829ec30f343bfe6d4899f139d27f0eb30b6fdbe84919b6850a1a47893f"
+    },
+    {
+      "path": "out/itcve-go-storage-portability.json",
+      "size": 760,
+      "sha256": "eaa1ef577e8151be2e4580d5cba711fa270764ec59d5e10cd7a85e75a41524f0"
+    },
+    {
+      "path": "infra/adapters/storage-portability/patch.lock.json",
+      "size": 1024,
+      "sha256": "b9f229391f4fd8a953fd76b6c73cc7585818d91fe6c1802e9fc8667a86c1fcef"
+    }
+  ],
+  "runs": [
+    {
+      "attempt": "1",
+      "directory": "out/native-portability-v3-jSZcYn",
+      "result": "FAIL",
+      "detail": "Unsettled native operation plus concurrent authenticated observer caused a repeated createAction and unsigned reservation; earlier cold-recovery receipt was not preserved on timeout."
+    },
+    {
+      "attempt": "2",
+      "directory": "out/native-portability-v3-82fKYU",
+      "result": "FAIL",
+      "detail": "Initial reserves and one-second polling still raced the unfinished native operation; independent observer retained the timeout as FAIL."
+    },
+    {
+      "attempt": "3",
+      "directory": "out/native-portability-v3-BDdEZR",
+      "result": "PASS",
+      "detail": "Supported ToDo success-toast barrier precedes observer authentication; signed bytes, full proof closure, exact successful processAction receipt and final source-off read verify."
+    }
+  ],
+  "finalAssertions": 9,
+  "sourceBinding": "Final source snapshots and probe are retained byte-for-byte. Earlier two runs were uncommitted observer experiments and retain original reports/logs without attributing the final driver bytes to them.",
+  "limits": [
+    "macOS Chromium engineering execution, not frozen Linux namespace/seccomp qualification.",
+    "Source-owned Go ancestry compatibility patch declared; unchanged Yours5.1.0 public API and settings UI.",
+    "Failed native6 qualification remains unchanged; later passing preflight never promotes it."
+  ]
+}

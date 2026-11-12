@@ -1,0 +1,139 @@
+{
+  "schema": "tpnil-storage-history-projection-engineering@2",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "recordedAt": "2026-11-09T22:14:00.984076+00:00",
+  "sourceHead": "c82b06b8d6ba657e3c973f87b58416493b0433e6",
+  "sourceState": "Uncommitted prospective producer/oracle files; each matrix freezes exact input hashes. Final CI must qualify committed source.",
+  "policy": "tpnil-storage-history-projection@2.0.0",
+  "manifestSha256": "02d213f1215ecdde54b813e04d93b9a8be8464063fbfdefb07c1a3ad4b740062",
+  "originalFailure": {
+    "runId": 42706097914,
+    "archive": "journals/integrated-component-attempts/2026-11-09/42706097914",
+    "preservedV1Verdict": "FAIL",
+    "soleDifference": "provenTxReqs[0].history.notes[1].when .660Z versus .66Z"
+  },
+  "attempts": [
+    {
+      "id": "attempt-1",
+      "result": "FAIL",
+      "passedCells": 4,
+      "failedCells": 4,
+      "cause": "Go source history inherited host -08:00 timezone, outside the explicitly UTC-only new projection. Full raw RPC traces retained. No source timestamp conversion or oracle widening."
+    },
+    {
+      "id": "attempt-2",
+      "result": "PASS",
+      "passedCells": 8,
+      "independentAssertions": 88,
+      "reboundMutationsRejected": [
+        "providedBy",
+        "proof",
+        "history-instant",
+        "history-calendar"
+      ],
+      "runtime": "V2 child TZ=UTC plus recorded resolvedTimezone UTC and offsetMinutes0 before services; direct API rejects absent/mismatched UTC.",
+      "supersededReason": "Profile wording incorrectly attributed unknown-offset rejection to the Go parser. Corrected to an explicit profile restriction; implementation and predicates unchanged. This earlier engineering input remains immutable."
+    },
+    {
+      "id": "attempt-3",
+      "result": "PASS",
+      "passedCells": 8,
+      "independentAssertions": 88,
+      "reboundMutationsRejected": [
+        "providedBy",
+        "proof",
+        "history-instant",
+        "history-calendar"
+      ],
+      "runtime": "V2 child TZ=UTC and actual resolvedTimezone UTC / offsetMinutes0 before services.",
+      "finalManifest": true
+    }
+  ],
+  "tests": {
+    "focusedPassed": 57,
+    "typecheck": "PASS",
+    "originalPassingV1Replay": {
+      "runId": 42304588035,
+      "assertions": 88,
+      "result": "PASS"
+    },
+    "originalFailingV1FixtureStillRejected": true
+  },
+  "native": {
+    "projectionChanged": false,
+    "environmentChanged": false,
+    "qualificationClaim": false
+  },
+  "files": [
+    {
+      "path": "engineering-matrices.zip",
+      "bytes": 2826202,
+      "sha256": "1bbf745d9ae2911f875a74e5c1223c36ec6c0a9a00e43be55aa1b19b287b1f91"
+    },
+    {
+      "path": "foundation9-diagnosis.json",
+      "bytes": 2416,
+      "sha256": "53e4b764273f9d2d0388e836ff6254bb3736e0932e7dc4e9008f56c241a563dc"
+    },
+    {
+      "path": "legacy-independent.txt",
+      "bytes": 226,
+      "sha256": "d3999c95884c18483e233956a550f239acc6ef8300f43c09469da83dd2ed3550"
+    },
+    {
+      "path": "manifest-attempt-1.json",
+      "bytes": 1631,
+      "sha256": "2ad361a4e99d85fa0259c2c3cb5a15b0638ea4c17be81064156abc441ec3f204"
+    },
+    {
+      "path": "manifest-attempt-2.json",
+      "bytes": 2187,
+      "sha256": "d98fa8ade1ed26d504e3fe7cea59b9400f44e1a43bd799d4a573f556a8980a51"
+    },
+    {
+      "path": "manifest-attempt-3.json",
+      "bytes": 2167,
+      "sha256": "02d213f1215ecdde54b813e04d93b9a8be8464063fbfdefb07c1a3ad4b740062"
+    },
+    {
+      "path": "matrix-1.txt",
+      "bytes": 371,
+      "sha256": "2aa95ffcd35332d2ebbc001fda2f47ef4c0a14761f1e9b717ea4cd045e4202f3"
+    },
+    {
+      "path": "matrix-2-independent.txt",
+      "bytes": 303,
+      "sha256": "faaaa2b8aa57e1cd368130870ddc2580faaadfe46ac2fba731ad3cfa8a27c69f"
+    },
+    {
+      "path": "matrix-2.txt",
+      "bytes": 371,
+      "sha256": "89448e54182ca842ea7e2e9ad31f11f61c236f5ae6426fe2741825494d7b202b"
+    },
+    {
+      "path": "matrix-3-independent.txt",
+      "bytes": 303,
+      "sha256": "faaaa2b8aa57e1cd368130870ddc2580faaadfe46ac2fba731ad3cfa8a27c69f"
+    },
+    {
+      "path": "matrix-3.txt",
+      "bytes": 371,
+      "sha256": "b1b2b3e5ca89616900018ce2b6730d1abeb74d5b7438e6892a3905d44cb98b66"
+    },
+    {
+      "path": "tests-1.txt",
+      "bytes": 386,
+      "sha256": "36802cbe542ef3f3e18b1d4ebaf7d4c6a5016cb880af01b821c8179432c36d32"
+    },
+    {
+      "path": "tests-2.txt",
+      "bytes": 386,
+      "sha256": "d243180742e5afbec0d15c49d3ce59e6a9f3e10d649668bf2db28dd513cdbf27"
+    },
+    {
+      "path": "typecheck.txt",
+      "bytes": 52,
+      "sha256": "381be222d640c62a1491f0cd300dd4b3d77f00d5b62028c59702bba3119afc8f"
+    }
+  ]
+}

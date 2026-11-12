@@ -1,0 +1,725 @@
+﻿2026-11-09T21:42:23.8055686Z Current runner version: '2.338.2'
+2026-11-09T21:42:23.8082698Z ##[group]Runner Image Provisioner
+2026-11-09T21:42:23.8083597Z Hosted Compute Agent
+2026-11-09T21:42:23.8084339Z Version: 20261028.624
+2026-11-09T21:42:23.8085042Z Commit: 54898b74c23fde5556c9b3c3a2290865feef0dfe
+2026-11-09T21:42:23.8085865Z Build Date: 2026-10-28T21:51:42Z
+2026-11-09T21:42:23.8086626Z Worker ID: {1efb1923-958e-4f0a-b83d-4787066b7222}
+2026-11-09T21:42:23.8087631Z Region: westcentralus
+2026-11-09T21:42:23.8088326Z Cloud: Azure
+2026-11-09T21:42:23.8088892Z ##[endgroup]
+2026-11-09T21:42:23.8090494Z ##[group]Operating System
+2026-11-09T21:42:23.8091241Z Ubuntu
+2026-11-09T21:42:23.8091797Z 24.04.5
+2026-11-09T21:42:23.8092389Z LTS
+2026-11-09T21:42:23.8092976Z ##[endgroup]
+2026-11-09T21:42:23.8093586Z ##[group]Runner Image
+2026-11-09T21:42:23.8094268Z Image: ubuntu-24.04
+2026-11-09T21:42:23.8094862Z Version: 20261101.360.1
+2026-11-09T21:42:23.8096232Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261101.360/images/ubuntu/Ubuntu2404-Readme.md
+2026-11-09T21:42:23.8098456Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261101.360
+2026-11-09T21:42:23.8099541Z ##[endgroup]
+2026-11-09T21:42:23.8100676Z ##[group]GITHUB_TOKEN Permissions
+2026-11-09T21:42:23.8102724Z Contents: read
+2026-11-09T21:42:23.8103363Z Metadata: read
+2026-11-09T21:42:23.8104083Z ##[endgroup]
+2026-11-09T21:42:23.8106227Z Secret source: Actions
+2026-11-09T21:42:23.8107816Z Cache mode: write
+2026-11-09T21:42:23.8108596Z Prepare workflow directory
+2026-11-09T21:42:23.8514266Z Prepare all required actions
+2026-11-09T21:42:23.8562454Z Getting action download info
+2026-11-09T21:42:24.1595569Z Download action repository 'actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09' (SHA:fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09)
+2026-11-09T21:42:24.2701405Z Download action repository 'actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-11-09T21:42:24.4726466Z Complete job name: offline-core
+2026-11-09T21:42:24.5725450Z ##[group]Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+2026-11-09T21:42:24.5726562Z with:
+2026-11-09T21:42:24.5727226Z   fetch-depth: 0
+2026-11-09T21:42:24.5727732Z   persist-credentials: false
+2026-11-09T21:42:24.5728294Z   repository: p2ppsr/interop
+2026-11-09T21:42:24.5732071Z   token: ***
+2026-11-09T21:42:24.5732532Z   ssh-strict: true
+2026-11-09T21:42:24.5733002Z   ssh-user: git
+2026-11-09T21:42:24.5733452Z   clean: true
+2026-11-09T21:42:24.5733929Z   sparse-checkout-cone-mode: true
+2026-11-09T21:42:24.5734504Z   fetch-tags: false
+2026-11-09T21:42:24.5734981Z   show-progress: true
+2026-11-09T21:42:24.5735453Z   lfs: false
+2026-11-09T21:42:24.5735899Z   submodules: false
+2026-11-09T21:42:24.5736382Z   set-safe-directory: true
+2026-11-09T21:42:24.5736921Z   allow-unsafe-pr-checkout: false
+2026-11-09T21:42:24.5737906Z ##[endgroup]
+2026-11-09T21:42:24.8459928Z Syncing repository: p2ppsr/interop
+2026-11-09T21:42:24.8462846Z ##[group]Getting Git version info
+2026-11-09T21:42:24.8464254Z Working directory is '/home/runner/work/interop/interop'
+2026-11-09T21:42:24.8466042Z [command]/usr/bin/git version
+2026-11-09T21:42:24.8528274Z git version 2.56.0
+2026-11-09T21:42:24.8551771Z ##[endgroup]
+2026-11-09T21:42:24.8570690Z Temporarily overriding HOME='/home/runner/work/_temp/cac924fe-6aba-4f3e-9827-e392081c2e15' before making global git config changes
+2026-11-09T21:42:24.8573174Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-09T21:42:24.8577796Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/interop/interop
+2026-11-09T21:42:24.8636918Z Deleting the contents of '/home/runner/work/interop/interop'
+2026-11-09T21:42:24.8643692Z ##[group]Initializing the repository
+2026-11-09T21:42:24.8649428Z [command]/usr/bin/git init /home/runner/work/interop/interop
+2026-11-09T21:42:24.8748918Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-09T21:42:24.8750731Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-09T21:42:24.8751906Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-09T21:42:24.8752821Z hint: call:
+2026-11-09T21:42:24.8753305Z hint:
+2026-11-09T21:42:24.8753934Z hint: 	git config --global init.defaultBranch <name>
+2026-11-09T21:42:24.8754695Z hint:
+2026-11-09T21:42:24.8755405Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-09T21:42:24.8756577Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-09T21:42:24.8757812Z hint:
+2026-11-09T21:42:24.8758319Z hint: 	git branch -m <name>
+2026-11-09T21:42:24.8758904Z hint:
+2026-11-09T21:42:24.8759673Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-09T21:42:24.8773431Z Initialized empty Git repository in /home/runner/work/interop/interop/.git/
+2026-11-09T21:42:24.8786631Z [command]/usr/bin/git remote add origin https://github.com/p2ppsr/interop
+2026-11-09T21:42:24.8841627Z ##[endgroup]
+2026-11-09T21:42:24.8843864Z ##[group]Disabling automatic garbage collection
+2026-11-09T21:42:24.8845645Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-09T21:42:24.8882850Z ##[endgroup]
+2026-11-09T21:42:24.8884327Z ##[group]Setting up auth
+2026-11-09T21:42:24.8891036Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-09T21:42:24.8941098Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-09T21:42:24.9321499Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-09T21:42:24.9362176Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-09T21:42:24.9607437Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-09T21:42:24.9644418Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-09T21:42:24.9892412Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-09T21:42:24.9934931Z ##[endgroup]
+2026-11-09T21:42:24.9936415Z ##[group]Fetching the repository
+2026-11-09T21:42:24.9948330Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-11-09T21:42:29.0481375Z From https://github.com/p2ppsr/interop
+2026-11-09T21:42:29.0483613Z  * [new branch]      codex/itcve-go-components-20261106 -> origin/codex/itcve-go-components-20261106
+2026-11-09T21:42:29.0485521Z  * [new branch]      codex/lab-integration-20261106 -> origin/codex/lab-integration-20261106
+2026-11-09T21:42:29.0488027Z  * [new branch]      codex/native-wallet-conformance-20261109 -> origin/codex/native-wallet-conformance-20261109
+2026-11-09T21:42:29.0489985Z  * [new branch]      main                     -> origin/main
+2026-11-09T21:42:29.0491385Z  * [new tag]         sut-artifacts-2026-09-20 -> sut-artifacts-2026-09-20
+2026-11-09T21:42:29.0505735Z [command]/usr/bin/git branch --list --remote origin/codex/native-wallet-conformance-20261109
+2026-11-09T21:42:29.0534607Z   origin/codex/native-wallet-conformance-20261109
+2026-11-09T21:42:29.0661374Z [command]/usr/bin/git rev-parse refs/remotes/origin/codex/native-wallet-conformance-20261109
+2026-11-09T21:42:29.0664051Z 3505d92a01fe7aeef7bb90fa1ed52f6eda003c54
+2026-11-09T21:42:29.0672207Z ##[endgroup]
+2026-11-09T21:42:29.0674430Z ##[group]Determining the checkout info
+2026-11-09T21:42:29.0676876Z ##[endgroup]
+2026-11-09T21:42:29.0678737Z [command]/usr/bin/git sparse-checkout disable
+2026-11-09T21:42:29.0683664Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-09T21:42:29.0690282Z ##[group]Checking out the ref
+2026-11-09T21:42:29.0695029Z [command]/usr/bin/git checkout --progress --force -B codex/native-wallet-conformance-20261109 refs/remotes/origin/codex/native-wallet-conformance-20261109
+2026-11-09T21:42:29.4432361Z Switched to a new branch 'codex/native-wallet-conformance-20261109'
+2026-11-09T21:42:29.4438840Z branch 'codex/native-wallet-conformance-20261109' set up to track 'origin/codex/native-wallet-conformance-20261109'.
+2026-11-09T21:42:29.4460277Z ##[endgroup]
+2026-11-09T21:42:29.4510949Z [command]/usr/bin/git log -1 --format=%H
+2026-11-09T21:42:29.4538281Z 3505d92a01fe7aeef7bb90fa1ed52f6eda003c54
+2026-11-09T21:42:29.4547794Z ##[group]Removing auth
+2026-11-09T21:42:29.4551585Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-09T21:42:29.4583574Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-09T21:42:29.4825833Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-09T21:42:29.4855251Z http.https://github.com/.extraheader
+2026-11-09T21:42:29.4864248Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-09T21:42:29.4902383Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-09T21:42:29.5144620Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-09T21:42:29.5178035Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-09T21:42:29.5411283Z ##[endgroup]
+2026-11-09T21:42:29.5714108Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+2026-11-09T21:42:29.5714714Z with:
+2026-11-09T21:42:29.5715013Z   node-version-file: .nvmrc
+2026-11-09T21:42:29.5715357Z   always-auth: false
+2026-11-09T21:42:29.5715664Z   check-latest: false
+2026-11-09T21:42:29.5718507Z   token: ***
+2026-11-09T21:42:29.5718807Z ##[endgroup]
+2026-11-09T21:42:29.7264923Z Node version file is not JSON file
+2026-11-09T21:42:29.7266473Z Resolved .nvmrc as 24.22.1
+2026-11-09T21:42:29.7285718Z Attempting to download 24.22.1...
+2026-11-09T21:42:29.7468449Z (node:2523) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-09T21:42:29.7470196Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-09T21:42:30.8490215Z Acquiring 24.22.1 - x64 from https://github.com/actions/node-versions/releases/download/24.22.1-39619001896/node-24.22.1-linux-x64.tar.gz
+2026-11-09T21:42:31.4472089Z Extracting ...
+2026-11-09T21:42:31.4603565Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/470b5206-b7f9-4152-95e2-8a0791cbfa66 -f /home/runner/work/_temp/49e1e9df-fbe7-41ae-8ec4-3302835f6e2d
+2026-11-09T21:42:32.7155614Z Adding to the cache ...
+2026-11-09T21:42:34.4803225Z ##[group]Environment details
+2026-11-09T21:42:34.7268287Z node: v24.22.1
+2026-11-09T21:42:34.7269151Z npm: 11.19.1
+2026-11-09T21:42:34.7269732Z yarn: 1.22.22
+2026-11-09T21:42:34.7270679Z ##[endgroup]
+2026-11-09T21:42:34.7496797Z ##[group]Run printf 'ImageOS=%s\nImageVersion=%s\n' "$ImageOS" "$ImageVersion"
+2026-11-09T21:42:34.7497851Z [36;1mprintf 'ImageOS=%s\nImageVersion=%s\n' "$ImageOS" "$ImageVersion"[0m
+2026-11-09T21:42:34.7523352Z shell: /usr/bin/bash -e {0}
+2026-11-09T21:42:34.7523652Z ##[endgroup]
+2026-11-09T21:42:34.7597892Z ImageOS=ubuntu24
+2026-11-09T21:42:34.7598307Z ImageVersion=20261101.360.1
+2026-11-09T21:42:34.7633731Z ##[group]Run npm test
+2026-11-09T21:42:34.7634017Z [36;1mnpm test[0m
+2026-11-09T21:42:34.7652982Z shell: /usr/bin/bash -e {0}
+2026-11-09T21:42:34.7653261Z ##[endgroup]
+2026-11-09T21:42:34.8580889Z 
+2026-11-09T21:42:34.8581354Z > tpnil@0.5.0 test
+2026-11-09T21:42:34.8581939Z > node --test test/*.test.mjs
+2026-11-09T21:42:34.8582298Z 
+2026-11-09T21:42:35.9524322Z ✔ canonical encoding has a fixed known answer and preserves array order (2.826934ms)
+2026-11-09T21:42:35.9526388Z ✔ strict parser rejects ambiguous keys, Unicode, numbers and trailing data (2.095629ms)
+2026-11-09T21:42:35.9528326Z ✔ unsupported schema keywords fail closed (0.674198ms)
+2026-11-09T21:42:35.9539520Z ✔ catalogs distinguish executable vectors from design-only vectors (39.394846ms)
+2026-11-09T21:42:35.9552248Z ✔ plans reject unknown fields, empty suites, repeated IDs and SUT claims (449.707441ms)
+2026-11-09T21:42:35.9553886Z ✔ missing evidence blocks; an explicit observed mismatch fails (24.553695ms)
+2026-11-09T21:42:35.9555462Z ✔ JSON pointer escaping and null evidence are precise (23.391922ms)
+2026-11-09T21:42:35.9556949Z ✔ array pointer cannot claim array length or leading-zero index (22.224463ms)
+2026-11-09T21:42:35.9558913Z ✔ artifact verification rejects changed bytes, path traversal and symlinks (2.680852ms)
+2026-11-09T21:42:35.9560524Z ✔ journal replay retains exact scoped result and immutable objects (51.152325ms)
+2026-11-09T21:42:35.9608547Z ✔ timestamps change record identity without changing semantic result (42.330923ms)
+2026-11-09T21:42:35.9633405Z ✔ tampering with an archived artifact fails replay (30.960272ms)
+2026-11-09T21:42:35.9634832Z ✔ missing archived objects fail replay (32.547237ms)
+2026-11-09T21:42:35.9636143Z ✔ journal truncation and chain rewrites are detected (29.617117ms)
+2026-11-09T21:42:35.9637940Z ✔ known prior journal prefix cannot be replaced by another valid run (56.88441ms)
+2026-11-09T21:42:35.9639730Z ✔ appending retains the prior prefix and duplicate run is rejected (40.793308ms)
+2026-11-09T21:42:35.9641363Z ✔ concurrent/stale writers and reversed timestamps fail closed (38.014031ms)
+2026-11-09T21:42:35.9643218Z ✔ failed and blocked observations remain recorded outcomes (30.382725ms)
+2026-11-09T21:42:35.9644596Z ✔ schema-invalid evidence cannot be appended (24.290606ms)
+2026-11-09T21:42:35.9645911Z ✔ demo cannot overwrite an existing evidence directory (28.850452ms)
+2026-11-09T21:42:35.9774965Z ✔ retained descendant CI archive binds all 46 members and eight fresh runs (192.808143ms)
+2026-11-09T21:42:35.9777322Z ✔ a recomputed outer digest cannot relabel reference evidence as native qualification (8.183428ms)
+2026-11-09T21:42:35.9779388Z ✔ published counts and member inventory must agree with the actual ZIP (187.971547ms)
+2026-11-09T21:42:35.9781303Z ✔ omitting a provenance file or adding an unlisted file cannot hide an archive (4.371436ms)
+2026-11-09T21:42:36.0018972Z ✔ history guard permits additions but rejects modifications, deletions and type changes (334.466329ms)
+2026-11-09T21:42:36.0028591Z ✔ replacement root preserves prior journal bytes; later history requires an ancestor (445.908008ms)
+2026-11-09T21:42:36.0071363Z ✔ a clean replacement root establishes a baseline without discarded objects; descendants require their base (241.328642ms)
+2026-11-09T21:42:36.0180331Z ✔ source-only intake remains blocked and cannot issue a conformance claim (22.565323ms)
+2026-11-09T21:42:36.0182622Z ✔ verified runtime criteria require runtime evidence, not source inspection (3.654819ms)
+2026-11-09T21:42:36.0184819Z ✔ intake rejects omitted criteria, live-broadcast scope changes, and unknown references (6.202232ms)
+2026-11-09T21:42:36.0199286Z ✔ intake detects altered artifacts and altered referenced evidence (6.463255ms)
+2026-11-09T21:42:36.0201377Z ✔ intake rejects evidence traversal and symlink substitution (7.203713ms)
+2026-11-09T21:42:36.0213630Z ✔ retained intake review verifies from archived objects and detects changes (17.381175ms)
+2026-11-09T21:42:36.0216031Z ✔ current intake permits authorized evaluation without redistribution or participation publicity (8.011751ms)
+2026-11-09T21:42:36.0224073Z ✔ public reproduction needs every reproduction permission and is separate from participation publicity (11.20782ms)
+2026-11-09T21:42:36.0226635Z ✔ evaluation and retention authorization independently gate execution without changing technical readiness (13.746093ms)
+2026-11-09T21:42:36.0228875Z ✔ every granted permission needs rights evidence; malformed and unknown permissions fail closed (9.25605ms)
+2026-11-09T21:42:36.0230435Z ✔ current archived reviews retain permission scope and detect permission tampering (11.844188ms)
+2026-11-09T21:42:36.0232192Z ✔ aggregate rejects omitted lanes, rewritten profile, cleanup failures and altered receipts even with rebound hashes (98.643239ms)
+2026-11-09T21:42:36.0233928Z ✔ aggregate detects modified files before trusting retained observations (5.966822ms)
+2026-11-09T21:42:36.0235584Z ✔ trusted-click archive retains two native engineering repetitions and20 closure selftests (37.86741ms)
+2026-11-09T21:42:36.0237354Z ✔ trusted-click archive rejects changed recorded native evidence (18.70078ms)
+2026-11-09T21:42:36.0238680Z ✔ trusted-click archive rejects missing mandatory source despite rewritten inventory (24.813435ms)
+2026-11-09T21:42:36.0239514Z ✔ trusted-click archive cannot claim native Linux qualification (13.744623ms)
+2026-11-09T21:42:36.1433490Z ✔ permission lifecycle engineering archive preserves every file and original attempt member (85.652993ms)
+2026-11-09T21:42:36.1494637Z ✔ permission archive rejects a changed original artifact byte (12.667173ms)
+2026-11-09T21:42:36.1525046Z ✔ permission archive rejects omission of a mandatory frozen verifier input even with a rewritten inventory (12.480675ms)
+2026-11-09T21:42:36.1556126Z ✔ permission archive rejects an upgraded qualification claim (7.497769ms)
+2026-11-09T21:42:36.1615943Z ✔ native evidence archives and verifies offline without issuing conformance (20.464373ms)
+2026-11-09T21:42:36.1637241Z ✔ native verifier rejects modified retained evidence (17.374627ms)
+2026-11-09T21:42:36.1789346Z ✔ payment coverage retains both directions, independent self-pairs and every failure variant (34.244805ms)
+2026-11-09T21:42:36.1791548Z ✔ reported Windows identity-key paths stay visible without assigning a confirmed cause or compatibility (42.950937ms)
+2026-11-09T21:42:36.1828833Z ✔ coverage rejects duplicate target IDs, duplicate cases, omitted steps and unknown actor scopes (6.811318ms)
+2026-11-09T21:42:36.1967418Z ✔ source gates reject skipped, pending, missing and false aggregate success reports (2.027964ms)
+2026-11-09T21:42:36.1996430Z ✔ TAP gates require named passing assertions, zero omissions and matching counts (1.3347ms)
+2026-11-09T21:42:36.2908388Z ✔ published archive integrity binds every byte and complete file set without external dependencies (7.796266ms)
+2026-11-09T21:42:36.2929224Z ✔ ITCVE-1@1.4.0 publication binds its program and preserves incomplete conformance (7.982654ms)
+2026-11-09T21:42:36.2930865Z ✔ ITCVE-1@1.5.0 publication binds its program and preserves incomplete conformance (6.819653ms)
+2026-11-09T21:42:36.2932421Z ✔ ITCVE-1@2.0.0 publication binds its program and preserves incomplete conformance (9.999036ms)
+2026-11-09T21:42:36.2979125Z ✔ unlisted files and duplicate inventory entries cannot verify (2.617584ms)
+2026-11-09T21:42:36.3018442Z ✔ removing a whole provenance manifest cannot hide a published archive (2.811064ms)
+2026-11-09T21:42:36.3048560Z ✔ observer build failures cannot claim native wallet execution (1.660047ms)
+2026-11-09T21:42:36.3050276Z ✔ safe ZIP extraction preserves bytes and rejects CRC damage (2.086062ms)
+2026-11-09T21:42:36.3051753Z ✔ ZIP traversal is rejected before publication (0.72892ms)
+2026-11-09T21:42:36.3053119Z ✔ ZIP absolute path is rejected before publication (1.108919ms)
+2026-11-09T21:42:36.3054397Z ✔ ZIP symlink is rejected before publication (0.59535ms)
+2026-11-09T21:42:36.3055737Z ✔ ZIP local/central name disagreement is rejected before publication (1.343677ms)
+2026-11-09T21:42:36.3058097Z ✔ ZIP duplicate names is rejected before publication (0.510422ms)
+2026-11-09T21:42:36.3059611Z ✔ ZIP case-colliding names is rejected before publication (0.548634ms)
+2026-11-09T21:42:36.3061581Z ✔ ZIP file/directory collision is rejected before publication (0.617622ms)
+2026-11-09T21:42:36.3068337Z ✔ ZIP expansion overflow is rejected before publication (0.490254ms)
+2026-11-09T21:42:36.3069839Z ✔ failed semantic extraction removes its uniquely owned temporary directory (2.071474ms)
+2026-11-09T21:42:36.3071344Z ✔ component counts distinguish outer repetitions and isolated storage runs (1.860983ms)
+2026-11-09T21:42:36.5566883Z ✔ portable qualification executes, retains raw evidence, and verifies offline (194.377551ms)
+2026-11-09T21:42:36.6726262Z ✔ qualification verifier rejects modified retained evidence (110.944315ms)
+2026-11-09T21:42:36.6992233Z ✔ qualification records assertion failures without issuing conformance (115.717969ms)
+2026-11-09T21:42:36.7074556Z ✔ pinned CHIRP and LCH standard fixtures satisfy independent core checks (22.854079ms)
+2026-11-09T21:42:36.7076040Z ✔ standards qualification rejects changed fixture bytes (4.531995ms)
+2026-11-09T21:42:36.7077368Z ✔ native observation packaging retains and verifies every evidence byte (7.469306ms)
+2026-11-09T21:42:36.7078270Z ✔ published wallet series binds both repetition records and their semantic result (23.361891ms)
+2026-11-09T21:42:36.7079108Z ✔ published joined Arcade, Teranode, and Merkle evidence verifies offline (14.792904ms)
+2026-11-09T21:42:36.7079873Z ✔ published Synthesis Board transaction-services evidence verifies offline (3.62395ms)
+2026-11-09T21:42:36.7080570Z ✔ component evidence rejects a changed retained observation (4.402674ms)
+2026-11-09T21:42:36.7081190Z ✔ published Teranode runtime evidence verifies offline (1.659186ms)
+2026-11-09T21:42:36.7081758Z ✔ runtime evidence rejects a changed retained result (2.039044ms)
+2026-11-09T21:42:36.7082355Z ✔ published synthesis reference evidence verifies offline (16.463545ms)
+2026-11-09T21:42:36.7082971Z ✔ reference evidence rejects a changed retained result (2.600112ms)
+2026-11-09T21:42:36.7083689Z ✔ published orchestrated synthesis stack verifies every linked transaction offline (12.27934ms)
+2026-11-09T21:42:36.7084369Z ✔ synthesis stack rejects a changed linked fixture (12.383905ms)
+2026-11-09T21:42:41.2390020Z ✔ LAB_SELF_TEST_ONLY: independent BRC39 envelope, NFC, header bounds and authenticated tamper rejection (4755.986559ms)
+2026-11-09T21:42:41.2484102Z ℹ tests 90
+2026-11-09T21:42:41.2498630Z ℹ suites 0
+2026-11-09T21:42:41.2499445Z ℹ pass 90
+2026-11-09T21:42:41.2500070Z ℹ fail 0
+2026-11-09T21:42:41.2500460Z ℹ cancelled 0
+2026-11-09T21:42:41.2500844Z ℹ skipped 0
+2026-11-09T21:42:41.2501205Z ℹ todo 0
+2026-11-09T21:42:41.2501625Z ℹ duration_ms 6355.142418
+2026-11-09T21:42:41.2665514Z ##[group]Run npm run check
+2026-11-09T21:42:41.2665823Z [36;1mnpm run check[0m
+2026-11-09T21:42:41.2686444Z shell: /usr/bin/bash -e {0}
+2026-11-09T21:42:41.2686709Z ##[endgroup]
+2026-11-09T21:42:41.3690792Z 
+2026-11-09T21:42:41.3691275Z > tpnil@0.5.0 check
+2026-11-09T21:42:41.3692361Z > node bin/tpnil.mjs check && node scripts/check-itcve-go.mjs
+2026-11-09T21:42:41.3692891Z 
+2026-11-09T21:42:41.4738832Z {
+2026-11-09T21:42:41.4739760Z   "catalogs": 4,
+2026-11-09T21:42:41.4740533Z   "draftVectors": 26,
+2026-11-09T21:42:41.4741260Z   "executableSutVectors": 6
+2026-11-09T21:42:41.4741880Z }
+2026-11-09T21:42:41.5148655Z ITCVE-1 1.1.0: three pinned Go implementations, eight selectable combinations
+2026-11-09T21:42:41.5304577Z ##[group]Run npm run qualify:standards
+2026-11-09T21:42:41.5304924Z [36;1mnpm run qualify:standards[0m
+2026-11-09T21:42:41.5324964Z shell: /usr/bin/bash -e {0}
+2026-11-09T21:42:41.5325231Z ##[endgroup]
+2026-11-09T21:42:41.6367677Z 
+2026-11-09T21:42:41.6368417Z > tpnil@0.5.0 qualify:standards
+2026-11-09T21:42:41.6369585Z > node bin/tpnil.mjs qualify-standards
+2026-11-09T21:42:41.6370072Z 
+2026-11-09T21:42:41.7286873Z {
+2026-11-09T21:42:41.7287873Z   "designation": "LAB_SELF_TEST_ONLY",
+2026-11-09T21:42:41.7288651Z   "outcome": "PASS",
+2026-11-09T21:42:41.7289038Z   "fixtureCount": 2,
+2026-11-09T21:42:41.7289376Z   "results": {
+2026-11-09T21:42:41.7289699Z     "chirp": {
+2026-11-09T21:42:41.7290502Z       "vectors": 9,
+2026-11-09T21:42:41.7290866Z       "directlyRecomputed": 6
+2026-11-09T21:42:41.7291307Z     },
+2026-11-09T21:42:41.7291619Z     "lch": {
+2026-11-09T21:42:41.7292042Z       "referenceCases": 10,
+2026-11-09T21:42:41.7292462Z       "decryptedSegments": 6,
+2026-11-09T21:42:41.7293054Z       "authenticationRejections": 4
+2026-11-09T21:42:41.7293528Z     }
+2026-11-09T21:42:41.7293858Z   }
+2026-11-09T21:42:41.7294138Z }
+2026-11-09T21:42:41.7500540Z ##[group]Run npm ci --prefix synthesis --ignore-scripts
+2026-11-09T21:42:41.7501244Z [36;1mnpm ci --prefix synthesis --ignore-scripts[0m
+2026-11-09T21:42:41.7528596Z shell: /usr/bin/bash -e {0}
+2026-11-09T21:42:41.7529017Z ##[endgroup]
+2026-11-09T21:42:45.8794782Z 
+2026-11-09T21:42:45.8795545Z added 193 packages, and audited 194 packages in 4s
+2026-11-09T21:42:45.8796125Z 
+2026-11-09T21:42:45.8796479Z 58 packages are looking for funding
+2026-11-09T21:42:45.8797352Z   run `npm fund` for details
+2026-11-09T21:42:45.8806856Z 
+2026-11-09T21:42:45.8807428Z found 0 vulnerabilities
+2026-11-09T21:42:45.9425699Z ##[group]Run npm audit --prefix synthesis --audit-level=moderate
+2026-11-09T21:42:45.9426230Z [36;1mnpm audit --prefix synthesis --audit-level=moderate[0m
+2026-11-09T21:42:45.9452455Z shell: /usr/bin/bash -e {0}
+2026-11-09T21:42:45.9452734Z ##[endgroup]
+2026-11-09T21:42:46.4220077Z found 0 vulnerabilities
+2026-11-09T21:42:46.4355114Z ##[group]Run npm run typecheck --prefix synthesis
+2026-11-09T21:42:46.4355522Z [36;1mnpm run typecheck --prefix synthesis[0m
+2026-11-09T21:42:46.4375241Z shell: /usr/bin/bash -e {0}
+2026-11-09T21:42:46.4375513Z ##[endgroup]
+2026-11-09T21:42:46.5331134Z 
+2026-11-09T21:42:46.5331768Z > @tpnil/synthesis@0.1.0 typecheck
+2026-11-09T21:42:46.5332453Z > tsc --noEmit
+2026-11-09T21:42:46.5332704Z 
+2026-11-09T21:42:50.6544141Z ##[group]Run npm test --prefix synthesis
+2026-11-09T21:42:50.6544530Z [36;1mnpm test --prefix synthesis[0m
+2026-11-09T21:42:50.6564417Z shell: /usr/bin/bash -e {0}
+2026-11-09T21:42:50.6564687Z ##[endgroup]
+2026-11-09T21:42:50.7567526Z 
+2026-11-09T21:42:50.7568003Z > @tpnil/synthesis@0.1.0 test
+2026-11-09T21:42:50.7568432Z > vitest run
+2026-11-09T21:42:50.7568612Z 
+2026-11-09T21:42:51.0197677Z 
+2026-11-09T21:42:51.0201936Z [1m[30m[46m RUN [49m[39m[22m [36mv4.1.12 [39m[90m/home/runner/work/interop/interop/synthesis[39m
+2026-11-09T21:42:51.0202387Z 
+2026-11-09T21:42:52.0759474Z [90mstdout[2m | test/go-components.test.ts
+2026-11-09T21:42:52.0768894Z [22m[39m◇ injected env (0) from .env // tip: ⌘ enable debugging { debug: true }
+2026-11-09T21:42:52.0770127Z ◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+2026-11-09T21:42:52.0770450Z 
+2026-11-09T21:42:52.2034698Z  [32m✓[39m test/go-components.test.ts [2m([22m[2m11 tests[22m[2m | [22m[33m8 skipped[39m[2m)[22m[32m 15[2mms[22m[39m
+2026-11-09T21:42:53.2218205Z  [32m✓[39m test/http-wallet-driver.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 212[2mms[22m[39m
+2026-11-09T21:42:54.7189143Z  [32m✓[39m test/lch-reference.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 3148[2mms[22m[39m
+2026-11-09T21:42:54.7214052Z      [33m[2m✓[22m[39m preflights without spending, then pays every wallet and decrypts the exact asset [33m 576[2mms[22m[39m
+2026-11-09T21:42:54.7220033Z      [33m[2m✓[22m[39m retries an ambiguous Payee delivery with the retained transaction instead of paying again [33m 483[2mms[22m[39m
+2026-11-09T21:42:54.7222179Z      [33m[2m✓[22m[39m licenses an accepted authorized output while its Payee is offline, then recovers it later [33m 665[2mms[22m[39m
+2026-11-09T21:42:54.7249507Z      [33m[2m✓[22m[39m keeps one finalized payment pending until the authorized Delivery provider returns [33m 658[2mms[22m[39m
+2026-11-09T21:42:54.7252426Z      [33m[2m✓[22m[39m keeps receipt-complete settlement pending when an offline Payee has not delegated fallback [33m 321[2mms[22m[39m
+2026-11-09T21:42:55.6414969Z [90mstdout[2m | test/native-conformance-reserves.test.ts
+2026-11-09T21:42:55.6417760Z [22m[39m◇ injected env (0) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+2026-11-09T21:42:55.6458305Z ◇ injected env (0) from .env // tip: ⌘ override existing { override: true }
+2026-11-09T21:42:55.6539688Z 
+2026-11-09T21:42:55.8669069Z  [32m✓[39m test/native-conformance-lifecycle.test.ts [2m([22m[2m18 tests[22m[2m)[22m[33m 4173[2mms[22m[39m
+2026-11-09T21:42:55.8671330Z    [33m[2m✓[22m[39m preserves both native4 historical FAILs while explicit v3 producer and independent oracle correct only metadata set order [33m 955[2mms[22m[39m
+2026-11-09T21:42:55.8672742Z    [33m[2m✓[22m[39m v3 rejects lost, changed or duplicated labels/tags and exact non-set metadata changes [33m 1346[2mms[22m[39m
+2026-11-09T21:42:55.8673955Z    [33m[2m✓[22m[39m v3 rejects duplicate or non-string members even when every state returns the same invalid collection [33m 641[2mms[22m[39m
+2026-11-09T21:42:56.5588946Z [90mstdout[2m | test/native-conformance-reserves.test.ts
+2026-11-09T21:42:56.5590627Z [22m[39mWalletStorageServer listening at http://127.0.0.1:42793
+2026-11-09T21:42:56.5617517Z 
+2026-11-09T21:42:56.5648309Z [90mstdout[2m | test/native-conformance-reserves.test.ts
+2026-11-09T21:42:56.5668393Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:42:56.5669169Z 
+2026-11-09T21:42:56.7165119Z [90mstdout[2m | test/native-conformance-reserves.test.ts
+2026-11-09T21:42:56.7170899Z [22m[39mhttps server started on 41591
+2026-11-09T21:42:56.7171588Z 
+2026-11-09T21:42:56.7195164Z [90mstdout[2m | test/native-conformance-portability.test.ts
+2026-11-09T21:42:56.7199064Z [22m[39m◇ injected env (0) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+2026-11-09T21:42:56.7201316Z ◇ injected env (0) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+2026-11-09T21:42:56.7202314Z 
+2026-11-09T21:43:00.2869261Z [90mstdout[2m | test/native-conformance-portability.test.ts[2m > [22m[2mstops only the source listener, routes large prospective RPCs, and retires the owned counterpart
+2026-11-09T21:43:00.2872542Z [22m[39mWalletStorageServer listening at http://127.0.0.1:42709
+2026-11-09T21:43:00.2873363Z 
+2026-11-09T21:43:00.2904635Z [90mstdout[2m | test/native-conformance-portability.test.ts[2m > [22m[2mstops only the source listener, routes large prospective RPCs, and retires the owned counterpart
+2026-11-09T21:43:00.2918536Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:43:00.2919376Z 
+2026-11-09T21:43:00.5070673Z [90mstdout[2m | test/native-conformance-portability.test.ts[2m > [22m[2mstops only the source listener, routes large prospective RPCs, and retires the owned counterpart
+2026-11-09T21:43:00.5098992Z [22m[39mhttps server started on 41371
+2026-11-09T21:43:00.5107989Z 
+2026-11-09T21:43:00.8259287Z [90mstdout[2m | test/native-conformance-portability.test.ts[2m > [22m[2mstops only the source listener, routes large prospective RPCs, and retires the owned counterpart
+2026-11-09T21:43:00.8270254Z [22m[39mWalletStorageServer listening at http://127.0.0.1:34899
+2026-11-09T21:43:00.8271393Z 
+2026-11-09T21:43:00.8279165Z [90mstdout[2m | test/native-conformance-portability.test.ts[2m > [22m[2mstops only the source listener, routes large prospective RPCs, and retires the owned counterpart
+2026-11-09T21:43:00.8280949Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:43:00.8281412Z 
+2026-11-09T21:43:00.9410136Z [90mstdout[2m | test/native-conformance-portability.test.ts[2m > [22m[2mstops only the source listener, routes large prospective RPCs, and retires the owned counterpart
+2026-11-09T21:43:00.9428178Z [22m[39mhttps server started on 34071
+2026-11-09T21:43:00.9448117Z 
+2026-11-09T21:43:00.9663963Z  [32m✓[39m test/native-conformance-reserves.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 4923[2mms[22m[39m
+2026-11-09T21:43:01.6621616Z [90mstdout[2m | test/wallet-services.test.ts
+2026-11-09T21:43:01.6622968Z [22m[39m◇ injected env (0) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+2026-11-09T21:43:01.6625008Z ◇ injected env (0) from .env // tip: ⌘ suppress logs { quiet: true }
+2026-11-09T21:43:01.6625620Z 
+2026-11-09T21:43:01.8833449Z  [32m✓[39m test/native-conformance-portability.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 4916[2mms[22m[39m
+2026-11-09T21:43:01.8834913Z    [33m[2m✓[22m[39m independently replays typescript portability and rejects tampered task/state/proof evidence [33m 695[2mms[22m[39m
+2026-11-09T21:43:01.8841610Z    [33m[2m✓[22m[39m independently replays go portability and rejects tampered task/state/proof evidence [33m 373[2mms[22m[39m
+2026-11-09T21:43:01.8844252Z    [33m[2m✓[22m[39m binds fresh source, destination and post-redemption snapshots to their exact outage intervals and RPC pages [33m 1760[2mms[22m[39m
+2026-11-09T21:43:01.8848493Z    [33m[2m✓[22m[39m stops only the source listener, routes large prospective RPCs, and retires the owned counterpart [33m 1239[2mms[22m[39m
+2026-11-09T21:43:01.8851393Z    [33m[2m✓[22m[39m retains actual pending native rows until the matching complete ToDo transaction is available [33m 845[2mms[22m[39m
+2026-11-09T21:43:02.2123690Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mretains only bridge timing and response facts from the wallet diagnostic boundary
+2026-11-09T21:43:02.2129284Z [22m[39mWalletStorageServer listening at http://127.0.0.1:37699
+2026-11-09T21:43:02.2130135Z 
+2026-11-09T21:43:02.2189239Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mretains only bridge timing and response facts from the wallet diagnostic boundary
+2026-11-09T21:43:02.2218610Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:43:02.2219325Z 
+2026-11-09T21:43:02.3439936Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mretains only bridge timing and response facts from the wallet diagnostic boundary
+2026-11-09T21:43:02.3441584Z [22m[39mhttps server started on 45039
+2026-11-09T21:43:02.3441934Z 
+2026-11-09T21:43:02.4036586Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mretains only bridge timing and response facts from the wallet diagnostic boundary
+2026-11-09T21:43:02.4043800Z [22m[39mcreating SNI context for usercom.babbage.systems
+2026-11-09T21:43:02.4046462Z 
+2026-11-09T21:43:02.7401604Z [90mstdout[2m | test/native-identity-trust.test.ts
+2026-11-09T21:43:02.7403211Z [22m[39m◇ injected env (0) from .env // tip: ⌘ suppress logs { quiet: true }
+2026-11-09T21:43:02.7404836Z ◇ injected env (0) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+2026-11-09T21:43:02.7405683Z 
+2026-11-09T21:43:03.3389698Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mretains wallet storage method and response timing without RPC arguments
+2026-11-09T21:43:03.3439699Z [22m[39mWalletStorageServer listening at http://127.0.0.1:37897
+2026-11-09T21:43:03.3443709Z 
+2026-11-09T21:43:03.3459630Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mretains wallet storage method and response timing without RPC arguments
+2026-11-09T21:43:03.3461502Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:43:03.3462141Z 
+2026-11-09T21:43:03.4262671Z  [32m✓[39m test/native-conformance-clause-semantics.test.ts [2m([22m[2m38 tests[22m[2m)[22m[33m 9771[2mms[22m[39m
+2026-11-09T21:43:03.4265364Z      [33m[2m✓[22m[39m independently validates real peer cryptography and complete synthetic metadata controls [33m 308[2mms[22m[39m
+2026-11-09T21:43:03.4267635Z      [33m[2m✓[22m[39m rejects a renamed public method [33m 402[2mms[22m[39m
+2026-11-09T21:43:03.4269083Z      [33m[2m✓[22m[39m rejects an unbound protocol [33m 344[2mms[22m[39m
+2026-11-09T21:43:03.4270591Z      [33m[2m✓[22m[39m rejects wrong independent input ciphertext [33m 310[2mms[22m[39m
+2026-11-09T21:43:03.4272737Z      [33m[2m✓[22m[39m rejects tampering before successful native encryption [33m 321[2mms[22m[39m
+2026-11-09T21:43:03.4274437Z      [33m[2m✓[22m[39m rejects missing successful encryption reused as negative [33m 314[2mms[22m[39m
+2026-11-09T21:43:03.4276013Z      [33m[2m✓[22m[39m rejects the original key in a wrong-key case [33m 314[2mms[22m[39m
+2026-11-09T21:43:03.4277915Z      [33m[2m✓[22m[39m rejects permission denial substituted for AES rejection [33m 306[2mms[22m[39m
+2026-11-09T21:43:03.4279621Z      [33m[2m✓[22m[39m rejects a transport timeout as cryptographic rejection [33m 310[2mms[22m[39m
+2026-11-09T21:43:03.5500769Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mretains wallet storage method and response timing without RPC arguments
+2026-11-09T21:43:03.5518456Z [22m[39mhttps server started on 34845
+2026-11-09T21:43:03.5528028Z 
+2026-11-09T21:43:03.6432414Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mretains wallet storage method and response timing without RPC arguments
+2026-11-09T21:43:03.6436037Z [22m[39mcreating SNI context for wallet.1sat.app
+2026-11-09T21:43:03.6436817Z 
+2026-11-09T21:43:04.0440267Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mfunds the WAB from a mature Teranode coinbase and spends through the controlled faucet
+2026-11-09T21:43:04.0468743Z [22m[39mWalletStorageServer listening at http://127.0.0.1:35875
+2026-11-09T21:43:04.0493933Z 
+2026-11-09T21:43:04.0500381Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mfunds the WAB from a mature Teranode coinbase and spends through the controlled faucet
+2026-11-09T21:43:04.0502594Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:43:04.0503267Z 
+2026-11-09T21:43:04.0900367Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mfunds the WAB from a mature Teranode coinbase and spends through the controlled faucet
+2026-11-09T21:43:04.0928468Z [22m[39mhttps server started on 42687
+2026-11-09T21:43:04.0957818Z 
+2026-11-09T21:43:04.3875576Z [90mstdout[2m | test/native-shutdown-submissions.test.ts
+2026-11-09T21:43:04.3877567Z [22m[39m◇ injected env (0) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+2026-11-09T21:43:04.3879545Z ◇ injected env (0) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+2026-11-09T21:43:04.3880473Z 
+2026-11-09T21:43:04.5978613Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mfunds the WAB from a mature Teranode coinbase and spends through the controlled faucet
+2026-11-09T21:43:04.5980831Z [22m[39mcreating SNI context for wab.itcve.test
+2026-11-09T21:43:04.5988696Z 
+2026-11-09T21:43:05.1707465Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mforcibly releases generated MITM listeners and active tunnels
+2026-11-09T21:43:05.1711107Z [22m[39mWalletStorageServer listening at http://127.0.0.1:43177
+2026-11-09T21:43:05.1711935Z 
+2026-11-09T21:43:05.1739163Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mforcibly releases generated MITM listeners and active tunnels
+2026-11-09T21:43:05.1778350Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:43:05.1779142Z 
+2026-11-09T21:43:05.2666152Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mforcibly releases generated MITM listeners and active tunnels
+2026-11-09T21:43:05.2679303Z [22m[39mhttps server started on 42627
+2026-11-09T21:43:05.2696628Z 
+2026-11-09T21:43:05.3561702Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mforcibly releases generated MITM listeners and active tunnels
+2026-11-09T21:43:05.3589981Z [22m[39mcreating SNI context for todo.itcve.test
+2026-11-09T21:43:05.3615874Z 
+2026-11-09T21:43:05.4830237Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mforcibly releases generated MITM listeners and active tunnels
+2026-11-09T21:43:05.4833510Z [22m[39mcreating SNI context for alternate.itcve.test
+2026-11-09T21:43:05.4834229Z 
+2026-11-09T21:43:05.6033253Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mforcibly releases generated MITM listeners and active tunnels
+2026-11-09T21:43:05.6035714Z [22m[39mcreating SNI context for deny.itcve.test
+2026-11-09T21:43:05.6036432Z 
+2026-11-09T21:43:05.9520074Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mprovides root SLAP, SHIP submission and UMP lookup as one controlled boundary
+2026-11-09T21:43:05.9523206Z [22m[39mWalletStorageServer listening at http://127.0.0.1:35967
+2026-11-09T21:43:05.9524091Z 
+2026-11-09T21:43:05.9532071Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mprovides root SLAP, SHIP submission and UMP lookup as one controlled boundary
+2026-11-09T21:43:05.9534165Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:43:05.9534819Z 
+2026-11-09T21:43:06.1350136Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mprovides root SLAP, SHIP submission and UMP lookup as one controlled boundary
+2026-11-09T21:43:06.1378542Z [22m[39mhttps server started on 36879
+2026-11-09T21:43:06.1378947Z 
+2026-11-09T21:43:06.2536509Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mprovides root SLAP, SHIP submission and UMP lookup as one controlled boundary
+2026-11-09T21:43:06.2538723Z [22m[39mcreating SNI context for overlay-us-1.bsvb.tech
+2026-11-09T21:43:06.2541164Z 
+2026-11-09T21:43:06.2544240Z  [32m✓[39m test/native-identity-trust.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 3448[2mms[22m[39m
+2026-11-09T21:43:06.2546074Z    [33m[2m✓[22m[39m replays canonical files written directly from both live settings helpers [33m 848[2mms[22m[39m
+2026-11-09T21:43:06.2563933Z    [33m[2m✓[22m[39m replays both public settings retirement cases and rejects semantic tampering [33m 2587[2mms[22m[39m
+2026-11-09T21:43:06.3760222Z [90mstdout[2m | test/wallet-services.test.ts[2m > [22m[2mcontrolled wallet services[2m > [22m[2mprovides root SLAP, SHIP submission and UMP lookup as one controlled boundary
+2026-11-09T21:43:06.3788243Z [22m[39mcreating SNI context for overlay.itcve.test
+2026-11-09T21:43:06.3788776Z 
+2026-11-09T21:43:06.4169049Z  [32m✓[39m test/wallet-services.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 4705[2mms[22m[39m
+2026-11-09T21:43:06.4180311Z      [33m[2m✓[22m[39m retains only bridge timing and response facts from the wallet diagnostic boundary [33m 723[2mms[22m[39m
+2026-11-09T21:43:06.4188798Z      [33m[2m✓[22m[39m retains wallet storage method and response timing without RPC arguments [33m 1235[2mms[22m[39m
+2026-11-09T21:43:06.4190942Z      [33m[2m✓[22m[39m funds the WAB from a mature Teranode coinbase and spends through the controlled faucet [33m 1165[2mms[22m[39m
+2026-11-09T21:43:06.4192890Z      [33m[2m✓[22m[39m forcibly releases generated MITM listeners and active tunnels [33m 790[2mms[22m[39m
+2026-11-09T21:43:06.4196376Z      [33m[2m✓[22m[39m provides root SLAP, SHIP submission and UMP lookup as one controlled boundary [33m 789[2mms[22m[39m
+2026-11-09T21:43:07.2511235Z [90mstdout[2m | test/native-conformance-nosend-change.test.ts
+2026-11-09T21:43:07.2518162Z [22m[39m◇ injected env (0) from .env // tip: ⌘ enable debugging { debug: true }
+2026-11-09T21:43:07.2519854Z ◇ injected env (0) from .env // tip: ⌘ suppress logs { quiet: true }
+2026-11-09T21:43:07.2521224Z 
+2026-11-09T21:43:07.3557759Z [90mstdout[2m | test/native-todo-submission-binding.test.ts
+2026-11-09T21:43:07.3562049Z [22m[39m◇ injected env (0) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+2026-11-09T21:43:07.3563665Z ◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+2026-11-09T21:43:07.3585699Z 
+2026-11-09T21:43:07.8561819Z [90mstdout[2m | test/native-conformance-nosend-change.test.ts
+2026-11-09T21:43:07.8563366Z [22m[39mWalletStorageServer listening at http://127.0.0.1:33357
+2026-11-09T21:43:07.8564290Z 
+2026-11-09T21:43:07.8599351Z [90mstdout[2m | test/native-conformance-nosend-change.test.ts
+2026-11-09T21:43:07.8601401Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:43:07.8602091Z 
+2026-11-09T21:43:07.9687380Z [90mstdout[2m | test/native-conformance-nosend-change.test.ts
+2026-11-09T21:43:07.9689078Z [22m[39mhttps server started on 45247
+2026-11-09T21:43:07.9690046Z 
+2026-11-09T21:43:08.1020497Z [90mstdout[2m | test/native-todo-submission-binding.test.ts[2m > [22m[2menforces scoped targeting on the real loopback Go submission endpoint and retains every background receipt
+2026-11-09T21:43:08.1028822Z [22m[39mWalletStorageServer listening at http://127.0.0.1:44823
+2026-11-09T21:43:08.1051591Z 
+2026-11-09T21:43:08.1119235Z [90mstdout[2m | test/native-todo-submission-binding.test.ts[2m > [22m[2menforces scoped targeting on the real loopback Go submission endpoint and retains every background receipt
+2026-11-09T21:43:08.1148243Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:43:08.1237776Z 
+2026-11-09T21:43:08.3064408Z [90mstdout[2m | test/native-todo-submission-binding.test.ts[2m > [22m[2menforces scoped targeting on the real loopback Go submission endpoint and retains every background receipt
+2026-11-09T21:43:08.3066077Z [22m[39mhttps server started on 33059
+2026-11-09T21:43:08.3066439Z 
+2026-11-09T21:43:08.3609467Z  [32m✓[39m test/native-todo-submission-binding.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 948[2mms[22m[39m
+2026-11-09T21:43:08.3629251Z    [33m[2m✓[22m[39m enforces scoped targeting on the real loopback Go submission endpoint and retains every background receipt [33m 781[2mms[22m[39m
+2026-11-09T21:43:09.1006842Z [90mstdout[2m | test/native-conformance-wiring.test.ts
+2026-11-09T21:43:09.1019066Z [22m[39m◇ injected env (0) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+2026-11-09T21:43:09.1020630Z ◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+2026-11-09T21:43:09.1021508Z 
+2026-11-09T21:43:09.2939066Z  [32m✓[39m test/native-conformance-wiring.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+2026-11-09T21:43:10.0898545Z  [32m✓[39m test/native-conformance-nosend-change.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 2685[2mms[22m[39m
+2026-11-09T21:43:10.0901583Z      [33m[2m✓[22m[39m never converts a missing positive control, invalid acceptance, or unrelated engine error into a passing input predicate [33m 354[2mms[22m[39m
+2026-11-09T21:43:10.9609042Z [90mstdout[2m | test/native-portability-completion.test.ts
+2026-11-09T21:43:10.9628687Z [22m[39m◇ injected env (0) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+2026-11-09T21:43:10.9635421Z ◇ injected env (0) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+2026-11-09T21:43:10.9636302Z 
+2026-11-09T21:43:18.5899337Z  [32m✓[39m test/native-portability-completion.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 6473[2mms[22m[39m
+2026-11-09T21:43:18.5925760Z    [33m[2m✓[22m[39m retains native6 repetition1 unsigned-lock failure and rejects premature redemption [33m 1263[2mms[22m[39m
+2026-11-09T21:43:18.5938935Z    [33m[2m✓[22m[39m retains native6 repetition2 unsigned-lock failure and rejects premature redemption [33m 1106[2mms[22m[39m
+2026-11-09T21:43:18.5940985Z    [33m[2m✓[22m[39m replays the actual native oracle3 completion and rejects altered activation, receipt, proof and causal windows [33m 4089[2mms[22m[39m
+2026-11-09T21:43:19.3044075Z  [32m✓[39m test/native-conformance-permissions.test.ts [2m([22m[2m18 tests[22m[2m)[22m[33m 332[2mms[22m[39m
+2026-11-09T21:43:20.2169130Z [90mstdout[2m | test/descendant-storage-sync.test.ts
+2026-11-09T21:43:20.2189161Z [22m[39m◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+2026-11-09T21:43:20.2190832Z ◇ injected env (0) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+2026-11-09T21:43:20.2191695Z 
+2026-11-09T21:43:20.9436005Z [90mstdout[2m | test/descendant-storage-sync.test.ts[2m > [22m[2mreal descendant-funded source-off replacement and independent oracle
+2026-11-09T21:43:20.9488529Z [22m[39mWalletStorageServer listening at http://127.0.0.1:40035
+2026-11-09T21:43:20.9492267Z 
+2026-11-09T21:43:20.9509152Z [90mstdout[2m | test/descendant-storage-sync.test.ts[2m > [22m[2mreal descendant-funded source-off replacement and independent oracle
+2026-11-09T21:43:20.9511072Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:43:20.9511875Z 
+2026-11-09T21:43:21.0736666Z [90mstdout[2m | test/descendant-storage-sync.test.ts[2m > [22m[2mreal descendant-funded source-off replacement and independent oracle
+2026-11-09T21:43:21.0738768Z [22m[39mhttps server started on 34383
+2026-11-09T21:43:21.0739657Z 
+2026-11-09T21:43:21.3479723Z  [32m✓[39m test/native-conformance-permission-lifecycle.test.ts [2m([22m[2m39 tests[22m[2m)[22m[33m 11584[2mms[22m[39m
+2026-11-09T21:43:21.3499806Z      [33m[2m✓[22m[39m replays all16 public UI/cryptographic predicates with joined native identity [33m 423[2mms[22m[39m
+2026-11-09T21:43:21.3528795Z      [33m[2m✓[22m[39m rejects false PASS: wrong-origin basket prompt [33m 353[2mms[22m[39m
+2026-11-09T21:43:21.3542450Z      [33m[2m✓[22m[39m rejects false PASS: certificate denied target substitution [33m 372[2mms[22m[39m
+2026-11-09T21:43:21.3558675Z      [33m[2m✓[22m[39m rejects false PASS: certificate extra revealed field [33m 366[2mms[22m[39m
+2026-11-09T21:43:21.3588270Z      [33m[2m✓[22m[39m rejects false PASS: certificate corrupted revelation [33m 356[2mms[22m[39m
+2026-11-09T21:43:21.3618472Z      [33m[2m✓[22m[39m rejects false PASS: revoked grant stays cached [33m 339[2mms[22m[39m
+2026-11-09T21:43:21.3620137Z      [33m[2m✓[22m[39m rejects false PASS: missing reapproval recovery [33m 345[2mms[22m[39m
+2026-11-09T21:43:21.3628459Z      [33m[2m✓[22m[39m rejects false PASS: revocation affects unrelated certificate [33m 349[2mms[22m[39m
+2026-11-09T21:43:21.3630379Z      [33m[2m✓[22m[39m rejects false PASS: origin revocation no confirmation [33m 386[2mms[22m[39m
+2026-11-09T21:43:21.3631965Z      [33m[2m✓[22m[39m rejects false PASS: origin revocation wrong subject [33m 385[2mms[22m[39m
+2026-11-09T21:43:21.3633507Z      [33m[2m✓[22m[39m rejects false PASS: origin protocol grant survives [33m 387[2mms[22m[39m
+2026-11-09T21:43:21.3634992Z      [33m[2m✓[22m[39m rejects false PASS: other origin no longer cached [33m 367[2mms[22m[39m
+2026-11-09T21:43:21.3636453Z      [33m[2m✓[22m[39m rejects false PASS: missing successful transaction [33m 369[2mms[22m[39m
+2026-11-09T21:43:21.3638164Z      [33m[2m✓[22m[39m rejects false PASS: missing screenshot integrity [33m 392[2mms[22m[39m
+2026-11-09T21:43:21.3639579Z      [33m[2m✓[22m[39m rejects false PASS: cleanup omitted [33m 376[2mms[22m[39m
+2026-11-09T21:43:21.3641124Z      [33m[2m✓[22m[39m retains unrelated background receipts during denied spending [33m 385[2mms[22m[39m
+2026-11-09T21:43:21.3642931Z      [33m[2m✓[22m[39m rejects a denied customer submission regardless of verdict ACCEPTED_BY_NETWORK [33m 349[2mms[22m[39m
+2026-11-09T21:43:21.3644914Z      [33m[2m✓[22m[39m rejects the exact clipped-denial-window attack with an otherwise complete global window [33m 327[2mms[22m[39m
+2026-11-09T21:43:21.3646841Z      [33m[2m✓[22m[39m rejects a matching payment delayed until after a later unrelated call [33m 351[2mms[22m[39m
+2026-11-09T21:43:21.3649348Z      [33m[2m✓[22m[39m rejects a clipped end that moves the denied receipt into the inter-call gap [33m 305[2mms[22m[39m
+2026-11-09T21:43:21.3651401Z      [33m[2m✓[22m[39m keeps a real failure with missing signed action evidence as FAIL rather than observer rejection [33m 515[2mms[22m[39m
+2026-11-09T21:43:21.4664475Z [90mstdout[2m | test/descendant-storage-sync.test.ts[2m > [22m[2mreal descendant-funded source-off replacement and independent oracle
+2026-11-09T21:43:21.4668064Z [22m[39mWalletStorageServer listening at http://127.0.0.1:38907
+2026-11-09T21:43:21.4668615Z 
+2026-11-09T21:43:21.4671832Z [90mstdout[2m | test/descendant-storage-sync.test.ts[2m > [22m[2mreal descendant-funded source-off replacement and independent oracle
+2026-11-09T21:43:21.4673348Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:43:21.4673812Z 
+2026-11-09T21:43:21.5680046Z [90mstdout[2m | test/descendant-storage-sync.test.ts[2m > [22m[2mreal descendant-funded source-off replacement and independent oracle
+2026-11-09T21:43:21.5698419Z [22m[39mhttps server started on 44281
+2026-11-09T21:43:21.5699104Z 
+2026-11-09T21:43:23.5026665Z  [32m✓[39m test/synthesis.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 1649[2mms[22m[39m
+2026-11-09T21:43:23.5029388Z      [33m[2m✓[22m[39m executes the complete reference golden path deterministically at the semantic boundary [33m 1448[2mms[22m[39m
+2026-11-09T21:43:23.9881889Z [90mstdout[2m | test/descendant-storage-sync.test.ts[2m > [22m[2mreal descendant-funded source-off replacement and independent oracle
+2026-11-09T21:43:23.9908728Z [22m[39mWalletStorageServer listening at http://127.0.0.1:35447
+2026-11-09T21:43:23.9909872Z 
+2026-11-09T21:43:23.9911525Z [90mstdout[2m | test/descendant-storage-sync.test.ts[2m > [22m[2mreal descendant-funded source-off replacement and independent oracle
+2026-11-09T21:43:23.9913469Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:43:23.9914193Z 
+2026-11-09T21:43:24.1489153Z [90mstdout[2m | test/descendant-storage-sync.test.ts[2m > [22m[2mreal descendant-funded source-off replacement and independent oracle
+2026-11-09T21:43:24.1498312Z [22m[39mhttps server started on 33179
+2026-11-09T21:43:24.1518102Z 
+2026-11-09T21:43:24.4893473Z [90mstdout[2m | test/descendant-storage-sync.test.ts[2m > [22m[2mreal descendant-funded source-off replacement and independent oracle
+2026-11-09T21:43:24.4919059Z [22m[39mWalletStorageServer listening at http://127.0.0.1:34357
+2026-11-09T21:43:24.4919801Z 
+2026-11-09T21:43:24.4921606Z [90mstdout[2m | test/descendant-storage-sync.test.ts[2m > [22m[2mreal descendant-funded source-off replacement and independent oracle
+2026-11-09T21:43:24.4923237Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:43:24.4923846Z 
+2026-11-09T21:43:24.5632221Z  [32m✓[39m test/native-lifecycle-submission-binding.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 613[2mms[22m[39m
+2026-11-09T21:43:24.5634880Z    [33m[2m✓[22m[39m retains both original native5 schema3 reports and verifies explicit scoped replay despite background submissions and RPCs [33m 478[2mms[22m[39m
+2026-11-09T21:43:24.6261046Z [90mstdout[2m | test/descendant-storage-sync.test.ts[2m > [22m[2mreal descendant-funded source-off replacement and independent oracle
+2026-11-09T21:43:24.6263279Z [22m[39mhttps server started on 42387
+2026-11-09T21:43:24.6264124Z 
+2026-11-09T21:43:24.8233122Z  [32m✓[39m test/wallet-lab.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+2026-11-09T21:43:25.7198557Z [90mstdout[2m | test/native-conformance-reserve-storage.test.ts
+2026-11-09T21:43:25.7206187Z [22m[39m◇ injected env (0) from .env // tip: ⌘ override existing { override: true }
+2026-11-09T21:43:25.7208096Z ◇ injected env (0) from .env // tip: ⌘ enable debugging { debug: true }
+2026-11-09T21:43:25.7208895Z 
+2026-11-09T21:43:26.3210499Z [90mstdout[2m | test/native-conformance-reserve-storage.test.ts[2m > [22m[2mbinds typescript reserve snapshot to native-public auth, signed RPC and complete owner rows
+2026-11-09T21:43:26.3235619Z [22m[39mWalletStorageServer listening at http://127.0.0.1:38899
+2026-11-09T21:43:26.3236133Z 
+2026-11-09T21:43:26.3289130Z [90mstdout[2m | test/native-conformance-reserve-storage.test.ts[2m > [22m[2mbinds typescript reserve snapshot to native-public auth, signed RPC and complete owner rows
+2026-11-09T21:43:26.3298946Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:43:26.3327880Z 
+2026-11-09T21:43:26.5370955Z [90mstdout[2m | test/native-conformance-reserve-storage.test.ts[2m > [22m[2mbinds typescript reserve snapshot to native-public auth, signed RPC and complete owner rows
+2026-11-09T21:43:26.5399614Z [22m[39mhttps server started on 41369
+2026-11-09T21:43:26.5407874Z 
+2026-11-09T21:43:27.6890061Z  [32m✓[39m test/descendant-storage-sync.test.ts [2m([22m[2m22 tests[22m[2m)[22m[33m 7317[2mms[22m[39m
+2026-11-09T21:43:28.0868820Z  [32m✓[39m test/native-conformance-reserve-storage.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 2276[2mms[22m[39m
+2026-11-09T21:43:28.0902818Z    [33m[2m✓[22m[39m binds typescript reserve snapshot to native-public auth, signed RPC and complete owner rows [33m 2274[2mms[22m[39m
+2026-11-09T21:43:28.3199508Z  [32m✓[39m test/native-permission-click.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+2026-11-09T21:43:28.5671591Z [90mstdout[2m | test/native-conformance-coverage-transactions.test.ts
+2026-11-09T21:43:28.5786933Z [22m[39m◇ injected env (0) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+2026-11-09T21:43:28.5789056Z ◇ injected env (0) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+2026-11-09T21:43:28.5817972Z 
+2026-11-09T21:43:29.0201413Z  [32m✓[39m test/native-conformance-coverage-transactions.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 310[2mms[22m[39m
+2026-11-09T21:43:29.2628855Z [90mstdout[2m | test/native-portability-proof.test.ts
+2026-11-09T21:43:29.2630931Z [22m[39m◇ injected env (0) from .env // tip: ⌘ suppress logs { quiet: true }
+2026-11-09T21:43:29.2632549Z ◇ injected env (0) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+2026-11-09T21:43:29.2633346Z 
+2026-11-09T21:43:30.6092420Z  [32m✓[39m test/native-conformance-clauses-input.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 1232[2mms[22m[39m
+2026-11-09T21:43:30.6099212Z      [33m[2m✓[22m[39m rejects network errors, timeouts and raw engine exceptions as specified rejections [33m 540[2mms[22m[39m
+2026-11-09T21:43:30.8378989Z  [32m✓[39m test/native-portability-proof.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 1353[2mms[22m[39m
+2026-11-09T21:43:30.8388918Z    [33m[2m✓[22m[39m verifies retained native1 dataset-only proof closure without promoting its failed cold operation [33m 617[2mms[22m[39m
+2026-11-09T21:43:30.8391118Z    [33m[2m✓[22m[39m verifies retained native2 dataset-only proof closure without promoting its failed cold operation [33m 401[2mms[22m[39m
+2026-11-09T21:43:31.1879882Z  [32m✓[39m test/storage-sync.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 150[2mms[22m[39m
+2026-11-09T21:43:31.4408043Z  [32m✓[39m test/storage-portability-provenance.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-11-09T21:43:31.8021113Z [90mstdout[2m | test/native-wallet-qualification.test.ts[2m > [22m[2mreplays the retained native qualification and rejects corrupted independent evidence
+2026-11-09T21:43:31.8038925Z [22m[39m◇ injected env (0) from .env // tip: ⌘ enable debugging { debug: true }
+2026-11-09T21:43:31.8044167Z ◇ injected env (0) from .env // tip: ⌘ override existing { override: true }
+2026-11-09T21:43:31.8044995Z 
+2026-11-09T21:43:32.0479359Z  [32m✓[39m test/native-wallet-qualification.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 769[2mms[22m[39m
+2026-11-09T21:43:32.0518966Z    [33m[2m✓[22m[39m replays the retained native qualification and rejects corrupted independent evidence [33m 740[2mms[22m[39m
+2026-11-09T21:43:32.4599325Z  [32m✓[39m test/native-conformance-repetitions.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+2026-11-09T21:43:32.7936360Z [90mstdout[2m | test/native-shutdown-submissions.test.ts[2m > [22m[2mretains actual typescript counterpart arrays after service ownership maps are retired
+2026-11-09T21:43:32.7938512Z [22m[39mWalletStorageServer listening at http://127.0.0.1:42717
+2026-11-09T21:43:32.7939008Z 
+2026-11-09T21:43:32.7941378Z [90mstdout[2m | test/native-shutdown-submissions.test.ts[2m > [22m[2mretains actual typescript counterpart arrays after service ownership maps are retired
+2026-11-09T21:43:32.7943341Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:43:32.7944026Z 
+2026-11-09T21:43:32.9196371Z [90mstdout[2m | test/native-shutdown-submissions.test.ts[2m > [22m[2mretains actual typescript counterpart arrays after service ownership maps are retired
+2026-11-09T21:43:32.9198976Z [22m[39mhttps server started on 46449
+2026-11-09T21:43:32.9199878Z 
+2026-11-09T21:43:33.0846787Z  [32m✓[39m test/certificate-fixture.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 152[2mms[22m[39m
+2026-11-09T21:43:33.1999164Z [90mstdout[2m | test/native-shutdown-submissions.test.ts[2m > [22m[2mretains actual typescript counterpart arrays after service ownership maps are retired
+2026-11-09T21:43:33.2000250Z [22m[39mWalletStorageServer listening at http://127.0.0.1:35523
+2026-11-09T21:43:33.2000550Z 
+2026-11-09T21:43:33.2005215Z [90mstdout[2m | test/native-shutdown-submissions.test.ts[2m > [22m[2mretains actual typescript counterpart arrays after service ownership maps are retired
+2026-11-09T21:43:33.2007834Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:43:33.2008500Z 
+2026-11-09T21:43:33.3267433Z [90mstdout[2m | test/native-shutdown-submissions.test.ts[2m > [22m[2mretains actual typescript counterpart arrays after service ownership maps are retired
+2026-11-09T21:43:33.3269139Z [22m[39mhttps server started on 46785
+2026-11-09T21:43:33.3269499Z 
+2026-11-09T21:43:35.1016314Z  [31m❯[39m test/native-shutdown-submissions.test.ts [2m([22m[2m11 tests[22m[2m | [22m[31m2 failed[39m[2m | [22m[33m1 skipped[39m[2m)[22m[33m 30572[2mms[22m[39m
+2026-11-09T21:43:35.1018182Z    [33m[2m✓[22m[39m awaits each cleanup stage and retains late provider-local suffixes without changing immutable global/module prefixes [33m 2776[2mms[22m[39m
+2026-11-09T21:43:35.1019409Z [31m   [31m×[31m rejects delayed denied payments under every verdict: ACCEPTED_BY_NETWORK[39m[33m 5538[2mms[22m[39m
+2026-11-09T21:43:35.1020355Z    [33m[2m✓[22m[39m rejects delayed denied payments under every verdict: REJECTED [33m 4045[2mms[22m[39m
+2026-11-09T21:43:35.1021241Z    [33m[2m✓[22m[39m rejects delayed denied payments under every verdict: REJECTED_INVALID_TX [33m 4447[2mms[22m[39m
+2026-11-09T21:43:35.1022193Z [31m   [31m×[31m rejects delayed denied payments under every verdict: UNKNOWN[39m[33m 5621[2mms[22m[39m
+2026-11-09T21:43:35.1023142Z    [33m[2m✓[22m[39m rejects a delayed repeat of the approved payment outside the exact original grant window [33m 2587[2mms[22m[39m
+2026-11-09T21:43:35.1024074Z    [32m✓[39m retains cleanup failure and rejects completion despite captured final rows[32m 16[2mms[22m[39m
+2026-11-09T21:43:35.1025050Z    [33m[2m✓[22m[39m rejects rebound metadata, clipped prefixes, incomplete provenance and premature capture [33m 2835[2mms[22m[39m
+2026-11-09T21:43:35.1026095Z    [33m[2m✓[22m[39m retains actual typescript counterpart arrays after service ownership maps are retired [33m 937[2mms[22m[39m
+2026-11-09T21:43:35.1027245Z    [2m[90m↓[39m[22m retains actual go counterpart arrays after service ownership maps are retired
+2026-11-09T21:43:35.1028240Z    [33m[2m✓[22m[39m does not reclassify a same-script5sat receipt before the permission module began [33m 1766[2mms[22m[39m
+2026-11-09T21:43:36.4308611Z  [32m✓[39m test/native-permission-click-replay.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 4521[2mms[22m[39m
+2026-11-09T21:43:36.4319232Z      [33m[2m✓[22m[39m replays actual version2 native engineering repetition1 [33m 569[2mms[22m[39m
+2026-11-09T21:43:36.4320894Z      [33m[2m✓[22m[39m replays actual version2 native engineering repetition2 [33m 418[2mms[22m[39m
+2026-11-09T21:43:36.4322339Z      [33m[2m✓[22m[39m preserves original native7 version1 repetition1 verdicts [33m 1841[2mms[22m[39m
+2026-11-09T21:43:36.4323962Z      [33m[2m✓[22m[39m preserves original native7 version1 repetition2 verdicts [33m 1677[2mms[22m[39m
+2026-11-09T21:43:36.4345958Z 
+2026-11-09T21:43:36.4346826Z [31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 2 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+2026-11-09T21:43:36.4347569Z 
+2026-11-09T21:43:36.4351569Z [41m[1m FAIL [22m[49m test/native-shutdown-submissions.test.ts[2m > [22mrejects delayed denied payments under every verdict: ACCEPTED_BY_NETWORK
+2026-11-09T21:43:36.4353731Z [41m[1m FAIL [22m[49m test/native-shutdown-submissions.test.ts[2m > [22mrejects delayed denied payments under every verdict: UNKNOWN
+2026-11-09T21:43:36.4356013Z [31m[1mError[22m: Test timed out in 5000ms.
+2026-11-09T21:43:36.4357511Z If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+2026-11-09T21:43:36.4358670Z [36m [2m❯[22m test/native-shutdown-submissions.test.ts:[2m58:79[22m[39m
+2026-11-09T21:43:36.4417994Z     [90m 56|[39m })
+2026-11-09T21:43:36.4418919Z     [90m 57|[39m
+2026-11-09T21:43:36.4420238Z     [90m 58|[39m it.each(['ACCEPTED_BY_NETWORK', 'REJECTED', 'REJECTED_INVALID_TX', 'UN…
+2026-11-09T21:43:36.4422104Z     [90m   |[39m                                                                               [31m^[39m
+2026-11-09T21:43:36.4423740Z     [90m 59|[39m   [35mfor[39m ([35mconst[39m amount [35mof[39m [[34m5[39m[33m,[39m [34m7[39m]) {
+2026-11-09T21:43:36.4424426Z 
+2026-11-09T21:43:36.4425683Z     [90m 60|[39m     const fixture = await capture({ tail: [receipt(permission.paymentS…
+2026-11-09T21:43:36.4426536Z 
+2026-11-09T21:43:36.4427578Z [31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+2026-11-09T21:43:36.4428205Z 
+2026-11-09T21:43:36.4438858Z [2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m30 passed[39m[22m[90m (31)[39m
+2026-11-09T21:43:36.4440559Z [2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m287 passed[39m[22m[2m | [22m[33m9 skipped[39m[90m (298)[39m
+2026-11-09T21:43:36.4441660Z [2m   Start at [22m 21:42:51
+2026-11-09T21:43:36.4442891Z [2m   Duration [22m 45.40s[2m (transform 1.14s, setup 0ms, import 17.79s, tests 108.34s, environment 5ms)[22m
+2026-11-09T21:43:36.4443577Z 
+2026-11-09T21:43:36.4452063Z 
+2026-11-09T21:43:36.4483575Z ##[error]Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ test/native-shutdown-submissions.test.ts:58:79
+
+
+2026-11-09T21:43:36.4496777Z 
+2026-11-09T21:43:36.4500622Z ##[error]Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ test/native-shutdown-submissions.test.ts:58:79
+
+
+2026-11-09T21:43:36.4984572Z ##[error]Process completed with exit code 1.
+2026-11-09T21:43:36.5191578Z Post job cleanup.
+2026-11-09T21:43:36.6046524Z [command]/usr/bin/git version
+2026-11-09T21:43:36.6085678Z git version 2.56.0
+2026-11-09T21:43:36.6123319Z Temporarily overriding HOME='/home/runner/work/_temp/7a3bdc33-9f86-4a13-aecc-d0fff2a4baae' before making global git config changes
+2026-11-09T21:43:36.6124447Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-09T21:43:36.6128113Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/interop/interop
+2026-11-09T21:43:36.6167135Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-09T21:43:36.6204862Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-09T21:43:36.6476897Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-09T21:43:36.6517294Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-09T21:43:36.6773608Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-09T21:43:36.6810468Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-09T21:43:36.7231398Z Cleaning up orphan processes
+2026-11-09T21:43:36.7619503Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

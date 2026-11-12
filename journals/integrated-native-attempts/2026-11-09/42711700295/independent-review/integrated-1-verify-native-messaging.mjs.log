@@ -1,0 +1,11 @@
+{
+  "verified": true,
+  "assertions": 6,
+  "nativeIdentity": "03f3bdc33964247a0ab8353511f0469eaeee3126bf9a3f55c6a6384ec75cb4a0ea",
+  "paymentTransactions": [
+    "4c8b87e7872d2544a640a19ef80023c3644ddd3b56bdf3df50b8326e911fec1d",
+    "99ca0bcba2bdfe3172a1f71d968432144ad72a753259618fc4cee147f8d357aa"
+  ],
+  "nativeArtifactQualification": "Requires the enclosing unchanged-native-wallet admission and provenance envelope"
+}
+

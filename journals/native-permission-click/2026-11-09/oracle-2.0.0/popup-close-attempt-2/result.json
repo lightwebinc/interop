@@ -1,0 +1,990 @@
+{
+  "claim": "LAB_SELF_TEST_ONLY",
+  "purpose": "Actual trusted mouse click immediately closes popup while the public caller receives its terminal response",
+  "runs": [
+    {
+      "index": 0,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:54.588Z",
+        "clickedAt": "2026-11-09T21:28:54.591Z",
+        "clickCompletedAt": "2026-11-09T21:28:54.630Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "5e2e6369-d61b-4daa-adc7-ce55a0ccecb0",
+        "callNonce": "9bd166fb-1b53-4849-a7df-7fd56a9d72ab",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:54.591Z",
+        "attemptStartedAt": "2026-11-09T21:28:54.591Z",
+        "completedAt": "2026-11-09T21:28:54.630Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:54.630Z"
+        },
+        "dispatch": {
+          "nonce": "5e2e6369-d61b-4daa-adc7-ce55a0ccecb0",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:54.623Z",
+          "receivedAt": "2026-11-09T21:28:54.629Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:54.267Z",
+      "endedAt": "2026-11-09T21:28:54.639Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:54.625Z",
+        "requestNonce": "9bd166fb-1b53-4849-a7df-7fd56a9d72ab"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 1,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:54.653Z",
+        "clickedAt": "2026-11-09T21:28:54.654Z",
+        "clickCompletedAt": "2026-11-09T21:28:54.667Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "c0629103-df07-43b7-86aa-b6f3d8dcb025",
+        "callNonce": "7cf64ddb-29e5-4b00-8fbd-ad4185946957",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:54.654Z",
+        "attemptStartedAt": "2026-11-09T21:28:54.654Z",
+        "completedAt": "2026-11-09T21:28:54.667Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:54.667Z"
+        },
+        "dispatch": {
+          "nonce": "c0629103-df07-43b7-86aa-b6f3d8dcb025",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:54.665Z",
+          "receivedAt": "2026-11-09T21:28:54.666Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:54.639Z",
+      "endedAt": "2026-11-09T21:28:54.668Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:54.666Z",
+        "requestNonce": "7cf64ddb-29e5-4b00-8fbd-ad4185946957"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 2,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:54.681Z",
+        "clickedAt": "2026-11-09T21:28:54.682Z",
+        "clickCompletedAt": "2026-11-09T21:28:54.700Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "af7b1c48-0fe4-4197-925a-362b53496f4f",
+        "callNonce": "0076c2ab-480f-458a-9091-e0cf333771a2",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:54.682Z",
+        "attemptStartedAt": "2026-11-09T21:28:54.682Z",
+        "completedAt": "2026-11-09T21:28:54.700Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:54.700Z"
+        },
+        "dispatch": {
+          "nonce": "af7b1c48-0fe4-4197-925a-362b53496f4f",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:54.699Z",
+          "receivedAt": "2026-11-09T21:28:54.699Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:54.668Z",
+      "endedAt": "2026-11-09T21:28:54.701Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:54.699Z",
+        "requestNonce": "0076c2ab-480f-458a-9091-e0cf333771a2"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 3,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:54.712Z",
+        "clickedAt": "2026-11-09T21:28:54.713Z",
+        "clickCompletedAt": "2026-11-09T21:28:54.734Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "b8351235-ab6a-4322-b862-9bdb43678d60",
+        "callNonce": "032abf3c-7cb3-4c7d-b119-adbc24bf3733",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:54.713Z",
+        "attemptStartedAt": "2026-11-09T21:28:54.713Z",
+        "completedAt": "2026-11-09T21:28:54.734Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:54.734Z"
+        },
+        "dispatch": {
+          "nonce": "b8351235-ab6a-4322-b862-9bdb43678d60",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:54.733Z",
+          "receivedAt": "2026-11-09T21:28:54.733Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:54.701Z",
+      "endedAt": "2026-11-09T21:28:54.735Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:54.733Z",
+        "requestNonce": "032abf3c-7cb3-4c7d-b119-adbc24bf3733"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 4,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:54.746Z",
+        "clickedAt": "2026-11-09T21:28:54.746Z",
+        "clickCompletedAt": "2026-11-09T21:28:54.767Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "2275f394-50eb-4507-a9eb-77725b6ce974",
+        "callNonce": "2fac84cd-11fb-4182-b22c-ff30ee4858b7",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:54.746Z",
+        "attemptStartedAt": "2026-11-09T21:28:54.746Z",
+        "completedAt": "2026-11-09T21:28:54.767Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:54.767Z"
+        },
+        "dispatch": {
+          "nonce": "2275f394-50eb-4507-a9eb-77725b6ce974",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:54.766Z",
+          "receivedAt": "2026-11-09T21:28:54.767Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:54.735Z",
+      "endedAt": "2026-11-09T21:28:54.768Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:54.767Z",
+        "requestNonce": "2fac84cd-11fb-4182-b22c-ff30ee4858b7"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 5,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:54.780Z",
+        "clickedAt": "2026-11-09T21:28:54.781Z",
+        "clickCompletedAt": "2026-11-09T21:28:54.800Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "9f481b17-456c-4987-8bd0-0b0eed92ef33",
+        "callNonce": "fd46ca1e-edb7-4a76-8089-a733d4b1825d",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:54.781Z",
+        "attemptStartedAt": "2026-11-09T21:28:54.781Z",
+        "completedAt": "2026-11-09T21:28:54.800Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:54.800Z"
+        },
+        "dispatch": {
+          "nonce": "9f481b17-456c-4987-8bd0-0b0eed92ef33",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:54.798Z",
+          "receivedAt": "2026-11-09T21:28:54.799Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:54.768Z",
+      "endedAt": "2026-11-09T21:28:54.802Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:54.799Z",
+        "requestNonce": "fd46ca1e-edb7-4a76-8089-a733d4b1825d"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 6,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:54.812Z",
+        "clickedAt": "2026-11-09T21:28:54.813Z",
+        "clickCompletedAt": "2026-11-09T21:28:54.834Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "80adbd2b-f652-4ab8-a2cf-cf7b1e8e2a27",
+        "callNonce": "24b545cd-d57d-4c1a-9e47-c0d198bcff80",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:54.813Z",
+        "attemptStartedAt": "2026-11-09T21:28:54.813Z",
+        "completedAt": "2026-11-09T21:28:54.834Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:54.834Z"
+        },
+        "dispatch": {
+          "nonce": "80adbd2b-f652-4ab8-a2cf-cf7b1e8e2a27",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:54.832Z",
+          "receivedAt": "2026-11-09T21:28:54.833Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:54.802Z",
+      "endedAt": "2026-11-09T21:28:54.835Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:54.833Z",
+        "requestNonce": "24b545cd-d57d-4c1a-9e47-c0d198bcff80"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 7,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:54.845Z",
+        "clickedAt": "2026-11-09T21:28:54.846Z",
+        "clickCompletedAt": "2026-11-09T21:28:54.867Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "84dcbc91-3811-47e4-a2b3-0d045ec0f966",
+        "callNonce": "9629917f-66cb-47cb-aa84-c09278f77e09",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:54.846Z",
+        "attemptStartedAt": "2026-11-09T21:28:54.846Z",
+        "completedAt": "2026-11-09T21:28:54.867Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:54.867Z"
+        },
+        "dispatch": {
+          "nonce": "84dcbc91-3811-47e4-a2b3-0d045ec0f966",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:54.866Z",
+          "receivedAt": "2026-11-09T21:28:54.867Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:54.835Z",
+      "endedAt": "2026-11-09T21:28:54.868Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:54.867Z",
+        "requestNonce": "9629917f-66cb-47cb-aa84-c09278f77e09"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 8,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:54.880Z",
+        "clickedAt": "2026-11-09T21:28:54.882Z",
+        "clickCompletedAt": "2026-11-09T21:28:54.899Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "3eb873f4-d877-4cbb-8729-d4a2be94ae86",
+        "callNonce": "341b16e7-9643-4df2-8aae-495091ffb779",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:54.882Z",
+        "attemptStartedAt": "2026-11-09T21:28:54.882Z",
+        "completedAt": "2026-11-09T21:28:54.899Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:54.899Z"
+        },
+        "dispatch": {
+          "nonce": "3eb873f4-d877-4cbb-8729-d4a2be94ae86",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:54.898Z",
+          "receivedAt": "2026-11-09T21:28:54.899Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:54.868Z",
+      "endedAt": "2026-11-09T21:28:54.900Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:54.899Z",
+        "requestNonce": "341b16e7-9643-4df2-8aae-495091ffb779"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 9,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:54.910Z",
+        "clickedAt": "2026-11-09T21:28:54.911Z",
+        "clickCompletedAt": "2026-11-09T21:28:54.924Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "71295b0b-fd72-47d3-a34e-6209e8d8a943",
+        "callNonce": "f1c321ff-9764-4313-b07b-20d4aa8f20ad",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:54.911Z",
+        "attemptStartedAt": "2026-11-09T21:28:54.911Z",
+        "completedAt": "2026-11-09T21:28:54.924Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:54.924Z"
+        },
+        "dispatch": {
+          "nonce": "71295b0b-fd72-47d3-a34e-6209e8d8a943",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:54.923Z",
+          "receivedAt": "2026-11-09T21:28:54.923Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:54.900Z",
+      "endedAt": "2026-11-09T21:28:54.941Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:54.931Z",
+        "requestNonce": "f1c321ff-9764-4313-b07b-20d4aa8f20ad"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 10,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:54.951Z",
+        "clickedAt": "2026-11-09T21:28:54.952Z",
+        "clickCompletedAt": "2026-11-09T21:28:54.966Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "ad24bbdb-41d9-4bd9-8752-bf7a331bddbb",
+        "callNonce": "982f0488-7c29-49a9-8031-650788978ece",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:54.952Z",
+        "attemptStartedAt": "2026-11-09T21:28:54.952Z",
+        "completedAt": "2026-11-09T21:28:54.966Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:54.966Z"
+        },
+        "dispatch": {
+          "nonce": "ad24bbdb-41d9-4bd9-8752-bf7a331bddbb",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:54.965Z",
+          "receivedAt": "2026-11-09T21:28:54.965Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:54.941Z",
+      "endedAt": "2026-11-09T21:28:54.982Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:54.972Z",
+        "requestNonce": "982f0488-7c29-49a9-8031-650788978ece"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 11,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:54.992Z",
+        "clickedAt": "2026-11-09T21:28:54.992Z",
+        "clickCompletedAt": "2026-11-09T21:28:55.008Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "bc61cbb7-33ac-4417-adcf-700804e65bf1",
+        "callNonce": "8d9f4e98-fea2-40de-95ca-1023c092d074",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:54.992Z",
+        "attemptStartedAt": "2026-11-09T21:28:54.992Z",
+        "completedAt": "2026-11-09T21:28:55.008Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:55.008Z"
+        },
+        "dispatch": {
+          "nonce": "bc61cbb7-33ac-4417-adcf-700804e65bf1",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:55.007Z",
+          "receivedAt": "2026-11-09T21:28:55.007Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:54.982Z",
+      "endedAt": "2026-11-09T21:28:55.023Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:55.014Z",
+        "requestNonce": "8d9f4e98-fea2-40de-95ca-1023c092d074"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 12,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:55.033Z",
+        "clickedAt": "2026-11-09T21:28:55.034Z",
+        "clickCompletedAt": "2026-11-09T21:28:55.049Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "2dcdd5cc-5b73-466b-a549-ec7bc5b27c6a",
+        "callNonce": "489ce043-eb5b-480c-840c-3ba72e7e38c6",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:55.034Z",
+        "attemptStartedAt": "2026-11-09T21:28:55.034Z",
+        "completedAt": "2026-11-09T21:28:55.049Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:55.049Z"
+        },
+        "dispatch": {
+          "nonce": "2dcdd5cc-5b73-466b-a549-ec7bc5b27c6a",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:55.048Z",
+          "receivedAt": "2026-11-09T21:28:55.049Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:55.023Z",
+      "endedAt": "2026-11-09T21:28:55.064Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:55.056Z",
+        "requestNonce": "489ce043-eb5b-480c-840c-3ba72e7e38c6"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 13,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:55.075Z",
+        "clickedAt": "2026-11-09T21:28:55.075Z",
+        "clickCompletedAt": "2026-11-09T21:28:55.091Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "624243c0-7ac1-41a8-b654-a7c93882793b",
+        "callNonce": "f1193d83-b01f-4b86-9ac9-6f58287e4c28",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:55.075Z",
+        "attemptStartedAt": "2026-11-09T21:28:55.075Z",
+        "completedAt": "2026-11-09T21:28:55.091Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:55.091Z"
+        },
+        "dispatch": {
+          "nonce": "624243c0-7ac1-41a8-b654-a7c93882793b",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:55.090Z",
+          "receivedAt": "2026-11-09T21:28:55.090Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:55.064Z",
+      "endedAt": "2026-11-09T21:28:55.106Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:55.097Z",
+        "requestNonce": "f1193d83-b01f-4b86-9ac9-6f58287e4c28"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 14,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:55.116Z",
+        "clickedAt": "2026-11-09T21:28:55.117Z",
+        "clickCompletedAt": "2026-11-09T21:28:55.133Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "28841d0a-b68f-4cb9-900d-8fc5e2a74d1c",
+        "callNonce": "007818cf-842c-4887-9b51-619ce8d49492",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:55.117Z",
+        "attemptStartedAt": "2026-11-09T21:28:55.117Z",
+        "completedAt": "2026-11-09T21:28:55.133Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:55.133Z"
+        },
+        "dispatch": {
+          "nonce": "28841d0a-b68f-4cb9-900d-8fc5e2a74d1c",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:55.132Z",
+          "receivedAt": "2026-11-09T21:28:55.132Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:55.106Z",
+      "endedAt": "2026-11-09T21:28:55.148Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:55.139Z",
+        "requestNonce": "007818cf-842c-4887-9b51-619ce8d49492"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 15,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:55.158Z",
+        "clickedAt": "2026-11-09T21:28:55.159Z",
+        "clickCompletedAt": "2026-11-09T21:28:55.174Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "8a62262f-9597-4940-8c63-6092f2216dd5",
+        "callNonce": "c2b7f1cf-e0f0-4483-a339-25bf1dab6648",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:55.159Z",
+        "attemptStartedAt": "2026-11-09T21:28:55.159Z",
+        "completedAt": "2026-11-09T21:28:55.174Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:55.174Z"
+        },
+        "dispatch": {
+          "nonce": "8a62262f-9597-4940-8c63-6092f2216dd5",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:55.173Z",
+          "receivedAt": "2026-11-09T21:28:55.174Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:55.148Z",
+      "endedAt": "2026-11-09T21:28:55.190Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:55.181Z",
+        "requestNonce": "c2b7f1cf-e0f0-4483-a339-25bf1dab6648"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 16,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:55.200Z",
+        "clickedAt": "2026-11-09T21:28:55.201Z",
+        "clickCompletedAt": "2026-11-09T21:28:55.216Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "2f62e3bc-880c-4b06-a699-95a1c54d788f",
+        "callNonce": "ea703f00-6f18-46a4-995c-186f2a72a908",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:55.201Z",
+        "attemptStartedAt": "2026-11-09T21:28:55.201Z",
+        "completedAt": "2026-11-09T21:28:55.216Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:55.216Z"
+        },
+        "dispatch": {
+          "nonce": "2f62e3bc-880c-4b06-a699-95a1c54d788f",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:55.215Z",
+          "receivedAt": "2026-11-09T21:28:55.215Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:55.190Z",
+      "endedAt": "2026-11-09T21:28:55.231Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:55.221Z",
+        "requestNonce": "ea703f00-6f18-46a4-995c-186f2a72a908"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 17,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:55.242Z",
+        "clickedAt": "2026-11-09T21:28:55.243Z",
+        "clickCompletedAt": "2026-11-09T21:28:55.257Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "ce11e22b-ac40-4957-83db-169886c9669d",
+        "callNonce": "91c9e100-3346-4dce-971f-224be84c950f",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:55.243Z",
+        "attemptStartedAt": "2026-11-09T21:28:55.243Z",
+        "completedAt": "2026-11-09T21:28:55.257Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:55.257Z"
+        },
+        "dispatch": {
+          "nonce": "ce11e22b-ac40-4957-83db-169886c9669d",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:55.256Z",
+          "receivedAt": "2026-11-09T21:28:55.256Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:55.231Z",
+      "endedAt": "2026-11-09T21:28:55.273Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:55.264Z",
+        "requestNonce": "91c9e100-3346-4dce-971f-224be84c950f"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 18,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:55.284Z",
+        "clickedAt": "2026-11-09T21:28:55.285Z",
+        "clickCompletedAt": "2026-11-09T21:28:55.299Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "01bd4fe2-33c3-47cc-9bb7-ca9534548a51",
+        "callNonce": "cab89669-731a-480e-bb5f-25561ef8f3db",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:55.285Z",
+        "attemptStartedAt": "2026-11-09T21:28:55.285Z",
+        "completedAt": "2026-11-09T21:28:55.299Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:55.299Z"
+        },
+        "dispatch": {
+          "nonce": "01bd4fe2-33c3-47cc-9bb7-ca9534548a51",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:55.298Z",
+          "receivedAt": "2026-11-09T21:28:55.299Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:55.273Z",
+      "endedAt": "2026-11-09T21:28:55.315Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:55.306Z",
+        "requestNonce": "cab89669-731a-480e-bb5f-25561ef8f3db"
+      },
+      "popupClosed": true
+    },
+    {
+      "index": 19,
+      "observed": {
+        "url": "about:blank",
+        "button": "Deny",
+        "body": "Deny",
+        "observedAt": "2026-11-09T21:28:55.325Z",
+        "clickedAt": "2026-11-09T21:28:55.326Z",
+        "clickCompletedAt": "2026-11-09T21:28:55.341Z"
+      },
+      "click": {
+        "schema": "tpnil-native-permission-click@2",
+        "nonce": "cb6d8177-b9a9-4331-b109-bc94f2204cf4",
+        "callNonce": "6fd5d605-3f37-4b82-86f7-157025df833b",
+        "popupUrl": "about:blank",
+        "button": "Deny",
+        "armedAt": "2026-11-09T21:28:55.326Z",
+        "attemptStartedAt": "2026-11-09T21:28:55.326Z",
+        "completedAt": "2026-11-09T21:28:55.341Z",
+        "automation": {
+          "status": "fulfilled",
+          "endedAt": "2026-11-09T21:28:55.341Z"
+        },
+        "dispatch": {
+          "nonce": "cb6d8177-b9a9-4331-b109-bc94f2204cf4",
+          "url": "about:blank",
+          "button": "Deny",
+          "body": "Deny",
+          "type": "click",
+          "isTrusted": true,
+          "visible": true,
+          "disabled": false,
+          "mouseButton": 0,
+          "eventPhase": 1,
+          "dispatchedAt": "2026-11-09T21:28:55.340Z",
+          "receivedAt": "2026-11-09T21:28:55.340Z",
+          "expectedPage": true,
+          "expectedMainFrame": true
+        }
+      },
+      "startedAt": "2026-11-09T21:28:55.315Z",
+      "endedAt": "2026-11-09T21:28:55.342Z",
+      "outcome": {
+        "status": "rejected",
+        "settledAt": "2026-11-09T21:28:55.340Z",
+        "requestNonce": "6fd5d605-3f37-4b82-86f7-157025df833b"
+      },
+      "popupClosed": true
+    }
+  ],
+  "cleanup": {
+    "browser": true
+  },
+  "result": "PASS"
+}

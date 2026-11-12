@@ -1,0 +1,181 @@
+{
+  "schema": "tpnil-native-permission-clause-repetition-review@1",
+  "claim": "READ_ONLY_CHILD_ORACLE_REPLAY_NOT_NATIVE_QUALIFICATION",
+  "runId": "42674638927",
+  "runtimeSource": "def98acc4d5dcf37b9ef7d52d9dbd13fe70023b8",
+  "checkerRevision": "91f3f82b4f963359d74d711831519b37ef62dd53",
+  "repetitionBindingFix": "91f3f82b4f963359d74d711831519b37ef62dd53",
+  "reviewedAt": "2026-11-09T18:53:52.374Z",
+  "originalArchive": {
+    "path": "out/native-ci-42674638927.zip",
+    "size": 1847441,
+    "sha256": "ff199e65316ed2501efcf4a34124977e9dd62a94f5086c5b82ba08a1449ef410"
+  },
+  "checkers": [
+    {
+      "path": "synthesis/src/wallet-lab/native/verify.ts",
+      "sha256": "3b937f8f11cd5b3c5df281ab6bb153f7496e75db3e4ee48c667a854016bedc5f"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/verify-conformance.ts",
+      "sha256": "844e72574dbbf61470836337fbe920c51f12c9b9c9cf64aa36469b66fb652fc9"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/verify-conformance-permissions.ts",
+      "sha256": "71b98743c4ca12702df299006c15994865c12513b83f3331f4d52b076c622e38"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/verify-conformance-clauses.ts",
+      "sha256": "8c0264fa52b59e9ba6b7d289a5db597c8396d1e8c6a65a4f713b984d2f12c670"
+    }
+  ],
+  "repetitions": [
+    {
+      "repetition": 1,
+      "recordSha256": "440ee00ae3bdc41c2f70f59a05df31cc4ae2e0688fe70cbeb3dbea06429816cb",
+      "verifiedAssertionCount": 263,
+      "semanticProjectionSha256": "96cd47801af8093fe83f0a78c67c2034c3551d8bf3f597f75e49487ea68f8290",
+      "vectorOutcomes": [
+        {
+          "id": "ISI-4-V001",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V002",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V003",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V004",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V005",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V006",
+          "outcome": "FAIL"
+        },
+        {
+          "id": "ISI-4-V007",
+          "outcome": "FAIL"
+        },
+        {
+          "id": "ISI-4-V008",
+          "outcome": "FAIL"
+        }
+      ],
+      "permissions": {
+        "verified": true,
+        "result": "PASS",
+        "assertionCount": 8,
+        "joinedIdentityVerified": true,
+        "independentSdkAgreement": true
+      },
+      "clauses": {
+        "verified": true,
+        "result": "FAIL",
+        "counts": {
+          "PASS": 132,
+          "FAIL": 98,
+          "BLOCKED": 2
+        },
+        "completeBRC100Conformance": false,
+        "blocked": [
+          {
+            "id": "input.createAction.options.noSendChange.0",
+            "result": "BLOCKED",
+            "detail": "Positive control failed or was unavailable: {\"message\":\"failed to process createAction: failed to create priority outputs: failed to validate outputs: the number of outputs (0) doesn't match the number of outpoints (1)\",\"name\":\"Error\"}"
+          },
+          {
+            "id": "coverage.remaining-obligations",
+            "result": "BLOCKED",
+            "detail": "Full R008 remains blocked by the explicitly retained obligations in coverageGaps."
+          }
+        ]
+      },
+      "outcome": "FAIL"
+    },
+    {
+      "repetition": 2,
+      "recordSha256": "028756f2891cf3a7302cf3dad56af0aedec1609bafd7505f3fdac2e27eb17013",
+      "verifiedAssertionCount": 263,
+      "semanticProjectionSha256": "96cd47801af8093fe83f0a78c67c2034c3551d8bf3f597f75e49487ea68f8290",
+      "vectorOutcomes": [
+        {
+          "id": "ISI-4-V001",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V002",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V003",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V004",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V005",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V006",
+          "outcome": "FAIL"
+        },
+        {
+          "id": "ISI-4-V007",
+          "outcome": "FAIL"
+        },
+        {
+          "id": "ISI-4-V008",
+          "outcome": "FAIL"
+        }
+      ],
+      "permissions": {
+        "verified": true,
+        "result": "PASS",
+        "assertionCount": 8,
+        "joinedIdentityVerified": true,
+        "independentSdkAgreement": true
+      },
+      "clauses": {
+        "verified": true,
+        "result": "FAIL",
+        "counts": {
+          "PASS": 132,
+          "FAIL": 98,
+          "BLOCKED": 2
+        },
+        "completeBRC100Conformance": false,
+        "blocked": [
+          {
+            "id": "input.createAction.options.noSendChange.0",
+            "result": "BLOCKED",
+            "detail": "Positive control failed or was unavailable: {\"message\":\"failed to process createAction: failed to create priority outputs: failed to validate outputs: the number of outputs (0) doesn't match the number of outpoints (1)\",\"name\":\"Error\"}"
+          },
+          {
+            "id": "coverage.remaining-obligations",
+            "result": "BLOCKED",
+            "detail": "Full R008 remains blocked by the explicitly retained obligations in coverageGaps."
+          }
+        ]
+      },
+      "outcome": "FAIL"
+    }
+  ],
+  "all263AssertionOutcomesMatch": true,
+  "artifactMembersModified": false,
+  "originalMemberIntegrity": {
+    "filesChecked": 148,
+    "uncompressedBytes": 15150674,
+    "allByteIdenticalAfterReview": true
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "schema": "tpnil-rust-graph-engineering@3",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "nativeQualification": false,
+  "createdAt": "2026-11-09T23:08:15.874166+00:00",
+  "baseCommit": "5b804bae779a70e019cf16a98aabc9f2b69f1bcd",
+  "sourceDirty": true,
+  "originalNativeRun": {
+    "id": 42711700295,
+    "source": "c338a93c97ffebeeef318e679ff82b7dbf309dd5",
+    "artifactZipSha256": "c0645821afeea30cbc1c0c70f4ca10bfbe288ebfa570b719af5a709f145c3826",
+    "originalRustResultSha256": "ede7591f0ef610d90ed696134ab2b3d1ed8598bfa3862784d283471a8e08db8e",
+    "counts": {
+      "PASS": 42,
+      "FAIL": 6
+    },
+    "repetition2": "NOT_EXECUTED",
+    "integratedAttemptAccepted": false
+  },
+  "graphOracle": {
+    "id": "tpnil-rust-graph-oracle@3.0.0",
+    "manifest": "components/rust/graph-oracle-3.0.0.json",
+    "manifestSha256": "28abfaa934e8246d2b6adb8e567f8ad8e3ef08e49dc9f7dcebebd5b7b4bf9063",
+    "operation": "spends-indexed-v3",
+    "cargoFeature": "graph-oracle-v3"
+  },
+  "sourceInputs": {
+    "scripts/rust-corpus.mjs": {
+      "bytes": 7229,
+      "sha256": "c65bba363b4f0605b1b47db354eb65b49cfeb88a17685d631cea4d9efb26906c"
+    },
+    "components/rust/vectors.json": {
+      "bytes": 1136,
+      "sha256": "3396484d7c094b8d116df44c0b4284df1b59fe92bcc2fab07b4d1ab93db954c8"
+    },
+    "components/rust/Cargo.toml": {
+      "bytes": 311,
+      "sha256": "71064a519d63fe7174d6d16f1525321541cba75830b1fa79e8b020eedb693837"
+    },
+    "components/rust/Cargo.lock": {
+      "bytes": 5363,
+      "sha256": "2c0ca447f074d3eaaa6028469774db4a382904a4a8b92fd2ddf7560285246402"
+    },
+    "components/rust/src/main.rs": {
+      "bytes": 9474,
+      "sha256": "0cacf7baa33a9e4c7b43c810adcb5386c0183d1a7f3e13d50026a7032220f315"
+    },
+    "fixtures/teranode/wab-funding-v1.json": {
+      "bytes": 2563,
+      "sha256": "7c4fd4d2c98f8c80b4ac41614b09c9baed91c087b1a418e0f15edc6b8e55560a"
+    },
+    "components/transport/package-lock.json": {
+      "bytes": 46228,
+      "sha256": "dda70c2b8b059836108cdf36b8ba3d35faf0a21a16300ef1ba3789bbd8c49fac"
+    },
+    "components/rust/src/graph_oracle_v3.rs": {
+      "bytes": 16343,
+      "sha256": "e9b0176a2039d8716f5ae28638991dbe0ef6eb40b29ec6d34d9346689d161a6b"
+    },
+    "scripts/run-rust.mjs": {
+      "bytes": 3419,
+      "sha256": "b38c6bb59f5b368c0ac49d2c535075d975efc5df3abe49ddc09e53f4b200e63e"
+    },
+    "scripts/verify-rust.mjs": {
+      "bytes": 4856,
+      "sha256": "f896b4c8493025456ecc4dea52180dea47f7544f5db5e46793c94171aeef8ae7"
+    },
+    "components/rust/graph-oracle-3.0.0.json": {
+      "bytes": 2920,
+      "sha256": "28abfaa934e8246d2b6adb8e567f8ad8e3ef08e49dc9f7dcebebd5b7b4bf9063"
+    }
+  },
+  "executions": [
+    {
+      "directory": "repetition-1",
+      "corpus": "tpnil-rust-corpus@3",
+      "counts": {
+        "PASS": 48
+      }
+    },
+    {
+      "directory": "repetition-2",
+      "corpus": "tpnil-rust-corpus@3",
+      "counts": {
+        "PASS": 48
+      }
+    },
+    {
+      "directory": "corpus2-control",
+      "corpus": "tpnil-rust-corpus@2",
+      "counts": {
+        "PASS": 42,
+        "FAIL": 6
+      }
+    }
+  ],
+  "files": [
+    {
+      "name": "README.md",
+      "bytes": 2805,
+      "sha256": "d8eb5525a0e3f287ee20a5f6ad4d1b94c3a06a6378440e2bcd6fd0f3f42565af"
+    },
+    {
+      "name": "evidence.zip",
+      "bytes": 1131822,
+      "sha256": "2b12c7f680e4034a3e752a14e1651fd9c9f22ec341e2ffd833cab9e265f7b65e"
+    },
+    {
+      "name": "journal-replay.log",
+      "bytes": 922,
+      "sha256": "71b93bc05f494e8810033df4b98e614ded5b229ecd21c545aa8985be91088a22"
+    },
+    {
+      "name": "policy-tests.log",
+      "bytes": 443,
+      "sha256": "e5d706bb055eb178e4f915d4b0d3e3602c14cd66c89472261558f336337ed29d"
+    },
+    {
+      "name": "replay.mjs",
+      "bytes": 4902,
+      "sha256": "b13ef8fbab3a1a57c9b1fe9b0b01cd93340b0caa8456046f56de31adb28bdffa"
+    },
+    {
+      "name": "rust-tests.log",
+      "bytes": 1740,
+      "sha256": "99f31824b3de6f16a928a6e27293a4665a9fa16df15cfa608821d63314a61850"
+    },
+    {
+      "name": "verify-repetition-1.log",
+      "bytes": 109,
+      "sha256": "e8c1c1654777e4c619f3f2b95359c2842721e830ae1919c12222802fd49a893d"
+    },
+    {
+      "name": "verify-repetition-2.log",
+      "bytes": 109,
+      "sha256": "e8c1c1654777e4c619f3f2b95359c2842721e830ae1919c12222802fd49a893d"
+    }
+  ]
+}

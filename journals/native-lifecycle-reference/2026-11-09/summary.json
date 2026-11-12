@@ -1,0 +1,123 @@
+{
+  "schema": "tpnil-native-lifecycle-engineering-archive@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "baseSource": "e4cca107e37a065a81e2a34b48024e958a71e03b",
+  "sources": [
+    {
+      "path": "synthesis/go/cmd/itcve-services/main.go",
+      "sha256": "39e20590fd3a4f150fc844cb5758d142afdb5412a3ae066e2b9cf29d80e3c333"
+    },
+    {
+      "path": "synthesis/go/cmd/itcve-services/lifecycle_test.go",
+      "sha256": "32d73523d7f1ef4f43390bfbd10668bef74e6c4cb1700a9fcbada4a687235fe6"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/conformance-lifecycle.ts",
+      "sha256": "a3a7ee5f778e05f9b782d62466e70cc80e4012a5fb44f7daa6bdcab7ba88b1fb"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/verify-conformance-lifecycle.ts",
+      "sha256": "98f2fa1c0453f2370fb3a1e75e312da039cae1f2b3fb78117831b9517c18b0aa"
+    },
+    {
+      "path": "scripts/run-conformance-lifecycle-reference.mjs",
+      "sha256": "c661ae79d0794e5e36e0674c1efae2502651a8191832309b600d18436a1880e2"
+    },
+    {
+      "path": "scripts/verify-conformance-lifecycle.mjs",
+      "sha256": "8731b5abd55c115da6ec3e6f739e8420130ad28edacaa3e2ed608aba84376156"
+    }
+  ],
+  "archive": {
+    "path": "evidence.json.gz",
+    "size": 108958,
+    "sha256": "61e87e7888d1156a6605aa4d80a2b1a78a12aba24fcf0fd601ef3d5d4fe77ceb"
+  },
+  "runs": [
+    {
+      "directory": "typescript-initial-observer-error",
+      "storage": "typescript",
+      "cleanup": true,
+      "outcome": "OBSERVER_VERIFICATION_ERROR",
+      "assertions": [],
+      "binarySha256": null
+    },
+    {
+      "directory": "go-initial-observer-error",
+      "storage": "go",
+      "cleanup": true,
+      "outcome": "OBSERVER_VERIFICATION_ERROR",
+      "assertions": [],
+      "binarySha256": "c86066d82a3f0b6347c23dd142ecb9d8ecbd05eaa51df709692d7db7271de1f7"
+    },
+    {
+      "directory": "typescript-corrected",
+      "storage": "typescript",
+      "cleanup": true,
+      "outcome": "PASS",
+      "assertions": [
+        {
+          "id": "accepted-service-verdict-observed",
+          "result": "PASS"
+        },
+        {
+          "id": "rejection-preserves-wallet-state",
+          "result": "PASS"
+        },
+        {
+          "id": "post-rejection-recovery",
+          "result": "PASS"
+        }
+      ],
+      "binarySha256": null
+    },
+    {
+      "directory": "go-corrected",
+      "storage": "go",
+      "cleanup": true,
+      "outcome": "PASS",
+      "assertions": [
+        {
+          "id": "accepted-service-verdict-observed",
+          "result": "PASS"
+        },
+        {
+          "id": "rejection-preserves-wallet-state",
+          "result": "PASS"
+        },
+        {
+          "id": "post-rejection-recovery",
+          "result": "PASS"
+        }
+      ],
+      "binarySha256": "c86066d82a3f0b6347c23dd142ecb9d8ecbd05eaa51df709692d7db7271de1f7"
+    },
+    {
+      "directory": "go-original-host",
+      "storage": "go",
+      "cleanup": true,
+      "outcome": "FAIL",
+      "assertions": [
+        {
+          "id": "accepted-service-verdict-observed",
+          "result": "PASS"
+        },
+        {
+          "id": "rejection-preserves-wallet-state",
+          "result": "FAIL"
+        },
+        {
+          "id": "post-rejection-recovery",
+          "result": "FAIL"
+        }
+      ],
+      "binarySha256": "d36adc5affbd9d65821e7414815a974d48ef545528cf62c29b277f7a3339e719"
+    }
+  ],
+  "findings": [
+    "Original Go host classifies an explicit terminal rejection as serviceError, causing the rejected output to remain spendable; original FAIL results are retained.",
+    "Corrected host returns a txid-bound invalidTx result; both TS and Go reference wallets preserve exact basket state and recover.",
+    "Initial helper attempts failed offline observer verification because wallet normalization mutated the retained request object. Their original evidence is preserved. Final helper snapshots inputs before the wallet call.",
+    "Native production-wallet qualification is not established by these reference-wallet runs."
+  ]
+}

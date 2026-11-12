@@ -1,0 +1,81 @@
+{
+  "schema": "tpnil-native-wallet-plan@2.0.0",
+  "id": "YOURS-5.1.0-GO-ITCVE-1.5.0-CONFORMANCE-COVERAGE",
+  "itcve": "ITCVE-1@1.5.0",
+  "program": "ISI-4@3.0.0",
+  "lane": "chromium-extension-linux-amd64",
+  "wallet": {
+    "id": "yours-wallet-chromium-extension",
+    "version": "5.1.0",
+    "sha256": "d55abda7dc8790ecfdd57ed0f5f4dd4a28187bb4833715f7612b067625eabc52",
+    "size": 13513123
+  },
+  "application": {
+    "id": "todo-ts-compiled-webroot",
+    "version": "236733c586c4d2cc3ab7f957afa382005509acd4",
+    "sha256": "b3c41dc60ba99b497231008a15033a60110cc7cd60b2d4fffd405e33f4979ddc",
+    "size": 502803
+  },
+  "components": {
+    "overlay": "go",
+    "chaintracks": "go",
+    "storage": "go"
+  },
+  "componentLock": "synthesis/go/components.lock.json",
+  "fundingFixture": "fixtures/teranode/wab-funding-v1.json",
+  "repetitions": 2,
+  "task": "TPNIL controlled task",
+  "amount": 2,
+  "timeoutSecondsPerRepetition": 900,
+  "publicMainnetBroadcast": false,
+  "requiredEnvironmentAssertions": [
+    "exact-wallet-and-application-artifacts",
+    "native-chromium-with-sandbox",
+    "fresh-container-and-wallet-profile-each-repetition",
+    "kernel-network-none-before-and-after",
+    "no-network-admin-capabilities",
+    "negative-tcp-ipv4-and-ipv6-probes",
+    "controlled-ca-trust-without-global-tls-bypass",
+    "proof-carrying-mined-funding-ancestry",
+    "independent-transaction-and-state-oracles",
+    "all-eight-vector-outcomes-retained",
+    "two-matching-semantic-projections",
+    "successful-process-and-state-cleanup",
+    "declared-pinned-Go-compatibility-build"
+  ],
+  "sutOutcomePolicy": "PASS, FAIL and BLOCKED are retained findings; a valid environment and complete reproducible report do not require all SUT vectors to pass",
+  "scope": "Unchanged Yours Wallet 5.1.0; original ToDo UI sequence plus visible protocol permission decisions, terminal-rejection preservation and recovery, native Wallet Backup counterpart replacement and source-linked BRC-100 clauses. Remaining clause obligations retain BLOCKED coverage and real SUT deficiencies remain FAIL. Two separately proven 10000-satoshi initial reserve payments precede all customer scenarios. Subsequent recovery uses unaffected pre-existing funds; terminal-invalid input chains remain quarantined and the unchanged wallet exposes no UnFail review UI. This additional optional environment strengthens native category permissions and visible revocation, and independently binds a valid noSendChange input while separately retaining the stale-return defect.",
+  "fundingFixtureCanonicalSha256": "67a6da93734b8bad048c3a723068293fc946e3cb3ed582a0fd7d104353814a12",
+  "compatibilityPatch": "infra/adapters/storage-portability/patch.lock.json",
+  "boundaryCoverage": "programs/ISI-4/profiles/brc100-boundary-1.0.0/coverage.json",
+  "boundaryProfile": "programs/ISI-4/profiles/brc100-boundary-1.0.0/profile-trusted-native.json",
+  "compatibilityPatchSha256": "b9f229391f4fd8a953fd76b6c73cc7585818d91fe6c1802e9fc8667a86c1fcef",
+  "boundaryProfileSha256": "f825d8a4e84f92b36f17e9ae50a0690a717a5a357e036cfa3b5de5e84ff0f367",
+  "identityTrust": "public-settings-token",
+  "identityTrustProfile": "infra/native/integrated/trust-profile.json",
+  "identityTrustProfileSha256": "44956caee43df56ff307b9d259074f964e68a5092242a211961347acb58d30a6",
+  "conformanceInputs": {
+    "itcves/ITCVE-1/1.5.0/profile.json": "1fe3565488a3745c9985bf273d8e59ab1890e651059b84d31fe15f152374f1c4",
+    "programs/ISI-4/3.0.0/catalog.json": "b9ef1df78f846901df2782265bacfdf0bfc888bd666090ded68b540a4b257b0a",
+    "programs/ISI-4/profiles/native-conformance-2.0.0/brc100-contract.json": "ad803952399a66f099ea9f9efa664a37801866284c5a01064d3357878199a8eb",
+    "programs/ISI-4/profiles/native-conformance-3.0.0/oracle-4.0.0.json": "b3df2d9a60571f19bb2e48fc19a2b0b60704392aef62b3d8855c136ce1201e3c",
+    "programs/ISI-4/profiles/native-conformance-2.0.0/lifecycle-oracle-3.0.0.json": "7f7585d34920cad911531099009fa2e3b8cf6e0e1f9037bb4812f9bb09e8fe95",
+    "programs/ISI-4/profiles/native-conformance-3.0.0/portability-oracle-3.0.0.json": "266c34829ec30f343bfe6d4899f139d27f0eb30b6fdbe84919b6850a1a47893f",
+    "programs/ISI-4/profiles/native-conformance-2.0.0/todo-submission-binding-1.0.0.json": "215efe521a229779a3ead0ea3f03b304d63a8d8fd754c6c9994a810cba5a5be4",
+    "programs/ISI-4/profiles/native-conformance-3.0.0/permission-lifecycle-oracle-1.0.0.json": "5f9f69e6235187cd6bf756d4827aaca0338cc3d64ce3052d72b582bdbbc2f87b"
+  },
+  "fixtureSubmissionPolicy": "terminal-rejection-v1",
+  "clauseOracle": "tpnil-brc100-clause-oracle@4.0.0",
+  "fundingReserves": {
+    "schema": "tpnil-native-funding-reserves@1",
+    "count": 2,
+    "satoshisEach": 10000,
+    "stage": "before-all-customer-scenarios",
+    "recoveryScope": "unaffected-preexisting-funds"
+  },
+  "additionalClauseFundingRoot": "Exact native internalizeAction receipt for the BRC29 1000-satoshi method-corpus payment, independently bound to the same identity and mined fixture; allowed only for subsequent clause and permission-lifecycle operations.",
+  "lifecycleOracle": "tpnil-native-lifecycle-oracle@3.0.0",
+  "portabilityOracle": "tpnil-native-portability-oracle@3.0.0",
+  "todoSubmissionBinding": "tpnil-native-todo-submission-binding@1.0.0",
+  "permissionLifecycleOracle": "tpnil-native-permission-lifecycle-oracle@1.0.0"
+}

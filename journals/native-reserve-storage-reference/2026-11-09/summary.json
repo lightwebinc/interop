@@ -1,0 +1,66 @@
+{
+  "schema": "tpnil-native-reserve-storage-reference@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "nativeExecution": false,
+  "archive": {
+    "path": "evidence.json.gz",
+    "bytes": 129264,
+    "sha256": "6801f9d48b24e32ee2bb09bb7b520645bc5cb1cdf34c90e17a3075a1ffd91fdc",
+    "files": 16
+  },
+  "sourceFiles": [
+    {
+      "path": "synthesis/src/wallet-lab/native/conformance-reserve-storage.ts",
+      "sha256": "8f216cf7020c259750cfe171c688efc55f59f9341768357ea55ae3bed391b7d9"
+    },
+    {
+      "path": "synthesis/test/native-conformance-reserve-storage.test.ts",
+      "sha256": "f20be43d4302e6eb12a198028c289781a018c36eb471b7f208ae7db3530556e7"
+    }
+  ],
+  "verification": {
+    "passed": 2,
+    "implementations": [
+      "typescript",
+      "go"
+    ],
+    "tamperCasesRejected": 18,
+    "canonicalEvidenceRoundTrip": "PASS",
+    "typecheck": "PASS"
+  },
+  "runs": [
+    {
+      "attempt": 1,
+      "result": "FAIL",
+      "cause": "Reference test fixture path resolved under synthesis/fixtures instead of repository fixtures; service startup completed but no wallet operation ran."
+    },
+    {
+      "attempt": 2,
+      "result": "FAIL",
+      "cause": "Offline observer assumed 32-byte session nonces; actual authenticated session nonce is48 bytes (16 random bytes plus32-byte HMAC). Both TS and Go signed handshakes therefore contain96 bytes. No native/SUT behavior was changed."
+    },
+    {
+      "attempt": 3,
+      "result": "FAIL",
+      "cause": "Retained exact raw authenticated TS/Go snapshots reproducing attempt2 before correcting offline handshake recognition."
+    },
+    {
+      "attempt": 4,
+      "result": "TS FAIL / Go PASS",
+      "cause": "Generic migration projectDataset rejected TS global provenTxReq.notify transactionIds [2,3], where owner transaction3 is the native payment and transaction2 belongs to the service faucet. An owner-scoped getSyncChunk correctly excludes transaction2. This proof-request subscription field is global service metadata, not an owner foreign key; requiring every subscriber inside the owner snapshot is an oracle scope error. Exact raw signed notify and complete pages remain preserved unchanged. Reserve-specific validation now checks all owner user/transaction/output/basket/proof foreign keys, raw transaction hashes, output values/scripts and spendability; it does not drop or reinterpret notify bytes, and does not claim notification portability or absence of global metadata exposure."
+    },
+    {
+      "attempt": 5,
+      "result": "PASS",
+      "cause": "Both live TS and Go authenticated public storage snapshots verify after direct helper\u2192EvidenceBundle\u2192offline replay. All18 signature, owner, settings, paging, output-value and timing mutations are rejected."
+    }
+  ],
+  "reproduction": "PATH=/Users/tyeverett/.nvm/versions/node/v24.22.1/bin:$PATH TPNIL_TEST_GO_RESERVES=1 TPNIL_RESERVE_STORAGE_EVIDENCE=../out/NEW-DIRECTORY npm --prefix synthesis test -- test/native-conformance-reserve-storage.test.ts",
+  "scope": "The runner uses only native-public cryptographic methods to authenticate a new StorageClient and calls only makeAvailable/getSyncChunk. It never requests default-basket permission, extracts native keys, mutates native state, or writes sync chunks. The independent oracle uses only the declared public test-service key11 for verification; the runner never uses it to impersonate the native wallet. Actual native execution remains pending.",
+  "archiveReplay": {
+    "path": "archive-verification.txt",
+    "bytes": 273,
+    "sha256": "df7258ba60179cbeafc515d467ea493428a3140603e10e1f71eae485f125d05e",
+    "result": "PASS"
+  }
+}

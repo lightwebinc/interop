@@ -1,0 +1,10 @@
+{
+  "claim": "LAB_SELF_TEST_ONLY",
+  "purpose": "Actual trusted mouse click immediately closes popup while the public caller receives its terminal response",
+  "runs": [],
+  "cleanup": {
+    "browser": true
+  },
+  "result": "FAIL",
+  "error": "Error: page.evaluate: ReferenceError: __name is not defined\n    at eval (eval at evaluate (:311:30), <anonymous>:1:67)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+}

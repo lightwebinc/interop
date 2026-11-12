@@ -1,0 +1,53 @@
+{
+  "schema": "tpnil-integrated-component-archive@1",
+  "source": "c338a93c97ffebeeef318e679ff82b7dbf309dd5",
+  "workflowRun": 42711677744,
+  "artifactId": 13716776479,
+  "files": [
+    {
+      "path": "README.md",
+      "size": 2528,
+      "sha256": "b00e25d0ffe0b98ec6056a0d1738ffe5ece6706c9a89c4dd0fe90143ffc2c5f5"
+    },
+    {
+      "path": "artifacts.json",
+      "size": 2167,
+      "sha256": "ccf39be718df21a6fa9b2e399d045c1ebbc9acadfabc86356525df1f6bd763eb"
+    },
+    {
+      "path": "foundation-logs.zip",
+      "size": 121383,
+      "sha256": "9eff3fe3b6279560aeecf87bed5efedea18bedc4425a29d36b87bc7b9f5e6029"
+    },
+    {
+      "path": "independent-verification.json",
+      "size": 1410,
+      "sha256": "2020de1ecc6ff8009ccad3abc1b5757537c81568a4c6764911433ee3a9cbdd09"
+    },
+    {
+      "path": "integrated-lab.zip",
+      "size": 3368421,
+      "sha256": "d3f57f705d47a965a588094671cd24083bcbf315b8d60b094b0b988914622fd0"
+    },
+    {
+      "path": "itcve-go-components.zip",
+      "size": 60247,
+      "sha256": "a104606135bd45a231f83c6850c53f02322c9c7ae1d7996a8a3033b1d34b1a90"
+    },
+    {
+      "path": "jobs.json",
+      "size": 13059,
+      "sha256": "c9976299724fc6317211107637aa14cb00343b297d7e0b7010335be89a08c973"
+    },
+    {
+      "path": "qualification.json",
+      "size": 8348,
+      "sha256": "3635bf29faa7d5573ed8244d3d560a4e93b85706ab93f452a3ab898d1b204074"
+    },
+    {
+      "path": "run.json",
+      "size": 11952,
+      "sha256": "5f5c05310f1d9561afb65b10e86566d7d45eea212b61fa7faf872bc62eda7f9c"
+    }
+  ]
+}

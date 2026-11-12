@@ -1,0 +1,31 @@
+{
+  "schema": "tpnil-native-preparation-attempt@1",
+  "runId": 42661306475,
+  "sourceCommit": "ec6cff827e6bc29d0c53951a5ed6a9cae72e724b",
+  "result": "PREPARATION_FAILED",
+  "nativeWalletExecuted": false,
+  "failure": "GitHub release asset returned HTTP500 across all5 curl attempts; no image, wallet, repetition or evidence artifact was created.",
+  "independentPreflight": "The public source later returned the original13513123-byte ZIP with SHA256d55abda7dc8790ecfdd57ed0f5f4dd4a28187bb4833715f7612b067625eabc52.",
+  "files": [
+    {
+      "path": "artifacts.json",
+      "bytes": 32,
+      "sha256": "244563f989470892c537c9a4622920af0d228ee4528f7d00c64a06d6cd95856c"
+    },
+    {
+      "path": "jobs.json",
+      "bytes": 4736,
+      "sha256": "eab3ab70495adeb5d0575c51857540f37ac2fda540fde62b4f05920ad79ca612"
+    },
+    {
+      "path": "logs.zip",
+      "bytes": 16450,
+      "sha256": "efdb289297767cc0a3f17561120b5d47e2563edd7bc0ed09e45ccd2722449fde"
+    },
+    {
+      "path": "run.json",
+      "bytes": 11974,
+      "sha256": "5ddfe97a4f143327b3d33106344e48d2b66ee2115d4a8b0a2de80d6e0642ca78"
+    }
+  ]
+}

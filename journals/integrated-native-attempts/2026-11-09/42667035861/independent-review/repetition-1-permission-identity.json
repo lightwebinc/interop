@@ -1,0 +1,32 @@
+{
+  "schema": "tpnil-permission-identity-integrity-review@1",
+  "permissionSha256": "b5712e897c635751304f84c013049f56fda92b5fb92ba1bc56b5e30589d29993",
+  "joinedSha256": "28dbea5f5509e098f1a15bbf668e756b96141908b136e1a4a0f2e33aedb96925",
+  "identity": "0369bc6628906c141de950333a849af945de5c3fdb3006dbe6a917a9f7bb4216e0",
+  "expectedPublicKey": "0351c9e785a0eaab5b8fece041181fb6cf067c2f5cf60514d5ec12bbb2b022f360",
+  "sdk2And4Agree": true,
+  "permissionResult": "PASS",
+  "checks": [
+    {
+      "id": "primary-approve",
+      "keyMatchesJoinedIdentity": true
+    },
+    {
+      "id": "primary-cached",
+      "keyMatchesJoinedIdentity": true
+    },
+    {
+      "id": "primary-after-denial",
+      "keyMatchesJoinedIdentity": true
+    },
+    {
+      "id": "alternate-approve",
+      "keyMatchesJoinedIdentity": true
+    },
+    {
+      "id": "alternate-cached",
+      "keyMatchesJoinedIdentity": true
+    }
+  ],
+  "allObservedKeysMatch": true
+}

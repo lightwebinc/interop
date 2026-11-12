@@ -1,0 +1,17 @@
+# Recipient funding ancestry export
+
+This prospective ITCVE-1.4 compatibility profile repairs the public storage synchronization path exposed by native run42680240116. A recipient's transactions can depend on a mined transaction owned by another user. The owner-filtered source export omitted that global proof row while stored `inputBEEF` contained storage-local omissions. A fresh counterpart received every owner record but could not reconstruct `listOutputs` BEEF or a subsequent spend after source outage.
+
+The Go patch layers on the immutable `storage-sync/patch.lock.json`. `scripts/prepare-storage-portability-go.mjs` verifies both module and patch digests, builds a separate `out/itcve-go-storage-portability` executable, and runs host and upstream synchronization tests. Its manifest binds the parent lock, additional patch, toolchain and binary. Original ITCVE-1.3 binaries and source locks remain independently admitted.
+
+For each signed owner request already selected by `GetSyncChunk`, the source resolves actual ancestors using its storage-only BEEF builder. It rebuilds the subject's reachable transaction graph, removes the subject, and serializes that complete ancestor graph as exported `inputBEEF`. This is an explicit export representation change: the original stored empty/partial `inputBEEF` bytes are not the portable representation. Signed raw transactions, statuses, timestamps, owner records and metadata retain their existing values. The database is not modified. No additional user records or unrelated batch transactions are exported, and no transaction service fetch supplies missing data.
+
+The original `maxItems` bounds collection. Rough size is enforced after ancestor expansion, including the first item crossing the limit and then ending the page. A shared provenTx/provenTxReq SQL cursor is preserved in `created_at DESC, tx_id ASC` order when cutting the prefix. Subsequent offsets count exactly the emitted rows. Existing owner and incremental query filters remain in place.
+
+The separately identified TypeScript source adapter performs the corresponding export through its original owner-scoped paged request query. Its own manifest binds its implementation and upstream files, including declared wire-boolean and notification-owner normalization. It is opt-in and runs before the upstream response-size accounting. The wallet mediator remains the public upstream `StorageClient`/`WalletStorageManager` path.
+
+Native portability oracle2 reconstructs each complete source and destination proof graph solely from retained authenticated dataset bytes, verifies the exact admitted mined root and every owned signed transaction, and then requires cold task recovery, decryption and redemption with the source unavailable. Original schema1 reports retain their frozen predicate and outcomes. Local descendant-wallet tests are engineering evidence; they do not qualify the unchanged native extension.
+
+The accepted scope is a fresh independent counterpart. An existing incomplete copy can skip equal-time rows under BRC40 merge rules; this export correction alone is not a qualified repair procedure for that state. No production data migration is performed by the laboratory.
+
+Retire these adapters only after an admitted upstream release passes the same descendant-funded matrix and native replacement scenario without them. Selecting the historical profile preserves its original behavior and findings, not the new ancestry-closure qualification. Temporary wallets, services and databases are destroyed after each execution.

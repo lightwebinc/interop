@@ -1,0 +1,470 @@
+{
+  "schema": "tpnil-native-lifecycle-reserve-review@1",
+  "run": "42674638927",
+  "source": "def98acc4d5dcf37b9ef7d52d9dbd13fe70023b8",
+  "reviewedAt": "2026-11-09T18:57:31.196Z",
+  "originalArtifact": {
+    "path": "native-ci-42674638927.zip",
+    "size": 1847441,
+    "sha256": "ff199e65316ed2501efcf4a34124977e9dd62a94f5086c5b82ba08a1449ef410"
+  },
+  "scope": "Independent V006 and initial-reserve replay; full 263 assertion counts retained, other child oracles reviewed by separate reviewers.",
+  "claim": "DIAGNOSTIC_REVIEW_ONLY",
+  "results": [
+    {
+      "repetition": 1,
+      "identity": "03d63a3cfb5711dd1cd20b0604eec70389540ee985bd389e58fae5b37225840e96",
+      "boundFiles": [
+        {
+          "path": "repetition-1/evidence/conformance/lifecycle.json",
+          "size": 125844,
+          "sha256": "313a396dd08efc7392b0edf07e25510112c844b223c77318abbf888486b7df32"
+        },
+        {
+          "path": "repetition-1/evidence/conformance/funding-reserves.json",
+          "size": 114696,
+          "sha256": "92adb88fcbadc0740a55812498ba06cfaedcc98b35b2a1085ee821efc795407b"
+        },
+        {
+          "path": "repetition-1/evidence/conformance/scenario-start.json",
+          "size": 81,
+          "sha256": "08425c459dea8dc96dd61f6a0782e07e92375508731cb6bcc78b8e068dfc1c45"
+        },
+        {
+          "path": "repetition-1/evidence/native-submissions.json",
+          "size": 57262,
+          "sha256": "5dee20e5e079b50eaf3b703d2b8fe0ba5c96e4e4d3143d51f29c11dd9782c8ea"
+        },
+        {
+          "path": "repetition-1/evidence/native-transactions.json",
+          "size": 56724,
+          "sha256": "aca66b0b040dae7427c3bd5dd2e2f90af53de36e69cb09b156fed7acd9125a4c"
+        },
+        {
+          "path": "repetition-1/evidence/mined-funding-source.json",
+          "size": 3104,
+          "sha256": "3004329e6c18cc0244743dd508038215b93f1f1e58939a3d81fcfb21e12b658d"
+        }
+      ],
+      "retainedVectorOutcomes": [
+        {
+          "id": "ISI-4-V001",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V002",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V003",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V004",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V005",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V006",
+          "outcome": "FAIL"
+        },
+        {
+          "id": "ISI-4-V007",
+          "outcome": "FAIL"
+        },
+        {
+          "id": "ISI-4-V008",
+          "outcome": "FAIL"
+        }
+      ],
+      "retainedAssertionCounts": {
+        "PASS": 154,
+        "FAIL": 107,
+        "BLOCKED": 2
+      },
+      "lifecycle": {
+        "verified": true,
+        "result": "FAIL",
+        "assertions": [
+          {
+            "id": "accepted-service-verdict-observed",
+            "result": "PASS"
+          },
+          {
+            "id": "rejection-preserves-wallet-state",
+            "result": "PASS"
+          },
+          {
+            "id": "post-rejection-recovery",
+            "result": "FAIL"
+          }
+        ],
+        "transactions": [
+          "2180ff5876af036a3bd3538517ead9c9865df3dfab4ff1b739b2970aa97be389",
+          "93b3959478f033cdb024440d740fcb3eb213ebe0f5ea518270de09cb0f9f122e",
+          "741586b9619b4ee104b9d81f9528c859ec0c929bb5d3e56bf98b86081439baad"
+        ]
+      },
+      "reserves": {
+        "verified": true,
+        "roots": [
+          "295f4170e45dd53f9a1f12b1802d1ab1dcc5a8b49dd53b39ceab6dd0f358b1a3",
+          "3a0765ed1120e862e80a348c9e42701b382357854a037130308cce133c45fbca"
+        ],
+        "initialFunding": "b31629b719f1d0d8fd217ba53fcd391876848fabaf687a0d09e1812db7ec55a6",
+        "totalInitialSatoshis": 30000,
+        "snapshotImplementation": "go",
+        "startedAt": "2026-11-09T18:36:55.573Z",
+        "completedAt": "2026-11-09T18:37:00.772Z",
+        "scenarioStartedAt": "2026-11-09T18:37:00.776Z",
+        "payments": [
+          {
+            "txid": "295f4170e45dd53f9a1f12b1802d1ab1dcc5a8b49dd53b39ceab6dd0f358b1a3",
+            "outpoint": "295f4170e45dd53f9a1f12b1802d1ab1dcc5a8b49dd53b39ceab6dd0f358b1a3.0",
+            "submissionIndex": 1,
+            "satoshis": 10000
+          },
+          {
+            "txid": "3a0765ed1120e862e80a348c9e42701b382357854a037130308cce133c45fbca",
+            "outpoint": "3a0765ed1120e862e80a348c9e42701b382357854a037130308cce133c45fbca.0",
+            "submissionIndex": 2,
+            "satoshis": 10000
+          }
+        ]
+      },
+      "submittedScenarioGraph": [
+        {
+          "index": 3,
+          "txid": "3369745e699df84876e2ce04b1211dd6e26c19b675285bf87e3170ff6f38ff13",
+          "verdict": "ACCEPTED_BY_NETWORK",
+          "inputs": [
+            "b31629b719f1d0d8fd217ba53fcd391876848fabaf687a0d09e1812db7ec55a6.0"
+          ],
+          "declaredRootAncestry": true
+        },
+        {
+          "index": 4,
+          "txid": "757dff2cd3c247e54d7625b9ec68b15b2a8b2805ddfccee96cae84f3ed27f168",
+          "verdict": "ACCEPTED_BY_NETWORK",
+          "inputs": [
+            "3369745e699df84876e2ce04b1211dd6e26c19b675285bf87e3170ff6f38ff13.2"
+          ],
+          "declaredRootAncestry": true
+        },
+        {
+          "index": 5,
+          "txid": "89ef7d8ee2902b7aa2affd0cc54f932c3b01d68f1b9487b377487d6a279e104f",
+          "verdict": "ACCEPTED_BY_NETWORK",
+          "inputs": [
+            "3369745e699df84876e2ce04b1211dd6e26c19b675285bf87e3170ff6f38ff13.0",
+            "3369745e699df84876e2ce04b1211dd6e26c19b675285bf87e3170ff6f38ff13.1"
+          ],
+          "declaredRootAncestry": true
+        },
+        {
+          "index": 6,
+          "txid": "74f85779851ef8eeed3cbfa1cd97402208618ade6678147b20868ad8cb1337eb",
+          "verdict": "REJECTED",
+          "inputs": [
+            "89ef7d8ee2902b7aa2affd0cc54f932c3b01d68f1b9487b377487d6a279e104f.0"
+          ],
+          "declaredRootAncestry": true
+        },
+        {
+          "index": 7,
+          "txid": "05e60aeae30658eee599fa4fb0f655e4bc16d8a04f384a97ce6abb81ee5b6fd6",
+          "verdict": "ACCEPTED_BY_NETWORK",
+          "inputs": [
+            "757dff2cd3c247e54d7625b9ec68b15b2a8b2805ddfccee96cae84f3ed27f168.1"
+          ],
+          "declaredRootAncestry": true
+        },
+        {
+          "index": 8,
+          "txid": "2180ff5876af036a3bd3538517ead9c9865df3dfab4ff1b739b2970aa97be389",
+          "verdict": "ACCEPTED_BY_NETWORK",
+          "inputs": [
+            "05e60aeae30658eee599fa4fb0f655e4bc16d8a04f384a97ce6abb81ee5b6fd6.1"
+          ],
+          "declaredRootAncestry": true
+        },
+        {
+          "index": 9,
+          "txid": "93b3959478f033cdb024440d740fcb3eb213ebe0f5ea518270de09cb0f9f122e",
+          "verdict": "REJECTED",
+          "inputs": [
+            "2180ff5876af036a3bd3538517ead9c9865df3dfab4ff1b739b2970aa97be389.1"
+          ],
+          "declaredRootAncestry": true
+        },
+        {
+          "index": 10,
+          "txid": "741586b9619b4ee104b9d81f9528c859ec0c929bb5d3e56bf98b86081439baad",
+          "verdict": "ACCEPTED_BY_NETWORK",
+          "inputs": [
+            "295f4170e45dd53f9a1f12b1802d1ab1dcc5a8b49dd53b39ceab6dd0f358b1a3.0"
+          ],
+          "declaredRootAncestry": true
+        }
+      ],
+      "noUndeclaredOrLaterRefillBeforeRecovery": true,
+      "twoRejectedInputChainsRemainUnreused": true,
+      "diagnosis": {
+        "classification": "OBSERVER_ORDER_SENSITIVE_METADATA_COMPARISON",
+        "nativeRecoveredTxid": "741586b9619b4ee104b9d81f9528c859ec0c929bb5d3e56bf98b86081439baad",
+        "beforeLabels": [
+          "admin month 2026-11",
+          "admin originator todo.itcve.test",
+          "tpnil-conformance-lifecycle",
+          "tpnil-conformance-lifecycle-accepted"
+        ],
+        "afterLabels": [
+          "tpnil-conformance-lifecycle",
+          "tpnil-conformance-lifecycle-accepted",
+          "admin originator todo.itcve.test",
+          "admin month 2026-11"
+        ],
+        "onlyDifferenceInPreservedOutput": "labels array order",
+        "pinnedBRC100Source": {
+          "commit": "39a643ff148a8dcd23ec08986a8ddeb7d5713743",
+          "path": "wallet/0100.md",
+          "sha256": "537ab393c655195e8cd61897b00d6b187a36f17d930493f8af48430752064082",
+          "line": 29
+        },
+        "retainedOriginalOutcome": "FAIL",
+        "qualificationRetrospectivelyChanged": false
+      }
+    },
+    {
+      "repetition": 2,
+      "identity": "0336d8488455d7badc2bb7338d01ba5aef3997d44bbc597d2d069bce57e36e6bd0",
+      "boundFiles": [
+        {
+          "path": "repetition-2/evidence/conformance/lifecycle.json",
+          "size": 125934,
+          "sha256": "56f1ea046279cbd6eafe9fd5ad41bdddb6f841c9cdbbfbd8a4e62565090604f7"
+        },
+        {
+          "path": "repetition-2/evidence/conformance/funding-reserves.json",
+          "size": 114640,
+          "sha256": "a9b0df8236ac01e92f1ecaec05da96be04a374a428f38525162bce7239df29d7"
+        },
+        {
+          "path": "repetition-2/evidence/conformance/scenario-start.json",
+          "size": 81,
+          "sha256": "46d9787bfe3e63dafc2854c3e25d03317d3818fd4ca818c0857925503ce15c6e"
+        },
+        {
+          "path": "repetition-2/evidence/native-submissions.json",
+          "size": 57194,
+          "sha256": "543228a8f3c74d17e20173f5fda059488df3fd4ddc20225453d4ca972053cdc3"
+        },
+        {
+          "path": "repetition-2/evidence/native-transactions.json",
+          "size": 56658,
+          "sha256": "8481ace0bd11b26e5edc6f13c1564a4c78286807e0db595397b5a7f3d26793e0"
+        },
+        {
+          "path": "repetition-2/evidence/mined-funding-source.json",
+          "size": 3104,
+          "sha256": "ac43a36b4bc834af32fbade2fde2fb505da6ac0befca9b9f9cf49a9821f11316"
+        }
+      ],
+      "retainedVectorOutcomes": [
+        {
+          "id": "ISI-4-V001",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V002",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V003",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V004",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V005",
+          "outcome": "PASS"
+        },
+        {
+          "id": "ISI-4-V006",
+          "outcome": "FAIL"
+        },
+        {
+          "id": "ISI-4-V007",
+          "outcome": "FAIL"
+        },
+        {
+          "id": "ISI-4-V008",
+          "outcome": "FAIL"
+        }
+      ],
+      "retainedAssertionCounts": {
+        "PASS": 154,
+        "FAIL": 107,
+        "BLOCKED": 2
+      },
+      "lifecycle": {
+        "verified": true,
+        "result": "FAIL",
+        "assertions": [
+          {
+            "id": "accepted-service-verdict-observed",
+            "result": "PASS"
+          },
+          {
+            "id": "rejection-preserves-wallet-state",
+            "result": "PASS"
+          },
+          {
+            "id": "post-rejection-recovery",
+            "result": "FAIL"
+          }
+        ],
+        "transactions": [
+          "968cc1a4afd0be9c91fd8d1ce8e6c836c26435bd174567a93345de813f9a677e",
+          "76b53b4bb965bd9a2b2683dabe99db85dd0b0e505bf24da3473e4f81052d2962",
+          "cdd932a23e5f0f6de3e30b9006d13ad63117d0b5bf4ad9eb2c93717bfa1b578c"
+        ]
+      },
+      "reserves": {
+        "verified": true,
+        "roots": [
+          "e7692f1fb732cb305a9ed11fc760e0fd6bef0d10db55ea0fe9164335e5a92899",
+          "80d6e945b04986fe13571316249480cc5e1cd75bd736cb89bddbb351785a6a36"
+        ],
+        "initialFunding": "33297ed6b18e9835ce47f59049bf3060192779a038ee5631a2cfdda725424ff1",
+        "totalInitialSatoshis": 30000,
+        "snapshotImplementation": "go",
+        "startedAt": "2026-11-09T18:44:18.585Z",
+        "completedAt": "2026-11-09T18:44:23.706Z",
+        "scenarioStartedAt": "2026-11-09T18:44:23.710Z",
+        "payments": [
+          {
+            "txid": "e7692f1fb732cb305a9ed11fc760e0fd6bef0d10db55ea0fe9164335e5a92899",
+            "outpoint": "e7692f1fb732cb305a9ed11fc760e0fd6bef0d10db55ea0fe9164335e5a92899.0",
+            "submissionIndex": 1,
+            "satoshis": 10000
+          },
+          {
+            "txid": "80d6e945b04986fe13571316249480cc5e1cd75bd736cb89bddbb351785a6a36",
+            "outpoint": "80d6e945b04986fe13571316249480cc5e1cd75bd736cb89bddbb351785a6a36.0",
+            "submissionIndex": 2,
+            "satoshis": 10000
+          }
+        ]
+      },
+      "submittedScenarioGraph": [
+        {
+          "index": 3,
+          "txid": "5b3861546625e6d5e22a930fa977059545df6e387456c7a4d902ecbf137a0857",
+          "verdict": "ACCEPTED_BY_NETWORK",
+          "inputs": [
+            "33297ed6b18e9835ce47f59049bf3060192779a038ee5631a2cfdda725424ff1.0"
+          ],
+          "declaredRootAncestry": true
+        },
+        {
+          "index": 4,
+          "txid": "d7c5ebde3aefa6b8a4617f4417c4bfccb9aa7f67bcbcd30421ecf1566464b0de",
+          "verdict": "ACCEPTED_BY_NETWORK",
+          "inputs": [
+            "5b3861546625e6d5e22a930fa977059545df6e387456c7a4d902ecbf137a0857.2"
+          ],
+          "declaredRootAncestry": true
+        },
+        {
+          "index": 5,
+          "txid": "b81b43d1590f76b27125b663ea380c7ecac46b1d06811d52f98289312cfbc5de",
+          "verdict": "ACCEPTED_BY_NETWORK",
+          "inputs": [
+            "5b3861546625e6d5e22a930fa977059545df6e387456c7a4d902ecbf137a0857.0",
+            "5b3861546625e6d5e22a930fa977059545df6e387456c7a4d902ecbf137a0857.1"
+          ],
+          "declaredRootAncestry": true
+        },
+        {
+          "index": 6,
+          "txid": "fa3f0ff521dce77421534602b9e42eb8b228292f23e66a8510654281b8879109",
+          "verdict": "REJECTED",
+          "inputs": [
+            "b81b43d1590f76b27125b663ea380c7ecac46b1d06811d52f98289312cfbc5de.0"
+          ],
+          "declaredRootAncestry": true
+        },
+        {
+          "index": 7,
+          "txid": "8143899197463fa2f7a43f4facc226316f10e05616088fbe59e8676b19490eb3",
+          "verdict": "ACCEPTED_BY_NETWORK",
+          "inputs": [
+            "d7c5ebde3aefa6b8a4617f4417c4bfccb9aa7f67bcbcd30421ecf1566464b0de.1"
+          ],
+          "declaredRootAncestry": true
+        },
+        {
+          "index": 8,
+          "txid": "968cc1a4afd0be9c91fd8d1ce8e6c836c26435bd174567a93345de813f9a677e",
+          "verdict": "ACCEPTED_BY_NETWORK",
+          "inputs": [
+            "8143899197463fa2f7a43f4facc226316f10e05616088fbe59e8676b19490eb3.1"
+          ],
+          "declaredRootAncestry": true
+        },
+        {
+          "index": 9,
+          "txid": "76b53b4bb965bd9a2b2683dabe99db85dd0b0e505bf24da3473e4f81052d2962",
+          "verdict": "REJECTED",
+          "inputs": [
+            "968cc1a4afd0be9c91fd8d1ce8e6c836c26435bd174567a93345de813f9a677e.1"
+          ],
+          "declaredRootAncestry": true
+        },
+        {
+          "index": 10,
+          "txid": "cdd932a23e5f0f6de3e30b9006d13ad63117d0b5bf4ad9eb2c93717bfa1b578c",
+          "verdict": "ACCEPTED_BY_NETWORK",
+          "inputs": [
+            "e7692f1fb732cb305a9ed11fc760e0fd6bef0d10db55ea0fe9164335e5a92899.0"
+          ],
+          "declaredRootAncestry": true
+        }
+      ],
+      "noUndeclaredOrLaterRefillBeforeRecovery": true,
+      "twoRejectedInputChainsRemainUnreused": true,
+      "diagnosis": {
+        "classification": "OBSERVER_ORDER_SENSITIVE_METADATA_COMPARISON",
+        "nativeRecoveredTxid": "cdd932a23e5f0f6de3e30b9006d13ad63117d0b5bf4ad9eb2c93717bfa1b578c",
+        "beforeLabels": [
+          "admin month 2026-11",
+          "admin originator todo.itcve.test",
+          "tpnil-conformance-lifecycle",
+          "tpnil-conformance-lifecycle-accepted"
+        ],
+        "afterLabels": [
+          "tpnil-conformance-lifecycle",
+          "tpnil-conformance-lifecycle-accepted",
+          "admin originator todo.itcve.test",
+          "admin month 2026-11"
+        ],
+        "onlyDifferenceInPreservedOutput": "labels array order",
+        "pinnedBRC100Source": {
+          "commit": "39a643ff148a8dcd23ec08986a8ddeb7d5713743",
+          "path": "wallet/0100.md",
+          "sha256": "537ab393c655195e8cd61897b00d6b187a36f17d930493f8af48430752064082",
+          "line": 29
+        },
+        "retainedOriginalOutcome": "FAIL",
+        "qualificationRetrospectivelyChanged": false
+      }
+    }
+  ],
+  "limitation": "Subsequent operations use unaffected pre-existing funding. This does not prove release or reuse of rejected input chains, or an unchanged-wallet UnFail UI."
+}

@@ -1,0 +1,62 @@
+{
+  "schema": "tpnil-native-portability-readiness-engineering@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "nativeQualification": false,
+  "fixture": {
+    "path": "readiness-fixtures.json",
+    "bytes": 227044,
+    "sha256": "821e395738e312188343cf8e4c9a6aab4b5a0c1b8990b971c0956125e5eb567f"
+  },
+  "issue": "Both repetitions of42674638927 expose a pending3sat output with empty outpoint and unchanged BEEF. The old readiness predicate accepted the row before createAction completion. A later retained native raw transaction contains the signed3sat ToDo output. No replacement/sync/outage/cold-reload was attempted in that sample.",
+  "correction": "Wait for a new spendable3sat output with canonical txid.vout, matching serialized output in the same public response BEEF, and ToDo protocol/ciphertext. Native UI additionally waits for the exact task checkbox to be visible. Pending observations remain retained without mutation; timeout and original conformance oracles are unchanged.",
+  "regressionScope": "The test combines retained pending response bytes with the later retained signed raw transaction solely to exercise the readiness transition. This constructed complete response is explicitly engineering input, not a fabricated native observation or qualification result.",
+  "archive": {
+    "path": "evidence.json.gz",
+    "size": 275798,
+    "sha256": "0a124b6e577806959c4248d44932b98490df55081abb35fd8ac6d09516f5a855",
+    "files": 10
+  },
+  "tests": {
+    "focusedPassed": 6,
+    "newIncompleteOrInvalidReadinessRejections": 26,
+    "existingPortabilityOracleMutationsRejected": 46,
+    "typecheck": "PASS"
+  },
+  "referenceRuns": [
+    {
+      "implementation": "typescript",
+      "directory": "out/portability-readiness-typescript-final",
+      "assertions": 9,
+      "result": "PASS",
+      "nativeQualification": false
+    },
+    {
+      "implementation": "go",
+      "directory": "out/portability-readiness-go-final",
+      "assertions": 9,
+      "result": "PASS",
+      "nativeQualification": false
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "synthesis/src/wallet-lab/native/conformance-portability.ts",
+      "sha256": "d74b8c3a9c33c279cfc4d1287c271aa014641cfb5f79b40c5ecf61c0a593cba4"
+    },
+    {
+      "path": "synthesis/test/native-conformance-portability.test.ts",
+      "sha256": "b8ef2f43c3d0a8ac96f1c4aacc5bcad3c33ae1bbaca800d253827d58f0c703c7"
+    }
+  ],
+  "nativeRuntime": {
+    "walletArtifact": "yours-wallet-v5.1.0/pw-v5.1.0.zip",
+    "walletArtifactSha256": "d55abda7dc8790ecfdd57ed0f5f4dd4a28187bb4833715f7612b067625eabc52",
+    "nativeRun": 42674638927,
+    "sourceRevision": "def98acc4d5dcf37b9ef7d52d9dbd13fe70023b8",
+    "originalV007Result": [
+      "FAIL",
+      "FAIL"
+    ],
+    "originalArtifactSha256": "ff199e65316ed2501efcf4a34124977e9dd62a94f5086c5b82ba08a1449ef410"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "schema": "tpnil-integration-attempt@1",
+  "source": "8055aabb731df2c2a4020c885445ae621b57e492",
+  "workflowRun": 42720214271,
+  "artifactId": 13718769952,
+  "claim": "OBSERVER_STARTUP_ERROR",
+  "stage": "retained-native-evidence-reevaluation",
+  "walletExecuted": false,
+  "newNativeSessions": 0,
+  "originalNativeRun": 42711700295,
+  "originalNativeDidExecute": true,
+  "workflowConclusion": "failure",
+  "files": [
+    {
+      "name": "README.md",
+      "size": 2697,
+      "sha256": "70868c740d7ecd2d7411aaf29f412a4c894c8a994f60b8061f202b32bf256cc1"
+    },
+    {
+      "name": "acquisition.json",
+      "size": 1164,
+      "sha256": "ae8bb3b0efaa42fe9999c87a7ed3f7b5bd14989880690c146fbe6998f0b1dd8e"
+    },
+    {
+      "name": "all-job-logs.zip",
+      "size": 20387,
+      "sha256": "211267cb2ae578f4a078eb2faed24e7493501a5a25fb557671d4bad2ff6cc77c"
+    },
+    {
+      "name": "artifacts.json",
+      "size": 755,
+      "sha256": "fe0d9a23bae6ca590c5ce2e95ada53a877046da042aeefff6dd79646cbf1b107"
+    },
+    {
+      "name": "assessment.json",
+      "size": 38502,
+      "sha256": "e71d9aa00c58f282184f8af481112e28ca4c306a46e304161c12078496e94cd9"
+    },
+    {
+      "name": "failed-step.log",
+      "size": 4425,
+      "sha256": "5d490176580f343d6b6517ee7e574485ed8ed9de2bfa1dc80e7d46ead21d3d2e"
+    },
+    {
+      "name": "independent-review/dependency-reproduction.json",
+      "size": 896,
+      "sha256": "8260a01c5a7a05b69c96f32b11ef4920f4116a98a4b909591cb446c1d3033860"
+    },
+    {
+      "name": "independent-review/empty-verifier-cache.log",
+      "size": 1425,
+      "sha256": "5aabfd470f4726a6effb1a1a0568bd4e281c5c14e91ffd63027e1b6f3fd8c681"
+    },
+    {
+      "name": "independent-review/prepared-verifier-cache.log",
+      "size": 425,
+      "sha256": "2c955598576317901cad4c8429412ab5e0eff99f39a74b44a3f3548f4f799b1f"
+    },
+    {
+      "name": "independent-review/second-review.json",
+      "size": 1486,
+      "sha256": "ef960df79bc4b98321799087f2894f77d1a742fca7938d7b49f722dd91334e79"
+    },
+    {
+      "name": "jobs.json",
+      "size": 3061,
+      "sha256": "54e847b583793987fc5d361bf752bf964d2349fd99f4c63d2037befbb44a6b9c"
+    },
+    {
+      "name": "logs-integrity.txt",
+      "size": 1303,
+      "sha256": "abc7d50c00da1772506b6ad2b56643b79f3a300ef40e712138857e11c1f0371a"
+    },
+    {
+      "name": "native-reevaluation.zip",
+      "size": 8352037,
+      "sha256": "dcf9102861709b864cc300c260e6c8e303fa7fbbc8ed1090b6eda5615f3f68ef"
+    },
+    {
+      "name": "run.json",
+      "size": 11996,
+      "sha256": "6e41305d5c45203c1f2281c7204c4ceb869fbe9b3cedb4560ccb4aecd337f4ad"
+    }
+  ]
+}

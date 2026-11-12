@@ -1,0 +1,47 @@
+◇ injected env (0) from .env // tip: ⌘ enable debugging { debug: true }
+◇ injected env (0) from .env // tip: ⌘ enable debugging { debug: true }
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Independent portability predicate differs: portability.complete-logical-dataset: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert.ok(report.source.transactions.length >= 2 && report.source.outputs.length >= 2 && report.source.provenTxs.length >= 1)
+
+
+'PASS' !== 'FAIL'
+
+    at verifyNativePortability (/Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/synthesis/src/wallet-lab/native/verify-conformance-portability.ts:209:12)
+    at async verifyNativeConformance (/Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/synthesis/src/wallet-lab/native/verify-conformance.ts:27:23)
+    at async verifyNativeWallet (/Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/synthesis/src/wallet-lab/native/verify.ts:194:27)
+    at async <anonymous> (/Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/synthesis/src/wallet-lab/native/verify.ts:208:18) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'PASS',
+  expected: 'FAIL',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.22.1
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Native artifact, isolation, trust, funding and cleanup admission failed
+
+1 !== 0
+
+    at file:///Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/scripts/verify-native-integrated.mjs:23:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 1,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.22.1

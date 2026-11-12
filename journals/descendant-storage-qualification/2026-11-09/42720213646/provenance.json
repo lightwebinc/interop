@@ -1,0 +1,73 @@
+{
+  "schema": "tpnil-descendant-storage-ci-archive@2",
+  "source": "8055aabb731df2c2a4020c885445ae621b57e492",
+  "workflowRun": 42720213646,
+  "artifactId": 13720687119,
+  "files": [
+    {
+      "path": "README.md",
+      "size": 1963,
+      "sha256": "94d2be3959ddd276a6daf58f1dd601150be411d9f6e71889eac9dc330174c136"
+    },
+    {
+      "path": "acquisition.json",
+      "size": 2234,
+      "sha256": "3e54a94de8a2fc7e2e2736a449ab43a82cad77bda86791c38623f7046ad206b8"
+    },
+    {
+      "path": "artifacts.json",
+      "size": 2167,
+      "sha256": "78fcf7c87071dc7046e66137801749f717d5af4297d82226d5e9d8778ad930f9"
+    },
+    {
+      "path": "cli-execution-review.json",
+      "size": 1772,
+      "sha256": "a925526d37abb194185322673c845a0e5d2f189277387d59c98474090a381c6c"
+    },
+    {
+      "path": "descendant-storage-sync.zip",
+      "size": 1525390,
+      "sha256": "cf139c2287c07cf91c4b367609d68f3eccc4e7080c27480a09f2465ea07cf775"
+    },
+    {
+      "path": "foundation-logs.zip",
+      "size": 54143,
+      "sha256": "9776c0234550fd01ba80d5117b23c636448d85d0118fc3a3bc3a75d70d5d3e29"
+    },
+    {
+      "path": "independent-verification.json",
+      "size": 837,
+      "sha256": "c744ae9afebe8e8857e0fd2681ae02007b7fe1c18a9e4f9d6cb52cec656ba823"
+    },
+    {
+      "path": "independent-verification.stdout.log",
+      "size": 1001,
+      "sha256": "0d21cd94ecb38ba8fcadfc656c346c52cd6a9028c24c256cecfbfbe941471e10"
+    },
+    {
+      "path": "jobs.json",
+      "size": 13060,
+      "sha256": "0792180a19b9fad69bef45f2cbe310e41ffb71d2512b3c4e535226f837be8ee3"
+    },
+    {
+      "path": "qualification.json",
+      "size": 29544,
+      "sha256": "747cde14f7f484d43286dad0fad01def0a58dcfb401e0f675cbb10bfac4ef813"
+    },
+    {
+      "path": "replay-immutability.json",
+      "size": 198,
+      "sha256": "d7df33d4ef88f273bc65c6f9d0313e91938058893df73c952b2a1c5befe294e5"
+    },
+    {
+      "path": "reviewer-parser-correction.json",
+      "size": 532,
+      "sha256": "6f4a84a00cb5127209006fb420957c2e57cf9f074f2880530a22ed43092bfa68"
+    },
+    {
+      "path": "run.json",
+      "size": 11952,
+      "sha256": "d8153ae53799f70eb27a906db6d60c4aa5277bd1c055ba329203f7ecafccb4d0"
+    }
+  ]
+}

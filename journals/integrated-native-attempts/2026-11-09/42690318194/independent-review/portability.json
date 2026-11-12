@@ -1,0 +1,608 @@
+{
+  "schema": "tpnil-native-portability-independent-review@2",
+  "runId": 42690318194,
+  "sourceRevision": "d02414f58d888e3d11913dedd888a3e5871bf29f",
+  "oracleSource": "out/frozen-descendant-source-d02414f exact git archive",
+  "claim": "INDEPENDENT_NATIVE_EVIDENCE_REVIEW",
+  "repetitions": [
+    {
+      "repetition": 1,
+      "evidence": {
+        "path": "out/native-ci-42690318194/repetition-1/evidence/conformance/portability.json",
+        "bytes": 1017583,
+        "sha256": "9a16db2dee2a5d6ee04aaec7ab0af9285c590f38a4be5aa0cf0e69718912895b"
+      },
+      "schema": "tpnil-native-storage-portability@2",
+      "oracle": "tpnil-native-portability-oracle@2.0.0",
+      "producerResult": "FAIL",
+      "assertions": [
+        {
+          "detail": "Independent storage identities and temporary databases back the two counterparts.",
+          "id": "portability.distinct-counterparts",
+          "result": "PASS"
+        },
+        {
+          "detail": "All logical records, bytes, metadata and foreign keys match; the declared proof oracle verifies retained ancestry.",
+          "id": "portability.complete-logical-dataset",
+          "result": "PASS"
+        },
+        {
+          "detail": "The declared wallet mediator sends authenticated processSyncChunk requests; reference mode is not native qualification.",
+          "id": "portability.native-mediated-sync",
+          "result": "PASS"
+        },
+        {
+          "detail": "The source storage TCP listener is stopped while chain, overlay and replacement services remain running.",
+          "id": "portability.source-unavailable",
+          "result": "PASS"
+        },
+        {
+          "detail": "Supported Lock/Unlock retires the native live wallet context; the ToDo client cache is cleared and reloaded.",
+          "id": "portability.cold-wallet-reload",
+          "result": "PASS"
+        },
+        {
+          "detail": "Native wallet identity is unchanged after counterpart replacement and cold reconstruction.",
+          "id": "portability.same-identity",
+          "result": "PASS"
+        },
+        {
+          "detail": "The same unspent encrypted ToDo outpoint is reconstructed and decrypted from the replacement.",
+          "id": "portability.cold-task-recovery",
+          "result": "PASS"
+        },
+        {
+          "detail": "A ToDo redemption is serialized and stored by the replacement while the source listener remains unavailable.",
+          "id": "portability.replacement-redemption",
+          "result": "FAIL"
+        },
+        {
+          "detail": "The source listener is restored; caller retires the isolated replacement after evidence collection.",
+          "id": "portability.cleanup",
+          "result": "PASS"
+        }
+      ],
+      "ui": [
+        {
+          "stage": "native-task-visible",
+          "at": "2026-11-09T20:20:28.756Z",
+          "text": "Task successfully created!\nToDo List — Get Rewarded!\nTPNIL native storage replacement\n\n3 satoshis\n\nCreate a Task\n\nDescribe your task and set aside some satoshis you'll get back once it's done.\n\nTask to complete\nTask to complete\n\n\n\nCompletion amount\nCompletion amount\nCancel\nOK"
+        },
+        {
+          "stage": "before-add",
+          "at": "2026-11-09T20:20:40.293Z",
+          "text": "Coins\nOrdinals\nTools\nSettings\n/\nTPNIL Fixture\nRemote Backup\n\nYour wallet is syncing to a remote server. You can use the same keys on another device and it will stay in sync.\n\nACTIVE STORAGE\nSynced across devices\n\nwallet.1sat.app\n\nAll devices with your keys connect here\n\n0\n\nOutputs\n\n0\n\nTransactions\n\n1\n\nRemotes\n\nSync Now\nRepair Sync\nBACKUP STORAGE\n\nCopies of your data for safety\n\nAdd\nThis Browser\nBACKUP COPY\n4.2 MB / 1.7 GB\nAdvanced"
+        },
+        {
+          "stage": "native-sync-complete",
+          "at": "2026-11-09T20:21:00.137Z",
+          "text": "Coins\nOrdinals\nTools\nSettings\nSync complete\n/\nTPNIL Fixture\nRemote Backup\n\nYour wallet is syncing to a remote server. You can use the same keys on another device and it will stay in sync.\n\nACTIVE STORAGE\nSynced across devices\n\nwallet.1sat.app\n\nAll devices with your keys connect here\n\n0\n\nOutputs\n\n0\n\nTransactions\n\n2\n\nRemotes\n\nSync Now\nRepair Sync\nBACKUP STORAGE\n\nCopies of your data for safety\n\nAdd\nThis Browser\nBACKUP COPY\n4.2 MB / 1.7 GB\nreplacement-wallet.itcve.test\nBACKUP COPY\nOnline\nConnected\nAdvanced"
+        },
+        {
+          "stage": "replacement-active",
+          "at": "2026-11-09T20:21:06.235Z",
+          "text": "Coins\nOrdinals\nTools\nSettings\nActive: replacement-wallet.itcve.test\n/\nTPNIL Fixture\nreplacement-wallet.itcve.test\n\nreplacement-wallet.itcve.test\n\nIN USE\n\nhttps://replacement-wallet.itcve.test\n\nThis is your active storage. To remove it, switch to a different location first."
+        },
+        {
+          "stage": "source-removed-from-config",
+          "at": "2026-11-09T20:21:22.810Z",
+          "text": "Coins\nOrdinals\nTools\nSettings\nRemote removed\n/\nTPNIL Fixture\nRemote Backup\n\nYour wallet is syncing to a remote server. You can use the same keys on another device and it will stay in sync.\n\nACTIVE STORAGE\nSynced across devices\n\nreplacement-wallet.itcve.test\n\nAll devices with your keys connect here\n\n0\n\nOutputs\n\n0\n\nTransactions\n\n1\n\nRemotes\n\nSync Now\nRepair Sync\nBACKUP STORAGE\n\nCopies of your data for safety\n\nAdd\nThis Browser\nBACKUP COPY\n4.3 MB / 1.7 GB\nAdvanced"
+        }
+      ],
+      "counterparts": {
+        "destination": {
+          "chain": "main",
+          "created_at": "2026-11-09T20:20:25.496400833Z",
+          "dbtype": "SQLite",
+          "maxOutputScript": 1024,
+          "storageIdentityKey": "036360e856310ce5d294e8be33fc807077dc56ac80d95d9cd4ddbd21325eff73f7",
+          "storageName": "tpnil-go-storage",
+          "updated_at": "2026-11-09T20:20:25.496400833Z"
+        },
+        "source": {
+          "chain": "main",
+          "created_at": "2026-11-09T20:19:21.931942583Z",
+          "dbtype": "SQLite",
+          "maxOutputScript": 1024,
+          "storageIdentityKey": "034f355bdcb7cc0af728ef3cceb9615d90684bb5b2ca5f859ab0f0b704075871aa",
+          "storageName": "tpnil-go-storage",
+          "updated_at": "2026-11-09T20:19:21.931942583Z"
+        },
+        "url": "https://replacement-wallet.itcve.test"
+      },
+      "components": {
+        "replacement": {
+          "components": {
+            "chaintracks": "typescript",
+            "overlay": "typescript",
+            "storage": "go"
+          },
+          "go": {
+            "binarySha256": "5c92bb1714591d1e3afe200401afb33c01491074545f261578b04b82746b1005",
+            "compatibilityPatch": {
+              "binarySha256": "5c92bb1714591d1e3afe200401afb33c01491074545f261578b04b82746b1005",
+              "parentPatchLockSha256": "73b327cb785ab061d58678ff6c26eefa46a9aa838d09d5f8bfee50aae3fb4391",
+              "patchLockSha256": "b9f229391f4fd8a953fd76b6c73cc7585818d91fe6c1802e9fc8667a86c1fcef",
+              "patchSha256": "5e1fff193191565fa0032f2b9954bf07054c9806a78e6103049a14122a947e0c",
+              "replacementModule": "/home/runner/work/interop/interop/out/storage-portability-go-source",
+              "schema": "tpnil-storage-portability-go-build@1.0.0",
+              "toolchain": "go1.27.3",
+              "upstream": {
+                "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+                "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
+                "version": "v0.191.4"
+              }
+            },
+            "components": {
+              "chaintracks": "typescript",
+              "overlay": "typescript",
+              "storage": "go"
+            },
+            "dependencies": {
+              "components": [
+                {
+                  "commit": "b77904e276ea16558e8f7f3a104a8472b95586af",
+                  "module": "github.com/bsv-blockchain/go-overlay-services",
+                  "sum": "h1:3Wx5TppatVoCZf/h/+KsbxlagyDBSEDfFoK96YXc3kU=",
+                  "version": "v1.3.8"
+                },
+                {
+                  "commit": "bb87d3d758176efab664cb73c0204ab5d87a621e",
+                  "module": "github.com/bsv-blockchain/go-chaintracks",
+                  "sum": "h1:DFJwbFt/+JxYp2q1ZNtYRalDf0SGCrQNy4UZAuohquo=",
+                  "version": "v1.4.8"
+                },
+                {
+                  "commit": "0ea046b28d91e48ba0805ede1de767d578ed7e14",
+                  "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+                  "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
+                  "version": "v0.191.4"
+                }
+              ],
+              "moduleFiles": {
+                "go.mod": "6591deefcb01570359a07e69e39d4898b78e71f1f3838835c58695fd25b61a4c",
+                "go.sum": "957658a619b1821ef677152de04e71d9ce1a37f5648de2c2c45851e1ea74338a"
+              },
+              "replacements": [
+                {
+                  "module": "k8s.io/kube-openapi",
+                  "sum": "h1:oXImqH8mQNk7PmvzKhmN3ddJoY6OnyM225MXwGHPm0A=",
+                  "version": "v0.0.0-20260721132016-d427ff9ee9ad"
+                }
+              ],
+              "schema": "tpnil-itcve-go-components@1.0.0",
+              "toolchain": "go1.27.3"
+            },
+            "fixtureSubmissionPolicy": "terminal-rejection-v1",
+            "goModSha256": "6591deefcb01570359a07e69e39d4898b78e71f1f3838835c58695fd25b61a4c",
+            "goSumSha256": "957658a619b1821ef677152de04e71d9ce1a37f5648de2c2c45851e1ea74338a",
+            "schema": "tpnil-go-services@1.0.0"
+          }
+        },
+        "source": {
+          "components": {
+            "chaintracks": "go",
+            "overlay": "go",
+            "storage": "go"
+          },
+          "go": {
+            "binarySha256": "5c92bb1714591d1e3afe200401afb33c01491074545f261578b04b82746b1005",
+            "compatibilityPatch": {
+              "binarySha256": "5c92bb1714591d1e3afe200401afb33c01491074545f261578b04b82746b1005",
+              "parentPatchLockSha256": "73b327cb785ab061d58678ff6c26eefa46a9aa838d09d5f8bfee50aae3fb4391",
+              "patchLockSha256": "b9f229391f4fd8a953fd76b6c73cc7585818d91fe6c1802e9fc8667a86c1fcef",
+              "patchSha256": "5e1fff193191565fa0032f2b9954bf07054c9806a78e6103049a14122a947e0c",
+              "replacementModule": "/home/runner/work/interop/interop/out/storage-portability-go-source",
+              "schema": "tpnil-storage-portability-go-build@1.0.0",
+              "toolchain": "go1.27.3",
+              "upstream": {
+                "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+                "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
+                "version": "v0.191.4"
+              }
+            },
+            "components": {
+              "chaintracks": "go",
+              "overlay": "go",
+              "storage": "go"
+            },
+            "dependencies": {
+              "components": [
+                {
+                  "commit": "b77904e276ea16558e8f7f3a104a8472b95586af",
+                  "module": "github.com/bsv-blockchain/go-overlay-services",
+                  "sum": "h1:3Wx5TppatVoCZf/h/+KsbxlagyDBSEDfFoK96YXc3kU=",
+                  "version": "v1.3.8"
+                },
+                {
+                  "commit": "bb87d3d758176efab664cb73c0204ab5d87a621e",
+                  "module": "github.com/bsv-blockchain/go-chaintracks",
+                  "sum": "h1:DFJwbFt/+JxYp2q1ZNtYRalDf0SGCrQNy4UZAuohquo=",
+                  "version": "v1.4.8"
+                },
+                {
+                  "commit": "0ea046b28d91e48ba0805ede1de767d578ed7e14",
+                  "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+                  "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
+                  "version": "v0.191.4"
+                }
+              ],
+              "moduleFiles": {
+                "go.mod": "6591deefcb01570359a07e69e39d4898b78e71f1f3838835c58695fd25b61a4c",
+                "go.sum": "957658a619b1821ef677152de04e71d9ce1a37f5648de2c2c45851e1ea74338a"
+              },
+              "replacements": [
+                {
+                  "module": "k8s.io/kube-openapi",
+                  "sum": "h1:oXImqH8mQNk7PmvzKhmN3ddJoY6OnyM225MXwGHPm0A=",
+                  "version": "v0.0.0-20260721132016-d427ff9ee9ad"
+                }
+              ],
+              "schema": "tpnil-itcve-go-components@1.0.0",
+              "toolchain": "go1.27.3"
+            },
+            "fixtureSubmissionPolicy": "terminal-rejection-v1",
+            "goModSha256": "6591deefcb01570359a07e69e39d4898b78e71f1f3838835c58695fd25b61a4c",
+            "goSumSha256": "957658a619b1821ef677152de04e71d9ce1a37f5648de2c2c45851e1ea74338a",
+            "schema": "tpnil-go-services@1.0.0"
+          }
+        }
+      },
+      "coldReload": {
+        "applicationCacheCleared": true,
+        "at": "2026-11-09T20:21:37.851Z",
+        "consoleMessages": [
+          "[background] dropWalletContext (WALLET_LOCKED): gone immediately"
+        ],
+        "contextDropped": true,
+        "locked": true,
+        "mechanism": "native-settings-lock-unlock",
+        "taskVisible": true,
+        "unlocked": true
+      },
+      "outage": {
+        "endedAt": "2026-11-09T20:21:39.503Z",
+        "events": [
+          {
+            "at": "2026-11-09T20:21:22.812Z",
+            "available": false
+          }
+        ],
+        "probe": {
+          "error": "TypeError: fetch failed",
+          "reachable": false
+        },
+        "restorationStartedAt": "2026-11-09T20:21:39.503Z",
+        "startedAt": "2026-11-09T20:21:22.812Z"
+      },
+      "readWindows": {
+        "destination": {
+          "endedAt": "2026-11-09T20:21:01.471Z",
+          "startedAt": "2026-11-09T20:21:00.854Z",
+          "storageEnd": 6,
+          "storageStart": 4
+        },
+        "destinationAfter": {
+          "endedAt": "2026-11-09T20:21:39.502Z",
+          "startedAt": "2026-11-09T20:21:38.312Z",
+          "storageEnd": 8,
+          "storageStart": 6
+        },
+        "source": {
+          "endedAt": "2026-11-09T20:21:00.854Z",
+          "startedAt": "2026-11-09T20:21:00.139Z",
+          "storageEnd": 4,
+          "storageStart": 2
+        }
+      },
+      "outpoint": "01c73d3ef672e867f6e3648442a2dc1926cf57362dbd31da6039ec178e816509.0",
+      "cleanup": {
+        "replacementOwnedByServiceGraph": true,
+        "retirement": "ControlledWalletServices.close after the complete native scenario",
+        "sourceRestored": true
+      },
+      "result": "FAIL",
+      "independentError": "AssertionError [ERR_ASSERTION]: Independent portability predicate differs: portability.native-mediated-sync: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(report.ui.some((row: any) => row.stage === 'replacement-active' && row.text.includes('replacement-wallet.itcve.test') && row.text.includes('In use')))\n\n\n'PASS' !== 'FAIL'\n"
+    },
+    {
+      "repetition": 2,
+      "evidence": {
+        "path": "out/native-ci-42690318194/repetition-2/evidence/conformance/portability.json",
+        "bytes": 1017152,
+        "sha256": "5bfa0ea0265de84b318e7ae027ff1c50ecf24c78a940ff19355e971bf8890f25"
+      },
+      "schema": "tpnil-native-storage-portability@2",
+      "oracle": "tpnil-native-portability-oracle@2.0.0",
+      "producerResult": "FAIL",
+      "assertions": [
+        {
+          "detail": "Independent storage identities and temporary databases back the two counterparts.",
+          "id": "portability.distinct-counterparts",
+          "result": "PASS"
+        },
+        {
+          "detail": "All logical records, bytes, metadata and foreign keys match; the declared proof oracle verifies retained ancestry.",
+          "id": "portability.complete-logical-dataset",
+          "result": "PASS"
+        },
+        {
+          "detail": "The declared wallet mediator sends authenticated processSyncChunk requests; reference mode is not native qualification.",
+          "id": "portability.native-mediated-sync",
+          "result": "PASS"
+        },
+        {
+          "detail": "The source storage TCP listener is stopped while chain, overlay and replacement services remain running.",
+          "id": "portability.source-unavailable",
+          "result": "PASS"
+        },
+        {
+          "detail": "Supported Lock/Unlock retires the native live wallet context; the ToDo client cache is cleared and reloaded.",
+          "id": "portability.cold-wallet-reload",
+          "result": "PASS"
+        },
+        {
+          "detail": "Native wallet identity is unchanged after counterpart replacement and cold reconstruction.",
+          "id": "portability.same-identity",
+          "result": "PASS"
+        },
+        {
+          "detail": "The same unspent encrypted ToDo outpoint is reconstructed and decrypted from the replacement.",
+          "id": "portability.cold-task-recovery",
+          "result": "PASS"
+        },
+        {
+          "detail": "A ToDo redemption is serialized and stored by the replacement while the source listener remains unavailable.",
+          "id": "portability.replacement-redemption",
+          "result": "FAIL"
+        },
+        {
+          "detail": "The source listener is restored; caller retires the isolated replacement after evidence collection.",
+          "id": "portability.cleanup",
+          "result": "PASS"
+        }
+      ],
+      "ui": [
+        {
+          "stage": "native-task-visible",
+          "at": "2026-11-09T20:29:06.549Z",
+          "text": "Task successfully created!\nToDo List — Get Rewarded!\nTPNIL native storage replacement\n\n3 satoshis"
+        },
+        {
+          "stage": "before-add",
+          "at": "2026-11-09T20:29:17.469Z",
+          "text": "Coins\nOrdinals\nTools\nSettings\n/\nTPNIL Fixture\nRemote Backup\n\nYour wallet is syncing to a remote server. You can use the same keys on another device and it will stay in sync.\n\nACTIVE STORAGE\nSynced across devices\n\nwallet.1sat.app\n\nAll devices with your keys connect here\n\n0\n\nOutputs\n\n0\n\nTransactions\n\n1\n\nRemotes\n\nSync Now\nRepair Sync\nBACKUP STORAGE\n\nCopies of your data for safety\n\nAdd\nThis Browser\nBACKUP COPY\n4.2 MB / 1.7 GB\nAdvanced"
+        },
+        {
+          "stage": "native-sync-complete",
+          "at": "2026-11-09T20:29:37.324Z",
+          "text": "Coins\nOrdinals\nTools\nSettings\nSync complete\n/\nTPNIL Fixture\nRemote Backup\n\nYour wallet is syncing to a remote server. You can use the same keys on another device and it will stay in sync.\n\nACTIVE STORAGE\nSynced across devices\n\nwallet.1sat.app\n\nAll devices with your keys connect here\n\n0\n\nOutputs\n\n0\n\nTransactions\n\n2\n\nRemotes\n\nSync Now\nRepair Sync\nBACKUP STORAGE\n\nCopies of your data for safety\n\nAdd\nThis Browser\nBACKUP COPY\n4.2 MB / 1.7 GB\nreplacement-wallet.itcve.test\nBACKUP COPY\nOnline\nConnected\nAdvanced"
+        },
+        {
+          "stage": "replacement-active",
+          "at": "2026-11-09T20:29:43.415Z",
+          "text": "Coins\nOrdinals\nTools\nSettings\nActive: replacement-wallet.itcve.test\n/\nTPNIL Fixture\nreplacement-wallet.itcve.test\n\nreplacement-wallet.itcve.test\n\nIN USE\n\nhttps://replacement-wallet.itcve.test\n\nThis is your active storage. To remove it, switch to a different location first."
+        },
+        {
+          "stage": "source-removed-from-config",
+          "at": "2026-11-09T20:30:00.056Z",
+          "text": "Coins\nOrdinals\nTools\nSettings\nRemote removed\n/\nTPNIL Fixture\nRemote Backup\n\nYour wallet is syncing to a remote server. You can use the same keys on another device and it will stay in sync.\n\nACTIVE STORAGE\nSynced across devices\n\nreplacement-wallet.itcve.test\n\nAll devices with your keys connect here\n\n0\n\nOutputs\n\n0\n\nTransactions\n\n1\n\nRemotes\n\nSync Now\nRepair Sync\nBACKUP STORAGE\n\nCopies of your data for safety\n\nAdd\nThis Browser\nBACKUP COPY\n4.3 MB / 1.7 GB\nAdvanced"
+        }
+      ],
+      "counterparts": {
+        "destination": {
+          "chain": "main",
+          "created_at": "2026-11-09T20:29:03.274026775Z",
+          "dbtype": "SQLite",
+          "maxOutputScript": 1024,
+          "storageIdentityKey": "036360e856310ce5d294e8be33fc807077dc56ac80d95d9cd4ddbd21325eff73f7",
+          "storageName": "tpnil-go-storage",
+          "updated_at": "2026-11-09T20:29:03.274026775Z"
+        },
+        "source": {
+          "chain": "main",
+          "created_at": "2026-11-09T20:27:59.633305444Z",
+          "dbtype": "SQLite",
+          "maxOutputScript": 1024,
+          "storageIdentityKey": "034f355bdcb7cc0af728ef3cceb9615d90684bb5b2ca5f859ab0f0b704075871aa",
+          "storageName": "tpnil-go-storage",
+          "updated_at": "2026-11-09T20:27:59.633305444Z"
+        },
+        "url": "https://replacement-wallet.itcve.test"
+      },
+      "components": {
+        "replacement": {
+          "components": {
+            "chaintracks": "typescript",
+            "overlay": "typescript",
+            "storage": "go"
+          },
+          "go": {
+            "binarySha256": "5c92bb1714591d1e3afe200401afb33c01491074545f261578b04b82746b1005",
+            "compatibilityPatch": {
+              "binarySha256": "5c92bb1714591d1e3afe200401afb33c01491074545f261578b04b82746b1005",
+              "parentPatchLockSha256": "73b327cb785ab061d58678ff6c26eefa46a9aa838d09d5f8bfee50aae3fb4391",
+              "patchLockSha256": "b9f229391f4fd8a953fd76b6c73cc7585818d91fe6c1802e9fc8667a86c1fcef",
+              "patchSha256": "5e1fff193191565fa0032f2b9954bf07054c9806a78e6103049a14122a947e0c",
+              "replacementModule": "/home/runner/work/interop/interop/out/storage-portability-go-source",
+              "schema": "tpnil-storage-portability-go-build@1.0.0",
+              "toolchain": "go1.27.3",
+              "upstream": {
+                "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+                "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
+                "version": "v0.191.4"
+              }
+            },
+            "components": {
+              "chaintracks": "typescript",
+              "overlay": "typescript",
+              "storage": "go"
+            },
+            "dependencies": {
+              "components": [
+                {
+                  "commit": "b77904e276ea16558e8f7f3a104a8472b95586af",
+                  "module": "github.com/bsv-blockchain/go-overlay-services",
+                  "sum": "h1:3Wx5TppatVoCZf/h/+KsbxlagyDBSEDfFoK96YXc3kU=",
+                  "version": "v1.3.8"
+                },
+                {
+                  "commit": "bb87d3d758176efab664cb73c0204ab5d87a621e",
+                  "module": "github.com/bsv-blockchain/go-chaintracks",
+                  "sum": "h1:DFJwbFt/+JxYp2q1ZNtYRalDf0SGCrQNy4UZAuohquo=",
+                  "version": "v1.4.8"
+                },
+                {
+                  "commit": "0ea046b28d91e48ba0805ede1de767d578ed7e14",
+                  "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+                  "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
+                  "version": "v0.191.4"
+                }
+              ],
+              "moduleFiles": {
+                "go.mod": "6591deefcb01570359a07e69e39d4898b78e71f1f3838835c58695fd25b61a4c",
+                "go.sum": "957658a619b1821ef677152de04e71d9ce1a37f5648de2c2c45851e1ea74338a"
+              },
+              "replacements": [
+                {
+                  "module": "k8s.io/kube-openapi",
+                  "sum": "h1:oXImqH8mQNk7PmvzKhmN3ddJoY6OnyM225MXwGHPm0A=",
+                  "version": "v0.0.0-20260721132016-d427ff9ee9ad"
+                }
+              ],
+              "schema": "tpnil-itcve-go-components@1.0.0",
+              "toolchain": "go1.27.3"
+            },
+            "fixtureSubmissionPolicy": "terminal-rejection-v1",
+            "goModSha256": "6591deefcb01570359a07e69e39d4898b78e71f1f3838835c58695fd25b61a4c",
+            "goSumSha256": "957658a619b1821ef677152de04e71d9ce1a37f5648de2c2c45851e1ea74338a",
+            "schema": "tpnil-go-services@1.0.0"
+          }
+        },
+        "source": {
+          "components": {
+            "chaintracks": "go",
+            "overlay": "go",
+            "storage": "go"
+          },
+          "go": {
+            "binarySha256": "5c92bb1714591d1e3afe200401afb33c01491074545f261578b04b82746b1005",
+            "compatibilityPatch": {
+              "binarySha256": "5c92bb1714591d1e3afe200401afb33c01491074545f261578b04b82746b1005",
+              "parentPatchLockSha256": "73b327cb785ab061d58678ff6c26eefa46a9aa838d09d5f8bfee50aae3fb4391",
+              "patchLockSha256": "b9f229391f4fd8a953fd76b6c73cc7585818d91fe6c1802e9fc8667a86c1fcef",
+              "patchSha256": "5e1fff193191565fa0032f2b9954bf07054c9806a78e6103049a14122a947e0c",
+              "replacementModule": "/home/runner/work/interop/interop/out/storage-portability-go-source",
+              "schema": "tpnil-storage-portability-go-build@1.0.0",
+              "toolchain": "go1.27.3",
+              "upstream": {
+                "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+                "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
+                "version": "v0.191.4"
+              }
+            },
+            "components": {
+              "chaintracks": "go",
+              "overlay": "go",
+              "storage": "go"
+            },
+            "dependencies": {
+              "components": [
+                {
+                  "commit": "b77904e276ea16558e8f7f3a104a8472b95586af",
+                  "module": "github.com/bsv-blockchain/go-overlay-services",
+                  "sum": "h1:3Wx5TppatVoCZf/h/+KsbxlagyDBSEDfFoK96YXc3kU=",
+                  "version": "v1.3.8"
+                },
+                {
+                  "commit": "bb87d3d758176efab664cb73c0204ab5d87a621e",
+                  "module": "github.com/bsv-blockchain/go-chaintracks",
+                  "sum": "h1:DFJwbFt/+JxYp2q1ZNtYRalDf0SGCrQNy4UZAuohquo=",
+                  "version": "v1.4.8"
+                },
+                {
+                  "commit": "0ea046b28d91e48ba0805ede1de767d578ed7e14",
+                  "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+                  "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U=",
+                  "version": "v0.191.4"
+                }
+              ],
+              "moduleFiles": {
+                "go.mod": "6591deefcb01570359a07e69e39d4898b78e71f1f3838835c58695fd25b61a4c",
+                "go.sum": "957658a619b1821ef677152de04e71d9ce1a37f5648de2c2c45851e1ea74338a"
+              },
+              "replacements": [
+                {
+                  "module": "k8s.io/kube-openapi",
+                  "sum": "h1:oXImqH8mQNk7PmvzKhmN3ddJoY6OnyM225MXwGHPm0A=",
+                  "version": "v0.0.0-20260721132016-d427ff9ee9ad"
+                }
+              ],
+              "schema": "tpnil-itcve-go-components@1.0.0",
+              "toolchain": "go1.27.3"
+            },
+            "fixtureSubmissionPolicy": "terminal-rejection-v1",
+            "goModSha256": "6591deefcb01570359a07e69e39d4898b78e71f1f3838835c58695fd25b61a4c",
+            "goSumSha256": "957658a619b1821ef677152de04e71d9ce1a37f5648de2c2c45851e1ea74338a",
+            "schema": "tpnil-go-services@1.0.0"
+          }
+        }
+      },
+      "coldReload": {
+        "applicationCacheCleared": true,
+        "at": "2026-11-09T20:30:16.005Z",
+        "consoleMessages": [
+          "[background] dropWalletContext (WALLET_LOCKED): gone immediately"
+        ],
+        "contextDropped": true,
+        "locked": true,
+        "mechanism": "native-settings-lock-unlock",
+        "taskVisible": true,
+        "unlocked": true
+      },
+      "outage": {
+        "endedAt": "2026-11-09T20:30:17.683Z",
+        "events": [
+          {
+            "at": "2026-11-09T20:30:00.059Z",
+            "available": false
+          }
+        ],
+        "probe": {
+          "error": "TypeError: fetch failed",
+          "reachable": false
+        },
+        "restorationStartedAt": "2026-11-09T20:30:17.683Z",
+        "startedAt": "2026-11-09T20:30:00.059Z"
+      },
+      "readWindows": {
+        "destination": {
+          "endedAt": "2026-11-09T20:29:38.674Z",
+          "startedAt": "2026-11-09T20:29:38.075Z",
+          "storageEnd": 6,
+          "storageStart": 4
+        },
+        "destinationAfter": {
+          "endedAt": "2026-11-09T20:30:17.683Z",
+          "startedAt": "2026-11-09T20:30:16.522Z",
+          "storageEnd": 8,
+          "storageStart": 6
+        },
+        "source": {
+          "endedAt": "2026-11-09T20:29:38.075Z",
+          "startedAt": "2026-11-09T20:29:37.326Z",
+          "storageEnd": 4,
+          "storageStart": 2
+        }
+      },
+      "outpoint": "3856aa2b0b8252b6918385a82afd869db3d0ea3820cc5ad0e1aab29cbdbfbdd5.0",
+      "cleanup": {
+        "replacementOwnedByServiceGraph": true,
+        "retirement": "ControlledWalletServices.close after the complete native scenario",
+        "sourceRestored": true
+      },
+      "result": "FAIL",
+      "independentError": "AssertionError [ERR_ASSERTION]: Independent portability predicate differs: portability.native-mediated-sync: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(report.ui.some((row: any) => row.stage === 'replacement-active' && row.text.includes('replacement-wallet.itcve.test') && row.text.includes('In use')))\n\n\n'PASS' !== 'FAIL'\n"
+    }
+  ],
+  "result": "FAIL"
+}

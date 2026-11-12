@@ -1,0 +1,354 @@
+{
+  "schema": "tpnil-integrated-component-qualification@2",
+  "claim": "INFRASTRUCTURE_QUALIFICATION_ONLY",
+  "profile": "ITCVE-1@3.0.0",
+  "source": "8055aabb731df2c2a4020c885445ae621b57e492",
+  "workflowRun": 42720213646,
+  "workflowUrl": "https://github.com/p2ppsr/interop/actions/runs/42720213646",
+  "jobUrl": "https://github.com/p2ppsr/interop/actions/runs/42720213646/job/129511951764",
+  "workflowConclusion": "success",
+  "artifact": {
+    "id": 13721345778,
+    "name": "integrated-lab",
+    "size": 3360172,
+    "sha256": "12ed1bd76c95132a560d1f0889432823a7ab4920c658240d901318f92ee846e0",
+    "url": "https://github.com/p2ppsr/interop/actions/runs/42720213646/artifacts/13721345778"
+  },
+  "verification": {
+    "completed": true,
+    "childOraclesVerified": true,
+    "sourceChecksUnmodified": true,
+    "command": "node out/frozen-foundation-source-8055aab/scripts/verify-integrated-lab.mjs out/foundation-42720213646/integrated-lab",
+    "localVerificationSource": "8055aabb731df2c2a4020c885445ae621b57e492",
+    "localPlatform": "darwin-arm64",
+    "localNode": "24.22.1",
+    "receipt": "independent-verification.json",
+    "unchangedArtifactMembers": 193,
+    "note": "Parent and every child oracle replay at frozen source. Original members unchanged. The separate descendant ZIP contains exactly the same nested 80 assertions; they are not additional executions.",
+    "explicitChildExecution": {
+      "receipt": "independent-child-replay/review.json",
+      "invocations": 16,
+      "allPathsCanonical": true,
+      "allReceiptsNonempty": true,
+      "allFrozenReceiptContractsPassed": true
+    }
+  },
+  "laneCount": 9,
+  "laneRuns": 16,
+  "isolatedExecutions": 30,
+  "assertions": {
+    "total": 590,
+    "outcomes": {
+      "PASS": 584,
+      "FAIL": 6
+    }
+  },
+  "lanes": [
+    {
+      "id": "storage-sync",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "storage-sync/result.json",
+          "assertions": 88,
+          "outcomes": {
+            "PASS": 88
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "descendant-storage-sync",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "descendant-storage-sync/matrix.json",
+          "assertions": 80,
+          "outcomes": {
+            "PASS": 80
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "overlay-identity",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "overlay-identity-1/result.json",
+          "assertions": 14,
+          "outcomes": {
+            "PASS": 14
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "overlay-identity-2/result.json",
+          "assertions": 14,
+          "outcomes": {
+            "PASS": 14
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "messaging",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "messaging-1/result.json",
+          "assertions": 41,
+          "outcomes": {
+            "PASS": 38,
+            "FAIL": 3
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "messaging-2/result.json",
+          "assertions": 41,
+          "outcomes": {
+            "PASS": 38,
+            "FAIL": 3
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "transport-typescript",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "transport-typescript-1/result.json",
+          "assertions": 17,
+          "outcomes": {
+            "PASS": 17
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "transport-typescript-2/result.json",
+          "assertions": 17,
+          "outcomes": {
+            "PASS": 17
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "transport-go",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "transport-go-1/result.json",
+          "assertions": 17,
+          "outcomes": {
+            "PASS": 17
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "transport-go-2/result.json",
+          "assertions": 17,
+          "outcomes": {
+            "PASS": 17
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "boundary-typescript",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "boundary-typescript-1/result.json",
+          "assertions": 43,
+          "outcomes": {
+            "PASS": 43
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "boundary-typescript-2/result.json",
+          "assertions": 43,
+          "outcomes": {
+            "PASS": 43
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "boundary-go",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "boundary-go-1/result.json",
+          "assertions": 43,
+          "outcomes": {
+            "PASS": 43
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "boundary-go-2/result.json",
+          "assertions": 43,
+          "outcomes": {
+            "PASS": 43
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "rust",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "rust-1/result.json",
+          "assertions": 36,
+          "outcomes": {
+            "PASS": 36
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "rust-2/result.json",
+          "assertions": 36,
+          "outcomes": {
+            "PASS": 36
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "lane": "messaging",
+      "repetition": 1,
+      "resultPath": "messaging-1/result.json",
+      "implementation": "go",
+      "id": "paid-internalization",
+      "result": "FAIL"
+    },
+    {
+      "lane": "messaging",
+      "repetition": 1,
+      "resultPath": "messaging-1/result.json",
+      "implementation": "go",
+      "id": "payment-replay-after-acknowledgment",
+      "result": "FAIL"
+    },
+    {
+      "lane": "messaging",
+      "repetition": 1,
+      "resultPath": "messaging-1/result.json",
+      "implementation": "go",
+      "id": "payment-replay-rejected",
+      "result": "FAIL"
+    },
+    {
+      "lane": "messaging",
+      "repetition": 2,
+      "resultPath": "messaging-2/result.json",
+      "implementation": "go",
+      "id": "paid-internalization",
+      "result": "FAIL"
+    },
+    {
+      "lane": "messaging",
+      "repetition": 2,
+      "resultPath": "messaging-2/result.json",
+      "implementation": "go",
+      "id": "payment-replay-after-acknowledgment",
+      "result": "FAIL"
+    },
+    {
+      "lane": "messaging",
+      "repetition": 2,
+      "resultPath": "messaging-2/result.json",
+      "implementation": "go",
+      "id": "payment-replay-rejected",
+      "result": "FAIL"
+    }
+  ],
+  "supportingArtifacts": [
+    {
+      "id": 13719523360,
+      "name": "itcve-go-components",
+      "bytes": 61705,
+      "sha256": "d5358837459f749c0f313dbf6ab7375c45b39e5c820d9d99963f1121c190d898"
+    }
+  ],
+  "descendantArtifactJoin": {
+    "artifactId": 13720687119,
+    "nestedPath": "descendant-storage-sync",
+    "sameMemberBytes": true,
+    "memberCount": 51,
+    "assertionsIncludedInTotal": 80,
+    "additionalExecutions": 0
+  },
+  "ciChecks": {
+    "core": {
+      "PASS": 108
+    },
+    "synthesisOffline": {
+      "PASS": 344,
+      "SKIP": 10,
+      "total": 354
+    },
+    "goComponents": {
+      "PASS": 11
+    },
+    "shutdownAndListenersSelected": {
+      "PASS": 14
+    },
+    "transport": {
+      "PASS": 8
+    },
+    "services": {
+      "PASS": 14
+    },
+    "rustDefault": {
+      "PASS": 1
+    },
+    "rustGraphV3": {
+      "PASS": 14
+    },
+    "python": {
+      "PASS": 5
+    },
+    "auditVulnerabilities": 0,
+    "skippedPolicy": "Skipped offline cases retain SKIP; no passing result is inferred."
+  }
+}

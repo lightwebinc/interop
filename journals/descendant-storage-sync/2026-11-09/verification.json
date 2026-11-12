@@ -1,0 +1,20 @@
+{
+  "schema": "tpnil-descendant-storage-reference-verification@1",
+  "verified": true,
+  "archives": 2,
+  "members": 191,
+  "archiveMemberHashes": "PASS",
+  "independentMatrixReplay": "PASS",
+  "directions": 4,
+  "freshExecutions": 8,
+  "distinctFixtureIdentities": 8,
+  "assertions": {
+    "PASS": 80,
+    "FAIL": 0,
+    "BLOCKED": 0
+  },
+  "focusedRegressionTests": 22,
+  "matrixTamperRejections": 6,
+  "typecheck": "PASS",
+  "nativeQualification": false
+}

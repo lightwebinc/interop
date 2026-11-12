@@ -1,0 +1,28 @@
+[
+  {
+    "repetition": 1,
+    "result": "FAIL",
+    "laterSigned": [
+      {
+        "outpoint": "e42daa9a130906cd356f1a664d764d225721eddc8defb8b59f1c86b674777a68.0",
+        "inputs": 1,
+        "signed": 1
+      }
+    ],
+    "storageCalls": 0,
+    "outage": false
+  },
+  {
+    "repetition": 2,
+    "result": "FAIL",
+    "laterSigned": [
+      {
+        "outpoint": "3c34da1effd6e8c2f22454bbd9b27a7f63c450c489903796781df78fd467c85f.0",
+        "inputs": 1,
+        "signed": 1
+      }
+    ],
+    "storageCalls": 0,
+    "outage": false
+  }
+]

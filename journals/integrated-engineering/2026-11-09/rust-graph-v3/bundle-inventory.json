@@ -1,0 +1,51 @@
+{
+  "schema": "tpnil-engineering-evidence-inventory@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "files": [
+    {
+      "path": "journals/rust-graph-observer/2026-11-09/3.0.0/README.md",
+      "size": 2805,
+      "sha256": "d8eb5525a0e3f287ee20a5f6ad4d1b94c3a06a6378440e2bcd6fd0f3f42565af"
+    },
+    {
+      "path": "journals/rust-graph-observer/2026-11-09/3.0.0/evidence.zip",
+      "size": 1131822,
+      "sha256": "2b12c7f680e4034a3e752a14e1651fd9c9f22ec341e2ffd833cab9e265f7b65e"
+    },
+    {
+      "path": "journals/rust-graph-observer/2026-11-09/3.0.0/index.json",
+      "size": 4327,
+      "sha256": "249c8d648a74112f252f63fb9d61871e7a3773fc407264bfab092e63e75bca12"
+    },
+    {
+      "path": "journals/rust-graph-observer/2026-11-09/3.0.0/journal-replay.log",
+      "size": 922,
+      "sha256": "71b93bc05f494e8810033df4b98e614ded5b229ecd21c545aa8985be91088a22"
+    },
+    {
+      "path": "journals/rust-graph-observer/2026-11-09/3.0.0/policy-tests.log",
+      "size": 443,
+      "sha256": "e5d706bb055eb178e4f915d4b0d3e3602c14cd66c89472261558f336337ed29d"
+    },
+    {
+      "path": "journals/rust-graph-observer/2026-11-09/3.0.0/replay.mjs",
+      "size": 4902,
+      "sha256": "b13ef8fbab3a1a57c9b1fe9b0b01cd93340b0caa8456046f56de31adb28bdffa"
+    },
+    {
+      "path": "journals/rust-graph-observer/2026-11-09/3.0.0/rust-tests.log",
+      "size": 1740,
+      "sha256": "99f31824b3de6f16a928a6e27293a4665a9fa16df15cfa608821d63314a61850"
+    },
+    {
+      "path": "journals/rust-graph-observer/2026-11-09/3.0.0/verify-repetition-1.log",
+      "size": 109,
+      "sha256": "e8c1c1654777e4c619f3f2b95359c2842721e830ae1919c12222802fd49a893d"
+    },
+    {
+      "path": "journals/rust-graph-observer/2026-11-09/3.0.0/verify-repetition-2.log",
+      "size": 109,
+      "sha256": "e8c1c1654777e4c619f3f2b95359c2842721e830ae1919c12222802fd49a893d"
+    }
+  ]
+}

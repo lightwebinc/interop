@@ -5,7 +5,12 @@ import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { sourceTreeDigest } from '../components/messaging/identity.mjs';
+import { parseMessagingPreparationArgs, prepareNativeMessagingVerifier } from './messaging-preparation.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const mode = parseMessagingPreparationArgs(process.argv.slice(2));
+if (mode === 'native-verifier-only') {
+  console.log(JSON.stringify(await prepareNativeMessagingVerifier(root), null, 2));
+} else {
 const lock = JSON.parse(fs.readFileSync(path.join(root, 'components/messaging/sources.lock.json')));
 const cache = path.join(root, 'out/messaging-sources');
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
@@ -47,3 +52,4 @@ paths['go-binary'] = binary;
 fs.writeFileSync(path.join(cache, 'paths.json'), JSON.stringify(paths, null, 2) + '\n');
 fs.writeFileSync(path.join(cache, 'build.json'), JSON.stringify({ schema: 'tpnil-messaging-build@1', lockSha256: sha(fs.readFileSync(path.join(root, 'components/messaging/sources.lock.json'))), goAdapterSha256: sha(fs.readFileSync(path.join(root, 'components/messaging/go-host.go'))), goBinarySha256: sha(fs.readFileSync(binary)), sourceTreeDigests: Object.fromEntries(lock.components.map(c => [c.id, sourceTreeDigest(paths[c.id])])), sourceArchives: lock.components.map(c => ({ id: c.id, sha256: c.archiveSha256, commit: c.commit })), paths }, null, 2) + '\n');
 console.log('Prepared pinned TS/Go Message Box and discovery components.');
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "tpnil-dependency-startup-independent-reproduction@1",
+  "claim": "ENGINEERING_DIAGNOSIS_NOT_CI_QUALIFICATION",
+  "run": 42720214271,
+  "source": "8055aabb731df2c2a4020c885445ae621b57e492",
+  "frozenVerifierSource": "c338a93c97ffebeeef318e679ff82b7dbf309dd5",
+  "scriptSha256": "5286bbd5ab9e5fa8a7a8094d80a90c635611eb5028db357a16f747ef83dd0820",
+  "input": "original/repetition-1/evidence/integrated",
+  "newNativeSessions": 0,
+  "originalMembersMutated": false,
+  "results": [
+    {
+      "mode": "absent-pinned-cache",
+      "status": 1,
+      "log": "empty-verifier-cache.log",
+      "sha256": "5aabfd470f4726a6effb1a1a0568bd4e281c5c14e91ffd63027e1b6f3fd8c681"
+    },
+    {
+      "mode": "already-prepared-pinned-cache",
+      "status": 0,
+      "log": "prepared-verifier-cache.log",
+      "sha256": "2c955598576317901cad4c8429412ab5e0eff99f39a74b44a3f3548f4f799b1f"
+    }
+  ]
+}

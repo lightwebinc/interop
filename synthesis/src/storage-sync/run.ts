@@ -10,6 +10,8 @@ import { canonicalJson } from '../determinism.js'
 import { canonicalSyncChunk, goSyncChunk } from './compatibility.js'
 import { createFixtureWallet } from './fixture-wallet.js'
 import { entities, projectDataset, type Dataset, type Row } from './projection.js'
+import { projectDatasetV2 } from './history-projection.js'
+import { storageProjectionV2Runtime, storageProjectionV2Binding } from './projection-profile.js'
 
 export type Implementation = 'typescript' | 'go'
 export interface Assertion { id: string; result: 'PASS' | 'FAIL' | 'BLOCKED'; detail: string }
@@ -66,7 +68,12 @@ export async function readDataset(client: StorageClient, userIdentity = identity
   throw new Error('Sync reader exceeded bounded page count')
 }
 
-export async function runStorageSyncCase(source: Implementation, destination: Implementation, output: string): Promise<Record<string, unknown>> {
+export async function runStorageSyncCase(source: Implementation, destination: Implementation, output: string, options: { projectionVersion?: 1 | 2 } = {}): Promise<Record<string, unknown>> {
+  if (options.projectionVersion !== undefined && ![1, 2].includes(options.projectionVersion)) throw new Error('Unknown storage projection version')
+  const version2 = options.projectionVersion === 2
+  const project = version2 ? projectDatasetV2 : projectDataset
+  const projectionBinding = version2 ? storageProjectionV2Binding() : {}
+  const projectionRuntime = version2 ? storageProjectionV2Runtime() : undefined
   fs.mkdirSync(output, { recursive: true })
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'tpnil-storage-sync-'))
   fs.writeFileSync(path.join(root, 'index.html'), '<title>TPNIL storage synchronization</title>')
@@ -97,7 +104,7 @@ export async function runStorageSyncCase(source: Implementation, destination: Im
     await reader.makeAvailable(); await writer.makeAvailable()
     await writer.findOrInsertUser(identityKey)
     const sourceBefore = await readDataset(reader)
-    const sourceProjection = projectDataset(sourceBefore)
+    const sourceProjection = project(sourceBefore)
     observations.source = sourceBefore; observations.sourceProjection = sourceProjection
     checks('fixture-has-relationships', (sourceBefore.transactions?.length ?? 0) >= 2 && (sourceBefore.outputs?.length ?? 0) >= 2 && (sourceBefore.txLabelMaps?.length ?? 0) > 0 && (sourceBefore.outputTagMaps?.length ?? 0) === 2 && (sourceBefore.certificates?.length ?? 0) === 1 && (sourceBefore.certificateFields?.length ?? 0) === 2, 'Mined funding, task, metadata links and signed certificate are present before synchronization.')
     // The multi-remote wallet itself drives every getSyncChunk/processSyncChunk call.
@@ -118,12 +125,12 @@ export async function runStorageSyncCase(source: Implementation, destination: Im
     const resumed = await wallet.storage.syncToWriter(await wallet.storage.getAuth(), resumedWriter)
     observations.resumed = resumed
     const destinationAfter = await readDataset(resumedWriter)
-    observations.destination = destinationAfter; observations.destinationProjection = projectDataset(destinationAfter)
+    observations.destination = destinationAfter; observations.destinationProjection = project(destinationAfter)
     checks('mediated-initial-sync', canonicalJson(sourceProjection) === canonicalJson(observations.destinationProjection), `Logical projection source ${digest(sourceProjection)} / destination ${digest(observations.destinationProjection)}.`)
     await wallet.storage.syncToWriter(await wallet.storage.getAuth(), resumedWriter)
     const replayRaw = await readDataset(resumedWriter)
     observations.replay = replayRaw
-    const replay = projectDataset(replayRaw)
+    const replay = project(replayRaw)
     checks('replay-idempotence', canonicalJson(replay) === canonicalJson(observations.destinationProjection), 'A repeated sync retains exactly one copy of each logical entity and relationship.')
     const isolated = await createFixtureWallet(b, '88'.repeat(32)); wallets.push(isolated)
     observations.foreignOutputs = await isolated.listOutputs({ basket: 'tpnil portable tasks' })
@@ -136,7 +143,7 @@ export async function runStorageSyncCase(source: Implementation, destination: Im
     await wallet.relinquishCertificate({ type: certificate.type, serialNumber: certificate.serialNumber, certifier: certificate.certifier })
     await wallet.storage.syncToWriter(await wallet.storage.getAuth(), resumedWriter)
     const updatedSourceRaw = await readDataset(reader), updatedDestinationRaw = await readDataset(resumedWriter)
-    const updatedSource = projectDataset(updatedSourceRaw), updatedDestination = projectDataset(updatedDestinationRaw)
+    const updatedSource = project(updatedSourceRaw), updatedDestination = project(updatedDestinationRaw)
     observations.incremental = { source: updatedSource, destination: updatedDestination, sourceRaw: updatedSourceRaw, destinationRaw: updatedDestinationRaw }
     observations.remainingCertificates = await resumedWriter.listCertificates({ identityKey }, { certifiers: [certificate.certifier], types: [certificate.type], limit: 10, offset: 0, privileged: false })
     checks('incremental-tombstone', canonicalJson(updatedSource) === canonicalJson(updatedDestination) && (observations.remainingCertificates as { totalCertificates: number }).totalCertificates === 0, 'Certificate relinquishment and its deletion marker propagate through incremental synchronization.')
@@ -171,13 +178,13 @@ export async function runStorageSyncCase(source: Implementation, destination: Im
   fs.writeFileSync(path.join(output, 'transcript.json'), JSON.stringify(transcript, null, 2) + '\n')
   fs.writeFileSync(path.join(output, 'observations.json'), JSON.stringify(observations, null, 2) + '\n')
   const evidence = ['transcript.json', 'observations.json'].map(name => ({ path: name, sha256: createHash('sha256').update(fs.readFileSync(path.join(output, name))).digest('hex') }))
-  const result = { schema: 'tpnil-storage-sync-run@1.0.0', claim: 'INFRASTRUCTURE_QUALIFICATION_ONLY', components: { source, destination, wallet: '@bsv/wallet-toolbox@2.13.0' }, startedAt, endedAt: new Date().toISOString(), assertions, evidence, cleanup, result: assertions.every(assertion => assertion.result === 'PASS') ? 'PASS' : 'FAIL' }
+  const result = { schema: version2 ? 'tpnil-storage-sync-run@2.0.0' : 'tpnil-storage-sync-run@1.0.0', ...projectionBinding, ...(projectionRuntime ? { projectionRuntime } : {}), claim: 'INFRASTRUCTURE_QUALIFICATION_ONLY', components: { source, destination, wallet: '@bsv/wallet-toolbox@2.13.0' }, startedAt, endedAt: new Date().toISOString(), assertions, evidence, cleanup, result: assertions.every(assertion => assertion.result === 'PASS') ? 'PASS' : 'FAIL' }
   fs.writeFileSync(path.join(output, 'result.json'), JSON.stringify(result, null, 2) + '\n')
   return result
 }
 
 if (process.argv[1] === import.meta.filename) {
-  const [source, destination, output] = process.argv.slice(2)
-  if (!['typescript', 'go'].includes(source ?? '') || !['typescript', 'go'].includes(destination ?? '') || !output) throw new Error('Usage: run.ts typescript|go typescript|go OUTPUT')
-  console.log(JSON.stringify(await runStorageSyncCase(source as Implementation, destination as Implementation, output), null, 2))
+  const [source, destination, output, flag, ...extra] = process.argv.slice(2)
+  if (!['typescript', 'go'].includes(source ?? '') || !['typescript', 'go'].includes(destination ?? '') || !output || (flag !== undefined && flag !== '--projection-v2') || extra.length) throw new Error('Usage: run.ts typescript|go typescript|go OUTPUT [--projection-v2]')
+  console.log(JSON.stringify(await runStorageSyncCase(source as Implementation, destination as Implementation, output, { projectionVersion: flag === '--projection-v2' ? 2 : 1 }), null, 2))
 }

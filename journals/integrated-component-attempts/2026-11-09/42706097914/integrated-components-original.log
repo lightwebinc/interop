@@ -1,0 +1,706 @@
+﻿2026-11-09T21:49:18.3866297Z Current runner version: '2.338.2'
+2026-11-09T21:49:18.3882707Z ##[group]Runner Image Provisioner
+2026-11-09T21:49:18.3883288Z Hosted Compute Agent
+2026-11-09T21:49:18.3883702Z Version: 20261028.624
+2026-11-09T21:49:18.3884114Z Commit: 54898b74c23fde5556c9b3c3a2290865feef0dfe
+2026-11-09T21:49:18.3884567Z Build Date: 2026-10-28T21:51:42Z
+2026-11-09T21:49:18.3885034Z Worker ID: {0cb729ed-7fd2-4073-87de-e8026fafc347}
+2026-11-09T21:49:18.3885539Z Region: westus2
+2026-11-09T21:49:18.3886102Z Cloud: Azure
+2026-11-09T21:49:18.3886459Z ##[endgroup]
+2026-11-09T21:49:18.3887237Z ##[group]Operating System
+2026-11-09T21:49:18.3887793Z Ubuntu
+2026-11-09T21:49:18.3888159Z 24.04.5
+2026-11-09T21:49:18.3888539Z LTS
+2026-11-09T21:49:18.3888881Z ##[endgroup]
+2026-11-09T21:49:18.3889226Z ##[group]Runner Image
+2026-11-09T21:49:18.3889670Z Image: ubuntu-24.04
+2026-11-09T21:49:18.3890032Z Version: 20261101.360.1
+2026-11-09T21:49:18.3890850Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261101.360/images/ubuntu/Ubuntu2404-Readme.md
+2026-11-09T21:49:18.3891762Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261101.360
+2026-11-09T21:49:18.3892406Z ##[endgroup]
+2026-11-09T21:49:18.3893105Z ##[group]GITHUB_TOKEN Permissions
+2026-11-09T21:49:18.3894458Z Contents: read
+2026-11-09T21:49:18.3894820Z Metadata: read
+2026-11-09T21:49:18.3895161Z ##[endgroup]
+2026-11-09T21:49:18.3896631Z Secret source: Actions
+2026-11-09T21:49:18.3897207Z Cache mode: write
+2026-11-09T21:49:18.3897949Z Prepare workflow directory
+2026-11-09T21:49:18.4102936Z Prepare all required actions
+2026-11-09T21:49:18.4135116Z Getting action download info
+2026-11-09T21:49:18.7537747Z Download action repository 'actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09' (SHA:fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09)
+2026-11-09T21:49:18.8779086Z Download action repository 'actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-11-09T21:49:18.9800885Z Download action repository 'actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e' (SHA:b7ad1dad31e06c5925ef5d2fc7ad053ef454303e)
+2026-11-09T21:49:19.2473582Z Download action repository 'actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4' (SHA:330a01c490aca151604b8cf639adc76d48f6c5d4)
+2026-11-09T21:49:19.5367513Z Complete job name: integrated-components
+2026-11-09T21:49:19.5924768Z ##[group]Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+2026-11-09T21:49:19.5925357Z with:
+2026-11-09T21:49:19.5925632Z   persist-credentials: false
+2026-11-09T21:49:19.5925957Z   repository: p2ppsr/interop
+2026-11-09T21:49:19.5928437Z   token: ***
+2026-11-09T21:49:19.5928709Z   ssh-strict: true
+2026-11-09T21:49:19.5928974Z   ssh-user: git
+2026-11-09T21:49:19.5929231Z   clean: true
+2026-11-09T21:49:19.5929509Z   sparse-checkout-cone-mode: true
+2026-11-09T21:49:19.5929831Z   fetch-depth: 1
+2026-11-09T21:49:19.5930100Z   fetch-tags: false
+2026-11-09T21:49:19.5930374Z   show-progress: true
+2026-11-09T21:49:19.5930677Z   lfs: false
+2026-11-09T21:49:19.5930942Z   submodules: false
+2026-11-09T21:49:19.5931219Z   set-safe-directory: true
+2026-11-09T21:49:19.5931536Z   allow-unsafe-pr-checkout: false
+2026-11-09T21:49:19.5931940Z ##[endgroup]
+2026-11-09T21:49:19.8220652Z Syncing repository: p2ppsr/interop
+2026-11-09T21:49:19.8221711Z ##[group]Getting Git version info
+2026-11-09T21:49:19.8222210Z Working directory is '/home/runner/work/interop/interop'
+2026-11-09T21:49:19.8222791Z [command]/usr/bin/git version
+2026-11-09T21:49:19.8299082Z git version 2.56.0
+2026-11-09T21:49:19.8311130Z ##[endgroup]
+2026-11-09T21:49:19.8319401Z Temporarily overriding HOME='/home/runner/work/_temp/406b8240-51c6-49ed-bbe7-ab0537ae0c38' before making global git config changes
+2026-11-09T21:49:19.8320654Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-09T21:49:19.8322185Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/interop/interop
+2026-11-09T21:49:19.8365057Z Deleting the contents of '/home/runner/work/interop/interop'
+2026-11-09T21:49:19.8368308Z ##[group]Initializing the repository
+2026-11-09T21:49:19.8371200Z [command]/usr/bin/git init /home/runner/work/interop/interop
+2026-11-09T21:49:19.8467225Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-09T21:49:19.8468344Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-09T21:49:19.8468956Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-09T21:49:19.8469403Z hint: call:
+2026-11-09T21:49:19.8469650Z hint:
+2026-11-09T21:49:19.8469988Z hint: 	git config --global init.defaultBranch <name>
+2026-11-09T21:49:19.8470357Z hint:
+2026-11-09T21:49:19.8470705Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-09T21:49:19.8471262Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-09T21:49:19.8471703Z hint:
+2026-11-09T21:49:19.8471955Z hint: 	git branch -m <name>
+2026-11-09T21:49:19.8472248Z hint:
+2026-11-09T21:49:19.8472639Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-09T21:49:19.8479005Z Initialized empty Git repository in /home/runner/work/interop/interop/.git/
+2026-11-09T21:49:19.8485454Z [command]/usr/bin/git remote add origin https://github.com/p2ppsr/interop
+2026-11-09T21:49:19.8522913Z ##[endgroup]
+2026-11-09T21:49:19.8523668Z ##[group]Disabling automatic garbage collection
+2026-11-09T21:49:19.8524969Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-09T21:49:19.8551418Z ##[endgroup]
+2026-11-09T21:49:19.8552130Z ##[group]Setting up auth
+2026-11-09T21:49:19.8555768Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-09T21:49:19.8643916Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-09T21:49:19.8890415Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-09T21:49:19.8915213Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-09T21:49:19.9095993Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-09T21:49:19.9122077Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-09T21:49:19.9302985Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-09T21:49:19.9333942Z ##[endgroup]
+2026-11-09T21:49:19.9334703Z ##[group]Fetching the repository
+2026-11-09T21:49:19.9343471Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +4e7c1e1050bbb29a31093e19dfd4e8c089d12451:refs/remotes/origin/codex/native-wallet-conformance-20261109
+2026-11-09T21:49:25.0767111Z From https://github.com/p2ppsr/interop
+2026-11-09T21:49:25.0768615Z  * [new ref]         4e7c1e1050bbb29a31093e19dfd4e8c089d12451 -> origin/codex/native-wallet-conformance-20261109
+2026-11-09T21:49:25.0770975Z ##[endgroup]
+2026-11-09T21:49:25.0771560Z ##[group]Determining the checkout info
+2026-11-09T21:49:25.0772942Z ##[endgroup]
+2026-11-09T21:49:25.0778281Z [command]/usr/bin/git sparse-checkout disable
+2026-11-09T21:49:25.0822233Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-09T21:49:25.0848186Z ##[group]Checking out the ref
+2026-11-09T21:49:25.0851075Z [command]/usr/bin/git checkout --progress --force -B codex/native-wallet-conformance-20261109 refs/remotes/origin/codex/native-wallet-conformance-20261109
+2026-11-09T21:49:25.3638063Z Switched to a new branch 'codex/native-wallet-conformance-20261109'
+2026-11-09T21:49:25.3642441Z branch 'codex/native-wallet-conformance-20261109' set up to track 'origin/codex/native-wallet-conformance-20261109'.
+2026-11-09T21:49:25.3662572Z ##[endgroup]
+2026-11-09T21:49:25.3701084Z [command]/usr/bin/git log -1 --format=%H
+2026-11-09T21:49:25.3721215Z 4e7c1e1050bbb29a31093e19dfd4e8c089d12451
+2026-11-09T21:49:25.3728689Z ##[group]Removing auth
+2026-11-09T21:49:25.3731105Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-09T21:49:25.3754765Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-09T21:49:25.3937389Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-09T21:49:25.3958519Z http.https://github.com/.extraheader
+2026-11-09T21:49:25.3963439Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-09T21:49:25.3989712Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-09T21:49:25.4168786Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-09T21:49:25.4191761Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-09T21:49:25.4368175Z ##[endgroup]
+2026-11-09T21:49:25.4573401Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+2026-11-09T21:49:25.4573645Z with:
+2026-11-09T21:49:25.4573779Z   node-version-file: .nvmrc
+2026-11-09T21:49:25.4573930Z   always-auth: false
+2026-11-09T21:49:25.4574053Z   check-latest: false
+2026-11-09T21:49:25.4575508Z   token: ***
+2026-11-09T21:49:25.4575644Z ##[endgroup]
+2026-11-09T21:49:25.5513839Z Node version file is not JSON file
+2026-11-09T21:49:25.5514277Z Resolved .nvmrc as 24.22.1
+2026-11-09T21:49:25.5529595Z Attempting to download 24.22.1...
+2026-11-09T21:49:25.5663422Z (node:2476) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-09T21:49:25.5664064Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-09T21:49:26.0647082Z Acquiring 24.22.1 - x64 from https://github.com/actions/node-versions/releases/download/24.22.1-39619001896/node-24.22.1-linux-x64.tar.gz
+2026-11-09T21:49:26.4551207Z Extracting ...
+2026-11-09T21:49:26.4644927Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/d87582d1-fe6d-40ef-8de3-3a3d919a3b65 -f /home/runner/work/_temp/cf244050-2d0a-4d91-b156-051e9fd0210c
+2026-11-09T21:49:27.4037345Z Adding to the cache ...
+2026-11-09T21:49:29.0642582Z ##[group]Environment details
+2026-11-09T21:49:29.2268203Z node: v24.22.1
+2026-11-09T21:49:29.2268563Z npm: 11.19.1
+2026-11-09T21:49:29.2268735Z yarn: 1.22.22
+2026-11-09T21:49:29.2269167Z ##[endgroup]
+2026-11-09T21:49:29.2463177Z ##[group]Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+2026-11-09T21:49:29.2463407Z with:
+2026-11-09T21:49:29.2463521Z   go-version: 1.27.3
+2026-11-09T21:49:29.2463666Z   cache-dependency-path: synthesis/go/go.sum
+2026-11-09T21:49:29.2463829Z   check-latest: false
+2026-11-09T21:49:29.2465198Z   token: ***
+2026-11-09T21:49:29.2465304Z   cache: true
+2026-11-09T21:49:29.2465415Z ##[endgroup]
+2026-11-09T21:49:29.3288166Z Setup go version spec 1.27.3
+2026-11-09T21:49:29.3291000Z Attempting to download 1.27.3...
+2026-11-09T21:49:29.8739008Z matching 1.27.3...
+2026-11-09T21:49:29.8745400Z Acquiring 1.27.3 from https://github.com/actions/go-versions/releases/download/1.27.3-39437817176/go-1.27.3-linux-x64.tar.gz
+2026-11-09T21:49:30.2810684Z Extracting Go...
+2026-11-09T21:49:30.2907081Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/17a9b7e9-76a8-4622-9ba0-56f5d5ad555d -f /home/runner/work/_temp/414f675c-eb9b-4a89-b046-331652dbe0d3
+2026-11-09T21:49:31.6370307Z Successfully extracted go to /home/runner/work/_temp/17a9b7e9-76a8-4622-9ba0-56f5d5ad555d
+2026-11-09T21:49:31.6371100Z Adding to the cache ...
+2026-11-09T21:49:35.0001698Z Successfully cached go to /opt/hostedtoolcache/go/1.27.3/x64
+2026-11-09T21:49:35.0002975Z Added go to the path
+2026-11-09T21:49:35.0004987Z Successfully set up Go version 1.27.3
+2026-11-09T21:49:35.0170415Z [command]/opt/hostedtoolcache/go/1.27.3/x64/bin/go env GOMODCACHE
+2026-11-09T21:49:35.0203553Z [command]/opt/hostedtoolcache/go/1.27.3/x64/bin/go env GOCACHE
+2026-11-09T21:49:35.0236913Z /home/runner/go/pkg/mod
+2026-11-09T21:49:35.0256309Z /home/runner/.cache/go-build
+2026-11-09T21:49:35.2554475Z Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.27.3-39def735ed8c2dfdb21c2002a828c41dc26a5e08075b577b46d16c8563f66d1f
+2026-11-09T21:49:36.5630872Z Received 37748736 of 1332719475 (2.8%), 36.0 MBs/sec
+2026-11-09T21:49:37.5633085Z Received 176160768 of 1332719475 (13.2%), 83.9 MBs/sec
+2026-11-09T21:49:38.5634044Z Received 281018368 of 1332719475 (21.1%), 89.3 MBs/sec
+2026-11-09T21:49:39.5637364Z Received 402653184 of 1332719475 (30.2%), 96.0 MBs/sec
+2026-11-09T21:49:40.5640436Z Received 536870912 of 1332719475 (40.3%), 102.4 MBs/sec
+2026-11-09T21:49:41.5649323Z Received 666894336 of 1332719475 (50.0%), 105.9 MBs/sec
+2026-11-09T21:49:42.5654899Z Received 788529152 of 1332719475 (59.2%), 107.4 MBs/sec
+2026-11-09T21:49:43.5656217Z Received 918552576 of 1332719475 (68.9%), 109.4 MBs/sec
+2026-11-09T21:49:44.5652686Z Received 1027604480 of 1332719475 (77.1%), 108.8 MBs/sec
+2026-11-09T21:49:45.5656894Z Received 1124073472 of 1332719475 (84.3%), 107.2 MBs/sec
+2026-11-09T21:49:46.5653355Z Received 1207959552 of 1332719475 (90.6%), 104.7 MBs/sec
+2026-11-09T21:49:47.5661177Z Received 1317011456 of 1332719475 (98.8%), 104.6 MBs/sec
+2026-11-09T21:49:47.7221574Z Received 1332719475 of 1332719475 (100.0%), 104.5 MBs/sec
+2026-11-09T21:49:47.7221880Z Cache Size: ~1271 MB (1332719475 B)
+2026-11-09T21:49:47.7309377Z [command]/usr/bin/tar -xf /home/runner/work/_temp/f94a80f7-0a00-4e74-ae50-157e3b1e4457/cache.tzst -P -C /home/runner/work/interop/interop --use-compress-program unzstd
+2026-11-09T21:50:10.4775703Z Cache restored successfully
+2026-11-09T21:50:11.1556532Z Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.27.3-39def735ed8c2dfdb21c2002a828c41dc26a5e08075b577b46d16c8563f66d1f
+2026-11-09T21:50:11.1561618Z go version go1.27.3 linux/amd64
+2026-11-09T21:50:11.1561784Z 
+2026-11-09T21:50:11.1562011Z ##[group]go env
+2026-11-09T21:50:11.1701561Z AR='ar'
+2026-11-09T21:50:11.1702881Z CC='gcc'
+2026-11-09T21:50:11.1703149Z CGO_CFLAGS='-O2 -g'
+2026-11-09T21:50:11.1703380Z CGO_CPPFLAGS=''
+2026-11-09T21:50:11.1703587Z CGO_CXXFLAGS='-O2 -g'
+2026-11-09T21:50:11.1703773Z CGO_ENABLED='1'
+2026-11-09T21:50:11.1703896Z CGO_FFLAGS='-O2 -g'
+2026-11-09T21:50:11.1704026Z CGO_LDFLAGS='-O2 -g'
+2026-11-09T21:50:11.1704148Z CXX='g++'
+2026-11-09T21:50:11.1704339Z GCCGO='gccgo'
+2026-11-09T21:50:11.1704527Z GO111MODULE=''
+2026-11-09T21:50:11.1704995Z GOAMD64='v1'
+2026-11-09T21:50:11.1705171Z GOARCH='amd64'
+2026-11-09T21:50:11.1705354Z GOAUTH='netrc'
+2026-11-09T21:50:11.1705560Z GOBIN='/home/runner/go/bin'
+2026-11-09T21:50:11.1705799Z GOCACHE='/home/runner/.cache/go-build'
+2026-11-09T21:50:11.1705954Z GOCACHEPROG=''
+2026-11-09T21:50:11.1706070Z GODEBUG=''
+2026-11-09T21:50:11.1706209Z GOENV='/home/runner/.config/go/env'
+2026-11-09T21:50:11.1706377Z GOEXE=''
+2026-11-09T21:50:11.1706484Z GOEXPERIMENT=''
+2026-11-09T21:50:11.1706601Z GOFIPS140='off'
+2026-11-09T21:50:11.1706711Z GOFLAGS=''
+2026-11-09T21:50:11.1707168Z GOGCCFLAGS='-fPIC -m64 -pthread -Wl,--no-gc-sections -fmessage-length=0 -ffile-prefix-map=/tmp/go-build3999819951=/tmp/go-build -gno-record-gcc-switches'
+2026-11-09T21:50:11.1707537Z GOHOSTARCH='amd64'
+2026-11-09T21:50:11.1707794Z GOHOSTOS='linux'
+2026-11-09T21:50:11.1707914Z GOINSECURE=''
+2026-11-09T21:50:11.1708107Z GOMOD='/dev/null'
+2026-11-09T21:50:11.1708258Z GOMODCACHE='/home/runner/go/pkg/mod'
+2026-11-09T21:50:11.1708410Z GONOPROXY=''
+2026-11-09T21:50:11.1708526Z GONOSUMDB=''
+2026-11-09T21:50:11.1708770Z GOOS='linux'
+2026-11-09T21:50:11.1708886Z GOPACKAGESDRIVER=''
+2026-11-09T21:50:11.1709018Z GOPATH='/home/runner/go'
+2026-11-09T21:50:11.1709148Z GOPRIVATE=''
+2026-11-09T21:50:11.1709320Z GOPROXY='https://proxy.golang.org,direct'
+2026-11-09T21:50:11.1709527Z GOROOT='/opt/hostedtoolcache/go/1.27.3/x64'
+2026-11-09T21:50:11.1709700Z GOSUMDB='sum.golang.org'
+2026-11-09T21:50:11.1709836Z GOTELEMETRY='local'
+2026-11-09T21:50:11.1710010Z GOTELEMETRYDIR='/home/runner/.config/go/telemetry'
+2026-11-09T21:50:11.1710178Z GOTMPDIR=''
+2026-11-09T21:50:11.1710346Z GOTOOLCHAIN='local'
+2026-11-09T21:50:11.1710604Z GOTOOLDIR='/opt/hostedtoolcache/go/1.27.3/x64/pkg/tool/linux_amd64'
+2026-11-09T21:50:11.1710795Z GOVCS=''
+2026-11-09T21:50:11.1710913Z GOVERSION='go1.27.3'
+2026-11-09T21:50:11.1711030Z GOWORK=''
+2026-11-09T21:50:11.1711150Z PKG_CONFIG='pkg-config'
+2026-11-09T21:50:11.1711235Z 
+2026-11-09T21:50:11.1711414Z ##[endgroup]
+2026-11-09T21:50:11.2956378Z ##[group]Run npm ci --ignore-scripts --prefix synthesis
+2026-11-09T21:50:11.2956712Z [36;1mnpm ci --ignore-scripts --prefix synthesis[0m
+2026-11-09T21:50:11.2956937Z [36;1mnpm ci --ignore-scripts --prefix components/transport[0m
+2026-11-09T21:50:11.2957164Z [36;1mnpm ci --ignore-scripts --prefix integrations/services[0m
+2026-11-09T21:50:11.2957390Z [36;1mnpm rebuild better-sqlite3 --prefix integrations/services[0m
+2026-11-09T21:50:11.2957784Z [36;1mrustup toolchain install 1.88.0 --profile minimal[0m
+2026-11-09T21:50:11.2957987Z [36;1mnpm run prepare:go[0m
+2026-11-09T21:50:11.2958144Z [36;1mnode scripts/prepare-storage-sync-go.mjs[0m
+2026-11-09T21:50:11.2958343Z [36;1mnode scripts/prepare-storage-portability-go.mjs[0m
+2026-11-09T21:50:11.2958534Z [36;1mnode scripts/prepare-messaging.mjs[0m
+2026-11-09T21:50:11.2977090Z shell: /usr/bin/bash -e {0}
+2026-11-09T21:50:11.2977227Z env:
+2026-11-09T21:50:11.2977330Z   GOTOOLCHAIN: local
+2026-11-09T21:50:11.2977496Z ##[endgroup]
+2026-11-09T21:50:13.4436483Z 
+2026-11-09T21:50:13.4437238Z added 193 packages, and audited 194 packages in 2s
+2026-11-09T21:50:13.4437480Z 
+2026-11-09T21:50:13.4437580Z 58 packages are looking for funding
+2026-11-09T21:50:13.4437930Z   run `npm fund` for details
+2026-11-09T21:50:13.4442812Z 
+2026-11-09T21:50:13.4459655Z found 0 vulnerabilities
+2026-11-09T21:50:14.5549667Z 
+2026-11-09T21:50:14.5550176Z added 103 packages, and audited 104 packages in 1s
+2026-11-09T21:50:14.5550422Z 
+2026-11-09T21:50:14.5550535Z 34 packages are looking for funding
+2026-11-09T21:50:14.5550789Z   run `npm fund` for details
+2026-11-09T21:50:14.5556990Z 
+2026-11-09T21:50:14.5557227Z found 0 vulnerabilities
+2026-11-09T21:50:15.4562078Z npm warn deprecated prebuild-install@7.1.3: No longer maintained. Please contact the author of the relevant native addon; alternatives are available.
+2026-11-09T21:50:16.6495271Z 
+2026-11-09T21:50:16.6495892Z added 226 packages, and audited 227 packages in 2s
+2026-11-09T21:50:16.6496148Z 
+2026-11-09T21:50:16.6498167Z 57 packages are looking for funding
+2026-11-09T21:50:16.6498445Z   run `npm fund` for details
+2026-11-09T21:50:16.6501790Z 
+2026-11-09T21:50:16.6501915Z found 0 vulnerabilities
+2026-11-09T21:50:25.1069578Z npm warn rebuild 4 packages have install scripts not yet covered by allowScripts. Run `npm install-scripts ls` to review.
+2026-11-09T21:50:25.1070147Z rebuilt dependencies successfully
+2026-11-09T21:50:25.1989234Z info: syncing channel updates for 1.88.0-x86_64-unknown-linux-gnu
+2026-11-09T21:50:25.5251226Z info: latest update on 2025-06-26 for version 1.88.0 (6b00bc388 2025-06-23)
+2026-11-09T21:50:25.5298980Z info: downloading 3 components
+2026-11-09T21:50:31.5925696Z 
+2026-11-09T21:50:31.5992302Z   1.88.0-x86_64-unknown-linux-gnu installed - rustc 1.88.0 (6b00bc388 2025-06-23)
+2026-11-09T21:50:31.5992720Z 
+2026-11-09T21:50:31.6702583Z 
+2026-11-09T21:50:31.6703288Z > tpnil@0.5.0 prepare:go
+2026-11-09T21:50:31.6703827Z > node scripts/prepare-itcve-go.mjs
+2026-11-09T21:50:31.6704172Z 
+2026-11-09T21:50:31.7127793Z ITCVE-1 1.1.0: three pinned Go implementations, eight selectable combinations
+2026-11-09T21:50:39.6866177Z ?   	github.com/p2ppsr/interop/synthesis/go/cmd/itcve-mongo	[no test files]
+2026-11-09T21:50:39.6866699Z ok  	github.com/p2ppsr/interop/synthesis/go/cmd/itcve-services	0.032s
+2026-11-09T21:50:47.6369894Z Built ITCVE Go services with go1.27.3
+2026-11-09T21:51:08.2749891Z ?   	github.com/p2ppsr/interop/synthesis/go/cmd/itcve-mongo	[no test files]
+2026-11-09T21:51:08.2750268Z ok  	github.com/p2ppsr/interop/synthesis/go/cmd/itcve-services	0.033s
+2026-11-09T21:51:25.9879698Z {
+2026-11-09T21:51:25.9880127Z   "schema": "tpnil-storage-sync-go-build@1.0.0",
+2026-11-09T21:51:25.9880719Z   "patchLockSha256": "73b327cb785ab061d58678ff6c26eefa46a9aa838d09d5f8bfee50aae3fb4391",
+2026-11-09T21:51:25.9881361Z   "patchSha256": "197f465236907f146297015b609e193c5815006ce6e8ae920db55779f90e2074",
+2026-11-09T21:51:25.9881758Z   "upstream": {
+2026-11-09T21:51:25.9882478Z     "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+2026-11-09T21:51:25.9882703Z     "version": "v0.191.4",
+2026-11-09T21:51:25.9883066Z     "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U="
+2026-11-09T21:51:25.9883327Z   },
+2026-11-09T21:51:25.9883590Z   "replacementModule": "/home/runner/work/interop/interop/out/storage-sync-go-source",
+2026-11-09T21:51:25.9883856Z   "toolchain": "go1.27.3",
+2026-11-09T21:51:25.9884157Z   "binarySha256": "7b4c21e117838ff8e9e61fff4badadf2e9775c0e03a49213e0bea0030fdde426"
+2026-11-09T21:51:25.9884538Z }
+2026-11-09T21:51:47.0764506Z ?   	github.com/p2ppsr/interop/synthesis/go/cmd/itcve-mongo	[no test files]
+2026-11-09T21:51:47.0764905Z ok  	github.com/p2ppsr/interop/synthesis/go/cmd/itcve-services	0.032s
+2026-11-09T21:51:47.0939252Z go: downloading github.com/bsv-blockchain/universal-test-vectors v0.6.1
+2026-11-09T21:51:47.0945745Z go: downloading github.com/jarcoal/httpmock v1.4.2
+2026-11-09T21:51:47.0947433Z go: downloading go.uber.org/mock v0.6.0
+2026-11-09T21:51:47.1141695Z go: downloading github.com/bsv-blockchain/go-chaintracks v1.4.5
+2026-11-09T21:51:47.1912105Z go: downloading golang.org/x/tools v0.51.0
+2026-11-09T21:51:47.2370137Z go: downloading golang.org/x/exp v0.0.0-20261007192929-f45ad48fbe92
+2026-11-09T21:51:47.3269899Z go: downloading google.golang.org/genproto/googleapis/rpc v0.0.0-20261005182115-fad411399dd8
+2026-11-09T21:51:47.4115078Z go: downloading github.com/grpc-ecosystem/grpc-gateway/v2 v2.31.0
+2026-11-09T21:51:47.4832624Z go: downloading github.com/bsv-blockchain/teranode v0.16.1-beta-1
+2026-11-09T21:51:47.4833397Z go: downloading github.com/libp2p/go-libp2p v0.50.0
+2026-11-09T21:51:47.5456485Z go: downloading github.com/libp2p/go-libp2p-kad-dht v0.42.2
+2026-11-09T21:51:47.5960111Z go: downloading github.com/libp2p/go-libp2p-pubsub v0.18.0
+2026-11-09T21:51:47.6091259Z go: downloading google.golang.org/genproto/googleapis/api v0.0.0-20261005182115-fad411399dd8
+2026-11-09T21:51:47.6093445Z go: downloading golang.org/x/mod v0.41.0
+2026-11-09T21:51:47.6459813Z go: downloading github.com/bsv-blockchain/go-wire v1.4.0
+2026-11-09T21:51:47.6481056Z go: downloading github.com/quic-go/quic-go v0.63.0
+2026-11-09T21:51:47.7260868Z go: downloading github.com/pion/webrtc/v4 v4.2.23
+2026-11-09T21:51:47.7339914Z go: downloading github.com/prometheus/common v0.72.0
+2026-11-09T21:51:47.7776972Z go: downloading github.com/prometheus/procfs v0.22.0
+2026-11-09T21:51:47.7803057Z go: downloading github.com/pion/ice/v4 v4.4.7
+2026-11-09T21:51:47.8100370Z go: downloading github.com/pion/transport/v5 v5.1.1
+2026-11-09T21:51:47.8281940Z go: downloading github.com/klauspost/cpuid/v2 v2.4.0
+2026-11-09T21:51:47.8414219Z go: downloading github.com/pion/dtls/v3 v3.1.10
+2026-11-09T21:51:47.9068933Z go: downloading github.com/pion/interceptor v0.1.49
+2026-11-09T21:51:47.9475818Z go: downloading github.com/pion/rtcp v1.2.19
+2026-11-09T21:51:47.9476268Z go: downloading github.com/pion/rtp v1.10.5
+2026-11-09T21:51:47.9802436Z go: downloading github.com/pion/transport/v4 v4.1.1
+2026-11-09T21:51:48.0170378Z go: downloading github.com/pion/turn/v5 v5.1.2
+2026-11-09T21:51:50.5290019Z go: downloading github.com/bsv-blockchain/go-subtree v1.6.0
+2026-11-09T21:51:50.5297896Z go: downloading github.com/bsv-blockchain/go-tx-map v1.5.0
+2026-11-09T21:51:50.5298313Z go: downloading github.com/twmb/franz-go v1.22.1
+2026-11-09T21:51:50.7370674Z go: downloading github.com/twmb/franz-go/pkg/kmsg v1.14.0
+2026-11-09T21:51:50.7380676Z go: downloading github.com/stretchr/objx v0.5.3
+2026-11-09T21:51:50.7467259Z go: downloading modernc.org/sqlite v1.60.1
+2026-11-09T21:51:50.7658327Z go: downloading k8s.io/api v0.37.1
+2026-11-09T21:51:50.7692838Z go: downloading k8s.io/apimachinery v0.37.1
+2026-11-09T21:51:50.8897716Z go: downloading k8s.io/client-go v0.37.1
+2026-11-09T21:51:51.2806462Z go: downloading github.com/klauspost/compress v1.20.1
+2026-11-09T21:51:51.7569452Z go: downloading github.com/aws/aws-sdk-go-v2 v1.47.2
+2026-11-09T21:51:51.7570218Z go: downloading github.com/aws/aws-sdk-go-v2/config v1.33.8
+2026-11-09T21:51:51.8263926Z go: downloading github.com/aws/aws-sdk-go-v2/feature/s3/transfermanager v0.4.15
+2026-11-09T21:51:51.8267945Z go: downloading github.com/aws/aws-sdk-go-v2/service/s3 v1.114.2
+2026-11-09T21:51:51.9139853Z go: downloading k8s.io/utils v0.0.0-20260707023825-cf1189d6abe3
+2026-11-09T21:51:51.9580343Z go: downloading github.com/aws/smithy-go v1.28.4
+2026-11-09T21:51:52.0300743Z go: downloading github.com/aws/aws-sdk-go-v2/credentials v1.20.8
+2026-11-09T21:51:52.0582363Z go: downloading github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.20.2
+2026-11-09T21:51:52.0583004Z go: downloading github.com/aws/aws-sdk-go-v2/service/signin v1.10.3
+2026-11-09T21:51:52.0583831Z go: downloading github.com/aws/aws-sdk-go-v2/service/sso v1.38.3
+2026-11-09T21:51:52.0584378Z go: downloading github.com/aws/aws-sdk-go-v2/service/ssooidc v1.43.3
+2026-11-09T21:51:52.0852519Z go: downloading github.com/aws/aws-sdk-go-v2/service/sts v1.51.3
+2026-11-09T21:51:52.0886801Z go: downloading github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.7.21
+2026-11-09T21:51:52.0902729Z go: downloading github.com/aws/aws-sdk-go-v2/internal/configsources v1.5.5
+2026-11-09T21:51:52.1142374Z go: downloading github.com/aws/aws-sdk-go-v2/internal/v4a v1.5.5
+2026-11-09T21:51:52.1156282Z go: downloading github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.13.20
+2026-11-09T21:51:52.1156932Z go: downloading github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.11.6
+2026-11-09T21:51:52.1161790Z go: downloading github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.14.5
+2026-11-09T21:51:52.1395469Z go: downloading github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.20.5
+2026-11-09T21:51:52.1432193Z go: downloading github.com/fxamacker/cbor/v2 v2.9.6
+2026-11-09T21:51:52.1434918Z go: downloading modernc.org/libc v1.77.1
+2026-11-09T21:51:52.1649749Z go: downloading github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.8.5
+2026-11-09T21:51:52.1781497Z go: downloading github.com/emicklei/go-restful/v3 v3.13.0
+2026-11-09T21:53:24.6445259Z ok  	github.com/bsv-blockchain/go-wallet-toolbox/pkg/storage	2.452s
+2026-11-09T21:53:35.1227249Z {
+2026-11-09T21:53:35.1227762Z   "schema": "tpnil-storage-portability-go-build@1.0.0",
+2026-11-09T21:53:35.1228145Z   "patchLockSha256": "b9f229391f4fd8a953fd76b6c73cc7585818d91fe6c1802e9fc8667a86c1fcef",
+2026-11-09T21:53:35.1228820Z   "parentPatchLockSha256": "73b327cb785ab061d58678ff6c26eefa46a9aa838d09d5f8bfee50aae3fb4391",
+2026-11-09T21:53:35.1229448Z   "patchSha256": "5e1fff193191565fa0032f2b9954bf07054c9806a78e6103049a14122a947e0c",
+2026-11-09T21:53:35.1229719Z   "upstream": {
+2026-11-09T21:53:35.1229934Z     "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+2026-11-09T21:53:35.1230143Z     "version": "v0.191.4",
+2026-11-09T21:53:35.1230371Z     "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U="
+2026-11-09T21:53:35.1230554Z   },
+2026-11-09T21:53:35.1230828Z   "replacementModule": "/home/runner/work/interop/interop/out/storage-portability-go-source",
+2026-11-09T21:53:35.1231148Z   "toolchain": "go1.27.3",
+2026-11-09T21:53:35.1231503Z   "binarySha256": "2c88361a17a3b5f40f9ccf2ef0346e78d0f553415407f92ecd5974200ee39fe4"
+2026-11-09T21:53:35.1232195Z }
+2026-11-09T21:53:45.7113259Z npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+2026-11-09T21:53:47.1495955Z npm warn deprecated glob@11.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+2026-11-09T21:53:47.1524854Z npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+2026-11-09T21:53:47.1711776Z npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+2026-11-09T21:53:48.9638245Z 
+2026-11-09T21:53:48.9638846Z added 755 packages in 6s
+2026-11-09T21:53:49.5314053Z npm warn rebuild 7 packages have install scripts not yet covered by allowScripts. Run `npm install-scripts ls` to review.
+2026-11-09T21:53:49.5314748Z rebuilt dependencies successfully
+2026-11-09T21:53:51.1525267Z npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+2026-11-09T21:53:51.2877137Z npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+2026-11-09T21:53:51.3229571Z npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2026-11-09T21:53:51.3910605Z npm warn deprecated eslint-config-standard-with-typescript@23.0.0: Please use eslint-config-love, instead.
+2026-11-09T21:53:51.5933879Z npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
+2026-11-09T21:53:51.6059995Z npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
+2026-11-09T21:53:52.6839616Z npm warn deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+2026-11-09T21:53:53.1800727Z 
+2026-11-09T21:53:53.1801284Z added 562 packages in 3s
+2026-11-09T21:53:55.4072907Z all modules verified
+2026-11-09T21:53:55.4399566Z go: downloading firebase.google.com/go/v4 v4.22.0
+2026-11-09T21:53:55.4400084Z go: downloading google.golang.org/api v0.309.0
+2026-11-09T21:53:55.5466150Z go: downloading cloud.google.com/go/firestore v1.26.0
+2026-11-09T21:53:55.6153537Z go: downloading cloud.google.com/go v0.123.0
+2026-11-09T21:53:58.0494003Z go: downloading github.com/googleapis/gax-go/v2 v2.26.2
+2026-11-09T21:53:58.0494928Z go: downloading google.golang.org/genproto v0.0.0-20261012220534-4341edf3f941
+2026-11-09T21:53:58.0499515Z go: downloading github.com/MicahParks/keyfunc v1.9.0
+2026-11-09T21:53:58.0499964Z go: downloading github.com/golang-jwt/jwt/v4 v4.5.2
+2026-11-09T21:53:58.1524285Z go: downloading cloud.google.com/go/storage v1.69.0
+2026-11-09T21:53:58.1542422Z go: downloading cloud.google.com/go/auth v0.24.1
+2026-11-09T21:53:58.1565027Z go: downloading cloud.google.com/go/longrunning v1.3.0
+2026-11-09T21:53:58.2353489Z go: downloading google.golang.org/genproto/googleapis/api v0.0.0-20261012220534-4341edf3f941
+2026-11-09T21:53:58.2597111Z go: downloading google.golang.org/genproto/googleapis/rpc v0.0.0-20261019180522-ce908d29299b
+2026-11-09T21:53:58.2708386Z go: downloading cloud.google.com/go/compute/metadata v0.10.0
+2026-11-09T21:53:58.2849995Z go: downloading cloud.google.com/go/auth/oauth2adapt v0.3.0
+2026-11-09T21:53:58.2981483Z go: downloading github.com/google/s2a-go v0.1.11
+2026-11-09T21:53:58.3351410Z go: downloading cloud.google.com/go/iam v1.14.0
+2026-11-09T21:53:58.4011064Z go: downloading github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/metric v0.62.0
+2026-11-09T21:53:58.4326244Z go: downloading go.opentelemetry.io/contrib/detectors/gcp v1.47.0
+2026-11-09T21:53:58.4360710Z go: downloading github.com/googleapis/enterprise-certificate-proxy v0.3.23
+2026-11-09T21:53:58.4361221Z go: downloading cloud.google.com/go/monitoring v1.31.0
+2026-11-09T21:53:58.4535206Z go: downloading github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping v0.62.0
+2026-11-09T21:53:58.4681535Z go: downloading github.com/envoyproxy/go-control-plane/envoy v1.40.0
+2026-11-09T21:53:58.4860192Z go: downloading github.com/spiffe/go-spiffe/v2 v2.9.0
+2026-11-09T21:53:58.8197819Z go: downloading github.com/cncf/xds/go v0.0.0-20260202195803-dba9d589def2
+2026-11-09T21:53:58.8200636Z go: downloading github.com/go-jose/go-jose/v4 v4.1.8
+2026-11-09T21:53:58.9610565Z go: downloading github.com/envoyproxy/protoc-gen-validate v1.3.3
+2026-11-09T21:53:58.9611329Z go: downloading cel.dev/expr v0.25.3
+2026-11-09T21:54:17.6342261Z Prepared pinned TS/Go Message Box and discovery components.
+2026-11-09T21:54:17.6661188Z ##[group]Run npm test --prefix synthesis -- native-shutdown-submissions.test.ts
+2026-11-09T21:54:17.6661532Z [36;1mnpm test --prefix synthesis -- native-shutdown-submissions.test.ts[0m
+2026-11-09T21:54:17.6690554Z shell: /usr/bin/bash -e {0}
+2026-11-09T21:54:17.6690698Z env:
+2026-11-09T21:54:17.6690810Z   GOTOOLCHAIN: local
+2026-11-09T21:54:17.6690934Z ##[endgroup]
+2026-11-09T21:54:17.7324310Z 
+2026-11-09T21:54:17.7324771Z > @tpnil/synthesis@0.1.0 test
+2026-11-09T21:54:17.7325105Z > vitest run native-shutdown-submissions.test.ts
+2026-11-09T21:54:17.7325248Z 
+2026-11-09T21:54:17.8957385Z 
+2026-11-09T21:54:17.8960186Z [1m[30m[46m RUN [49m[39m[22m [36mv4.1.12 [39m[90m/home/runner/work/interop/interop/synthesis[39m
+2026-11-09T21:54:18.3482610Z 
+2026-11-09T21:54:18.3483320Z [90mstdout[2m | test/native-shutdown-submissions.test.ts
+2026-11-09T21:54:18.3484080Z [22m[39m◇ injected env (0) from .env // tip: ⌘ suppress logs { quiet: true }
+2026-11-09T21:54:18.3484536Z ◇ injected env (0) from .env // tip: ⌘ suppress logs { quiet: true }
+2026-11-09T21:54:18.3484701Z 
+2026-11-09T21:54:29.4211690Z [90mstdout[2m | test/native-shutdown-submissions.test.ts[2m > [22m[2mretains actual typescript counterpart arrays after service ownership maps are retired
+2026-11-09T21:54:29.4212674Z [22m[39mWalletStorageServer listening at http://127.0.0.1:37675
+2026-11-09T21:54:29.4212918Z 
+2026-11-09T21:54:29.4223118Z [90mstdout[2m | test/native-shutdown-submissions.test.ts[2m > [22m[2mretains actual typescript counterpart arrays after service ownership maps are retired
+2026-11-09T21:54:29.4224020Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:54:29.4224451Z 
+2026-11-09T21:54:29.4729979Z [90mstdout[2m | test/native-shutdown-submissions.test.ts[2m > [22m[2mretains actual typescript counterpart arrays after service ownership maps are retired
+2026-11-09T21:54:29.4731149Z [22m[39mhttps server started on 44989
+2026-11-09T21:54:29.4731650Z 
+2026-11-09T21:54:30.6571730Z [90mstdout[2m | test/native-shutdown-submissions.test.ts[2m > [22m[2mretains actual typescript counterpart arrays after service ownership maps are retired
+2026-11-09T21:54:30.6572757Z [22m[39mWalletStorageServer listening at http://127.0.0.1:42321
+2026-11-09T21:54:30.6573001Z 
+2026-11-09T21:54:30.6582668Z [90mstdout[2m | test/native-shutdown-submissions.test.ts[2m > [22m[2mretains actual typescript counterpart arrays after service ownership maps are retired
+2026-11-09T21:54:30.6583726Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:54:30.6584101Z 
+2026-11-09T21:54:30.7100363Z [90mstdout[2m | test/native-shutdown-submissions.test.ts[2m > [22m[2mretains actual typescript counterpart arrays after service ownership maps are retired
+2026-11-09T21:54:30.7101333Z [22m[39mhttps server started on 38781
+2026-11-09T21:54:30.7101702Z 
+2026-11-09T21:54:30.9465453Z [90mstdout[2m | test/native-shutdown-submissions.test.ts[2m > [22m[2mretains actual go counterpart arrays after service ownership maps are retired
+2026-11-09T21:54:30.9466214Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:54:30.9466364Z 
+2026-11-09T21:54:31.0138919Z [90mstdout[2m | test/native-shutdown-submissions.test.ts[2m > [22m[2mretains actual go counterpart arrays after service ownership maps are retired
+2026-11-09T21:54:31.0139685Z [22m[39mhttps server started on 39225
+2026-11-09T21:54:31.0139877Z 
+2026-11-09T21:54:31.2471000Z [90mstdout[2m | test/native-shutdown-submissions.test.ts[2m > [22m[2mretains actual go counterpart arrays after service ownership maps are retired
+2026-11-09T21:54:31.2471977Z [22m[39mSNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:54:31.2472218Z 
+2026-11-09T21:54:31.3118511Z [90mstdout[2m | test/native-shutdown-submissions.test.ts[2m > [22m[2mretains actual go counterpart arrays after service ownership maps are retired
+2026-11-09T21:54:31.3118990Z [22m[39mhttps server started on 39299
+2026-11-09T21:54:31.3119104Z 
+2026-11-09T21:54:32.4602847Z  [32m✓[39m test/native-shutdown-submissions.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 14030[2mms[22m[39m
+2026-11-09T21:54:32.4643103Z    [33m[2m✓[22m[39m awaits each cleanup stage and retains late provider-local suffixes without changing immutable global/module prefixes [33m 1046[2mms[22m[39m
+2026-11-09T21:54:32.4649126Z    [33m[2m✓[22m[39m rejects delayed denied payments under every verdict: ACCEPTED_BY_NETWORK [33m 1880[2mms[22m[39m
+2026-11-09T21:54:32.4650078Z    [33m[2m✓[22m[39m rejects delayed denied payments under every verdict: REJECTED [33m 1910[2mms[22m[39m
+2026-11-09T21:54:32.4650974Z    [33m[2m✓[22m[39m rejects delayed denied payments under every verdict: REJECTED_INVALID_TX [33m 1855[2mms[22m[39m
+2026-11-09T21:54:32.4651846Z    [33m[2m✓[22m[39m rejects delayed denied payments under every verdict: UNKNOWN [33m 1899[2mms[22m[39m
+2026-11-09T21:54:32.4652833Z    [33m[2m✓[22m[39m rejects a delayed repeat of the approved payment outside the exact original grant window [33m 954[2mms[22m[39m
+2026-11-09T21:54:32.4653856Z    [33m[2m✓[22m[39m rejects rebound metadata, clipped prefixes, incomplete provenance and premature capture [33m 1079[2mms[22m[39m
+2026-11-09T21:54:32.4654874Z    [33m[2m✓[22m[39m retains actual typescript counterpart arrays after service ownership maps are retired [33m 1655[2mms[22m[39m
+2026-11-09T21:54:32.4655862Z    [33m[2m✓[22m[39m retains actual go counterpart arrays after service ownership maps are retired [33m 613[2mms[22m[39m
+2026-11-09T21:54:32.4656859Z    [33m[2m✓[22m[39m does not reclassify a same-script5sat receipt before the permission module began [33m 1126[2mms[22m[39m
+2026-11-09T21:54:32.4657286Z 
+2026-11-09T21:54:32.4657581Z [2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+2026-11-09T21:54:32.4658206Z [2m      Tests [22m [1m[32m11 passed[39m[22m[90m (11)[39m
+2026-11-09T21:54:32.4658601Z [2m   Start at [22m 21:54:17
+2026-11-09T21:54:32.4659221Z [2m   Duration [22m 14.56s[2m (transform 83ms, setup 0ms, import 447ms, tests 14.03s, environment 0ms)[22m
+2026-11-09T21:54:32.4659580Z 
+2026-11-09T21:54:32.5284066Z ##[group]Run npm test --prefix components/transport
+2026-11-09T21:54:32.5284305Z [36;1mnpm test --prefix components/transport[0m
+2026-11-09T21:54:32.5284491Z [36;1mnpm test --prefix integrations/services[0m
+2026-11-09T21:54:32.5284751Z [36;1mRUSTUP_TOOLCHAIN=1.88.0 cargo test --locked --manifest-path components/rust/Cargo.toml[0m
+2026-11-09T21:54:32.5301139Z shell: /usr/bin/bash -e {0}
+2026-11-09T21:54:32.5301277Z env:
+2026-11-09T21:54:32.5301381Z   GOTOOLCHAIN: local
+2026-11-09T21:54:32.5301499Z ##[endgroup]
+2026-11-09T21:54:32.5905356Z 
+2026-11-09T21:54:32.5905603Z > test
+2026-11-09T21:54:32.5905875Z > node --test test/*.test.mjs
+2026-11-09T21:54:32.5906021Z 
+2026-11-09T21:54:33.0981590Z ✔ published relay and pairing clients enforce the complete protocol boundary (199.265414ms)
+2026-11-09T21:54:33.1201983Z ✔ separate processes admit exactly one claim and preserve it after restart (75.222145ms)
+2026-11-09T21:54:33.1202490Z ✔ expiry, inclusive boundary, capacity and invalid values fail closed (0.798111ms)
+2026-11-09T21:54:33.1204073Z ℹ tests 3
+2026-11-09T21:54:33.1204266Z ℹ suites 0
+2026-11-09T21:54:33.1204448Z ℹ pass 3
+2026-11-09T21:54:33.1204620Z ℹ fail 0
+2026-11-09T21:54:33.1204795Z ℹ cancelled 0
+2026-11-09T21:54:33.1205232Z ℹ skipped 0
+2026-11-09T21:54:33.1205470Z ℹ todo 0
+2026-11-09T21:54:33.1205691Z ℹ duration_ms 506.224421
+2026-11-09T21:54:33.1850867Z 
+2026-11-09T21:54:33.1851173Z > @tpnil/services-integration@0.1.0 test
+2026-11-09T21:54:33.1851538Z > node --import tsx --test test/*.test.ts
+2026-11-09T21:54:33.1851656Z 
+2026-11-09T21:54:34.5099871Z ◇ injected env (0) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+2026-11-09T21:54:34.5109130Z ◇ injected env (0) from .env // tip: ⌘ enable debugging { debug: true }
+2026-11-09T21:54:34.9285857Z WalletStorageServer listening at http://127.0.0.1:43477
+2026-11-09T21:54:34.9290765Z SNI enabled. Clients not supporting SNI may fail
+2026-11-09T21:54:34.9954882Z https server started on 46657
+2026-11-09T21:54:35.2337796Z ✔ zero-prefix fixture passes actual Toolbox 2.13 public certificate operations and strict SDK4 disclosure (676.459825ms)
+2026-11-09T21:54:35.2717339Z ✔ outpoint-node duplication is removed while genuine conflicting transactions remain rejected (6.611077ms)
+2026-11-09T21:54:35.2718410Z ✔ LCH boundary derives the same real BRC-29 key on both sides and canonicalizes remittance (31.280591ms)
+2026-11-09T21:54:35.2719288Z ✔ joined real Go storage result verifies signed receipts, transactions, content and overlay evidence offline (139.986341ms)
+2026-11-09T21:54:35.2719958Z ✔ forged receipt cannot retain a successful native-synthesis result (70.236452ms)
+2026-11-09T21:54:35.2720352Z ✔ forged plaintext cannot retain a successful native-synthesis result (58.337027ms)
+2026-11-09T21:54:35.2720759Z ✔ forged replica cannot retain a successful native-synthesis result (84.815454ms)
+2026-11-09T21:54:35.2721123Z ✔ forged recipient cannot retain a successful native-synthesis result (57.774675ms)
+2026-11-09T21:54:35.2721517Z ✔ retained real service evidence passes its independent semantic checks (37.671693ms)
+2026-11-09T21:54:35.2721915Z ✔ a forged passing lookup cannot substitute an already synchronized payload (18.108456ms)
+2026-11-09T21:54:35.2722539Z ✔ altered header still fails after its evidence digest is rebound (6.706971ms)
+2026-11-09T21:54:35.2723074Z ✔ altered issuer signature still fails after its evidence digest is rebound (10.657415ms)
+2026-11-09T21:54:35.2723505Z ✔ omitted source provenance cannot retain PASS (4.986472ms)
+2026-11-09T21:54:35.2723957Z ✔ incomplete cleanup cannot retain PASS (21.567113ms)
+2026-11-09T21:54:35.2724228Z ℹ tests 14
+2026-11-09T21:54:35.2724415Z ℹ suites 0
+2026-11-09T21:54:35.2724596Z ℹ pass 14
+2026-11-09T21:54:35.2724775Z ℹ fail 0
+2026-11-09T21:54:35.2724984Z ℹ cancelled 0
+2026-11-09T21:54:35.2725174Z ℹ skipped 0
+2026-11-09T21:54:35.2725351Z ℹ todo 0
+2026-11-09T21:54:35.2725573Z ℹ duration_ms 2063.796294
+2026-11-09T21:54:35.3075078Z     Updating git repository `https://github.com/bsv-blockchain/rs-sdk.git`
+2026-11-09T21:54:36.3855998Z     Updating crates.io index
+2026-11-09T21:54:36.4961635Z  Downloading crates ...
+2026-11-09T21:54:36.5807012Z   Downloaded hex v0.4.3
+2026-11-09T21:54:36.5849822Z   Downloaded itoa v1.0.18
+2026-11-09T21:54:36.5899769Z   Downloaded cfg-if v1.0.5
+2026-11-09T21:54:36.5909375Z   Downloaded equivalent v1.0.3
+2026-11-09T21:54:36.5928142Z   Downloaded quote v1.0.47
+2026-11-09T21:54:36.5948078Z   Downloaded getrandom v0.2.17
+2026-11-09T21:54:36.5969766Z   Downloaded thiserror-impl v2.0.21
+2026-11-09T21:54:36.5980413Z   Downloaded indexmap v2.14.2
+2026-11-09T21:54:36.6012446Z   Downloaded thiserror v2.0.21
+2026-11-09T21:54:36.6058466Z   Downloaded unicode-ident v1.0.27
+2026-11-09T21:54:36.6078920Z   Downloaded ryu v1.0.23
+2026-11-09T21:54:36.6101290Z   Downloaded serde_core v1.0.229
+2026-11-09T21:54:36.6121081Z   Downloaded memchr v2.8.3
+2026-11-09T21:54:36.6159383Z   Downloaded proc-macro2 v1.0.107
+2026-11-09T21:54:36.6180168Z   Downloaded async-trait v0.1.92
+2026-11-09T21:54:36.6205875Z   Downloaded serde_json v1.0.145
+2026-11-09T21:54:36.6256620Z   Downloaded hashbrown v0.17.1
+2026-11-09T21:54:36.6293971Z   Downloaded syn v3.0.9
+2026-11-09T21:54:36.6374768Z   Downloaded libc v0.2.191
+2026-11-09T21:54:36.6809821Z    Compiling proc-macro2 v1.0.107
+2026-11-09T21:54:36.6810244Z    Compiling quote v1.0.47
+2026-11-09T21:54:36.6811749Z    Compiling unicode-ident v1.0.27
+2026-11-09T21:54:36.6812063Z    Compiling serde_core v1.0.229
+2026-11-09T21:54:36.7292208Z    Compiling libc v0.2.191
+2026-11-09T21:54:36.8527885Z    Compiling serde_json v1.0.145
+2026-11-09T21:54:36.9775365Z    Compiling thiserror v2.0.21
+2026-11-09T21:54:37.4326469Z    Compiling syn v3.0.9
+2026-11-09T21:54:37.4548911Z    Compiling hashbrown v0.17.1
+2026-11-09T21:54:37.8743201Z    Compiling itoa v1.0.18
+2026-11-09T21:54:37.9143304Z    Compiling memchr v2.8.3
+2026-11-09T21:54:37.9809034Z    Compiling cfg-if v1.0.5
+2026-11-09T21:54:38.0019135Z    Compiling equivalent v1.0.3
+2026-11-09T21:54:38.0251212Z    Compiling ryu v1.0.23
+2026-11-09T21:54:38.1178980Z    Compiling getrandom v0.2.17
+2026-11-09T21:54:38.2054441Z    Compiling hex v0.4.3
+2026-11-09T21:54:38.3749124Z    Compiling indexmap v2.14.2
+2026-11-09T21:54:39.3598573Z    Compiling thiserror-impl v2.0.21
+2026-11-09T21:54:39.3598875Z    Compiling async-trait v0.1.92
+2026-11-09T21:54:39.9570491Z    Compiling bsv-sdk v0.8.1 (https://github.com/bsv-blockchain/rs-sdk.git?rev=99d2313f2ede48a465aa8be1907d26d098aac8fd#99d2313f)
+2026-11-09T21:54:42.3033543Z    Compiling tpnil-rust-participant v0.1.0 (/home/runner/work/interop/interop/components/rust)
+2026-11-09T21:54:42.6414353Z     Finished `test` profile [unoptimized + debuginfo] target(s) in 7.35s
+2026-11-09T21:54:42.6486204Z      Running unittests src/main.rs (components/rust/target/debug/deps/tpnil_rust_participant-e55798dbf5c724a9)
+2026-11-09T21:54:42.6496244Z 
+2026-11-09T21:54:42.6496331Z running 1 test
+2026-11-09T21:54:42.6498973Z test tests::repeated_outpoint_cannot_inflate_input_value ... ok
+2026-11-09T21:54:42.6499241Z 
+2026-11-09T21:54:42.6499603Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-11-09T21:54:42.6499912Z 
+2026-11-09T21:54:42.6573572Z ##[group]Run node scripts/run-integrated-lab.mjs out/integrated-lab
+2026-11-09T21:54:42.6573864Z [36;1mnode scripts/run-integrated-lab.mjs out/integrated-lab[0m
+2026-11-09T21:54:42.6590546Z shell: /usr/bin/bash -e {0}
+2026-11-09T21:54:42.6590683Z env:
+2026-11-09T21:54:42.6590791Z   GOTOOLCHAIN: local
+2026-11-09T21:54:42.6590922Z   RUSTUP_TOOLCHAIN: 1.88.0
+2026-11-09T21:54:42.6591055Z ##[endgroup]
+2026-11-09T21:54:42.6978609Z [integrated-lab] storage-sync: starting
+2026-11-09T21:55:03.3835531Z [integrated-lab] storage-sync: exit 0; 88 observations
+2026-11-09T21:55:03.3835849Z [integrated-lab] overlay-identity-1: starting
+2026-11-09T21:55:12.0488942Z [integrated-lab] overlay-identity-1: exit 0; 14 observations
+2026-11-09T21:55:12.0495625Z [integrated-lab] overlay-identity-2: starting
+2026-11-09T21:55:17.5019474Z [integrated-lab] overlay-identity-2: exit 0; 14 observations
+2026-11-09T21:55:17.5019955Z [integrated-lab] messaging-1: starting
+2026-11-09T21:55:41.7748816Z [integrated-lab] messaging-1: exit 0; 41 observations
+2026-11-09T21:55:41.7749247Z [integrated-lab] messaging-2: starting
+2026-11-09T21:55:53.1651786Z [integrated-lab] messaging-2: exit 0; 41 observations
+2026-11-09T21:55:53.1652141Z [integrated-lab] transport-typescript-1: starting
+2026-11-09T21:55:55.4442734Z [integrated-lab] transport-typescript-1: exit 0; 17 observations
+2026-11-09T21:55:55.4443084Z [integrated-lab] transport-typescript-2: starting
+2026-11-09T21:55:57.6741645Z [integrated-lab] transport-typescript-2: exit 0; 17 observations
+2026-11-09T21:55:57.6742166Z [integrated-lab] transport-go-1: starting
+2026-11-09T21:55:59.7045459Z [integrated-lab] transport-go-1: exit 0; 17 observations
+2026-11-09T21:55:59.7045938Z [integrated-lab] transport-go-2: starting
+2026-11-09T21:56:01.7936224Z [integrated-lab] transport-go-2: exit 0; 17 observations
+2026-11-09T21:56:01.7936769Z [integrated-lab] boundary-typescript-1: starting
+2026-11-09T21:56:05.1187511Z [integrated-lab] boundary-typescript-1: exit 0; 43 observations
+2026-11-09T21:56:05.1188081Z [integrated-lab] boundary-typescript-2: starting
+2026-11-09T21:56:08.4222606Z [integrated-lab] boundary-typescript-2: exit 0; 43 observations
+2026-11-09T21:56:08.4223112Z [integrated-lab] boundary-go-1: starting
+2026-11-09T21:56:11.5505664Z [integrated-lab] boundary-go-1: exit 0; 43 observations
+2026-11-09T21:56:11.5505979Z [integrated-lab] boundary-go-2: starting
+2026-11-09T21:56:14.6618221Z [integrated-lab] boundary-go-2: exit 0; 43 observations
+2026-11-09T21:56:14.6618670Z [integrated-lab] rust-1: starting
+2026-11-09T21:56:15.6107500Z [integrated-lab] rust-1: exit 0; 36 observations
+2026-11-09T21:56:15.6108175Z [integrated-lab] rust-2: starting
+2026-11-09T21:56:16.0638188Z [integrated-lab] rust-2: exit 0; 36 observations
+2026-11-09T21:56:16.1076845Z node:internal/modules/run_main:107
+2026-11-09T21:56:16.1077317Z     triggerUncaughtException(
+2026-11-09T21:56:16.1077552Z     ^
+2026-11-09T21:56:16.1077804Z 
+2026-11-09T21:56:16.1078148Z AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+2026-11-09T21:56:16.1078438Z 
+2026-11-09T21:56:16.1078641Z   assert.ok(report.repeatability.every(x=>x.matches))
+2026-11-09T21:56:16.1078857Z 
+2026-11-09T21:56:16.1079302Z     at verifyIntegrated (file:///home/runner/work/interop/interop/scripts/integrated-evidence.mjs:60:16)
+2026-11-09T21:56:16.1080007Z     at file:///home/runner/work/interop/interop/scripts/run-integrated-lab.mjs:57:16
+2026-11-09T21:56:16.1080702Z     at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+2026-11-09T21:56:16.1081127Z   generatedMessage: true,
+2026-11-09T21:56:16.1081376Z   code: 'ERR_ASSERTION',
+2026-11-09T21:56:16.1081603Z   actual: false,
+2026-11-09T21:56:16.1081821Z   expected: true,
+2026-11-09T21:56:16.1082031Z   operator: '==',
+2026-11-09T21:56:16.1082226Z   diff: 'simple'
+2026-11-09T21:56:16.1082405Z }
+2026-11-09T21:56:16.1082499Z 
+2026-11-09T21:56:16.1082582Z Node.js v24.22.1
+2026-11-09T21:56:16.1168984Z ##[error]Process completed with exit code 1.
+2026-11-09T21:56:16.1251691Z ##[group]Run actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+2026-11-09T21:56:16.1251926Z with:
+2026-11-09T21:56:16.1252046Z   name: descendant-storage-sync
+2026-11-09T21:56:16.1252201Z   path: out/descendant-storage-sync
+2026-11-09T21:56:16.1252355Z   if-no-files-found: warn
+2026-11-09T21:56:16.1252484Z   retention-days: 90
+2026-11-09T21:56:16.1252610Z   compression-level: 6
+2026-11-09T21:56:16.1252736Z   overwrite: false
+2026-11-09T21:56:16.1252859Z   include-hidden-files: false
+2026-11-09T21:56:16.1252994Z env:
+2026-11-09T21:56:16.1253098Z   GOTOOLCHAIN: local
+2026-11-09T21:56:16.1253230Z ##[endgroup]
+2026-11-09T21:56:16.2448425Z (node:18723) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-09T21:56:16.2449240Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-09T21:56:16.2479373Z ##[warning]No files were found with the provided path: out/descendant-storage-sync. No artifacts will be uploaded.
+2026-11-09T21:56:16.2614154Z ##[group]Run actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+2026-11-09T21:56:16.2614394Z with:
+2026-11-09T21:56:16.2614516Z   name: integrated-lab
+2026-11-09T21:56:16.2614651Z   path: out/integrated-lab
+2026-11-09T21:56:16.2614794Z   if-no-files-found: warn
+2026-11-09T21:56:16.2614927Z   retention-days: 7
+2026-11-09T21:56:16.2615049Z   compression-level: 6
+2026-11-09T21:56:16.2615176Z   overwrite: false
+2026-11-09T21:56:16.2615299Z   include-hidden-files: false
+2026-11-09T21:56:16.2615436Z env:
+2026-11-09T21:56:16.2615545Z   GOTOOLCHAIN: local
+2026-11-09T21:56:16.2615819Z ##[endgroup]
+2026-11-09T21:56:16.3817487Z (node:18736) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-09T21:56:16.3818459Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-09T21:56:16.3997270Z With the provided path, there will be 140 files uploaded
+2026-11-09T21:56:16.4000934Z Artifact name is valid!
+2026-11-09T21:56:16.4001204Z Root directory input is valid!
+2026-11-09T21:56:16.7672927Z Beginning upload of artifact content to blob storage
+2026-11-09T21:56:16.9909932Z (node:18736) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-09T21:56:17.8346377Z Uploaded bytes 1830338
+2026-11-09T21:56:17.9116103Z Finished uploading artifact content to blob storage!
+2026-11-09T21:56:17.9116745Z SHA256 digest of uploaded artifact zip is aa8c3b2787a73e08ec60c97564f746ae8bf3c291e0ffa7c2d4ed3434b8693ce0
+2026-11-09T21:56:17.9117308Z Finalizing artifact upload
+2026-11-09T21:56:18.3446453Z Artifact integrated-lab.zip successfully finalized. Artifact ID 13714116905
+2026-11-09T21:56:18.3447311Z Artifact integrated-lab has been successfully uploaded! Final size is 1830338 bytes. Artifact ID is 13714116905
+2026-11-09T21:56:18.3451913Z Artifact download URL: https://github.com/p2ppsr/interop/actions/runs/42706097914/artifacts/13714116905
+2026-11-09T21:56:18.3689859Z Post job cleanup.
+2026-11-09T21:56:18.4284694Z [command]/usr/bin/git version
+2026-11-09T21:56:18.4315891Z git version 2.56.0
+2026-11-09T21:56:18.4339752Z Temporarily overriding HOME='/home/runner/work/_temp/1182d914-bfa8-4516-a66e-9a1bc06269f7' before making global git config changes
+2026-11-09T21:56:18.4340590Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-09T21:56:18.4343672Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/interop/interop
+2026-11-09T21:56:18.4374414Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-09T21:56:18.4401684Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-09T21:56:18.4598767Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-09T21:56:18.4626620Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-09T21:56:18.4814238Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-09T21:56:18.4841104Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-09T21:56:18.5151017Z Cleaning up orphan processes
+2026-11-09T21:56:18.5523869Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020, actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

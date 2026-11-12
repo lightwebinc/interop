@@ -33,12 +33,12 @@ export function validateGoBuild(build: GoBuild): void {
   }
 }
 
-export function validateStorageSyncGoBuild(build: GoBuild, binarySha256: string, manifest: Record<string, unknown>): void {
-  const lockBytes = fs.readFileSync(fileURLToPath(new URL('../../../infra/adapters/storage-sync/patch.lock.json', import.meta.url)))
-  const lock = JSON.parse(lockBytes.toString()) as { module: string; version: string; sum: string; patchSha256: string }
+export function validateStorageSyncGoBuild(build: GoBuild, binarySha256: string, manifest: Record<string, unknown>, portability = false): void {
+  const lockBytes = fs.readFileSync(fileURLToPath(new URL(portability ? '../../../infra/adapters/storage-portability/patch.lock.json' : '../../../infra/adapters/storage-sync/patch.lock.json', import.meta.url)))
+  const lock = JSON.parse(lockBytes.toString()) as { module: string; version: string; sum: string; patchSha256: string; parentSha256?: string }
   const expectedUpstream = { module: lock.module, version: lock.version, sum: lock.sum }
-  if (manifest.schema !== 'tpnil-storage-sync-go-build@1.0.0' || manifest.binarySha256 !== binarySha256 ||
-      manifest.patchLockSha256 !== createHash('sha256').update(lockBytes).digest('hex') || manifest.patchSha256 !== lock.patchSha256 ||
+  if (manifest.schema !== (portability ? 'tpnil-storage-portability-go-build@1.0.0' : 'tpnil-storage-sync-go-build@1.0.0') || manifest.binarySha256 !== binarySha256 ||
+      (portability && manifest.parentPatchLockSha256 !== lock.parentSha256) || manifest.patchLockSha256 !== createHash('sha256').update(lockBytes).digest('hex') || manifest.patchSha256 !== lock.patchSha256 ||
       manifest.toolchain !== componentLock.toolchain || canonicalJson(manifest.upstream) !== canonicalJson(expectedUpstream) ||
       typeof manifest.replacementModule !== 'string' || !path.isAbsolute(manifest.replacementModule))
     throw new Error('Storage sync compatibility build manifest differs from frozen inputs')
@@ -60,6 +60,10 @@ export interface GoServiceOptions {
   mongoUri?: string
   /** Separate prospective storage-sync build; historical native profiles reject it. */
   storageSyncPatch?: boolean
+  /** Prospective native recipient-ancestry export closure; separately pinned. */
+  storagePortabilityPatch?: boolean
+  /** Prospective ITCVE-1.4 fixture semantics, never implicit in old profiles. */
+  terminalRejectionReceipts?: boolean
 }
 export function selectComponents(value: ComponentSelection = {}): Required<ComponentSelection> {
   if (value === null || typeof value !== 'object' || Array.isArray(value)) throw new Error('Invalid component selection')
@@ -69,21 +73,24 @@ export function selectComponents(value: ComponentSelection = {}): Required<Compo
   }
   return { overlay: 'typescript', chaintracks: 'typescript', storage: 'typescript', ...value }
 }
-export function validateComponentIdentity(value: Record<string, unknown>, profile?: 'ITCVE-1@1.3.0'): void {
+export function validateComponentIdentity(value: Record<string, unknown>, profile?: 'ITCVE-1@1.3.0' | 'ITCVE-1@1.4.0' | 'ITCVE-1@1.5.0' | 'ITCVE-1@2.0.0'): void {
   const components = selectComponents(value.components as ComponentSelection)
   if (!Object.values(components).includes('go')) throw new Error('Go profile omitted Go selection')
   const go = value.go as Record<string, unknown> | undefined
   if (go?.schema !== 'tpnil-go-services@1.0.0' || canonicalJson(go.components) !== canonicalJson(components) ||
       typeof go.binarySha256 !== 'string' || !/^[a-f0-9]{64}$/.test(go.binarySha256) ||
-      (profile !== 'ITCVE-1@1.3.0' && go.compatibilityPatch !== undefined) ||
+      (!['ITCVE-1@1.3.0', 'ITCVE-1@1.4.0', 'ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(profile ?? '') && go.compatibilityPatch !== undefined) ||
+      (['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(profile ?? '') ? go.fixtureSubmissionPolicy !== 'terminal-rejection-v1' : go.fixtureSubmissionPolicy !== undefined) ||
       go.goModSha256 !== componentLock.moduleFiles['go.mod'] || go.goSumSha256 !== componentLock.moduleFiles['go.sum'] ||
       canonicalJson(go.dependencies) !== canonicalJson(componentLock))
     throw new Error('Go service component identity is incomplete or differs from lock')
-  if (profile === 'ITCVE-1@1.3.0') {
+  if (profile === 'ITCVE-1@1.3.0' || ['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(profile ?? '')) {
     const manifest = go.compatibilityPatch as Record<string, unknown> | undefined
-    const bytes = fs.readFileSync(fileURLToPath(new URL('../../../infra/adapters/storage-sync/patch.lock.json', import.meta.url)))
+    const portability = ['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(profile ?? '') && manifest?.schema === 'tpnil-storage-portability-go-build@1.0.0'
+    if (['ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(profile ?? '') && !portability) throw new Error('Native coverage requires the ancestry export compatibility build')
+    const bytes = fs.readFileSync(fileURLToPath(new URL(portability ? '../../../infra/adapters/storage-portability/patch.lock.json' : '../../../infra/adapters/storage-sync/patch.lock.json', import.meta.url)))
     const lock = JSON.parse(bytes.toString())
-    if (manifest?.schema !== 'tpnil-storage-sync-go-build@1.0.0' || manifest.binarySha256 !== go.binarySha256 || manifest.patchLockSha256 !== createHash('sha256').update(bytes).digest('hex') || manifest.patchSha256 !== lock.patchSha256 || manifest.toolchain !== componentLock.toolchain || canonicalJson(manifest.upstream) !== canonicalJson({ module: lock.module, version: lock.version, sum: lock.sum }))
+    if (manifest?.schema !== (portability ? 'tpnil-storage-portability-go-build@1.0.0' : 'tpnil-storage-sync-go-build@1.0.0') || manifest.binarySha256 !== go.binarySha256 || (portability && manifest.parentPatchLockSha256 !== lock.parentSha256) || manifest.patchLockSha256 !== createHash('sha256').update(bytes).digest('hex') || manifest.patchSha256 !== lock.patchSha256 || manifest.toolchain !== componentLock.toolchain || canonicalJson(manifest.upstream) !== canonicalJson({ module: lock.module, version: lock.version, sum: lock.sum }))
       throw new Error('Integrated native compatibility identity differs from its pinned source')
   }
 }
@@ -105,10 +112,11 @@ export class GoServices {
     this.binary = path.resolve(options.binary ?? process.env.TPNIL_GO_BINARY ?? fileURLToPath(new URL('../../../out/itcve-go-services', import.meta.url)))
   }
   get identity(): Record<string, unknown> {
-    return { schema: 'tpnil-go-services@1.0.0', ...(this.compatibilityPatch === undefined ? {} : { compatibilityPatch: this.compatibilityPatch }), components: this.components, binarySha256: this.executableSha256, dependencies: componentLock, goModSha256: createHash('sha256').update(fs.readFileSync(fileURLToPath(new URL('../../go/go.mod', import.meta.url)))).digest('hex'), goSumSha256: createHash('sha256').update(fs.readFileSync(fileURLToPath(new URL('../../go/go.sum', import.meta.url)))).digest('hex') }
+    return { schema: 'tpnil-go-services@1.0.0', ...(this.compatibilityPatch === undefined ? {} : { compatibilityPatch: this.compatibilityPatch }), ...(this.options.terminalRejectionReceipts ? { fixtureSubmissionPolicy: 'terminal-rejection-v1' } : {}), components: this.components, binarySha256: this.executableSha256, dependencies: componentLock, goModSha256: createHash('sha256').update(fs.readFileSync(fileURLToPath(new URL('../../go/go.mod', import.meta.url)))).digest('hex'), goSumSha256: createHash('sha256').update(fs.readFileSync(fileURLToPath(new URL('../../go/go.sum', import.meta.url)))).digest('hex') }
   }
   async start(fixtures: string, rootKey: string): Promise<void> {
     const args = ['--state', this.state, '--fixtures', fixtures, '--control-token', this.token, '--root-key', rootKey]
+    if (this.options.terminalRejectionReceipts) args.push('--terminal-rejection-receipts')
     if (this.components.storage === 'go') args.push('--storage')
     if (this.components.overlay === 'go') {
       const mongo = this.options.mongoUri ?? process.env.TPNIL_GO_MONGO_URI
@@ -118,7 +126,7 @@ export class GoServices {
     this.origin = ''
     this.stderr = ''
     this.executableSha256 = createHash('sha256').update(fs.readFileSync(this.binary)).digest('hex')
-    if (this.options.storageSyncPatch) {
+    if (this.options.storageSyncPatch || this.options.storagePortabilityPatch) {
       this.compatibilityPatch = JSON.parse(fs.readFileSync(`${this.binary}.json`, 'utf8')) as Record<string, unknown>
     }
     const child = spawn(this.binary, args, { stdio: ['ignore', 'pipe', 'pipe'] })
@@ -141,7 +149,7 @@ export class GoServices {
             if (message.schema !== 'tpnil-go-services@1.0.0') continue
             try {
               if (this.compatibilityPatch === undefined) validateGoBuild(message)
-              else validateStorageSyncGoBuild(message, this.executableSha256, this.compatibilityPatch)
+              else validateStorageSyncGoBuild(message, this.executableSha256, this.compatibilityPatch, this.options.storagePortabilityPatch)
             } catch (error) { return failed(error as Error) }
             const url = new URL(message.origin!)
             if (url.protocol !== 'http:' || url.hostname !== '127.0.0.1' || !url.port) return failed(new Error('Invalid Go service origin'))

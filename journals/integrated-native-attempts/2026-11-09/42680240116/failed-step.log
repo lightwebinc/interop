@@ -1,0 +1,53 @@
+all-go-native	Execute and independently verify the integrated native wallet graph	﻿2026-11-09T19:12:50.4025258Z ##[group]Run native_flag=--integrated
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:12:50.4025561Z [36;1mnative_flag=--integrated[0m
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:12:50.4025900Z [36;1mnative_image=tpnil-native-integrated:3f9cbead7c05a17b663f9c2c52b93abdf04eac69[0m
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:12:50.4026415Z [36;1mif [ "$TPNIL_NATIVE_PROFILE" = integrated-native-trusted ]; then native_flag=--integrated-trusted; fi[0m
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:12:50.4027153Z [36;1mif [ "$TPNIL_NATIVE_PROFILE" = integrated-native-conformance ]; then native_flag=--conformance; native_image=tpnil-native-conformance:3f9cbead7c05a17b663f9c2c52b93abdf04eac69; fi[0m
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:12:50.4027894Z [36;1mnode scripts/run-native-go-wallet.mjs "$native_image" out/native-go-wallet "$native_flag"[0m
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:12:50.4028345Z [36;1mnode scripts/verify-native-integrated.mjs out/native-go-wallet[0m
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:12:50.4046459Z shell: /usr/bin/bash -e {0}
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:12:50.4046675Z env:
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:12:50.4047014Z   GOTOOLCHAIN: local
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:12:50.4047207Z   RUSTUP_TOOLCHAIN: 1.88.0
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:12:50.4047499Z   TPNIL_NATIVE_PROFILE: integrated-native-conformance
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:12:50.4047754Z ##[endgroup]
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:12:50.4742691Z kernel.apparmor_restrict_unprivileged_userns = 0
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:14.8856818Z kernel.apparmor_restrict_unprivileged_userns = 1
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.3537950Z ◇ injected env (0) from .env // tip: ⌘ override existing { override: true }
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.3547127Z ◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8425120Z node:internal/modules/run_main:107
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8425694Z     triggerUncaughtException(
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8426023Z     ^
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8426168Z 
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8427370Z AssertionError [ERR_ASSERTION]: Independent portability predicate differs: portability.complete-logical-dataset: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8428413Z 
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8429143Z   assert.ok(report.source.transactions.length >= 2 && report.source.outputs.length >= 2 && report.source.provenTxs.length >= 1)
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8429793Z 
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8429801Z 
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8429949Z 'PASS' !== 'FAIL'
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8430111Z 
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8431244Z     at verifyNativePortability (/home/runner/work/interop/interop/synthesis/src/wallet-lab/native/verify-conformance-portability.ts:209:12)
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8432857Z     at async verifyNativeConformance (/home/runner/work/interop/interop/synthesis/src/wallet-lab/native/verify-conformance.ts:27:23)
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8434339Z     at async verifyNativeWallet (/home/runner/work/interop/interop/synthesis/src/wallet-lab/native/verify.ts:194:27)
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8435660Z     at async <anonymous> (/home/runner/work/interop/interop/synthesis/src/wallet-lab/native/verify.ts:208:18) {
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8436420Z   generatedMessage: false,
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8436789Z   code: 'ERR_ASSERTION',
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8437146Z   actual: 'PASS',
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8437465Z   expected: 'FAIL',
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8437830Z   operator: 'strictEqual',
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8438193Z   diff: 'simple'
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8438480Z }
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8438636Z 
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8438762Z Node.js v24.22.1
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8811553Z file:///home/runner/work/interop/interop/scripts/run-native-go-wallet.mjs:70
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8812713Z if (verify.status !== 0) throw new Error('Native conformance evidence verification failed');
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8813344Z                                ^
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8813492Z 
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8813680Z Error: Native conformance evidence verification failed
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8814178Z     at file:///home/runner/work/interop/interop/scripts/run-native-go-wallet.mjs:70:32
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8814658Z     at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8815026Z     at async node:internal/modules/esm/loader:647:26
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8815510Z     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8816158Z 
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8816248Z Node.js v24.22.1
+all-go-native	Execute and independently verify the integrated native wallet graph	2026-11-09T19:29:16.8852054Z ##[error]Process completed with exit code 1.

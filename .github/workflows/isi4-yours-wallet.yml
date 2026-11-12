@@ -11,11 +11,15 @@ on:
           - all-go-native
           - integrated-native
           - integrated-native-trusted
+          - integrated-native-conformance
+          - integrated-native-conformance-coverage
+          - integrated-native-conformance-closure
+          - integrated-native-conformance-closure-rust-v3
 permissions:
   contents: read
 jobs:
   yours-wallet:
-    if: inputs.profile != 'all-go-native' && inputs.profile != 'integrated-native' && inputs.profile != 'integrated-native-trusted'
+    if: inputs.profile != 'all-go-native' && !startsWith(inputs.profile, 'integrated-native')
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
@@ -82,6 +86,11 @@ jobs:
           npm rebuild better-sqlite3 --prefix integrations/services
           rustup toolchain install 1.88.0 --profile minimal
           docker build --build-arg TPNIL_NATIVE_BASE=tpnil-native-go:${{ github.sha }} -f infra/native/integrated/Dockerfile -t tpnil-native-integrated:${{ github.sha }} .
+      - name: Build the prospective conformance image
+        if: startsWith(inputs.profile, 'integrated-native-conformance')
+        run: |
+          node scripts/prepare-storage-portability-go.mjs
+          docker build --build-arg TPNIL_INTEGRATED_BASE=tpnil-native-integrated:${{ github.sha }} -f infra/native/conformance/Dockerfile -t tpnil-native-conformance:${{ github.sha }} .
       - name: Execute two clean isolated native repetitions and verify results
         if: inputs.profile == 'all-go-native'
         run: node scripts/run-native-go-wallet.mjs tpnil-native-go:${{ github.sha }} out/native-go-wallet
@@ -92,8 +101,13 @@ jobs:
           TPNIL_NATIVE_PROFILE: ${{ inputs.profile }}
         run: |
           native_flag=--integrated
+          native_image=tpnil-native-integrated:${{ github.sha }}
           if [ "$TPNIL_NATIVE_PROFILE" = integrated-native-trusted ]; then native_flag=--integrated-trusted; fi
-          node scripts/run-native-go-wallet.mjs tpnil-native-integrated:${{ github.sha }} out/native-go-wallet "$native_flag"
+          if [ "$TPNIL_NATIVE_PROFILE" = integrated-native-conformance ]; then native_flag=--conformance; native_image=tpnil-native-conformance:${{ github.sha }}; fi
+          if [ "$TPNIL_NATIVE_PROFILE" = integrated-native-conformance-coverage ]; then native_flag=--conformance-coverage; native_image=tpnil-native-conformance:${{ github.sha }}; fi
+          if [ "$TPNIL_NATIVE_PROFILE" = integrated-native-conformance-closure ]; then native_flag=--conformance-closure; native_image=tpnil-native-conformance:${{ github.sha }}; fi
+          if [ "$TPNIL_NATIVE_PROFILE" = integrated-native-conformance-closure-rust-v3 ]; then native_flag=--conformance-closure-rust-v3; native_image=tpnil-native-conformance:${{ github.sha }}; fi
+          node scripts/run-native-go-wallet.mjs "$native_image" out/native-go-wallet "$native_flag"
           node scripts/verify-native-integrated.mjs out/native-go-wallet
       - name: Retain every attempt and qualification receipt
         if: always()

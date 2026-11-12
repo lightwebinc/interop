@@ -1,0 +1,12 @@
+✔ trusted-click archive retains two native engineering repetitions and20 closure selftests (10.767291ms)
+✔ trusted-click archive rejects changed recorded native evidence (24.9865ms)
+✔ trusted-click archive rejects missing mandatory source despite rewritten inventory (27.379792ms)
+✔ trusted-click archive cannot claim native Linux qualification (23.223834ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 130.714709

@@ -1,0 +1,16 @@
+Archive:  /Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/native-ci-42711700295-receipts/logs.zip
+    testing: 0_all-go-native.txt      OK
+    testing: all-go-native/system.txt   OK
+    testing: all-go-native/1_Set up job.txt   OK
+    testing: all-go-native/2_Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt   OK
+    testing: all-go-native/3_Run actions_setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020.txt   OK
+    testing: all-go-native/4_Run actions_setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e.txt   OK
+    testing: all-go-native/5_Prepare and verify immutable artifacts and Go host.txt   OK
+    testing: all-go-native/6_Build the frozen native browser closure.txt   OK
+    testing: all-go-native/7_Install the pinned integrated service closure.txt   OK
+    testing: all-go-native/8_Build the prospective conformance image.txt   OK
+    testing: all-go-native/10_Execute and independently verify the integrated native wallet graph.txt   OK
+    testing: all-go-native/11_Retain every attempt and qualification receipt.txt   OK
+    testing: all-go-native/22_Post Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt   OK
+    testing: all-go-native/23_Complete job.txt   OK
+No errors detected in compressed data of /Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/native-ci-42711700295-receipts/logs.zip.

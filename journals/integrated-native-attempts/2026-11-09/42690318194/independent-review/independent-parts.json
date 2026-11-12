@@ -1,0 +1,1354 @@
+{
+  "schema": "tpnil-native-completion-independent-review@1",
+  "claim": "FAILED_ATTEMPT_PARTIAL_INDEPENDENT_REVIEW_NOT_QUALIFICATION",
+  "run": "42690318194",
+  "runtimeSource": "d02414f58d888e3d11913dedd888a3e5871bf29f",
+  "checkerRevision": "d02414f58d888e3d11913dedd888a3e5871bf29f",
+  "checkerSourceMode": "Exact git archive at frozen d024; pinned installed dependencies reused; review script separately hashed",
+  "reviewedAt": "2026-11-09T20:38:25.499Z",
+  "originalArchive": {
+    "size": 2734482,
+    "sha256": "6e5171faf01d68f2ba0aa30cdfb78c102343e5a02d1aa24166194956d75d989b"
+  },
+  "reviewScriptSha256": "8fbf3cafdba8a50ad8a0cc9960c9f719c2cb21303137bf13b37837f3d67bf897",
+  "all263ReportedAssertionOutcomesMatch": true,
+  "independentlyReplayedChildren": [
+    "permissions",
+    "lifecycle",
+    "clauses",
+    "funding-reserves",
+    "todo-causal-windows",
+    "api-causal-windows"
+  ],
+  "portabilityQualification": "REJECTED: frozen portability.native-mediated-sync producerPASS versus independentFAIL; replacement-active UI text lacks required host and In use evidence; original failed replay preserved separately",
+  "integratedCounts": "Retained outcomes independently counted and identity joined; root runs complete integrated semantic replay",
+  "integratedAssertionOutcomesMatch": true,
+  "results": [
+    {
+      "repetition": 1,
+      "recordSha256": "1ac8a649a247159ceeafafa8df2a735304face73e89074023308d9385bc99ebb",
+      "identity": "022cfaf541204796d824b15d2f3a6498f5e77a56e02dfa859a062a79e632e71cef",
+      "conformance": {
+        "result": "FAIL",
+        "assertions": 263,
+        "counts": {
+          "PASS": 162,
+          "FAIL": 99,
+          "BLOCKED": 2
+        },
+        "vectors": [
+          {
+            "id": "ISI-4-V001",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V002",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V003",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V004",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V005",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V006",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V007",
+            "outcome": "FAIL"
+          },
+          {
+            "id": "ISI-4-V008",
+            "outcome": "FAIL"
+          }
+        ],
+        "projectionSha256": "2c43a5b4d474e698c8e59d89ae4a8cccac9bf5fa8d10d038c3aac1e5cfc79f46"
+      },
+      "causalSubmissionWindows": {
+        "todo": [
+          {
+            "phase": "accepted",
+            "passed": true,
+            "selection": "unique",
+            "startIndex": 4,
+            "endIndex": 6,
+            "selectedTxid": "a9baa5ba0727fb0ac3faa38c81eab860cb095bd13e8d455afce4ea395b1bc121",
+            "receiptCount": 2
+          },
+          {
+            "phase": "rejected",
+            "passed": true,
+            "selection": "unique",
+            "startIndex": 6,
+            "endIndex": 7,
+            "selectedTxid": "c7b4a18b0a3f4156fbe44532769980d7e24a6aeb7505464129718ed503c7870e",
+            "receiptCount": 1
+          },
+          {
+            "phase": "recovered",
+            "passed": true,
+            "selection": "unique",
+            "startIndex": 7,
+            "endIndex": 8,
+            "selectedTxid": "9dbfae563ad49a86975f1c537a866f17609bb62165e042bcfc27bad50a7f8507",
+            "receiptCount": 1
+          }
+        ],
+        "api": [
+          {
+            "selection": "unique",
+            "startIndex": 8,
+            "endIndex": 9,
+            "selectedIndices": [
+              8
+            ],
+            "retainedSubmissions": 1,
+            "retainedStorageReceipts": 1
+          },
+          {
+            "selection": "unique",
+            "startIndex": 9,
+            "endIndex": 10,
+            "selectedIndices": [
+              9
+            ],
+            "retainedSubmissions": 1,
+            "retainedStorageReceipts": 1
+          },
+          {
+            "selection": "unique",
+            "startIndex": 10,
+            "endIndex": 11,
+            "selectedIndices": [
+              10
+            ],
+            "retainedSubmissions": 1,
+            "retainedStorageReceipts": 1
+          }
+        ]
+      },
+      "permissions": {
+        "counts": {
+          "PASS": 8,
+          "FAIL": 0,
+          "BLOCKED": 0
+        },
+        "joinedPublicKeys": 5,
+        "independentSdk2And4Agreement": true
+      },
+      "lifecycle": {
+        "schema": "tpnil-native-conformance-lifecycle@3",
+        "oracle": "tpnil-native-lifecycle-oracle@3.0.0",
+        "result": "PASS",
+        "assertions": [
+          {
+            "id": "accepted-service-verdict-observed",
+            "result": "PASS"
+          },
+          {
+            "id": "rejection-preserves-wallet-state",
+            "result": "PASS"
+          },
+          {
+            "id": "post-rejection-recovery",
+            "result": "PASS"
+          }
+        ]
+      },
+      "reserves": {
+        "roots": [
+          "5e02d54e087c4cd692db4bfb6b7ce07c799d4cabddeb44f67be9b36d0665fe8c.0",
+          "32b189fe40b895d0584e2d3579b2ff33c65b21e3c246ebc8f903bb661cf99cc7.0",
+          "37d0473e6b2e400bb4c43ada19fdee5b70cfe27628bd8cc7cdc356389e967573.0"
+        ],
+        "startedAt": "2026-11-09T20:19:36.110Z",
+        "completedAt": "2026-11-09T20:19:41.263Z",
+        "scenarioStartedAt": "2026-11-09T20:19:41.267Z",
+        "snapshotAuthenticated": true,
+        "scenarioGraph": [
+          {
+            "index": 3,
+            "txid": "a48d0e779619d80b16ce5b6daedfc8626949788e4e11aae55913d4a6aeca7baa",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "5e02d54e087c4cd692db4bfb6b7ce07c799d4cabddeb44f67be9b36d0665fe8c.0"
+            ]
+          },
+          {
+            "index": 4,
+            "txid": "a9baa5ba0727fb0ac3faa38c81eab860cb095bd13e8d455afce4ea395b1bc121",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "a48d0e779619d80b16ce5b6daedfc8626949788e4e11aae55913d4a6aeca7baa.2"
+            ]
+          },
+          {
+            "index": 5,
+            "txid": "b6ae2343165262e9d6227a0eb5680f70a1db7f59601f2c617973457e48449068",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "a48d0e779619d80b16ce5b6daedfc8626949788e4e11aae55913d4a6aeca7baa.0",
+              "a48d0e779619d80b16ce5b6daedfc8626949788e4e11aae55913d4a6aeca7baa.1"
+            ]
+          },
+          {
+            "index": 6,
+            "txid": "c7b4a18b0a3f4156fbe44532769980d7e24a6aeb7505464129718ed503c7870e",
+            "verdict": "REJECTED",
+            "inputs": [
+              "b6ae2343165262e9d6227a0eb5680f70a1db7f59601f2c617973457e48449068.0"
+            ]
+          },
+          {
+            "index": 7,
+            "txid": "9dbfae563ad49a86975f1c537a866f17609bb62165e042bcfc27bad50a7f8507",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "a9baa5ba0727fb0ac3faa38c81eab860cb095bd13e8d455afce4ea395b1bc121.1"
+            ]
+          },
+          {
+            "index": 8,
+            "txid": "066a22661ccaf9d76e07c14cd3f51d1cc3b5a41e13c325be86075a446c344e45",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "9dbfae563ad49a86975f1c537a866f17609bb62165e042bcfc27bad50a7f8507.1"
+            ]
+          },
+          {
+            "index": 9,
+            "txid": "c7379ffb603f187c123e71a723d158668a6df87856b3b9258faf95b1da4a2ee4",
+            "verdict": "REJECTED",
+            "inputs": [
+              "066a22661ccaf9d76e07c14cd3f51d1cc3b5a41e13c325be86075a446c344e45.1"
+            ]
+          },
+          {
+            "index": 10,
+            "txid": "f16178aff6af7bfa2e0a8c4fefb4ace4816a9aaa66a93fcbb4a2c1bc62eafbbc",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "32b189fe40b895d0584e2d3579b2ff33c65b21e3c246ebc8f903bb661cf99cc7.0"
+            ]
+          }
+        ],
+        "rejectedChainsUnreusedThroughRecovery": true,
+        "postRecoverySubmissionsChecked": 40,
+        "postRecoveryRejectedReuse": []
+      },
+      "clauses": {
+        "counts": {
+          "PASS": 132,
+          "FAIL": 98,
+          "BLOCKED": 2
+        },
+        "nonPassing": [
+          {
+            "id": "output.listActions",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.description",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.inputBEEF",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.inputs.0.unlockingScriptLength",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.inputs.0.inputDescription",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.inputs.0.sequenceNumber",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.outputs.0.outputDescription",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.outputs.0.basket",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.outputs.0.customInstructions",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.outputs.0.tags.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.lockTime",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.version",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.labels.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.signAndProcess",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.acceptDelayedBroadcast",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.trustSelf",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.knownTxids.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.returnTXIDOnly",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.noSend",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.noSendChange.0",
+            "result": "BLOCKED"
+          },
+          {
+            "id": "input.createAction.options.sendWith.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.randomizeOutputs",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.spends",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.reference",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.options.acceptDelayedBroadcast",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.options.returnTXIDOnly",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.options.noSend",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.labels.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeLabels",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeInputs",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeInputSourceLockingScripts",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeInputUnlockingScripts",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeOutputs",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeOutputLockingScripts",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.outputs.0.insertionRemittance.basket",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.outputs.0.insertionRemittance.customInstructions",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.outputs.0.insertionRemittance.tags.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.labels.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.basket",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.tags.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.include",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.includeCustomInstructions",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.includeTags",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.includeLabels",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.relinquishOutput.basket",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.identityKey",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.forSelf",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.revealCounterpartyKeyLinkage.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.revealCounterpartyKeyLinkage.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.revealSpecificKeyLinkage.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.revealSpecificKeyLinkage.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.plaintext.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.decrypt.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.decrypt.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.decrypt.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.decrypt.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.data.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifyHmac.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifyHmac.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifyHmac.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifyHmac.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.data.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.hashToDirectlySign.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifySignature.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifySignature.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifySignature.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.acquireCertificate.fields",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.acquireCertificate.certifierUrl",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.acquireCertificate.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listCertificates.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.proveCertificate.certificate.fields",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.proveCertificate.fieldsToReveal.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.proveCertificate.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.discoverByIdentityKey.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.discoverByAttributes.attributes",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.discoverByAttributes.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "namespace.protocol.reserved",
+            "result": "FAIL"
+          },
+          {
+            "id": "namespace.protocol.uppercase",
+            "result": "FAIL"
+          },
+          {
+            "id": "namespace.basket.reserved",
+            "result": "FAIL"
+          },
+          {
+            "id": "errors.structured",
+            "result": "FAIL"
+          },
+          {
+            "id": "coverage.remaining-obligations",
+            "result": "BLOCKED"
+          }
+        ],
+        "completeBRC100Conformance": false
+      },
+      "integrated": {
+        "counts": {
+          "PASS": 77,
+          "FAIL": 0,
+          "BLOCKED": 0
+        },
+        "identityJoinsVerified": true
+      },
+      "rust": {
+        "counts": {
+          "PASS": 0,
+          "FAIL": 0,
+          "BLOCKED": 0
+        },
+        "outcome": "NOT_EXECUTED_PARENT_VERIFICATION_STOPPED",
+        "parentInputsBound": 0,
+        "semanticReplay": "No Rust artifact retained"
+      },
+      "admissionReceipts": {
+        "isolatedHost": true,
+        "exactInstalledArchives": true,
+        "kernelNetworkNone": true,
+        "sandbox": true,
+        "processShutdown": true,
+        "containerRemoved": true,
+        "mongoClean": true,
+        "usernsRestored": true
+      },
+      "worker": {
+        "startedAt": "2026-11-09T20:19:20.147Z",
+        "endedAt": "2026-11-09T20:27:55.698Z"
+      }
+    },
+    {
+      "repetition": 2,
+      "recordSha256": "848d1e002d8632294563dff9a1e6bb2e942d609a2f1aeb316e632733d70081db",
+      "identity": "034fc083f08f7bfbff27a03da4aa1847b1968d9885076c00a9feb3ed4e1f468ae4",
+      "conformance": {
+        "result": "FAIL",
+        "assertions": 263,
+        "counts": {
+          "PASS": 162,
+          "FAIL": 99,
+          "BLOCKED": 2
+        },
+        "vectors": [
+          {
+            "id": "ISI-4-V001",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V002",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V003",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V004",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V005",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V006",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V007",
+            "outcome": "FAIL"
+          },
+          {
+            "id": "ISI-4-V008",
+            "outcome": "FAIL"
+          }
+        ],
+        "projectionSha256": "2c43a5b4d474e698c8e59d89ae4a8cccac9bf5fa8d10d038c3aac1e5cfc79f46"
+      },
+      "causalSubmissionWindows": {
+        "todo": [
+          {
+            "phase": "accepted",
+            "passed": true,
+            "selection": "unique",
+            "startIndex": 4,
+            "endIndex": 6,
+            "selectedTxid": "d0941d7dbcac189835eff5d53ac63af4d0f8c6723c99e31366e975936475dc6c",
+            "receiptCount": 2
+          },
+          {
+            "phase": "rejected",
+            "passed": true,
+            "selection": "unique",
+            "startIndex": 6,
+            "endIndex": 7,
+            "selectedTxid": "ad5831e3e5e64f3c127a4dc45da54039d0989caa1bdf073d7a8561cf913091b5",
+            "receiptCount": 1
+          },
+          {
+            "phase": "recovered",
+            "passed": true,
+            "selection": "unique",
+            "startIndex": 7,
+            "endIndex": 8,
+            "selectedTxid": "db9cbfa66f5f4a502de0a3ce4f27c966774e6048d16a695444509e38481ff500",
+            "receiptCount": 1
+          }
+        ],
+        "api": [
+          {
+            "selection": "unique",
+            "startIndex": 8,
+            "endIndex": 9,
+            "selectedIndices": [
+              8
+            ],
+            "retainedSubmissions": 1,
+            "retainedStorageReceipts": 1
+          },
+          {
+            "selection": "unique",
+            "startIndex": 9,
+            "endIndex": 10,
+            "selectedIndices": [
+              9
+            ],
+            "retainedSubmissions": 1,
+            "retainedStorageReceipts": 1
+          },
+          {
+            "selection": "unique",
+            "startIndex": 10,
+            "endIndex": 11,
+            "selectedIndices": [
+              10
+            ],
+            "retainedSubmissions": 1,
+            "retainedStorageReceipts": 1
+          }
+        ]
+      },
+      "permissions": {
+        "counts": {
+          "PASS": 8,
+          "FAIL": 0,
+          "BLOCKED": 0
+        },
+        "joinedPublicKeys": 5,
+        "independentSdk2And4Agreement": true
+      },
+      "lifecycle": {
+        "schema": "tpnil-native-conformance-lifecycle@3",
+        "oracle": "tpnil-native-lifecycle-oracle@3.0.0",
+        "result": "PASS",
+        "assertions": [
+          {
+            "id": "accepted-service-verdict-observed",
+            "result": "PASS"
+          },
+          {
+            "id": "rejection-preserves-wallet-state",
+            "result": "PASS"
+          },
+          {
+            "id": "post-rejection-recovery",
+            "result": "PASS"
+          }
+        ]
+      },
+      "reserves": {
+        "roots": [
+          "c0ced4a3402d3214e6000ff5cf57bb44a77963847f747095885d63da2ab8fefb.0",
+          "16cc9d34d58d9da58a452abc7513b1feda4a9f6c1a1691a62dc081af244e1606.0",
+          "de6e6e99753a5857983cd02bbb4358923489c8cce3507d482b745bd6afa2f9f0.0"
+        ],
+        "startedAt": "2026-11-09T20:28:13.371Z",
+        "completedAt": "2026-11-09T20:28:18.547Z",
+        "scenarioStartedAt": "2026-11-09T20:28:18.552Z",
+        "snapshotAuthenticated": true,
+        "scenarioGraph": [
+          {
+            "index": 3,
+            "txid": "afaed01589550d4f6353d0ed51b909f8cf87367bced0802ed9ed1711823a95f2",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "c0ced4a3402d3214e6000ff5cf57bb44a77963847f747095885d63da2ab8fefb.0"
+            ]
+          },
+          {
+            "index": 4,
+            "txid": "d0941d7dbcac189835eff5d53ac63af4d0f8c6723c99e31366e975936475dc6c",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "afaed01589550d4f6353d0ed51b909f8cf87367bced0802ed9ed1711823a95f2.2"
+            ]
+          },
+          {
+            "index": 5,
+            "txid": "8ba990f8ffc95cf33f4ecb9681e53cf04fc5e351607a16aecbea861cda64fa16",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "afaed01589550d4f6353d0ed51b909f8cf87367bced0802ed9ed1711823a95f2.0",
+              "afaed01589550d4f6353d0ed51b909f8cf87367bced0802ed9ed1711823a95f2.1"
+            ]
+          },
+          {
+            "index": 6,
+            "txid": "ad5831e3e5e64f3c127a4dc45da54039d0989caa1bdf073d7a8561cf913091b5",
+            "verdict": "REJECTED",
+            "inputs": [
+              "8ba990f8ffc95cf33f4ecb9681e53cf04fc5e351607a16aecbea861cda64fa16.0"
+            ]
+          },
+          {
+            "index": 7,
+            "txid": "db9cbfa66f5f4a502de0a3ce4f27c966774e6048d16a695444509e38481ff500",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "d0941d7dbcac189835eff5d53ac63af4d0f8c6723c99e31366e975936475dc6c.1"
+            ]
+          },
+          {
+            "index": 8,
+            "txid": "e5d4800e5eb2f7d4354d96f8dfdf63e726cde680dd3624145363e1c334e47b58",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "db9cbfa66f5f4a502de0a3ce4f27c966774e6048d16a695444509e38481ff500.1"
+            ]
+          },
+          {
+            "index": 9,
+            "txid": "40b3a483c9aafb125e3feb971c1f9fa1f8c9e3e3701efca377823cf7bea8b01a",
+            "verdict": "REJECTED",
+            "inputs": [
+              "e5d4800e5eb2f7d4354d96f8dfdf63e726cde680dd3624145363e1c334e47b58.1"
+            ]
+          },
+          {
+            "index": 10,
+            "txid": "a8ae788c0049f6900465749f3e85f3dc3d88ef016a98d6f6b4cbd727c1799d9c",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "16cc9d34d58d9da58a452abc7513b1feda4a9f6c1a1691a62dc081af244e1606.0"
+            ]
+          }
+        ],
+        "rejectedChainsUnreusedThroughRecovery": true,
+        "postRecoverySubmissionsChecked": 40,
+        "postRecoveryRejectedReuse": []
+      },
+      "clauses": {
+        "counts": {
+          "PASS": 132,
+          "FAIL": 98,
+          "BLOCKED": 2
+        },
+        "nonPassing": [
+          {
+            "id": "output.listActions",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.description",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.inputBEEF",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.inputs.0.unlockingScriptLength",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.inputs.0.inputDescription",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.inputs.0.sequenceNumber",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.outputs.0.outputDescription",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.outputs.0.basket",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.outputs.0.customInstructions",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.outputs.0.tags.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.lockTime",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.version",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.labels.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.signAndProcess",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.acceptDelayedBroadcast",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.trustSelf",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.knownTxids.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.returnTXIDOnly",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.noSend",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.noSendChange.0",
+            "result": "BLOCKED"
+          },
+          {
+            "id": "input.createAction.options.sendWith.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.randomizeOutputs",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.spends",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.reference",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.options.acceptDelayedBroadcast",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.options.returnTXIDOnly",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.options.noSend",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.labels.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeLabels",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeInputs",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeInputSourceLockingScripts",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeInputUnlockingScripts",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeOutputs",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeOutputLockingScripts",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.outputs.0.insertionRemittance.basket",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.outputs.0.insertionRemittance.customInstructions",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.outputs.0.insertionRemittance.tags.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.labels.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.basket",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.tags.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.include",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.includeCustomInstructions",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.includeTags",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.includeLabels",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.relinquishOutput.basket",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.identityKey",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.forSelf",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.revealCounterpartyKeyLinkage.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.revealCounterpartyKeyLinkage.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.revealSpecificKeyLinkage.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.revealSpecificKeyLinkage.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.plaintext.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.decrypt.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.decrypt.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.decrypt.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.decrypt.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.data.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifyHmac.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifyHmac.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifyHmac.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifyHmac.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.data.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.hashToDirectlySign.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifySignature.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifySignature.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifySignature.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.acquireCertificate.fields",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.acquireCertificate.certifierUrl",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.acquireCertificate.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listCertificates.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.proveCertificate.certificate.fields",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.proveCertificate.fieldsToReveal.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.proveCertificate.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.discoverByIdentityKey.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.discoverByAttributes.attributes",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.discoverByAttributes.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "namespace.protocol.reserved",
+            "result": "FAIL"
+          },
+          {
+            "id": "namespace.protocol.uppercase",
+            "result": "FAIL"
+          },
+          {
+            "id": "namespace.basket.reserved",
+            "result": "FAIL"
+          },
+          {
+            "id": "errors.structured",
+            "result": "FAIL"
+          },
+          {
+            "id": "coverage.remaining-obligations",
+            "result": "BLOCKED"
+          }
+        ],
+        "completeBRC100Conformance": false
+      },
+      "integrated": {
+        "counts": {
+          "PASS": 77,
+          "FAIL": 0,
+          "BLOCKED": 0
+        },
+        "identityJoinsVerified": true
+      },
+      "rust": {
+        "counts": {
+          "PASS": 0,
+          "FAIL": 0,
+          "BLOCKED": 0
+        },
+        "outcome": "NOT_EXECUTED_PARENT_VERIFICATION_STOPPED",
+        "parentInputsBound": 0,
+        "semanticReplay": "No Rust artifact retained"
+      },
+      "admissionReceipts": {
+        "isolatedHost": true,
+        "exactInstalledArchives": true,
+        "kernelNetworkNone": true,
+        "sandbox": true,
+        "processShutdown": true,
+        "containerRemoved": true,
+        "mongoClean": true,
+        "usernsRestored": true
+      },
+      "worker": {
+        "startedAt": "2026-11-09T20:27:57.994Z",
+        "endedAt": "2026-11-09T20:36:33.761Z"
+      }
+    }
+  ]
+}

@@ -33,6 +33,24 @@ test('published archive integrity binds every byte and complete file set without
   fs.appendFileSync(path.join(directory, 'qualification.json'), ' ')
   assert.throws(() => verifyIntegrationArchive(directory))
 }))
+for (const [profile, program] of [['ITCVE-1@1.4.0', 'ISI-4@2.0.0'], ['ITCVE-1@1.5.0', 'ISI-4@3.0.0'], ['ITCVE-1@2.0.0', 'ISI-4@4.0.0']]) test(`${profile} publication binds its program and preserves incomplete conformance`, () => temporary(directory => {
+  const source = 'ab'.repeat(20)
+  fs.writeFileSync(path.join(directory, 'native-integrated.zip'), zip([{ name: 'result.json', body: '{}' }]))
+  const qualification = { schema: 'tpnil-native-integrated-qualification@2', claim: 'EXPERIMENTAL_CONFORMANCE_RESULT', profile, program, source, qualifiedEnvironment: true, completeBRC100Conformance: false }
+  const publish = () => {
+    fs.writeFileSync(path.join(directory, 'qualification.json'), JSON.stringify(qualification))
+    fs.writeFileSync(path.join(directory, 'provenance.json'), JSON.stringify({ schema: 'tpnil-integrated-native-archive@1', source, files: ['qualification.json', 'native-integrated.zip'].map(name => { const bytes = fs.readFileSync(path.join(directory, name)); return { path: name, size: bytes.length, sha256: hash(bytes) } }) }))
+  }
+  publish(); assert.equal(verifyIntegrationArchive(directory).kind, 'native')
+  qualification.completeBRC100Conformance = true; publish(); assert.throws(() => verifyIntegrationArchive(directory))
+  qualification.completeBRC100Conformance = false
+  qualification.schema = 'tpnil-native-integrated-qualification@1'; publish(); assert.throws(() => verifyIntegrationArchive(directory))
+  qualification.schema = 'tpnil-native-integrated-qualification@2'
+  qualification.program = 'ISI-4@1.0.0'; publish(); assert.throws(() => verifyIntegrationArchive(directory))
+  qualification.program = program === 'ISI-4@3.0.0' ? 'ISI-4@2.0.0' : 'ISI-4@3.0.0'; publish(); assert.throws(() => verifyIntegrationArchive(directory))
+  qualification.program = program
+  qualification.profile = 'ITCVE-1@1.3.0'; publish(); assert.throws(() => verifyIntegrationArchive(directory))
+}))
 test('unlisted files and duplicate inventory entries cannot verify', () => temporary(directory => {
   const provenance = bundle(directory)
   fs.writeFileSync(path.join(directory, 'unlisted.txt'), 'extra'); assert.throws(() => verifyIntegrationArchive(directory)); fs.unlinkSync(path.join(directory, 'unlisted.txt'))
@@ -80,4 +98,18 @@ test('component counts distinguish outer repetitions and isolated storage runs',
   const actual = componentArchiveSummary(directory)
   assert.equal(actual.laneRuns, 3); assert.equal(actual.isolatedExecutions, 5)
   assert.deepEqual(actual.assertions, { total: 3, outcomes: { PASS: 1, FAIL: 2 } }); assert.deepEqual(actual.findings.map(item => item.repetition), [1, 2])
+}))
+
+for (const [profile, schema] of [['ITCVE-1@1.3.0','tpnil-integrated-component-qualification@1'],['ITCVE-1@3.0.0','tpnil-integrated-component-qualification@2']]) test(`${profile} component publication requires its own schema and cannot become native`, () => temporary(directory => {
+  const provenance=bundle(directory), filename=path.join(directory,'qualification.json'), qualification=JSON.parse(fs.readFileSync(filename));qualification.profile=profile;qualification.schema=schema
+  const publish=()=>{fs.writeFileSync(filename,JSON.stringify(qualification));provenance.files[0]={path:'qualification.json',size:fs.statSync(filename).size,sha256:hash(fs.readFileSync(filename))};fs.writeFileSync(path.join(directory,'provenance.json'),JSON.stringify(provenance))}
+  publish();assert.equal(verifyIntegrationArchive(directory).kind,'component')
+  qualification.schema=schema.endsWith('@2')?'tpnil-integrated-component-qualification@1':'tpnil-integrated-component-qualification@2';publish();assert.throws(()=>verifyIntegrationArchive(directory))
+  qualification.schema=schema;qualification.profile='ITCVE-1@2.0.0';publish();assert.throws(()=>verifyIntegrationArchive(directory))
+}))
+
+test('component3 cannot be published as a native qualification',()=>temporary(directory=>{
+  const provenance=bundle(directory);fs.renameSync(path.join(directory,'integrated-lab.zip'),path.join(directory,'native-integrated.zip'))
+  const q={schema:'tpnil-native-integrated-qualification@2',claim:'EXPERIMENTAL_CONFORMANCE_RESULT',profile:'ITCVE-1@3.0.0',program:'ISI-4@4.0.0',source:provenance.source,qualifiedEnvironment:true,completeBRC100Conformance:false}
+  fs.writeFileSync(path.join(directory,'qualification.json'),JSON.stringify(q));provenance.schema='tpnil-integrated-native-archive@1';provenance.files=['qualification.json','native-integrated.zip'].map(name=>{const b=fs.readFileSync(path.join(directory,name));return {path:name,size:b.length,sha256:hash(b)}});fs.writeFileSync(path.join(directory,'provenance.json'),JSON.stringify(provenance));assert.throws(()=>verifyIntegrationArchive(directory))
 }))

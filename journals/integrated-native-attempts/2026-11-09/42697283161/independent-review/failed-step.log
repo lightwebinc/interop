@@ -1,0 +1,51 @@
+﻿2026-11-09T21:03:06.0273928Z ##[group]Run native_flag=--integrated
+2026-11-09T21:03:06.0274904Z [36;1mnative_flag=--integrated[0m
+2026-11-09T21:03:06.0275362Z [36;1mnative_image=tpnil-native-integrated:cc3cf756272b8d3826612d71e8f6356239fed6fa[0m
+2026-11-09T21:03:06.0276065Z [36;1mif [ "$TPNIL_NATIVE_PROFILE" = integrated-native-trusted ]; then native_flag=--integrated-trusted; fi[0m
+2026-11-09T21:03:06.0277153Z [36;1mif [ "$TPNIL_NATIVE_PROFILE" = integrated-native-conformance ]; then native_flag=--conformance; native_image=tpnil-native-conformance:cc3cf756272b8d3826612d71e8f6356239fed6fa; fi[0m
+2026-11-09T21:03:06.0278586Z [36;1mif [ "$TPNIL_NATIVE_PROFILE" = integrated-native-conformance-coverage ]; then native_flag=--conformance-coverage; native_image=tpnil-native-conformance:cc3cf756272b8d3826612d71e8f6356239fed6fa; fi[0m
+2026-11-09T21:03:06.0279670Z [36;1mnode scripts/run-native-go-wallet.mjs "$native_image" out/native-go-wallet "$native_flag"[0m
+2026-11-09T21:03:06.0280283Z [36;1mnode scripts/verify-native-integrated.mjs out/native-go-wallet[0m
+2026-11-09T21:03:06.0302217Z shell: /usr/bin/bash -e {0}
+2026-11-09T21:03:06.0302495Z env:
+2026-11-09T21:03:06.0302704Z   GOTOOLCHAIN: local
+2026-11-09T21:03:06.0302949Z   RUSTUP_TOOLCHAIN: 1.88.0
+2026-11-09T21:03:06.0303303Z   TPNIL_NATIVE_PROFILE: integrated-native-conformance-coverage
+2026-11-09T21:03:06.0303672Z ##[endgroup]
+2026-11-09T21:03:06.1152689Z kernel.apparmor_restrict_unprivileged_userns = 0
+2026-11-09T21:21:16.6229140Z kernel.apparmor_restrict_unprivileged_userns = 1
+2026-11-09T21:21:18.0029239Z ◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+2026-11-09T21:21:18.0042420Z ◇ injected env (0) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+2026-11-09T21:21:25.3907662Z node:internal/modules/run_main:107
+2026-11-09T21:21:25.3908360Z     triggerUncaughtException(
+2026-11-09T21:21:25.3908808Z     ^
+2026-11-09T21:21:25.3908955Z 
+2026-11-09T21:21:25.3909281Z AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+2026-11-09T21:21:25.3909755Z + actual - expected
+2026-11-09T21:21:25.3909929Z 
+2026-11-09T21:21:25.3910180Z + '["PASS","PASS","PASS","PASS","FAIL","PASS","PASS","FAIL"]'
+2026-11-09T21:21:25.3910675Z - '["PASS","PASS","PASS","PASS","PASS","PASS","PASS","FAIL"]'
+2026-11-09T21:21:25.3910931Z 
+2026-11-09T21:21:25.3911511Z     at verifyNativeWallet (/home/runner/work/interop/interop/synthesis/src/wallet-lab/native/verify.ts:230:10)
+2026-11-09T21:21:25.3912537Z     at async <anonymous> (/home/runner/work/interop/interop/synthesis/src/wallet-lab/native/verify.ts:237:18) {
+2026-11-09T21:21:25.3913149Z   generatedMessage: true,
+2026-11-09T21:21:25.3913424Z   code: 'ERR_ASSERTION',
+2026-11-09T21:21:25.3913843Z   actual: '["PASS","PASS","PASS","PASS","FAIL","PASS","PASS","FAIL"]',
+2026-11-09T21:21:25.3914792Z   expected: '["PASS","PASS","PASS","PASS","PASS","PASS","PASS","FAIL"]',
+2026-11-09T21:21:25.3915484Z   operator: 'strictEqual',
+2026-11-09T21:21:25.3915924Z   diff: 'simple'
+2026-11-09T21:21:25.3916195Z }
+2026-11-09T21:21:25.3916321Z 
+2026-11-09T21:21:25.3916430Z Node.js v24.22.1
+2026-11-09T21:21:25.4623321Z file:///home/runner/work/interop/interop/scripts/run-native-go-wallet.mjs:72
+2026-11-09T21:21:25.4625206Z if (verify.status !== 0) throw new Error('Native conformance evidence verification failed');
+2026-11-09T21:21:25.4627301Z                                ^
+2026-11-09T21:21:25.4627645Z 
+2026-11-09T21:21:25.4628025Z Error: Native conformance evidence verification failed
+2026-11-09T21:21:25.4629135Z     at file:///home/runner/work/interop/interop/scripts/run-native-go-wallet.mjs:72:32
+2026-11-09T21:21:25.4630148Z     at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+2026-11-09T21:21:25.4630978Z     at async node:internal/modules/esm/loader:647:26
+2026-11-09T21:21:25.4631956Z     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+2026-11-09T21:21:25.4632519Z 
+2026-11-09T21:21:25.4632670Z Node.js v24.22.1
+2026-11-09T21:21:25.4673251Z ##[error]Process completed with exit code 1.

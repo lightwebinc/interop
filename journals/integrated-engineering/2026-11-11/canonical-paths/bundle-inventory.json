@@ -1,0 +1,26 @@
+{
+  "schema": "tpnil-engineering-evidence-inventory@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "files": [
+    {
+      "path": "journals/native-invocation/2026-11-11/canonical-paths/README.md",
+      "size": 2461,
+      "sha256": "f3318fb7cfb6b9f3cd19c5ade16bce58f0ef42c17edc5c3a73429f48c037dc6c"
+    },
+    {
+      "path": "journals/native-invocation/2026-11-11/canonical-paths/evidence.zip",
+      "size": 39028,
+      "sha256": "43eead35ae68d8d85e5dc5573d6dc333b2cae5259d412b2703923c4cd586c784"
+    },
+    {
+      "path": "journals/native-invocation/2026-11-11/canonical-paths/index.json",
+      "size": 7670,
+      "sha256": "ac3ab7706dfd2924e40890bcc41b912d3f9aaaa10798e472fa08029b26be5de2"
+    },
+    {
+      "path": "journals/native-invocation/2026-11-11/canonical-paths/verify.py",
+      "size": 3447,
+      "sha256": "0764963c453477a16616781d6d21c15b6fefa72017f82303aa0dba89d69c600d"
+    }
+  ]
+}

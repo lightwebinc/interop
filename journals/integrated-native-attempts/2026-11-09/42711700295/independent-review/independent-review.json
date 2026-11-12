@@ -1,0 +1,3311 @@
+{
+  "schema": "tpnil-native-completion-independent-review@1",
+  "claim": "INDEPENDENT_EVIDENCE_REVIEW_NOT_COMPLETE_BRC100_QUALIFICATION",
+  "run": "42711700295",
+  "runtimeSource": "c338a93c97ffebeeef318e679ff82b7dbf309dd5",
+  "checkerRevision": "c338a93c97ffebeeef318e679ff82b7dbf309dd5",
+  "checkerSourceMode": "Exact git archive at frozen c338; pinned installed dependencies reused; review script separately hashed",
+  "reviewedAt": "2026-11-09T22:51:33.055Z",
+  "originalArchive": {
+    "size": 4255642,
+    "sha256": "c0645821afeea30cbc1c0c70f4ca10bfbe288ebfa570b719af5a709f145c3826"
+  },
+  "reviewScriptSha256": "6955457f7b1fbeda77b090edf2fc7d5e0bbdcd22fb08a93754ea572991d0d454",
+  "all280ReportedAssertionOutcomesMatch": true,
+  "independentlyReplayedChildren": [
+    "permissions",
+    "lifecycle",
+    "portability",
+    "clauses",
+    "funding-reserves",
+    "todo-causal-windows",
+    "api-causal-windows",
+    "shutdown-ledgers",
+    "coverage-transactions"
+  ],
+  "portabilityQualification": "Independently recomputed via versioned native conformance child oracle",
+  "integratedCounts": "Retained outcomes independently counted and identity joined; root runs complete integrated semantic replay",
+  "integratedAssertionOutcomesMatch": true,
+  "results": [
+    {
+      "repetition": 1,
+      "recordSha256": "a2d718ca79f704af40346d011f2869fc06dc25aa5668b31d403f1c72b5ad4c11",
+      "identity": "03f3bdc33964247a0ab8353511f0469eaeee3126bf9a3f55c6a6384ec75cb4a0ea",
+      "conformance": {
+        "result": "FAIL",
+        "assertions": 280,
+        "counts": {
+          "PASS": 180,
+          "FAIL": 99,
+          "BLOCKED": 1
+        },
+        "vectors": [
+          {
+            "id": "ISI-4-V001",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V002",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V003",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V004",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V005",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V006",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V007",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V008",
+            "outcome": "FAIL"
+          }
+        ],
+        "projectionSha256": "9d2db590a9b4173648818da71ef906a488476c5be621786d49f3aea43502b4c4"
+      },
+      "causalSubmissionWindows": {
+        "todo": [
+          {
+            "phase": "accepted",
+            "passed": true,
+            "selection": "unique",
+            "startIndex": 4,
+            "endIndex": 6,
+            "selectedTxid": "4f903b339c6069784acb7b17b9b91d7aa9cc21615efad5eacb601ea3d97826f7",
+            "receiptCount": 2
+          },
+          {
+            "phase": "rejected",
+            "passed": true,
+            "selection": "unique",
+            "startIndex": 6,
+            "endIndex": 7,
+            "selectedTxid": "f1c3501beaf0a6f86b77b410d28ba08325fb644fa717820529b3558f3548963a",
+            "receiptCount": 1
+          },
+          {
+            "phase": "recovered",
+            "passed": true,
+            "selection": "unique",
+            "startIndex": 7,
+            "endIndex": 8,
+            "selectedTxid": "9f4369d56801fd31fdf96f0c58d68c5e05cbbc228352217c6169df23b0e3ecd6",
+            "receiptCount": 1
+          }
+        ],
+        "api": [
+          {
+            "selection": "unique",
+            "startIndex": 8,
+            "endIndex": 9,
+            "selectedIndices": [
+              8
+            ],
+            "retainedSubmissions": 1,
+            "retainedStorageReceipts": 1
+          },
+          {
+            "selection": "unique",
+            "startIndex": 9,
+            "endIndex": 10,
+            "selectedIndices": [
+              9
+            ],
+            "retainedSubmissions": 1,
+            "retainedStorageReceipts": 1
+          },
+          {
+            "selection": "unique",
+            "startIndex": 10,
+            "endIndex": 11,
+            "selectedIndices": [
+              10
+            ],
+            "retainedSubmissions": 1,
+            "retainedStorageReceipts": 1
+          }
+        ]
+      },
+      "permissions": {
+        "counts": {
+          "PASS": 8,
+          "FAIL": 0,
+          "BLOCKED": 0
+        },
+        "joinedPublicKeys": 5,
+        "independentSdk2And4Agreement": true,
+        "lifecycle": {
+          "counts": {
+            "PASS": 16,
+            "FAIL": 0,
+            "BLOCKED": 0
+          },
+          "observations": [
+            {
+              "id": "identity",
+              "method": "getPublicKey",
+              "origin": "https://todo.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:40:40.550Z",
+                "returnedFields": [
+                  "publicKey"
+                ]
+              },
+              "prompts": []
+            },
+            {
+              "id": "setup-basket",
+              "method": "createAction",
+              "origin": "https://todo.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:40:44.068Z",
+                "returnedFields": [
+                  "notDelayedResults",
+                  "sendWithResults",
+                  "tx",
+                  "txid"
+                ]
+              },
+              "prompts": [
+                {
+                  "category": "Basket Access",
+                  "decision": "allow",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:40:40.758Z",
+                    "attemptStartedAt": "2026-11-09T22:40:40.758Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:40:41.681Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Allow",
+                    "callNonce": "11887885-ff66-4d3f-aa8c-a56369d79285",
+                    "completedAt": "2026-11-09T22:40:41.681Z",
+                    "dispatch": {
+                      "body": "Basket Access\n\nAn application is requesting access to basket \"tpnil permission lifecycle v1\".\n\nOrigin\ntodo.itcve.test\nBasket\ntpnil permission lifecycle v1\nReason\nTPNIL permission lifecycle basket fixture\nAllow\nDeny",
+                      "button": "Allow",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:40:41.667Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "ff05c86e-793e-4e3a-8185-ff3c246285ba",
+                      "receivedAt": "2026-11-09T22:40:41.668Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Atodo.itcve.test%3Atpnil+permission+lifecycle+v1%3Ainsertion",
+                      "visible": true
+                    },
+                    "nonce": "ff05c86e-793e-4e3a-8185-ff3c246285ba",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Atodo.itcve.test%3Atpnil+permission+lifecycle+v1%3Ainsertion",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                },
+                {
+                  "category": "Permission Request",
+                  "decision": "allow",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:40:41.992Z",
+                    "attemptStartedAt": "2026-11-09T22:40:41.992Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:40:42.897Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Allow Selected",
+                    "callNonce": "11887885-ff66-4d3f-aa8c-a56369d79285",
+                    "completedAt": "2026-11-09T22:40:42.897Z",
+                    "dispatch": {
+                      "body": "Permission Request\n\ntodo.itcve.test is requesting the following permissions\n\nEncrypt, save, and redeem your private ToDo tokens.\n\nSPENDING AUTHORIZATION\n\nThis app wants to spend up to 0.00100000 BSV (100,000 satoshis)\nApp says: “Create ToDo tokens and cover their transaction and developer fees.”\nAllow Selected\nDeny All",
+                      "button": "Allow Selected",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:40:42.891Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "2ed8c506-301a-49ac-978e-bbb7bdd04cfd",
+                      "receivedAt": "2026-11-09T22:40:42.893Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=groupedPermission&requestID=group%3Atodo.itcve.test",
+                      "visible": true
+                    },
+                    "nonce": "2ed8c506-301a-49ac-978e-bbb7bdd04cfd",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=groupedPermission&requestID=group%3Atodo.itcve.test",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                },
+                {
+                  "category": "Spending Authorization",
+                  "decision": "allow",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:40:43.091Z",
+                    "attemptStartedAt": "2026-11-09T22:40:43.091Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:40:44.001Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Allow",
+                    "callNonce": "11887885-ff66-4d3f-aa8c-a56369d79285",
+                    "completedAt": "2026-11-09T22:40:44.001Z",
+                    "dispatch": {
+                      "body": "Spending Authorization\n\nAn application is requesting authorization to spend 24 satoshis.\n\nOrigin\ntodo.itcve.test\nAmount\n24 satoshis\noutput\nPermission lifecycle public fixture (3 satoshis)\nfee\nNetwork fee (21 satoshis)\nReason\nTPNIL permission lifecycle basket fixture\nAllow\nDeny",
+                      "button": "Allow",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:40:43.992Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "74608b68-cd5d-4476-a963-2f979c1806a9",
+                      "receivedAt": "2026-11-09T22:40:43.992Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=spend%3Atodo.itcve.test%3A24%3Arequest%3A68",
+                      "visible": true
+                    },
+                    "nonce": "74608b68-cd5d-4476-a963-2f979c1806a9",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=spend%3Atodo.itcve.test%3A24%3Arequest%3A68",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "setup-certificate",
+              "method": "acquireCertificate",
+              "origin": "https://todo.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:40:45.277Z",
+                "returnedFields": [
+                  "certifier",
+                  "fields",
+                  "revocationOutpoint",
+                  "serialNumber",
+                  "signature",
+                  "subject",
+                  "type"
+                ]
+              },
+              "prompts": [
+                {
+                  "category": "Protocol Permission",
+                  "decision": "allow",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:40:44.291Z",
+                    "attemptStartedAt": "2026-11-09T22:40:44.291Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:40:45.199Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Allow",
+                    "callNonce": "1a91500c-235b-427c-8b82-6ba5292f0bbc",
+                    "completedAt": "2026-11-09T22:40:45.199Z",
+                    "dispatch": {
+                      "body": "Protocol Permission\n\nAn application is requesting permission to use protocol \"certificate acquisition KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio=\" with security level 1.\n\nOrigin\ntodo.itcve.test\nProtocol\ncertificate acquisition KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio=\nSecurity\nLevel 1 · this app only\nAllow\nDeny",
+                      "button": "Allow",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:40:45.191Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "a0378a72-2cf2-47e3-961d-aad658569db0",
+                      "receivedAt": "2026-11-09T22:40:45.192Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=proto%3Atodo.itcve.test%3Afalse%3A1%2Ccertificate+acquisition+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio%3D%3A%3Ageneric",
+                      "visible": true
+                    },
+                    "nonce": "a0378a72-2cf2-47e3-961d-aad658569db0",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=proto%3Atodo.itcve.test%3Afalse%3A1%2Ccertificate+acquisition+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio%3D%3A%3Ageneric",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "primary-protocol-before",
+              "method": "getPublicKey",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:40:45.440Z",
+                "returnedFields": [
+                  "publicKey"
+                ]
+              },
+              "prompts": []
+            },
+            {
+              "id": "alternate-protocol-before",
+              "method": "getPublicKey",
+              "origin": "https://alternate.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:40:45.626Z",
+                "returnedFields": [
+                  "publicKey"
+                ]
+              },
+              "prompts": []
+            },
+            {
+              "id": "basket-deny",
+              "method": "listOutputs",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "rejected",
+                "error": {
+                  "message": "Permission denied.",
+                  "name": "Error"
+                },
+                "settledAt": "2026-11-09T22:40:46.795Z",
+                "returnedFields": []
+              },
+              "prompts": [
+                {
+                  "category": "Basket Access",
+                  "decision": "deny",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:40:45.892Z",
+                    "attemptStartedAt": "2026-11-09T22:40:45.892Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:40:46.798Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Deny",
+                    "callNonce": "da040247-ee08-46e9-b764-3bba92e8828f",
+                    "completedAt": "2026-11-09T22:40:46.798Z",
+                    "dispatch": {
+                      "body": "Basket Access\n\nAn application is requesting access to basket \"tpnil permission lifecycle v1\".\n\nOrigin\ndeny.itcve.test\nBasket\ntpnil permission lifecycle v1\nReason\nlistOutputs\nAllow\nDeny",
+                      "button": "Deny",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:40:46.792Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "c14f990c-3352-4989-9a2c-237150a17e4d",
+                      "receivedAt": "2026-11-09T22:40:46.792Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                      "visible": true
+                    },
+                    "nonce": "c14f990c-3352-4989-9a2c-237150a17e4d",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "basket-allow",
+              "method": "listOutputs",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:40:48.002Z",
+                "returnedFields": [
+                  "BEEF",
+                  "outputs",
+                  "totalOutputs"
+                ]
+              },
+              "prompts": [
+                {
+                  "category": "Basket Access",
+                  "decision": "allow",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:40:47.024Z",
+                    "attemptStartedAt": "2026-11-09T22:40:47.024Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:40:47.933Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Allow",
+                    "callNonce": "425686bf-b141-44d3-aca6-64409703f84b",
+                    "completedAt": "2026-11-09T22:40:47.933Z",
+                    "dispatch": {
+                      "body": "Basket Access\n\nAn application is requesting access to basket \"tpnil permission lifecycle v1\".\n\nOrigin\ndeny.itcve.test\nBasket\ntpnil permission lifecycle v1\nReason\nlistOutputs\nAllow\nDeny",
+                      "button": "Allow",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:40:47.925Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "5d9e8623-9ddf-4f31-81bc-32acbaf1f30e",
+                      "receivedAt": "2026-11-09T22:40:47.925Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                      "visible": true
+                    },
+                    "nonce": "5d9e8623-9ddf-4f31-81bc-32acbaf1f30e",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "basket-cached",
+              "method": "listOutputs",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:40:48.139Z",
+                "returnedFields": [
+                  "BEEF",
+                  "outputs",
+                  "totalOutputs"
+                ]
+              },
+              "prompts": []
+            },
+            {
+              "id": "certificate-deny",
+              "method": "proveCertificate",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "rejected",
+                "error": {
+                  "message": "Permission denied.",
+                  "name": "Error"
+                },
+                "settledAt": "2026-11-09T22:40:49.277Z",
+                "returnedFields": []
+              },
+              "prompts": [
+                {
+                  "category": "Certificate Access",
+                  "decision": "deny",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:40:48.375Z",
+                    "attemptStartedAt": "2026-11-09T22:40:48.375Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:40:49.280Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Deny",
+                    "callNonce": "af152314-e3fe-40e4-ba64-8e34f3cbbadc",
+                    "completedAt": "2026-11-09T22:40:49.280Z",
+                    "dispatch": {
+                      "body": "Certificate Access\n\nAn application is requesting access to certificate data.\n\nOrigin\ndeny.itcve.test\nCert Type\nKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio=\nFields\nname\nReason\nproveCertificate\nAllow\nDeny",
+                      "button": "Deny",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:40:49.274Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "0379e62c-69de-44f5-b46b-d8a8476b30b0",
+                      "receivedAt": "2026-11-09T22:40:49.275Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=cert%3Adeny.itcve.test%3Afalse%3A029ac20335eb38768d2052be1dbbc3c8f6178407458e51e6b4ad22f1d91758895b%3AKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio%3D%3Aname%3Adisclosure",
+                      "visible": true
+                    },
+                    "nonce": "0379e62c-69de-44f5-b46b-d8a8476b30b0",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=cert%3Adeny.itcve.test%3Afalse%3A029ac20335eb38768d2052be1dbbc3c8f6178407458e51e6b4ad22f1d91758895b%3AKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio%3D%3Aname%3Adisclosure",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "certificate-allow",
+              "method": "proveCertificate",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:40:50.496Z",
+                "returnedFields": [
+                  "keyringForVerifier"
+                ]
+              },
+              "prompts": [
+                {
+                  "category": "Certificate Access",
+                  "decision": "allow",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:40:49.524Z",
+                    "attemptStartedAt": "2026-11-09T22:40:49.524Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:40:50.433Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Allow",
+                    "callNonce": "14496b3a-c6c8-4e31-91e7-cad9f4f57245",
+                    "completedAt": "2026-11-09T22:40:50.433Z",
+                    "dispatch": {
+                      "body": "Certificate Access\n\nAn application is requesting access to certificate data.\n\nOrigin\ndeny.itcve.test\nCert Type\nKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio=\nFields\nname\nReason\nproveCertificate\nAllow\nDeny",
+                      "button": "Allow",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:40:50.425Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "d0c06e34-9e14-40fe-b126-9022e9e7b7d6",
+                      "receivedAt": "2026-11-09T22:40:50.426Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=cert%3Adeny.itcve.test%3Afalse%3A029ac20335eb38768d2052be1dbbc3c8f6178407458e51e6b4ad22f1d91758895b%3AKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio%3D%3Aname%3Adisclosure",
+                      "visible": true
+                    },
+                    "nonce": "d0c06e34-9e14-40fe-b126-9022e9e7b7d6",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=cert%3Adeny.itcve.test%3Afalse%3A029ac20335eb38768d2052be1dbbc3c8f6178407458e51e6b4ad22f1d91758895b%3AKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio%3D%3Aname%3Adisclosure",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "certificate-cached",
+              "method": "proveCertificate",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:40:50.542Z",
+                "returnedFields": [
+                  "keyringForVerifier"
+                ]
+              },
+              "prompts": []
+            },
+            {
+              "id": "spending-deny",
+              "method": "createAction",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "rejected",
+                "error": {
+                  "message": "Permission denied.",
+                  "name": "Error"
+                },
+                "settledAt": "2026-11-09T22:40:51.783Z",
+                "returnedFields": []
+              },
+              "prompts": [
+                {
+                  "category": "Spending Authorization",
+                  "decision": "deny",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:40:50.858Z",
+                    "attemptStartedAt": "2026-11-09T22:40:50.858Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:40:51.766Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Deny",
+                    "callNonce": "bf630bb4-5194-4413-8afe-23bef7c069fe",
+                    "completedAt": "2026-11-09T22:40:51.766Z",
+                    "dispatch": {
+                      "body": "Spending Authorization\n\nAn application is requesting authorization to spend 28 satoshis.\n\nOrigin\ndeny.itcve.test\nAmount\n28 satoshis\noutput\nPublic permission fixture recipient (5 satoshis)\nfee\nNetwork fee (23 satoshis)\nReason\nTPNIL one-shot permission payment\nAllow\nDeny",
+                      "button": "Deny",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:40:51.758Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "0c9a568d-4c8b-42c1-9b99-75b3cfef293b",
+                      "receivedAt": "2026-11-09T22:40:51.759Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=spend%3Adeny.itcve.test%3A28%3Arequest%3A69",
+                      "visible": true
+                    },
+                    "nonce": "0c9a568d-4c8b-42c1-9b99-75b3cfef293b",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=spend%3Adeny.itcve.test%3A28%3Arequest%3A69",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "spending-allow",
+              "method": "createAction",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:40:53.033Z",
+                "returnedFields": [
+                  "notDelayedResults",
+                  "sendWithResults",
+                  "tx",
+                  "txid"
+                ]
+              },
+              "prompts": [
+                {
+                  "category": "Spending Authorization",
+                  "decision": "allow",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:40:52.090Z",
+                    "attemptStartedAt": "2026-11-09T22:40:52.090Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:40:53.002Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Allow",
+                    "callNonce": "462d26dd-2656-48ea-ac14-9136234a2ff0",
+                    "completedAt": "2026-11-09T22:40:53.002Z",
+                    "dispatch": {
+                      "body": "Spending Authorization\n\nAn application is requesting authorization to spend 28 satoshis.\n\nOrigin\ndeny.itcve.test\nAmount\n28 satoshis\noutput\nPublic permission fixture recipient (5 satoshis)\nfee\nNetwork fee (23 satoshis)\nReason\nTPNIL one-shot permission payment\nAllow\nDeny",
+                      "button": "Allow",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:40:52.991Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "01dd7bc4-647d-47bf-9426-e9c872f02a3d",
+                      "receivedAt": "2026-11-09T22:40:52.992Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=spend%3Adeny.itcve.test%3A28%3Arequest%3A70",
+                      "visible": true
+                    },
+                    "nonce": "01dd7bc4-647d-47bf-9426-e9c872f02a3d",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=spend%3Adeny.itcve.test%3A28%3Arequest%3A70",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "spending-second-deny",
+              "method": "createAction",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "rejected",
+                "error": {
+                  "message": "Permission denied.",
+                  "name": "Error"
+                },
+                "settledAt": "2026-11-09T22:40:54.318Z",
+                "returnedFields": []
+              },
+              "prompts": [
+                {
+                  "category": "Spending Authorization",
+                  "decision": "deny",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:40:53.390Z",
+                    "attemptStartedAt": "2026-11-09T22:40:53.390Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:40:54.301Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Deny",
+                    "callNonce": "f5640dc8-8ae3-42ba-9202-7a776b75d76b",
+                    "completedAt": "2026-11-09T22:40:54.301Z",
+                    "dispatch": {
+                      "body": "Spending Authorization\n\nAn application is requesting authorization to spend 30 satoshis.\n\nOrigin\ndeny.itcve.test\nAmount\n30 satoshis\noutput\nPublic permission fixture recipient (7 satoshis)\nfee\nNetwork fee (23 satoshis)\nReason\nTPNIL one-shot permission second payment\nAllow\nDeny",
+                      "button": "Deny",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:40:54.291Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "4b59963f-d0f3-4738-b5f0-7d77ca58ff60",
+                      "receivedAt": "2026-11-09T22:40:54.292Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=spend%3Adeny.itcve.test%3A30%3Arequest%3A71",
+                      "visible": true
+                    },
+                    "nonce": "4b59963f-d0f3-4738-b5f0-7d77ca58ff60",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=spend%3Adeny.itcve.test%3A30%3Arequest%3A71",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "alternate-basket-allow",
+              "method": "listOutputs",
+              "origin": "https://alternate.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:40:55.553Z",
+                "returnedFields": [
+                  "BEEF",
+                  "outputs",
+                  "totalOutputs"
+                ]
+              },
+              "prompts": [
+                {
+                  "category": "Basket Access",
+                  "decision": "allow",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:40:54.574Z",
+                    "attemptStartedAt": "2026-11-09T22:40:54.574Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:40:55.483Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Allow",
+                    "callNonce": "935fbfc1-42f6-4d36-a26c-18f93113ce77",
+                    "completedAt": "2026-11-09T22:40:55.483Z",
+                    "dispatch": {
+                      "body": "Basket Access\n\nAn application is requesting access to basket \"tpnil permission lifecycle v1\".\n\nOrigin\nalternate.itcve.test\nBasket\ntpnil permission lifecycle v1\nReason\nlistOutputs\nAllow\nDeny",
+                      "button": "Allow",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:40:55.476Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "b1a90950-3d5c-4539-8bcb-e109c1fd504a",
+                      "receivedAt": "2026-11-09T22:40:55.476Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Aalternate.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                      "visible": true
+                    },
+                    "nonce": "b1a90950-3d5c-4539-8bcb-e109c1fd504a",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Aalternate.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "basket-after-single-deny",
+              "method": "listOutputs",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "rejected",
+                "error": {
+                  "message": "Permission denied.",
+                  "name": "Error"
+                },
+                "settledAt": "2026-11-09T22:40:58.527Z",
+                "returnedFields": []
+              },
+              "prompts": [
+                {
+                  "category": "Basket Access",
+                  "decision": "deny",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:40:57.626Z",
+                    "attemptStartedAt": "2026-11-09T22:40:57.626Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:40:58.531Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Deny",
+                    "callNonce": "9e0710f0-ca10-4f90-b963-936aba86e4f0",
+                    "completedAt": "2026-11-09T22:40:58.531Z",
+                    "dispatch": {
+                      "body": "Basket Access\n\nAn application is requesting access to basket \"tpnil permission lifecycle v1\".\n\nOrigin\ndeny.itcve.test\nBasket\ntpnil permission lifecycle v1\nReason\nlistOutputs\nAllow\nDeny",
+                      "button": "Deny",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:40:58.524Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "059dda4f-d4db-4d38-b75a-e3fc7dc71aa4",
+                      "receivedAt": "2026-11-09T22:40:58.525Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                      "visible": true
+                    },
+                    "nonce": "059dda4f-d4db-4d38-b75a-e3fc7dc71aa4",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "certificate-after-single-cached",
+              "method": "proveCertificate",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:40:58.627Z",
+                "returnedFields": [
+                  "keyringForVerifier"
+                ]
+              },
+              "prompts": []
+            },
+            {
+              "id": "basket-recovery-allow",
+              "method": "listOutputs",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:40:59.817Z",
+                "returnedFields": [
+                  "BEEF",
+                  "outputs",
+                  "totalOutputs"
+                ]
+              },
+              "prompts": [
+                {
+                  "category": "Basket Access",
+                  "decision": "allow",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:40:58.872Z",
+                    "attemptStartedAt": "2026-11-09T22:40:58.872Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:40:59.783Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Allow",
+                    "callNonce": "093da2e8-1bb1-4a19-a205-57a379282426",
+                    "completedAt": "2026-11-09T22:40:59.783Z",
+                    "dispatch": {
+                      "body": "Basket Access\n\nAn application is requesting access to basket \"tpnil permission lifecycle v1\".\n\nOrigin\ndeny.itcve.test\nBasket\ntpnil permission lifecycle v1\nReason\nlistOutputs\nAllow\nDeny",
+                      "button": "Allow",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:40:59.775Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "df1f0453-53e5-4909-9b5a-8b9656f833f3",
+                      "receivedAt": "2026-11-09T22:40:59.776Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                      "visible": true
+                    },
+                    "nonce": "df1f0453-53e5-4909-9b5a-8b9656f833f3",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "basket-recovery-cached",
+              "method": "listOutputs",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:40:59.968Z",
+                "returnedFields": [
+                  "BEEF",
+                  "outputs",
+                  "totalOutputs"
+                ]
+              },
+              "prompts": []
+            },
+            {
+              "id": "basket-after-all-deny",
+              "method": "listOutputs",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "rejected",
+                "error": {
+                  "message": "Permission denied.",
+                  "name": "Error"
+                },
+                "settledAt": "2026-11-09T22:41:02.933Z",
+                "returnedFields": []
+              },
+              "prompts": [
+                {
+                  "category": "Basket Access",
+                  "decision": "deny",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:41:02.467Z",
+                    "attemptStartedAt": "2026-11-09T22:41:02.467Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:41:02.931Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Deny",
+                    "callNonce": "077dd527-518a-4443-b3e5-85aeabeff87f",
+                    "completedAt": "2026-11-09T22:41:02.931Z",
+                    "dispatch": {
+                      "body": "Basket Access\n\nAn application is requesting access to basket \"tpnil permission lifecycle v1\".\n\nOrigin\ndeny.itcve.test\nBasket\ntpnil permission lifecycle v1\nReason\nlistOutputs\nAllow\nDeny",
+                      "button": "Deny",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:41:02.927Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "070cbf7f-0b2a-4a91-86c6-24dca43b4203",
+                      "receivedAt": "2026-11-09T22:41:02.928Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                      "visible": true
+                    },
+                    "nonce": "070cbf7f-0b2a-4a91-86c6-24dca43b4203",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "certificate-after-all-deny",
+              "method": "proveCertificate",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "rejected",
+                "error": {
+                  "message": "Permission denied.",
+                  "name": "Error"
+                },
+                "settledAt": "2026-11-09T22:41:04.077Z",
+                "returnedFields": []
+              },
+              "prompts": [
+                {
+                  "category": "Certificate Access",
+                  "decision": "deny",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:41:03.174Z",
+                    "attemptStartedAt": "2026-11-09T22:41:03.174Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:41:04.081Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Deny",
+                    "callNonce": "c2ba49d7-59b2-466d-89c5-a3ce5c74a161",
+                    "completedAt": "2026-11-09T22:41:04.081Z",
+                    "dispatch": {
+                      "body": "Certificate Access\n\nAn application is requesting access to certificate data.\n\nOrigin\ndeny.itcve.test\nCert Type\nKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio=\nFields\nname\nReason\nproveCertificate\nAllow\nDeny",
+                      "button": "Deny",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:41:04.074Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "dd68db9f-b1b4-4570-ac8e-21cf597f2d47",
+                      "receivedAt": "2026-11-09T22:41:04.074Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=cert%3Adeny.itcve.test%3Afalse%3A029ac20335eb38768d2052be1dbbc3c8f6178407458e51e6b4ad22f1d91758895b%3AKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio%3D%3Aname%3Adisclosure",
+                      "visible": true
+                    },
+                    "nonce": "dd68db9f-b1b4-4570-ac8e-21cf597f2d47",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=cert%3Adeny.itcve.test%3Afalse%3A029ac20335eb38768d2052be1dbbc3c8f6178407458e51e6b4ad22f1d91758895b%3AKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio%3D%3Aname%3Adisclosure",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "protocol-after-all",
+              "method": "getPublicKey",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "rejected",
+                "error": {
+                  "message": "No protocol permission token found (seekPermission=false).",
+                  "name": "Error"
+                },
+                "settledAt": "2026-11-09T22:41:04.169Z",
+                "returnedFields": []
+              },
+              "prompts": []
+            },
+            {
+              "id": "alternate-basket-after-all",
+              "method": "listOutputs",
+              "origin": "https://alternate.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:41:04.218Z",
+                "returnedFields": [
+                  "BEEF",
+                  "outputs",
+                  "totalOutputs"
+                ]
+              },
+              "prompts": []
+            },
+            {
+              "id": "alternate-protocol-after-all",
+              "method": "getPublicKey",
+              "origin": "https://alternate.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:41:04.310Z",
+                "returnedFields": [
+                  "publicKey"
+                ]
+              },
+              "prompts": []
+            }
+          ]
+        }
+      },
+      "finalLedger": {
+        "verified": true,
+        "policy": "tpnil-native-shutdown-submissions@1.0.0",
+        "initialCount": 53,
+        "finalCount": 53,
+        "tailCount": 0,
+        "providers": [
+          {
+            "id": "source",
+            "initial": 20,
+            "final": 20
+          },
+          {
+            "id": "source/replacement-wallet.itcve.test",
+            "initial": 33,
+            "final": 33
+          }
+        ],
+        "deniedPaymentsCheckedThroughShutdown": true,
+        "sha256": "b305e00afe0ff18a6ea8e114fbc4991af08b5647f2bc95c6ee113c4dc9491c89",
+        "workerSha256": "b305e00afe0ff18a6ea8e114fbc4991af08b5647f2bc95c6ee113c4dc9491c89",
+        "cleanup": {
+          "browser": {
+            "startedAt": "2026-11-09T22:41:05.428Z",
+            "closed": true,
+            "endedAt": "2026-11-09T22:41:05.565Z"
+          },
+          "services": {
+            "startedAt": "2026-11-09T22:41:05.565Z",
+            "closed": true,
+            "endedAt": "2026-11-09T22:41:05.743Z"
+          },
+          "profile": {
+            "startedAt": "2026-11-09T22:41:05.744Z",
+            "closed": true,
+            "endedAt": "2026-11-09T22:41:05.748Z"
+          }
+        },
+        "capturedAt": "2026-11-09T22:41:05.749Z",
+        "lateQuarantineReuse": []
+      },
+      "coverageTransactions": {
+        "verified": true,
+        "transactions": [
+          {
+            "role": "setup-basket",
+            "txid": "f39b22edc25467d2745cc496cee6ab3f29d310a082e5ccc93121c9542b80a09c"
+          },
+          {
+            "role": "spending-allow",
+            "txid": "4f71cd63abef9897b099c12cff30bfbe64bc6f5ea49bb4e4caf5064d683ca612"
+          },
+          {
+            "role": "clause-nosend-anchor",
+            "txid": "40c8d858930243e230cef70d523972cdf5838e36ec7dccc3a9178c4d6f76a7e8"
+          }
+        ]
+      },
+      "lifecycle": {
+        "schema": "tpnil-native-conformance-lifecycle@3",
+        "oracle": "tpnil-native-lifecycle-oracle@3.0.0",
+        "result": "PASS",
+        "assertions": [
+          {
+            "id": "accepted-service-verdict-observed",
+            "result": "PASS"
+          },
+          {
+            "id": "rejection-preserves-wallet-state",
+            "result": "PASS"
+          },
+          {
+            "id": "post-rejection-recovery",
+            "result": "PASS"
+          }
+        ]
+      },
+      "reserves": {
+        "roots": [
+          "626020a3e9f3bb8e248764a0a461d92e7f1805c142365477a8cf5fd44902ee58.0",
+          "21814a7cc139f5007fdc99a353fa0bda0a335c36036eee5a9455e2be49bd7b0e.0",
+          "b011160ea354067e2ae38afe27c1a1978faa30e4be18083a65ca0e2c52e3cf4c.0"
+        ],
+        "startedAt": "2026-11-09T22:32:59.784Z",
+        "completedAt": "2026-11-09T22:33:04.537Z",
+        "scenarioStartedAt": "2026-11-09T22:33:04.540Z",
+        "snapshotAuthenticated": true,
+        "scenarioGraph": [
+          {
+            "index": 3,
+            "txid": "7c545137cd9ef483bc2d6f50d0e98b41dfe787190b88cda9832f6ed583d8b491",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "626020a3e9f3bb8e248764a0a461d92e7f1805c142365477a8cf5fd44902ee58.0"
+            ]
+          },
+          {
+            "index": 4,
+            "txid": "591dd596ac17eeac12a33faf772e23d4d294a949ad71001f1f0ee1be3aa542aa",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "7c545137cd9ef483bc2d6f50d0e98b41dfe787190b88cda9832f6ed583d8b491.0",
+              "7c545137cd9ef483bc2d6f50d0e98b41dfe787190b88cda9832f6ed583d8b491.1"
+            ]
+          },
+          {
+            "index": 5,
+            "txid": "4f903b339c6069784acb7b17b9b91d7aa9cc21615efad5eacb601ea3d97826f7",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "7c545137cd9ef483bc2d6f50d0e98b41dfe787190b88cda9832f6ed583d8b491.2"
+            ]
+          },
+          {
+            "index": 6,
+            "txid": "f1c3501beaf0a6f86b77b410d28ba08325fb644fa717820529b3558f3548963a",
+            "verdict": "REJECTED",
+            "inputs": [
+              "591dd596ac17eeac12a33faf772e23d4d294a949ad71001f1f0ee1be3aa542aa.0"
+            ]
+          },
+          {
+            "index": 7,
+            "txid": "9f4369d56801fd31fdf96f0c58d68c5e05cbbc228352217c6169df23b0e3ecd6",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "4f903b339c6069784acb7b17b9b91d7aa9cc21615efad5eacb601ea3d97826f7.1"
+            ]
+          },
+          {
+            "index": 8,
+            "txid": "758062fa64cfb8a963e495325cf636415e1e8ab41c1b961057050a12f5751623",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "9f4369d56801fd31fdf96f0c58d68c5e05cbbc228352217c6169df23b0e3ecd6.1"
+            ]
+          },
+          {
+            "index": 9,
+            "txid": "4d8831a72a5f5d9371d86479f0cd874c0c53f9ee32c00ad570eb18cf665f6462",
+            "verdict": "REJECTED",
+            "inputs": [
+              "758062fa64cfb8a963e495325cf636415e1e8ab41c1b961057050a12f5751623.1"
+            ]
+          },
+          {
+            "index": 10,
+            "txid": "b8fd3317b844b4c394a0f59820900cdb43a2618b1a018db873a2396700c6d1cf",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "21814a7cc139f5007fdc99a353fa0bda0a335c36036eee5a9455e2be49bd7b0e.0"
+            ]
+          }
+        ],
+        "rejectedChainsUnreusedThroughRecovery": true,
+        "postRecoverySubmissionsChecked": 42,
+        "postRecoveryRejectedReuse": []
+      },
+      "clauses": {
+        "counts": {
+          "PASS": 133,
+          "FAIL": 99,
+          "BLOCKED": 1
+        },
+        "nonPassing": [
+          {
+            "id": "output.listActions",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.description",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.inputBEEF",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.inputs.0.unlockingScriptLength",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.inputs.0.inputDescription",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.inputs.0.sequenceNumber",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.outputs.0.outputDescription",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.outputs.0.basket",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.outputs.0.customInstructions",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.outputs.0.tags.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.lockTime",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.version",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.labels.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.signAndProcess",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.acceptDelayedBroadcast",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.trustSelf",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.knownTxids.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.returnTXIDOnly",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.noSend",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.sendWith.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.randomizeOutputs",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.spends",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.reference",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.options.acceptDelayedBroadcast",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.options.returnTXIDOnly",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.options.noSend",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.labels.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeLabels",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeInputs",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeInputSourceLockingScripts",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeInputUnlockingScripts",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeOutputs",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeOutputLockingScripts",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.outputs.0.insertionRemittance.basket",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.outputs.0.insertionRemittance.customInstructions",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.outputs.0.insertionRemittance.tags.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.labels.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.basket",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.tags.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.include",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.includeCustomInstructions",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.includeTags",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.includeLabels",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.relinquishOutput.basket",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.identityKey",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.forSelf",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.revealCounterpartyKeyLinkage.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.revealCounterpartyKeyLinkage.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.revealSpecificKeyLinkage.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.revealSpecificKeyLinkage.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.plaintext.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.decrypt.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.decrypt.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.decrypt.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.decrypt.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.data.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifyHmac.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifyHmac.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifyHmac.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifyHmac.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.data.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.hashToDirectlySign.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifySignature.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifySignature.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifySignature.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.acquireCertificate.fields",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.acquireCertificate.certifierUrl",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.acquireCertificate.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listCertificates.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.proveCertificate.certificate.fields",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.proveCertificate.fieldsToReveal.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.proveCertificate.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.discoverByIdentityKey.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.discoverByAttributes.attributes",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.discoverByAttributes.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "namespace.protocol.reserved",
+            "result": "FAIL"
+          },
+          {
+            "id": "namespace.protocol.uppercase",
+            "result": "FAIL"
+          },
+          {
+            "id": "namespace.basket.reserved",
+            "result": "FAIL"
+          },
+          {
+            "id": "errors.structured",
+            "result": "FAIL"
+          },
+          {
+            "id": "coverage.remaining-obligations",
+            "result": "BLOCKED"
+          },
+          {
+            "id": "output.createAction.noSendChange-final-outpoints",
+            "result": "FAIL"
+          }
+        ],
+        "completeBRC100Conformance": false
+      },
+      "integrated": {
+        "counts": {
+          "PASS": 77,
+          "FAIL": 0,
+          "BLOCKED": 0
+        },
+        "identityJoinsVerified": true
+      },
+      "rust": {
+        "counts": {
+          "PASS": 42,
+          "FAIL": 6,
+          "BLOCKED": 0
+        },
+        "outcome": "FAIL",
+        "parentInputsBound": 0,
+        "semanticReplay": "Only retained counts read here; full semantic replay belongs to the other independent reviewer"
+      },
+      "admissionReceipts": {
+        "isolatedHost": true,
+        "exactInstalledArchives": true,
+        "kernelNetworkNone": true,
+        "sandbox": true,
+        "processShutdown": true,
+        "containerRemoved": true,
+        "mongoClean": true,
+        "usernsRestored": true
+      },
+      "worker": {
+        "startedAt": "2026-11-09T22:32:46.450Z",
+        "endedAt": "2026-11-09T22:41:05.762Z"
+      }
+    },
+    {
+      "repetition": 2,
+      "recordSha256": "d36c02053f3077eea2442e6d596979ee900eba37ddb3f52053633e3193b12576",
+      "identity": "0260e423ccba54e7cc947bf60148b2d79a9f6e43874559292dc98a0ccf7f0c783a",
+      "conformance": {
+        "result": "FAIL",
+        "assertions": 280,
+        "counts": {
+          "PASS": 180,
+          "FAIL": 99,
+          "BLOCKED": 1
+        },
+        "vectors": [
+          {
+            "id": "ISI-4-V001",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V002",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V003",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V004",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V005",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V006",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V007",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V008",
+            "outcome": "FAIL"
+          }
+        ],
+        "projectionSha256": "9d2db590a9b4173648818da71ef906a488476c5be621786d49f3aea43502b4c4"
+      },
+      "causalSubmissionWindows": {
+        "todo": [
+          {
+            "phase": "accepted",
+            "passed": true,
+            "selection": "unique",
+            "startIndex": 4,
+            "endIndex": 6,
+            "selectedTxid": "a22a77f74afcf1eb49795521d0516927c29f20cc617856fa6fbf787ffe5c6d45",
+            "receiptCount": 2
+          },
+          {
+            "phase": "rejected",
+            "passed": true,
+            "selection": "unique",
+            "startIndex": 6,
+            "endIndex": 7,
+            "selectedTxid": "4c47ac9b6b15a74c31542707c51e75e93037f6acd0d40619721a0728ec450701",
+            "receiptCount": 1
+          },
+          {
+            "phase": "recovered",
+            "passed": true,
+            "selection": "unique",
+            "startIndex": 7,
+            "endIndex": 8,
+            "selectedTxid": "50d77f6294e953d55981674aeb73a99b599a6f83c5ded2b8e2b708f641e9d201",
+            "receiptCount": 1
+          }
+        ],
+        "api": [
+          {
+            "selection": "unique",
+            "startIndex": 8,
+            "endIndex": 9,
+            "selectedIndices": [
+              8
+            ],
+            "retainedSubmissions": 1,
+            "retainedStorageReceipts": 1
+          },
+          {
+            "selection": "unique",
+            "startIndex": 9,
+            "endIndex": 10,
+            "selectedIndices": [
+              9
+            ],
+            "retainedSubmissions": 1,
+            "retainedStorageReceipts": 1
+          },
+          {
+            "selection": "unique",
+            "startIndex": 10,
+            "endIndex": 11,
+            "selectedIndices": [
+              10
+            ],
+            "retainedSubmissions": 1,
+            "retainedStorageReceipts": 1
+          }
+        ]
+      },
+      "permissions": {
+        "counts": {
+          "PASS": 8,
+          "FAIL": 0,
+          "BLOCKED": 0
+        },
+        "joinedPublicKeys": 5,
+        "independentSdk2And4Agreement": true,
+        "lifecycle": {
+          "counts": {
+            "PASS": 16,
+            "FAIL": 0,
+            "BLOCKED": 0
+          },
+          "observations": [
+            {
+              "id": "identity",
+              "method": "getPublicKey",
+              "origin": "https://todo.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:49:10.236Z",
+                "returnedFields": [
+                  "publicKey"
+                ]
+              },
+              "prompts": []
+            },
+            {
+              "id": "setup-basket",
+              "method": "createAction",
+              "origin": "https://todo.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:49:13.767Z",
+                "returnedFields": [
+                  "notDelayedResults",
+                  "sendWithResults",
+                  "tx",
+                  "txid"
+                ]
+              },
+              "prompts": [
+                {
+                  "category": "Basket Access",
+                  "decision": "allow",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:49:10.422Z",
+                    "attemptStartedAt": "2026-11-09T22:49:10.422Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:49:11.332Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Allow",
+                    "callNonce": "c638ea44-688f-4151-a39a-ce2285c42200",
+                    "completedAt": "2026-11-09T22:49:11.332Z",
+                    "dispatch": {
+                      "body": "Basket Access\n\nAn application is requesting access to basket \"tpnil permission lifecycle v1\".\n\nOrigin\ntodo.itcve.test\nBasket\ntpnil permission lifecycle v1\nReason\nTPNIL permission lifecycle basket fixture\nAllow\nDeny",
+                      "button": "Allow",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:49:11.323Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "4dd159fc-7674-45fa-a549-d764ed19ea94",
+                      "receivedAt": "2026-11-09T22:49:11.324Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Atodo.itcve.test%3Atpnil+permission+lifecycle+v1%3Ainsertion",
+                      "visible": true
+                    },
+                    "nonce": "4dd159fc-7674-45fa-a549-d764ed19ea94",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Atodo.itcve.test%3Atpnil+permission+lifecycle+v1%3Ainsertion",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                },
+                {
+                  "category": "Permission Request",
+                  "decision": "allow",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:49:11.639Z",
+                    "attemptStartedAt": "2026-11-09T22:49:11.639Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:49:12.549Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Allow Selected",
+                    "callNonce": "c638ea44-688f-4151-a39a-ce2285c42200",
+                    "completedAt": "2026-11-09T22:49:12.549Z",
+                    "dispatch": {
+                      "body": "Permission Request\n\ntodo.itcve.test is requesting the following permissions\n\nEncrypt, save, and redeem your private ToDo tokens.\n\nSPENDING AUTHORIZATION\n\nThis app wants to spend up to 0.00100000 BSV (100,000 satoshis)\nApp says: “Create ToDo tokens and cover their transaction and developer fees.”\nAllow Selected\nDeny All",
+                      "button": "Allow Selected",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:49:12.538Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "469bae8e-07a6-4697-9bbf-790529e17f43",
+                      "receivedAt": "2026-11-09T22:49:12.539Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=groupedPermission&requestID=group%3Atodo.itcve.test",
+                      "visible": true
+                    },
+                    "nonce": "469bae8e-07a6-4697-9bbf-790529e17f43",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=groupedPermission&requestID=group%3Atodo.itcve.test",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                },
+                {
+                  "category": "Spending Authorization",
+                  "decision": "allow",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:49:12.789Z",
+                    "attemptStartedAt": "2026-11-09T22:49:12.789Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:49:13.694Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Allow",
+                    "callNonce": "c638ea44-688f-4151-a39a-ce2285c42200",
+                    "completedAt": "2026-11-09T22:49:13.695Z",
+                    "dispatch": {
+                      "body": "Spending Authorization\n\nAn application is requesting authorization to spend 24 satoshis.\n\nOrigin\ntodo.itcve.test\nAmount\n24 satoshis\noutput\nPermission lifecycle public fixture (3 satoshis)\nfee\nNetwork fee (21 satoshis)\nReason\nTPNIL permission lifecycle basket fixture\nAllow\nDeny",
+                      "button": "Allow",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:49:13.688Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "c14a1705-c69a-4f3a-b1c7-7e959bbae854",
+                      "receivedAt": "2026-11-09T22:49:13.689Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=spend%3Atodo.itcve.test%3A24%3Arequest%3A68",
+                      "visible": true
+                    },
+                    "nonce": "c14a1705-c69a-4f3a-b1c7-7e959bbae854",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=spend%3Atodo.itcve.test%3A24%3Arequest%3A68",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "setup-certificate",
+              "method": "acquireCertificate",
+              "origin": "https://todo.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:49:14.998Z",
+                "returnedFields": [
+                  "certifier",
+                  "fields",
+                  "revocationOutpoint",
+                  "serialNumber",
+                  "signature",
+                  "subject",
+                  "type"
+                ]
+              },
+              "prompts": [
+                {
+                  "category": "Protocol Permission",
+                  "decision": "allow",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:49:14.021Z",
+                    "attemptStartedAt": "2026-11-09T22:49:14.021Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:49:14.929Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Allow",
+                    "callNonce": "9b78e3f7-1742-4ea8-95d4-931ba175e7f5",
+                    "completedAt": "2026-11-09T22:49:14.929Z",
+                    "dispatch": {
+                      "body": "Protocol Permission\n\nAn application is requesting permission to use protocol \"certificate acquisition KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio=\" with security level 1.\n\nOrigin\ntodo.itcve.test\nProtocol\ncertificate acquisition KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio=\nSecurity\nLevel 1 · this app only\nAllow\nDeny",
+                      "button": "Allow",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:49:14.921Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "165eb463-953e-4d9e-a219-ebd4cbbca826",
+                      "receivedAt": "2026-11-09T22:49:14.922Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=proto%3Atodo.itcve.test%3Afalse%3A1%2Ccertificate+acquisition+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio%3D%3A%3Ageneric",
+                      "visible": true
+                    },
+                    "nonce": "165eb463-953e-4d9e-a219-ebd4cbbca826",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=proto%3Atodo.itcve.test%3Afalse%3A1%2Ccertificate+acquisition+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio%3D%3A%3Ageneric",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "primary-protocol-before",
+              "method": "getPublicKey",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:49:15.177Z",
+                "returnedFields": [
+                  "publicKey"
+                ]
+              },
+              "prompts": []
+            },
+            {
+              "id": "alternate-protocol-before",
+              "method": "getPublicKey",
+              "origin": "https://alternate.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:49:15.374Z",
+                "returnedFields": [
+                  "publicKey"
+                ]
+              },
+              "prompts": []
+            },
+            {
+              "id": "basket-deny",
+              "method": "listOutputs",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "rejected",
+                "error": {
+                  "message": "Permission denied.",
+                  "name": "Error"
+                },
+                "settledAt": "2026-11-09T22:49:16.590Z",
+                "returnedFields": []
+              },
+              "prompts": [
+                {
+                  "category": "Basket Access",
+                  "decision": "deny",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:49:15.688Z",
+                    "attemptStartedAt": "2026-11-09T22:49:15.688Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:49:16.594Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Deny",
+                    "callNonce": "37907f48-7eb9-4540-a66d-36888282921f",
+                    "completedAt": "2026-11-09T22:49:16.594Z",
+                    "dispatch": {
+                      "body": "Basket Access\n\nAn application is requesting access to basket \"tpnil permission lifecycle v1\".\n\nOrigin\ndeny.itcve.test\nBasket\ntpnil permission lifecycle v1\nReason\nlistOutputs\nAllow\nDeny",
+                      "button": "Deny",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:49:16.588Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "22b2a33b-99aa-4045-8db4-ed2d2645ad88",
+                      "receivedAt": "2026-11-09T22:49:16.588Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                      "visible": true
+                    },
+                    "nonce": "22b2a33b-99aa-4045-8db4-ed2d2645ad88",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "basket-allow",
+              "method": "listOutputs",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:49:17.820Z",
+                "returnedFields": [
+                  "BEEF",
+                  "outputs",
+                  "totalOutputs"
+                ]
+              },
+              "prompts": [
+                {
+                  "category": "Basket Access",
+                  "decision": "allow",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:49:16.839Z",
+                    "attemptStartedAt": "2026-11-09T22:49:16.839Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:49:17.748Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Allow",
+                    "callNonce": "9c80639c-0f2d-4dff-a5ad-f326ddd3cdd4",
+                    "completedAt": "2026-11-09T22:49:17.748Z",
+                    "dispatch": {
+                      "body": "Basket Access\n\nAn application is requesting access to basket \"tpnil permission lifecycle v1\".\n\nOrigin\ndeny.itcve.test\nBasket\ntpnil permission lifecycle v1\nReason\nlistOutputs\nAllow\nDeny",
+                      "button": "Allow",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:49:17.738Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "01b3bddd-2336-40ac-9be2-d877409d8f72",
+                      "receivedAt": "2026-11-09T22:49:17.739Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                      "visible": true
+                    },
+                    "nonce": "01b3bddd-2336-40ac-9be2-d877409d8f72",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "basket-cached",
+              "method": "listOutputs",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:49:17.961Z",
+                "returnedFields": [
+                  "BEEF",
+                  "outputs",
+                  "totalOutputs"
+                ]
+              },
+              "prompts": []
+            },
+            {
+              "id": "certificate-deny",
+              "method": "proveCertificate",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "rejected",
+                "error": {
+                  "message": "Permission denied.",
+                  "name": "Error"
+                },
+                "settledAt": "2026-11-09T22:49:19.124Z",
+                "returnedFields": []
+              },
+              "prompts": [
+                {
+                  "category": "Certificate Access",
+                  "decision": "deny",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:49:18.220Z",
+                    "attemptStartedAt": "2026-11-09T22:49:18.220Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:49:19.128Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Deny",
+                    "callNonce": "3beebaf2-b838-493c-b4b1-65e18fdd8399",
+                    "completedAt": "2026-11-09T22:49:19.128Z",
+                    "dispatch": {
+                      "body": "Certificate Access\n\nAn application is requesting access to certificate data.\n\nOrigin\ndeny.itcve.test\nCert Type\nKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio=\nFields\nname\nReason\nproveCertificate\nAllow\nDeny",
+                      "button": "Deny",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:49:19.121Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "bd1d4d5e-ebe7-46d9-bb62-02c3e0b240cc",
+                      "receivedAt": "2026-11-09T22:49:19.122Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=cert%3Adeny.itcve.test%3Afalse%3A029ac20335eb38768d2052be1dbbc3c8f6178407458e51e6b4ad22f1d91758895b%3AKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio%3D%3Aname%3Adisclosure",
+                      "visible": true
+                    },
+                    "nonce": "bd1d4d5e-ebe7-46d9-bb62-02c3e0b240cc",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=cert%3Adeny.itcve.test%3Afalse%3A029ac20335eb38768d2052be1dbbc3c8f6178407458e51e6b4ad22f1d91758895b%3AKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio%3D%3Aname%3Adisclosure",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "certificate-allow",
+              "method": "proveCertificate",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:49:20.359Z",
+                "returnedFields": [
+                  "keyringForVerifier"
+                ]
+              },
+              "prompts": [
+                {
+                  "category": "Certificate Access",
+                  "decision": "allow",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:49:19.388Z",
+                    "attemptStartedAt": "2026-11-09T22:49:19.388Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:49:20.296Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Allow",
+                    "callNonce": "7f4cf868-4b24-46b6-919b-ef8af862a3d2",
+                    "completedAt": "2026-11-09T22:49:20.296Z",
+                    "dispatch": {
+                      "body": "Certificate Access\n\nAn application is requesting access to certificate data.\n\nOrigin\ndeny.itcve.test\nCert Type\nKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio=\nFields\nname\nReason\nproveCertificate\nAllow\nDeny",
+                      "button": "Allow",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:49:20.288Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "87add803-5844-4f4f-8721-41cc5f2fdd4c",
+                      "receivedAt": "2026-11-09T22:49:20.289Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=cert%3Adeny.itcve.test%3Afalse%3A029ac20335eb38768d2052be1dbbc3c8f6178407458e51e6b4ad22f1d91758895b%3AKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio%3D%3Aname%3Adisclosure",
+                      "visible": true
+                    },
+                    "nonce": "87add803-5844-4f4f-8721-41cc5f2fdd4c",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=cert%3Adeny.itcve.test%3Afalse%3A029ac20335eb38768d2052be1dbbc3c8f6178407458e51e6b4ad22f1d91758895b%3AKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio%3D%3Aname%3Adisclosure",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "certificate-cached",
+              "method": "proveCertificate",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:49:20.403Z",
+                "returnedFields": [
+                  "keyringForVerifier"
+                ]
+              },
+              "prompts": []
+            },
+            {
+              "id": "spending-deny",
+              "method": "createAction",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "rejected",
+                "error": {
+                  "message": "Permission denied.",
+                  "name": "Error"
+                },
+                "settledAt": "2026-11-09T22:49:21.682Z",
+                "returnedFields": []
+              },
+              "prompts": [
+                {
+                  "category": "Spending Authorization",
+                  "decision": "deny",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:49:20.753Z",
+                    "attemptStartedAt": "2026-11-09T22:49:20.753Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:49:21.663Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Deny",
+                    "callNonce": "a8baa8c6-6b6a-4802-a74c-66c66e545741",
+                    "completedAt": "2026-11-09T22:49:21.663Z",
+                    "dispatch": {
+                      "body": "Spending Authorization\n\nAn application is requesting authorization to spend 28 satoshis.\n\nOrigin\ndeny.itcve.test\nAmount\n28 satoshis\noutput\nPublic permission fixture recipient (5 satoshis)\nfee\nNetwork fee (23 satoshis)\nReason\nTPNIL one-shot permission payment\nAllow\nDeny",
+                      "button": "Deny",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:49:21.655Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "497e9688-93f2-4a25-9f1a-ae5a05000f53",
+                      "receivedAt": "2026-11-09T22:49:21.656Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=spend%3Adeny.itcve.test%3A28%3Arequest%3A69",
+                      "visible": true
+                    },
+                    "nonce": "497e9688-93f2-4a25-9f1a-ae5a05000f53",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=spend%3Adeny.itcve.test%3A28%3Arequest%3A69",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "spending-allow",
+              "method": "createAction",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:49:22.926Z",
+                "returnedFields": [
+                  "notDelayedResults",
+                  "sendWithResults",
+                  "tx",
+                  "txid"
+                ]
+              },
+              "prompts": [
+                {
+                  "category": "Spending Authorization",
+                  "decision": "allow",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:49:21.987Z",
+                    "attemptStartedAt": "2026-11-09T22:49:21.987Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:49:22.898Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Allow",
+                    "callNonce": "faa37114-41ae-4a60-a233-df81a32eb201",
+                    "completedAt": "2026-11-09T22:49:22.898Z",
+                    "dispatch": {
+                      "body": "Spending Authorization\n\nAn application is requesting authorization to spend 28 satoshis.\n\nOrigin\ndeny.itcve.test\nAmount\n28 satoshis\noutput\nPublic permission fixture recipient (5 satoshis)\nfee\nNetwork fee (23 satoshis)\nReason\nTPNIL one-shot permission payment\nAllow\nDeny",
+                      "button": "Allow",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:49:22.888Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "7daac467-2850-4e32-84fb-e82d29a4d115",
+                      "receivedAt": "2026-11-09T22:49:22.889Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=spend%3Adeny.itcve.test%3A28%3Arequest%3A70",
+                      "visible": true
+                    },
+                    "nonce": "7daac467-2850-4e32-84fb-e82d29a4d115",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=spend%3Adeny.itcve.test%3A28%3Arequest%3A70",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "spending-second-deny",
+              "method": "createAction",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "rejected",
+                "error": {
+                  "message": "Permission denied.",
+                  "name": "Error"
+                },
+                "settledAt": "2026-11-09T22:49:24.217Z",
+                "returnedFields": []
+              },
+              "prompts": [
+                {
+                  "category": "Spending Authorization",
+                  "decision": "deny",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:49:23.289Z",
+                    "attemptStartedAt": "2026-11-09T22:49:23.289Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:49:24.199Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Deny",
+                    "callNonce": "17dc59f9-723d-4cab-ad6d-61d5fe836827",
+                    "completedAt": "2026-11-09T22:49:24.199Z",
+                    "dispatch": {
+                      "body": "Spending Authorization\n\nAn application is requesting authorization to spend 30 satoshis.\n\nOrigin\ndeny.itcve.test\nAmount\n30 satoshis\noutput\nPublic permission fixture recipient (7 satoshis)\nfee\nNetwork fee (23 satoshis)\nReason\nTPNIL one-shot permission second payment\nAllow\nDeny",
+                      "button": "Deny",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:49:24.190Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "d2956066-d555-4d75-aafe-531db533d529",
+                      "receivedAt": "2026-11-09T22:49:24.191Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=spend%3Adeny.itcve.test%3A30%3Arequest%3A71",
+                      "visible": true
+                    },
+                    "nonce": "d2956066-d555-4d75-aafe-531db533d529",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=spend%3Adeny.itcve.test%3A30%3Arequest%3A71",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "alternate-basket-allow",
+              "method": "listOutputs",
+              "origin": "https://alternate.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:49:25.498Z",
+                "returnedFields": [
+                  "BEEF",
+                  "outputs",
+                  "totalOutputs"
+                ]
+              },
+              "prompts": [
+                {
+                  "category": "Basket Access",
+                  "decision": "allow",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:49:24.519Z",
+                    "attemptStartedAt": "2026-11-09T22:49:24.519Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:49:25.429Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Allow",
+                    "callNonce": "95d44d78-129a-4509-a35c-1245bddca4ba",
+                    "completedAt": "2026-11-09T22:49:25.429Z",
+                    "dispatch": {
+                      "body": "Basket Access\n\nAn application is requesting access to basket \"tpnil permission lifecycle v1\".\n\nOrigin\nalternate.itcve.test\nBasket\ntpnil permission lifecycle v1\nReason\nlistOutputs\nAllow\nDeny",
+                      "button": "Allow",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:49:25.421Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "1e598592-8713-4877-81e5-346885fc0df8",
+                      "receivedAt": "2026-11-09T22:49:25.422Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Aalternate.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                      "visible": true
+                    },
+                    "nonce": "1e598592-8713-4877-81e5-346885fc0df8",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Aalternate.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "basket-after-single-deny",
+              "method": "listOutputs",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "rejected",
+                "error": {
+                  "message": "Permission denied.",
+                  "name": "Error"
+                },
+                "settledAt": "2026-11-09T22:49:28.576Z",
+                "returnedFields": []
+              },
+              "prompts": [
+                {
+                  "category": "Basket Access",
+                  "decision": "deny",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:49:27.672Z",
+                    "attemptStartedAt": "2026-11-09T22:49:27.672Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:49:28.581Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Deny",
+                    "callNonce": "5cc7fd86-a15c-487f-a536-2269dec14efe",
+                    "completedAt": "2026-11-09T22:49:28.581Z",
+                    "dispatch": {
+                      "body": "Basket Access\n\nAn application is requesting access to basket \"tpnil permission lifecycle v1\".\n\nOrigin\ndeny.itcve.test\nBasket\ntpnil permission lifecycle v1\nReason\nlistOutputs\nAllow\nDeny",
+                      "button": "Deny",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:49:28.571Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "81f264c6-ca83-475f-a8ff-d1d50df951dd",
+                      "receivedAt": "2026-11-09T22:49:28.571Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                      "visible": true
+                    },
+                    "nonce": "81f264c6-ca83-475f-a8ff-d1d50df951dd",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "certificate-after-single-cached",
+              "method": "proveCertificate",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:49:28.635Z",
+                "returnedFields": [
+                  "keyringForVerifier"
+                ]
+              },
+              "prompts": []
+            },
+            {
+              "id": "basket-recovery-allow",
+              "method": "listOutputs",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:49:29.779Z",
+                "returnedFields": [
+                  "BEEF",
+                  "outputs",
+                  "totalOutputs"
+                ]
+              },
+              "prompts": [
+                {
+                  "category": "Basket Access",
+                  "decision": "allow",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:49:28.838Z",
+                    "attemptStartedAt": "2026-11-09T22:49:28.838Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:49:29.747Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Allow",
+                    "callNonce": "0682d611-6397-40de-8d1b-d7f09284a8ec",
+                    "completedAt": "2026-11-09T22:49:29.747Z",
+                    "dispatch": {
+                      "body": "Basket Access\n\nAn application is requesting access to basket \"tpnil permission lifecycle v1\".\n\nOrigin\ndeny.itcve.test\nBasket\ntpnil permission lifecycle v1\nReason\nlistOutputs\nAllow\nDeny",
+                      "button": "Allow",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:49:29.738Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "bcbd3f29-7618-49c0-b695-1c0e39a2a5f7",
+                      "receivedAt": "2026-11-09T22:49:29.739Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                      "visible": true
+                    },
+                    "nonce": "bcbd3f29-7618-49c0-b695-1c0e39a2a5f7",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "basket-recovery-cached",
+              "method": "listOutputs",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:49:29.929Z",
+                "returnedFields": [
+                  "BEEF",
+                  "outputs",
+                  "totalOutputs"
+                ]
+              },
+              "prompts": []
+            },
+            {
+              "id": "basket-after-all-deny",
+              "method": "listOutputs",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "rejected",
+                "error": {
+                  "message": "Permission denied.",
+                  "name": "Error"
+                },
+                "settledAt": "2026-11-09T22:49:33.023Z",
+                "returnedFields": []
+              },
+              "prompts": [
+                {
+                  "category": "Basket Access",
+                  "decision": "deny",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:49:32.121Z",
+                    "attemptStartedAt": "2026-11-09T22:49:32.121Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:49:33.027Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Deny",
+                    "callNonce": "548c18c7-574e-4980-81da-47f733576061",
+                    "completedAt": "2026-11-09T22:49:33.027Z",
+                    "dispatch": {
+                      "body": "Basket Access\n\nAn application is requesting access to basket \"tpnil permission lifecycle v1\".\n\nOrigin\ndeny.itcve.test\nBasket\ntpnil permission lifecycle v1\nReason\nlistOutputs\nAllow\nDeny",
+                      "button": "Deny",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:49:33.020Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "175deef1-77e4-4b90-a4cb-fdc92bfe96ff",
+                      "receivedAt": "2026-11-09T22:49:33.021Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                      "visible": true
+                    },
+                    "nonce": "175deef1-77e4-4b90-a4cb-fdc92bfe96ff",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=basket%3Adeny.itcve.test%3Atpnil+permission+lifecycle+v1%3Alisting",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "certificate-after-all-deny",
+              "method": "proveCertificate",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "rejected",
+                "error": {
+                  "message": "Permission denied.",
+                  "name": "Error"
+                },
+                "settledAt": "2026-11-09T22:49:34.190Z",
+                "returnedFields": []
+              },
+              "prompts": [
+                {
+                  "category": "Certificate Access",
+                  "decision": "deny",
+                  "trustedClick": {
+                    "armedAt": "2026-11-09T22:49:33.286Z",
+                    "attemptStartedAt": "2026-11-09T22:49:33.287Z",
+                    "automation": {
+                      "endedAt": "2026-11-09T22:49:34.193Z",
+                      "status": "fulfilled"
+                    },
+                    "button": "Deny",
+                    "callNonce": "ed3ed82d-5b7a-460f-950e-5a0b80fc5580",
+                    "completedAt": "2026-11-09T22:49:34.193Z",
+                    "dispatch": {
+                      "body": "Certificate Access\n\nAn application is requesting access to certificate data.\n\nOrigin\ndeny.itcve.test\nCert Type\nKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio=\nFields\nname\nReason\nproveCertificate\nAllow\nDeny",
+                      "button": "Deny",
+                      "disabled": false,
+                      "dispatchedAt": "2026-11-09T22:49:34.187Z",
+                      "eventPhase": 1,
+                      "expectedMainFrame": true,
+                      "expectedPage": true,
+                      "isTrusted": true,
+                      "mouseButton": 0,
+                      "nonce": "057bef35-7638-4608-b210-cf61fba0634e",
+                      "receivedAt": "2026-11-09T22:49:34.188Z",
+                      "type": "click",
+                      "url": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=cert%3Adeny.itcve.test%3Afalse%3A029ac20335eb38768d2052be1dbbc3c8f6178407458e51e6b4ad22f1d91758895b%3AKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio%3D%3Aname%3Adisclosure",
+                      "visible": true
+                    },
+                    "nonce": "057bef35-7638-4608-b210-cf61fba0634e",
+                    "popupUrl": "chrome-extension://bmbamidhpjbdilpffkganlikgmfcbckf/prompt.html?kind=permission&requestID=cert%3Adeny.itcve.test%3Afalse%3A029ac20335eb38768d2052be1dbbc3c8f6178407458e51e6b4ad22f1d91758895b%3AKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio%3D%3Aname%3Adisclosure",
+                    "schema": "tpnil-native-permission-click@2"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "protocol-after-all",
+              "method": "getPublicKey",
+              "origin": "https://deny.itcve.test",
+              "outcome": {
+                "status": "rejected",
+                "error": {
+                  "message": "No protocol permission token found (seekPermission=false).",
+                  "name": "Error"
+                },
+                "settledAt": "2026-11-09T22:49:34.279Z",
+                "returnedFields": []
+              },
+              "prompts": []
+            },
+            {
+              "id": "alternate-basket-after-all",
+              "method": "listOutputs",
+              "origin": "https://alternate.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:49:34.333Z",
+                "returnedFields": [
+                  "BEEF",
+                  "outputs",
+                  "totalOutputs"
+                ]
+              },
+              "prompts": []
+            },
+            {
+              "id": "alternate-protocol-after-all",
+              "method": "getPublicKey",
+              "origin": "https://alternate.itcve.test",
+              "outcome": {
+                "status": "fulfilled",
+                "settledAt": "2026-11-09T22:49:34.416Z",
+                "returnedFields": [
+                  "publicKey"
+                ]
+              },
+              "prompts": []
+            }
+          ]
+        }
+      },
+      "finalLedger": {
+        "verified": true,
+        "policy": "tpnil-native-shutdown-submissions@1.0.0",
+        "initialCount": 53,
+        "finalCount": 53,
+        "tailCount": 0,
+        "providers": [
+          {
+            "id": "source",
+            "initial": 20,
+            "final": 20
+          },
+          {
+            "id": "source/replacement-wallet.itcve.test",
+            "initial": 33,
+            "final": 33
+          }
+        ],
+        "deniedPaymentsCheckedThroughShutdown": true,
+        "sha256": "f5171e9bb4e69d31d2d7f9a8dca9ba03d7d346b2ead078d33251e0b62645c151",
+        "workerSha256": "f5171e9bb4e69d31d2d7f9a8dca9ba03d7d346b2ead078d33251e0b62645c151",
+        "cleanup": {
+          "browser": {
+            "startedAt": "2026-11-09T22:49:35.546Z",
+            "closed": true,
+            "endedAt": "2026-11-09T22:49:35.694Z"
+          },
+          "services": {
+            "startedAt": "2026-11-09T22:49:35.694Z",
+            "closed": true,
+            "endedAt": "2026-11-09T22:49:35.888Z"
+          },
+          "profile": {
+            "startedAt": "2026-11-09T22:49:35.888Z",
+            "closed": true,
+            "endedAt": "2026-11-09T22:49:35.892Z"
+          }
+        },
+        "capturedAt": "2026-11-09T22:49:35.894Z",
+        "lateQuarantineReuse": []
+      },
+      "coverageTransactions": {
+        "verified": true,
+        "transactions": [
+          {
+            "role": "setup-basket",
+            "txid": "5cb7e4c740fa913e4a85a1f7eb6aa9cd3810d2e62e465023217769940b335aad"
+          },
+          {
+            "role": "spending-allow",
+            "txid": "a88b299b21d2876bee42bccbfe27f48ea7ec25ff3e99f4844aaae0e543e2d274"
+          },
+          {
+            "role": "clause-nosend-anchor",
+            "txid": "165ebb61c0ad80cf56ebbc8c8a711a46ede4bd5cae4a959954568aa803a0d37d"
+          }
+        ]
+      },
+      "lifecycle": {
+        "schema": "tpnil-native-conformance-lifecycle@3",
+        "oracle": "tpnil-native-lifecycle-oracle@3.0.0",
+        "result": "PASS",
+        "assertions": [
+          {
+            "id": "accepted-service-verdict-observed",
+            "result": "PASS"
+          },
+          {
+            "id": "rejection-preserves-wallet-state",
+            "result": "PASS"
+          },
+          {
+            "id": "post-rejection-recovery",
+            "result": "PASS"
+          }
+        ]
+      },
+      "reserves": {
+        "roots": [
+          "bc72cb1dc4acea395eaf8259cd20bf38035c3a479cdcd682587fffb56952447a.0",
+          "d7e4b63cde32f71715b62621be32ecac3baab45d805be25cd9ffc47b56c4567f.0",
+          "0b2a6e18693233cab14421bcd4ce24ea52854de1f0de956aee2bd0a56a155abe.0"
+        ],
+        "startedAt": "2026-11-09T22:41:20.307Z",
+        "completedAt": "2026-11-09T22:41:25.004Z",
+        "scenarioStartedAt": "2026-11-09T22:41:25.006Z",
+        "snapshotAuthenticated": true,
+        "scenarioGraph": [
+          {
+            "index": 3,
+            "txid": "c25111634840dbb03abbfe8a1f7e9f34a944de32aacc5c285b75e87a29300e7a",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "bc72cb1dc4acea395eaf8259cd20bf38035c3a479cdcd682587fffb56952447a.0"
+            ]
+          },
+          {
+            "index": 4,
+            "txid": "b98794d8ccd7ccfb25f55b88d35a24be5366a8f083539977aa65d20e9ac00325",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "c25111634840dbb03abbfe8a1f7e9f34a944de32aacc5c285b75e87a29300e7a.0",
+              "c25111634840dbb03abbfe8a1f7e9f34a944de32aacc5c285b75e87a29300e7a.1"
+            ]
+          },
+          {
+            "index": 5,
+            "txid": "a22a77f74afcf1eb49795521d0516927c29f20cc617856fa6fbf787ffe5c6d45",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "c25111634840dbb03abbfe8a1f7e9f34a944de32aacc5c285b75e87a29300e7a.2"
+            ]
+          },
+          {
+            "index": 6,
+            "txid": "4c47ac9b6b15a74c31542707c51e75e93037f6acd0d40619721a0728ec450701",
+            "verdict": "REJECTED",
+            "inputs": [
+              "b98794d8ccd7ccfb25f55b88d35a24be5366a8f083539977aa65d20e9ac00325.0"
+            ]
+          },
+          {
+            "index": 7,
+            "txid": "50d77f6294e953d55981674aeb73a99b599a6f83c5ded2b8e2b708f641e9d201",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "a22a77f74afcf1eb49795521d0516927c29f20cc617856fa6fbf787ffe5c6d45.1"
+            ]
+          },
+          {
+            "index": 8,
+            "txid": "9ff7ce59e057852264214af607b973d2fe26a11dbaf8f9194b91743f37c07249",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "50d77f6294e953d55981674aeb73a99b599a6f83c5ded2b8e2b708f641e9d201.1"
+            ]
+          },
+          {
+            "index": 9,
+            "txid": "f4bd8e8a33142df9c5f295e9b1db79dfe09ee4cefa1ba943e04283ae8473c327",
+            "verdict": "REJECTED",
+            "inputs": [
+              "9ff7ce59e057852264214af607b973d2fe26a11dbaf8f9194b91743f37c07249.1"
+            ]
+          },
+          {
+            "index": 10,
+            "txid": "90c9e9cbb8f4f906126c8f8df5eb4a539516253e64fd20993941ac9e86052f43",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "d7e4b63cde32f71715b62621be32ecac3baab45d805be25cd9ffc47b56c4567f.0"
+            ]
+          }
+        ],
+        "rejectedChainsUnreusedThroughRecovery": true,
+        "postRecoverySubmissionsChecked": 42,
+        "postRecoveryRejectedReuse": []
+      },
+      "clauses": {
+        "counts": {
+          "PASS": 133,
+          "FAIL": 99,
+          "BLOCKED": 1
+        },
+        "nonPassing": [
+          {
+            "id": "output.listActions",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.description",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.inputBEEF",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.inputs.0.unlockingScriptLength",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.inputs.0.inputDescription",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.inputs.0.sequenceNumber",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.outputs.0.outputDescription",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.outputs.0.basket",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.outputs.0.customInstructions",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.outputs.0.tags.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.lockTime",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.version",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.labels.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.signAndProcess",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.acceptDelayedBroadcast",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.trustSelf",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.knownTxids.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.returnTXIDOnly",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.noSend",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.sendWith.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createAction.options.randomizeOutputs",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.spends",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.reference",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.options.acceptDelayedBroadcast",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.options.returnTXIDOnly",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.signAction.options.noSend",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.labels.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeLabels",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeInputs",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeInputSourceLockingScripts",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeInputUnlockingScripts",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeOutputs",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.includeOutputLockingScripts",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listActions.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.outputs.0.insertionRemittance.basket",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.outputs.0.insertionRemittance.customInstructions",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.outputs.0.insertionRemittance.tags.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.labels.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.internalizeAction.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.basket",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.tags.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.include",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.includeCustomInstructions",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.includeTags",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.includeLabels",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listOutputs.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.relinquishOutput.basket",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.identityKey",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.forSelf",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.getPublicKey.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.revealCounterpartyKeyLinkage.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.revealCounterpartyKeyLinkage.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.revealSpecificKeyLinkage.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.revealSpecificKeyLinkage.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.plaintext.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.encrypt.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.decrypt.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.decrypt.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.decrypt.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.decrypt.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.data.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createHmac.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifyHmac.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifyHmac.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifyHmac.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifyHmac.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.data.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.hashToDirectlySign.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.counterparty",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.createSignature.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifySignature.privilegedReason",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifySignature.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.verifySignature.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.acquireCertificate.fields",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.acquireCertificate.certifierUrl",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.acquireCertificate.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.listCertificates.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.proveCertificate.certificate.fields",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.proveCertificate.fieldsToReveal.0",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.proveCertificate.privileged",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.discoverByIdentityKey.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.discoverByAttributes.attributes",
+            "result": "FAIL"
+          },
+          {
+            "id": "input.discoverByAttributes.seekPermission",
+            "result": "FAIL"
+          },
+          {
+            "id": "namespace.protocol.reserved",
+            "result": "FAIL"
+          },
+          {
+            "id": "namespace.protocol.uppercase",
+            "result": "FAIL"
+          },
+          {
+            "id": "namespace.basket.reserved",
+            "result": "FAIL"
+          },
+          {
+            "id": "errors.structured",
+            "result": "FAIL"
+          },
+          {
+            "id": "coverage.remaining-obligations",
+            "result": "BLOCKED"
+          },
+          {
+            "id": "output.createAction.noSendChange-final-outpoints",
+            "result": "FAIL"
+          }
+        ],
+        "completeBRC100Conformance": false
+      },
+      "integrated": {
+        "counts": {
+          "PASS": 77,
+          "FAIL": 0,
+          "BLOCKED": 0
+        },
+        "identityJoinsVerified": true
+      },
+      "rust": {
+        "counts": {
+          "PASS": 0,
+          "FAIL": 0,
+          "BLOCKED": 0
+        },
+        "outcome": "NOT_EXECUTED_PARENT_VERIFICATION_STOPPED",
+        "parentInputsBound": 0,
+        "semanticReplay": "Only retained counts read here; full semantic replay belongs to the other independent reviewer"
+      },
+      "admissionReceipts": {
+        "isolatedHost": true,
+        "exactInstalledArchives": true,
+        "kernelNetworkNone": true,
+        "sandbox": true,
+        "processShutdown": true,
+        "containerRemoved": true,
+        "mongoClean": true,
+        "usernsRestored": true
+      },
+      "worker": {
+        "startedAt": "2026-11-09T22:41:07.402Z",
+        "endedAt": "2026-11-09T22:49:35.908Z"
+      }
+    }
+  ]
+}

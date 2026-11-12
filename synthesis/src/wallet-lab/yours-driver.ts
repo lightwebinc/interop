@@ -25,6 +25,7 @@ import {
 } from './model.js'
 import type { ComponentSelection } from './go-services.js'
 import { ControlledWalletServices, type TeranodeWalletFundingFixture } from './services.js'
+import { bindTodoSubmissionWindow, todoProtocol, todoSubmissionBinding, type TodoSubmissionWindow } from './native/todo-submission-binding.js'
 
 interface CwiBoundary {
   [method: string]: (args: Record<string, unknown>) => Promise<Record<string, unknown>>
@@ -58,10 +59,18 @@ interface ListOutputProjection {
   beef?: number[]
 }
 
+export interface NativeScenarioContext {
+  application: Page; context: BrowserContext; extensionId: string; password: string
+  services: ControlledWalletServices; evidence: EvidenceBundle; baselineVectors: VectorResult[]
+  manualPrompt: <T>(operation: () => Promise<T>) => Promise<T>
+}
+
 export interface YoursRunOptions {
-  integratedProfile?: 'ITCVE-1@1.3.0'
+  shutdownSubmissionPolicy?: 'tpnil-native-shutdown-submissions@1.0.0'
+  integratedProfile?: 'ITCVE-1@1.3.0' | 'ITCVE-1@1.4.0' | 'ITCVE-1@1.5.0' | 'ITCVE-1@2.0.0'
   go?: import('./go-services.js').GoServiceOptions
-  additionalScenario?: (context: { application: Page; services: ControlledWalletServices; evidence: EvidenceBundle }) => Promise<void>
+  prepareScenario?: (context: NativeScenarioContext) => Promise<void>
+  additionalScenario?: (context: NativeScenarioContext) => Promise<void | { vectors: VectorResult[] }>
   nativeQualification?: { fundingFixture: TeranodeWalletFundingFixture; sandbox: true }
   components?: ComponentSelection
   extensionDirectory: string
@@ -143,7 +152,12 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
   const outputDirectory = path.resolve(options.outputDirectory)
   const runId = path.basename(outputDirectory)
   const evidence = new EvidenceBundle(outputDirectory)
-  if (options.go?.storageSyncPatch && options.integratedProfile !== 'ITCVE-1@1.3.0') throw new Error('Patched native services require the prospective integrated profile')
+  if (options.go?.storageSyncPatch && !['ITCVE-1@1.3.0', 'ITCVE-1@1.4.0', 'ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(options.integratedProfile ?? '')) throw new Error('Patched native services require the prospective integrated profile')
+  if (options.go?.terminalRejectionReceipts && !['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(options.integratedProfile ?? '')) throw new Error('Terminal submission receipts require the prospective conformance profile')
+  if (options.shutdownSubmissionPolicy && options.shutdownSubmissionPolicy !== 'tpnil-native-shutdown-submissions@1.0.0') throw new Error('Unknown shutdown submission policy')
+  if (options.shutdownSubmissionPolicy && options.integratedProfile !== 'ITCVE-1@2.0.0') throw new Error('Shutdown submission receipts require prospective coverage mode')
+  let submissionClosure: ReturnType<ControlledWalletServices['observeSubmissionClosure']> | undefined
+  let initialSubmissionCaptureAt: string | undefined
   const services = new ControlledWalletServices({ webroot, components: options.components, go: options.go })
   const permissions: PermissionObservation[] = []
   const consoleErrors: string[] = []
@@ -153,6 +167,16 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
   let permissionSequence = 0
   let browserVersion = 'unknown'
   const handledPromptUrls = new Set<string>()
+  const activeAutomaticPrompts = new Set<Promise<void>>()
+  let manualPromptActive = false
+  const manualPrompt = async <T>(operation: () => Promise<T>): Promise<T> => {
+    if (manualPromptActive) throw new Error('Nested manual permission scenario')
+    manualPromptActive = true
+    try {
+      await Promise.allSettled([...activeAutomaticPrompts])
+      return await operation()
+    } finally { manualPromptActive = false }
+  }
   const progress = (message: string): void => {
     process.stdout.write(`[wallet-lab:${runId}] ${message}\n`)
     if (options.nativeQualification !== undefined) {
@@ -195,8 +219,9 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     })
     browserVersion = context.browser()?.version() ?? 'chromium-persistent-context'
     const handlePrompt = async (page: Page): Promise<void> => {
+      if (manualPromptActive) return
       await page.waitForLoadState('domcontentloaded').catch(() => undefined)
-      if (!page.url().includes('/prompt.html')) return
+      if (manualPromptActive || !page.url().includes('/prompt.html')) return
       const promptUrl = page.url()
       if (handledPromptUrls.has(promptUrl)) return
       handledPromptUrls.add(promptUrl)
@@ -207,6 +232,7 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
           return text !== '' && text !== 'Loading...' && /Allow|Deny/.test(text)
         }, undefined, { timeout: 20_000 })
         const body = await page.locator('body').innerText()
+        if (manualPromptActive) return
         const origin = body.match(/Origin\s+([^\s]+)/)?.[1]
           ?? body.match(/\n([^\s]+) is requesting/)?.[1]
           ?? 'unknown'
@@ -229,11 +255,17 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
         handledPromptUrls.delete(promptUrl)
       }
     }
+    const automaticPrompt = (page: Page): void => {
+      if (manualPromptActive) return
+      const operation = handlePrompt(page).catch(error => { consoleErrors.push(`prompt: ${String(error)}`) })
+      activeAutomaticPrompts.add(operation)
+      void operation.finally(() => activeAutomaticPrompts.delete(operation))
+    }
     context.on('page', page => {
       page.on('console', message => {
         if (message.type() === 'error') consoleErrors.push(message.text().slice(0, 2_000))
       })
-      const attempt = (): void => void handlePrompt(page).catch(error => consoleErrors.push(`prompt: ${String(error)}`))
+      const attempt = (): void => automaticPrompt(page)
       page.on('framenavigated', frame => {
         if (frame === page.mainFrame()) attempt()
       })
@@ -241,7 +273,7 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     })
     promptPoll = setInterval(() => {
       for (const page of context!.pages())
-        void handlePrompt(page).catch(error => consoleErrors.push(`prompt-poll: ${String(error)}`))
+        automaticPrompt(page)
     }, 250)
     let worker = context.serviceWorkers()[0]
     if (worker === undefined) worker = await context.waitForEvent('serviceworker')
@@ -365,6 +397,12 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     evidence.addJson('boundary.json', boundary)
     evidence.addJson('artifact.json', { wallet: options.walletArtifact, application: options.applicationArtifact })
     progress('controlled funding internalized')
+
+    if (options.prepareScenario !== undefined) {
+      await options.prepareScenario({ application, context, extensionId, password: 'TPNIL-Fixture-Only-2026!', services, evidence, baselineVectors: structuredClone(vectors), manualPrompt: async () => { throw new Error('Preparation does not own manual permission UI') } })
+      evidence.addJson('conformance/scenario-start.json', { startedAt: new Date().toISOString(), stage: 'before-all-customer-scenarios' })
+      progress('declared initial conformance reserves internalized before customer scenarios')
+    }
 
     const createUrl = new URL('https://todo.itcve.test/')
     createUrl.searchParams.set('p0Task', task)
@@ -523,9 +561,11 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
       outputs?: ListOutputProjection
       error?: string
       submission?: { txid: string; verdict: 'ACCEPTED_BY_NETWORK' | 'REJECTED'; sha256: string }
+      submissionWindow?: TodoSubmissionWindow
     }> => {
-      services.enqueueVerdict(verdict)
+      services.enqueueVerdict(verdict, ['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(options.integratedProfile ?? '') ? { kind: 'todo-output', protocol: todoProtocol, amount: 2 } : undefined)
       const submissionsBefore = services.submissions.length
+      const phaseStartedAt = new Date().toISOString()
       const casePage = await context!.newPage()
       const url = new URL('https://todo.itcve.test/')
       url.searchParams.set('p0Task', name)
@@ -557,7 +597,10 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
         while (Date.now() < deadline) {
           body = await within(`immediate ${verdict} page observation`, 5_000,
             casePage.locator('body').innerText())
-          if (services.submissions.length > submissionsBefore) break
+          if (['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(options.integratedProfile ?? '')) {
+            const candidate = bindTodoSubmissionWindow(services.submissions, submissionsBefore, name, phaseStartedAt, new Date().toISOString())
+            if (candidate.selection !== 'none') break
+          } else if (services.submissions.length > submissionsBefore) break
           await casePage.waitForTimeout(500)
         }
         progress(`immediate ${verdict}: ${services.submissions.length - submissionsBefore} submission(s) observed`)
@@ -572,10 +615,15 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
       } finally {
         await casePage.close().catch(() => undefined)
       }
-      const observed = services.submissions.length > submissionsBefore ? services.submissions.at(-1) : undefined
+      const submissionWindow = ['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(options.integratedProfile ?? '')
+        ? bindTodoSubmissionWindow(services.submissions, submissionsBefore, name, phaseStartedAt, new Date().toISOString()) : undefined
+      const observed = submissionWindow === undefined
+        ? services.submissions.length > submissionsBefore ? services.submissions.at(-1) : undefined
+        : submissionWindow.selection === 'unique' ? services.submissions[submissionWindow.selectedIndex!] : undefined
       const discardedUnconsumedVerdict = observed === undefined ? services.discardQueuedVerdict(verdict) : false
       return {
         body,
+        ...(submissionWindow === undefined ? {} : { submissionWindow }),
         ...(outputs === undefined ? {} : { outputs }),
         ...(error === undefined ? {} : { error }),
         ...(discardedUnconsumedVerdict ? { error: error ?? 'No controlled submission consumed the scheduled verdict.' } : {}),
@@ -595,6 +643,7 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
     const rejectedPassed = rejected.submission?.verdict === 'REJECTED' && rejectedStatePreserved
     const recoveryPassed = recovered.submission?.verdict === 'ACCEPTED_BY_NETWORK' && recoveredStateAdvanced
     evidence.addJson('broadcast-lifecycle.json', {
+      ...(['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(options.integratedProfile ?? '') ? { submissionBinding: todoSubmissionBinding } : {}),
       accepted,
       rejected,
       recovered,
@@ -674,22 +723,33 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
 
     if (options.additionalScenario !== undefined) {
       progress('additional integrated component scenario: starting')
-      await options.additionalScenario({ application, services, evidence })
+      const baselineVectors = structuredClone(vectors)
+      if (['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(options.integratedProfile ?? '')) evidence.addJson('conformance/baseline-vectors.json', baselineVectors)
+      const additional = await options.additionalScenario({ application, context, extensionId, password: 'TPNIL-Fixture-Only-2026!', services, evidence, baselineVectors, manualPrompt })
+      if (['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(options.integratedProfile ?? '')) {
+        if (!additional || additional.vectors.length !== 8 || additional.vectors.some((vector, i) => vector.id !== `ISI-4-V00${i + 1}`)) throw new Error('Conformance scenario omitted required vector outcomes')
+        vectors.splice(0, vectors.length, ...additional.vectors)
+        evidence.addJson('conformance/service-counterparts.json', services.storageCounterpartIdentities)
+      }
       progress('additional integrated component scenario: completed')
     }
 
     if (options.nativeQualification !== undefined) {
       evidence.addJson('native-transactions.json', await services.nativeTransactions())
-      evidence.addJson('native-submissions.json', services.submissions.map(item => ({ txid: item.txid, verdict: item.verdict, beefHex: Buffer.from(item.bytes).toString('hex') })))
+      if (options.shutdownSubmissionPolicy) {
+        submissionClosure = services.observeSubmissionClosure()
+        initialSubmissionCaptureAt = new Date().toISOString()
+      }
+      evidence.addJson('native-submissions.json', submissionClosure?.initialSubmissions ?? services.submissions.map(item => ({ txid: item.txid, verdict: item.verdict, beefHex: Buffer.from(item.bytes).toString('hex') })))
     }
     evidence.addJson('routes.json', services.routes)
     evidence.addJson('console-errors.json', consoleErrors)
     const resultWithoutEvidence: Omit<WalletLabResult, 'evidence'> = {
       schema: 'tpnil-isi4-wallet-run@1.0.0',
       claim: Object.values(services.components).includes('go') ? 'ENGINEERING_OBSERVATION_ONLY' : 'EXPERIMENTAL_CONFORMANCE_RESULT',
-      program: 'ISI-4@1.0.0',
+      program: options.integratedProfile === 'ITCVE-1@2.0.0' ? 'ISI-4@4.0.0' : options.integratedProfile === 'ITCVE-1@1.5.0' ? 'ISI-4@3.0.0' : options.integratedProfile === 'ITCVE-1@1.4.0' ? 'ISI-4@2.0.0' : 'ISI-4@1.0.0',
       itcve: options.integratedProfile ?? (Object.values(services.components).includes('go') ? 'ITCVE-1@1.1.0' : 'ITCVE-1@1.0.0'),
-      profile: 'production-wallet-todo-controlled-services',
+      profile: ['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(options.integratedProfile ?? '') ? 'production-wallet-native-conformance' : 'production-wallet-todo-controlled-services',
       runId,
       startedAt,
       endedAt: new Date().toISOString(),
@@ -752,9 +812,20 @@ export async function runYoursWallet(options: YoursRunOptions): Promise<WalletLa
   } finally {
     if (promptPoll !== undefined) clearInterval(promptPoll)
     const cleanupFailures: unknown[] = []
-    try { await context?.close() } catch (error) { cleanupFailures.push(error) }
-    try { await services.close() } catch (error) { cleanupFailures.push(error) }
-    try { fs.rmSync(profileDirectory, { recursive: true, force: true }) } catch (error) { cleanupFailures.push(error) }
+    if (options.shutdownSubmissionPolicy) {
+      submissionClosure ??= services.observeSubmissionClosure()
+      initialSubmissionCaptureAt ??= new Date().toISOString()
+      const { closeWithSubmissionReceipt } = await import('./native/shutdown-submissions.js')
+      const closed = await closeWithSubmissionReceipt({ directory: outputDirectory, observer: submissionClosure, initialCapturedAt: initialSubmissionCaptureAt,
+        closeBrowser: async () => { if (!context) throw new Error('Native browser context is absent'); await context.close() },
+        closeServices: async () => { await services.close() },
+        removeProfile: () => fs.rmSync(profileDirectory, { recursive: true, force: true }) })
+      cleanupFailures.push(...closed.errors)
+    } else {
+      try { await context?.close() } catch (error) { cleanupFailures.push(error) }
+      try { await services.close() } catch (error) { cleanupFailures.push(error) }
+      try { fs.rmSync(profileDirectory, { recursive: true, force: true }) } catch (error) { cleanupFailures.push(error) }
+    }
     if (options.nativeQualification !== undefined && cleanupFailures.length > 0) throw new AggregateError(cleanupFailures, 'Native wallet cleanup failed')
   }
 }
