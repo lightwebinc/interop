@@ -1,0 +1,11 @@
+{
+  "verified": true,
+  "assertions": 41,
+  "pass": 38,
+  "fail": 3,
+  "blocked": 0,
+  "paidTransactions": [
+    "4f2ab474d60c60e1d950e9d2e96bed08df234c855736a5eebbf47d5558ae0cd7",
+    "2ddeb1ed9a77e34a231dd011842a6ff0f707b0f5b1462e8428d99eefdd9ab5eb"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "schema": "tpnil-original-ci-acquisition@1",
+  "runId": 42720214271,
+  "source": "8055aabb731df2c2a4020c885445ae621b57e492",
+  "conclusion": "failure",
+  "workflowUrl": "https://github.com/p2ppsr/interop/actions/runs/42720214271",
+  "acquiredAt": "2026-11-09T23:26:34.951Z",
+  "artifact": {
+    "id": 13718769952,
+    "name": "native-integrated-reevaluation",
+    "size": 8352037,
+    "sha256": "dcf9102861709b864cc300c260e6c8e303fa7fbbc8ed1090b6eda5615f3f68ef",
+    "githubDigestVerified": true
+  },
+  "extraction": {
+    "entries": 192,
+    "bytes": 27486148
+  },
+  "logs": {
+    "size": 20387,
+    "sha256": "211267cb2ae578f4a078eb2faed24e7493501a5a25fb557671d4bad2ff6cc77c",
+    "zipIntegrity": "PASS"
+  },
+  "api": [
+    {
+      "name": "run.json",
+      "size": 11996,
+      "sha256": "6e41305d5c45203c1f2281c7204c4ceb869fbe9b3cedb4560ccb4aecd337f4ad"
+    },
+    {
+      "name": "jobs.json",
+      "size": 3061,
+      "sha256": "54e847b583793987fc5d361bf752bf964d2349fd99f4c63d2037befbb44a6b9c"
+    },
+    {
+      "name": "artifacts.json",
+      "size": 755,
+      "sha256": "fe0d9a23bae6ca590c5ce2e95ada53a877046da042aeefff6dd79646cbf1b107"
+    }
+  ]
+}

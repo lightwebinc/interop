@@ -3,19 +3,21 @@ import path from 'node:path'
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
-import { corpusSources, evaluateRustCorpus } from './rust-corpus.mjs'
+import { evaluateRustCorpus, rustCorpusPolicy } from './rust-corpus.mjs'
 const root = path.resolve(import.meta.dirname, '..')
 const digest = bytes => createHash('sha256').update(bytes).digest('hex')
-export function verifyRust(directory, expectedInputs, { offline = true } = {}) {
+export function verifyRust(directory, expectedInputs, { offline = true, corpus = 'tpnil-rust-corpus@2' } = {}) {
+  const policy = rustCorpusPolicy(corpus)
   const read = name => JSON.parse(fs.readFileSync(path.join(directory, name), 'utf8'))
   const report = read('result.json'), calls = read('calls.json')
-  assert.equal(report.schema, 'tpnil-component-result@1'); assert.equal(report.corpus, 'tpnil-rust-corpus@2')
+  assert.equal(report.schema, 'tpnil-component-result@1'); assert.equal(report.corpus, policy.corpus)
+  assert.deepEqual(report.graphOracle, policy.graphOracle)
   assert.equal(report.claim, 'INFRASTRUCTURE_QUALIFICATION_ONLY')
   assert.equal(report.components.rustSdk.repository, 'bsv-blockchain/rs-sdk')
   assert.equal(report.components.rustSdk.commit, '99d2313f2ede48a465aa8be1907d26d098aac8fd')
   assert.equal(report.components.typescriptSdk, '4.0.1')
-  assert.deepEqual(Object.keys(report.sources).sort(), [...corpusSources].sort())
-  for (const file of corpusSources) assert.equal(report.sources[file], digest(fs.readFileSync(path.join(root, file))), `Frozen Rust corpus input differs: ${file}`)
+  assert.deepEqual(Object.keys(report.sources).sort(), [...policy.sources].sort())
+  for (const file of policy.sources) assert.equal(report.sources[file], digest(fs.readFileSync(path.join(root, file))), `Frozen Rust corpus input differs: ${file}`)
   assert.equal(report.components.cargoLockSha256, report.sources['components/rust/Cargo.lock'])
   assert.match(report.components.binarySha256, /^[a-f0-9]{64}$/)
   assert.equal(report.inputs.length, expectedInputs.length, 'Caller must supply every original joined input in order')
@@ -31,9 +33,11 @@ export function verifyRust(directory, expectedInputs, { offline = true } = {}) {
   assert.deepEqual(report.evidence.map(item => item.path).sort(), [...expectedEvidence].sort())
   for (const item of report.evidence) assert.equal(digest(fs.readFileSync(path.join(directory, item.path))), item.sha256)
   assert.deepEqual(report.cleanup, { childProcessesExited: true })
-  const build = spawnSync('cargo', ['build', ...(offline ? ['--offline'] : []), '--locked', '--manifest-path', path.join(root, 'components/rust/Cargo.toml')], { encoding: 'utf8', timeout: 300_000 })
+  const indexed = corpus === 'tpnil-rust-corpus@3'
+  const targetDirectory = path.join(root, indexed ? 'components/rust/target/corpus-v3' : 'components/rust/target')
+  const build = spawnSync('cargo', ['build', ...(offline ? ['--offline'] : []), '--locked', '--manifest-path', path.join(root, 'components/rust/Cargo.toml'), ...(indexed ? ['--features', 'graph-oracle-v3', '--target-dir', targetDirectory] : [])], { encoding: 'utf8', timeout: 300_000 })
   assert.equal(build.status, 0, build.stderr)
-  const binary = path.join(root, 'components/rust/target/debug/tpnil-rust-participant')
+  const binary = path.join(targetDirectory, 'debug/tpnil-rust-participant')
   const replay = spawnSync(binary, [], { input: JSON.stringify(calls.map(item => item.request)), encoding: 'utf8', timeout: 60_000, maxBuffer: 16*1024*1024 })
   assert.equal(replay.status, 0, replay.stderr)
   const responses = JSON.parse(replay.stdout)
@@ -45,11 +49,16 @@ export function verifyRust(directory, expectedInputs, { offline = true } = {}) {
     try { assert.deepEqual(request, calls[index]?.request) }
     catch { mismatches.push(index) }
     return responses[index]
-  }, inputReports)
+  }, inputReports, policy)
   assert.deepEqual(mismatches, [], 'Expected Rust requests differ from retained calls')
   assert.equal(cursor, calls.length, 'Unexpected or omitted Rust calls')
   assert.deepEqual(report.assertions, evaluated.assertions, 'Rust assertion verdicts or evidence were altered')
   assert.equal(report.outcome, evaluated.outcome, 'Rust aggregate outcome was altered')
   return { verified: true, outcome: evaluated.outcome, calls: calls.length, assertions: evaluated.assertions.length, independentReplay: true, parentInputsBound: expectedInputs.length }
 }
-if (process.argv[1] === import.meta.filename) console.log(JSON.stringify(verifyRust(path.resolve(process.argv[2]), process.argv.slice(3).map(file => path.resolve(file)))))
+if (process.argv[1] === import.meta.filename) {
+  const argv = process.argv.slice(2), indexed = argv.includes('--corpus-v3')
+  assert.ok(argv.filter(arg => arg === '--corpus-v3').length <= 1 && !argv.some(arg => arg.startsWith('--') && arg !== '--corpus-v3'), 'Unknown or duplicate Rust corpus flag')
+  const args = argv.filter(arg => arg !== '--corpus-v3')
+  console.log(JSON.stringify(verifyRust(path.resolve(args[0]), args.slice(1).map(file => path.resolve(file)), { corpus: indexed ? 'tpnil-rust-corpus@3' : 'tpnil-rust-corpus@2' })))
+}

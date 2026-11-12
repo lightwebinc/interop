@@ -1,0 +1,25 @@
+{
+  "id": "tpnil-typescript-descendant-export@1.0.0",
+  "schema": "tpnil-storage-export-adapter@1",
+  "adapter": {
+    "path": "synthesis/src/storage-sync/descendant-export.ts",
+    "sha256": "76c5763ade731d53e4411b0ae47a831ad87f93951ccc14184ae83a4453bca8f9"
+  },
+  "upstream": {
+    "package": "@bsv/wallet-toolbox",
+    "version": "2.13.0",
+    "files": {
+      "out/src/storage/StorageReader.js": "96274d14f136661d5b4908867f2cddea3082982efce665ea01209b6810bbccc1",
+      "out/src/storage/StorageKnex.js": "2f535e08d1a85bde2301cb86adefd2732445a97325e663422f0125c2e7386230",
+      "out/src/storage/methods/getSyncChunk.js": "880ea954b5f4d84908ba28dbea9af3aea8fafffefca6919927654acc30ca0a76",
+      "out/src/storage/methods/getBeefForTransaction.js": "d14394c2070213ca620b8ce1179b2c745905c7595a413997696eccd41dd154d3",
+      "out/src/storage/remoting/entityValidationHelpers.js": "7f18e94aa16ae4c5c2b3d531b2c35df8f11be4e943be2926e16b05296099b080",
+      "out/src/storage/remoting/StorageClientBase.js": "bad995dd9d4dff53e19700dfc3cea01ace5d6fb2aa91528ee781e8f3099c342a",
+      "out/src/storage/remoting/StorageClient.js": "d2d57c55d4b3bfcd723681ca7870e1ca469eb4cbd9e59c6532ea00ba1150df41"
+    }
+  },
+  "selection": "ControlledWalletServices.typescriptDescendantExport=true; default false; historical ITCVE1.3 unchanged",
+  "scope": "For each signed owner-scoped provenTxReq returned by the existing source query, replace its inputBEEF with complete public ancestor bytes from source storage only; remove the subject transaction. No network lookup, private foreign metadata or database mutation. Signed request wasBroadcast values use strict wire booleans (only SQL 0/1 or existing booleans admitted); invalid values reject. Shared request notification transactionIds are projected onto the requesting owner\u2019s transaction rows, including same-owner subscriptions on other transaction rows; unknown or malformed IDs reject; other notification fields and the source database remain unchanged. An absent notification transactionIds property is preserved; all other notification fields remain byte-identical values. Rebuild only the signed subject\u2019s reachable parent graph before removing the subject, excluding unrelated transaction entries in source batch BEEF.",
+  "pagination": "Runs before the unchanged getSyncChunk item and rough-size accounting; retains since/order/offsets and existing at-most-one-final-row rough-size overflow semantics.",
+  "retirement": "Remove when an admitted upstream release exports equivalent complete ancestry and passes all four descendant-funded replacement directions without this adapter."
+}

@@ -1,0 +1,28 @@
+{
+  "archives": [
+    {
+      "source": "d02414f58d888e3d11913dedd888a3e5871bf29f",
+      "workflowRun": 42689603169,
+      "members": 46,
+      "assertions": {
+        "total": 80,
+        "PASS": 80,
+        "FAIL": 0,
+        "BLOCKED": 0
+      },
+      "semantic": true
+    },
+    {
+      "source": "cc3cf756272b8d3826612d71e8f6356239fed6fa",
+      "workflowRun": 42697115971,
+      "members": 46,
+      "assertions": {
+        "total": 80,
+        "PASS": 80,
+        "FAIL": 0,
+        "BLOCKED": 0
+      },
+      "semantic": true
+    }
+  ]
+}

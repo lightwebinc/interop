@@ -1,0 +1,14 @@
+✔ retained descendant CI archive binds all 46 members and eight fresh runs (66.470292ms)
+✔ a recomputed outer digest cannot relabel reference evidence as native qualification (5.308834ms)
+✔ published counts and member inventory must agree with the actual ZIP (72.002417ms)
+✔ v1 archive cannot claim the prospective exact-history policy (35.4435ms)
+✔ prospective qualification schema cannot reinterpret a v1 archive (4.699042ms)
+✔ omitting a provenance file or adding an unlisted file cannot hide an archive (3.509875ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 236.961625

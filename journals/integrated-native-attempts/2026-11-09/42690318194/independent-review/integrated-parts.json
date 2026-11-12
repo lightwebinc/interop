@@ -1,0 +1,712 @@
+{
+  "schema": "tpnil-native-integrated-partial-review@1",
+  "claim": "FAILED_ATTEMPT_CHILD_REPLAY_NOT_NATIVE_QUALIFICATION",
+  "run": "42690318194",
+  "source": "d02414f58d888e3d11913dedd888a3e5871bf29f",
+  "verified": true,
+  "rust": "NOT_EXECUTED_IN_ORIGINAL_ATTEMPT",
+  "reports": [
+    {
+      "repetition": 1,
+      "assertions": [
+        {
+          "id": "relay.origin-allowlist",
+          "result": "PASS"
+        },
+        {
+          "id": "relay.signed-qr-tamper",
+          "result": "PASS"
+        },
+        {
+          "id": "relay.pairing-and-identity",
+          "result": "PASS"
+        },
+        {
+          "id": "relay.desktop-token",
+          "result": "PASS"
+        },
+        {
+          "id": "relay.permission-denial",
+          "result": "PASS"
+        },
+        {
+          "id": "relay.binary-roundtrip",
+          "result": "PASS"
+        },
+        {
+          "id": "relay.reconnect",
+          "result": "PASS"
+        },
+        {
+          "id": "relay.session-revocation",
+          "result": "PASS"
+        },
+        {
+          "id": "402.challenge",
+          "result": "PASS"
+        },
+        {
+          "id": "402.malformed-payment",
+          "result": "PASS"
+        },
+        {
+          "id": "402.insufficient-value",
+          "result": "PASS"
+        },
+        {
+          "id": "402.real-wallet-payment",
+          "result": "PASS"
+        },
+        {
+          "id": "402.duplicate-rejected",
+          "result": "PASS"
+        },
+        {
+          "id": "402.restart-replay",
+          "result": "PASS"
+        },
+        {
+          "id": "402.automatic-retry",
+          "result": "PASS"
+        },
+        {
+          "id": "402.freshness",
+          "result": "PASS"
+        },
+        {
+          "id": "402.transaction-identities",
+          "result": "PASS"
+        },
+        {
+          "id": "messaging/typescript/discovery",
+          "result": "PASS"
+        },
+        {
+          "id": "messaging/typescript/native-paid-delivery",
+          "result": "PASS"
+        },
+        {
+          "id": "messaging/typescript/restart-ack-replay",
+          "result": "PASS"
+        },
+        {
+          "id": "messaging/go-adapted/discovery",
+          "result": "PASS"
+        },
+        {
+          "id": "messaging/go-adapted/native-paid-delivery",
+          "result": "PASS"
+        },
+        {
+          "id": "messaging/go-adapted/restart-ack-replay",
+          "result": "PASS"
+        },
+        {
+          "id": "NATIVE-SYNTHESIS-UHRP",
+          "result": "PASS"
+        },
+        {
+          "id": "NATIVE-SYNTHESIS-BOARD",
+          "result": "PASS"
+        },
+        {
+          "id": "NATIVE-SYNTHESIS-LCH",
+          "result": "PASS"
+        },
+        {
+          "id": "NATIVE-SYNTHESIS-REVISION",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/getPublicKey.identity",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/getNetwork.mainnet",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/getVersion.nonempty",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/isAuthenticated.true",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/waitForAuthentication.true",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/getHeight.controlled",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/getHeaderForHeight.genesis",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/encrypt.bytes",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/decrypt.roundtrip",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/createSignature.independent-verification",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/verifySignature.valid",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/createHmac.length",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/verifyHmac.valid",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/revealCounterpartyKeyLinkage.independent-secret",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/revealSpecificKeyLinkage.independent-secret",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/internalizeAction.mined-descendant-payment",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/createAction.serialized-outputs",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/listActions.metadata",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/listOutputs.metadata",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/abortAction.releases-reservation",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/signAction.serialized-spend",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/relinquishOutput.removes-basket-membership",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/acquireCertificate.signed-fields",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/listCertificates.issuer-scope",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/proveCertificate.selective-disclosure",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/identity-service.publish",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/discoverByIdentityKey.identity-service",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/discoverByAttributes.identity-service",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/relinquishCertificate.tombstone",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/getPublicKey.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/decrypt.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/verifyHmac.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/verifySignature.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/createAction.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/signAction.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/listOutputs.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/listActions.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/internalizeAction.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/getHeaderForHeight.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/acquireCertificate.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/proveCertificate.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/listCertificates.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "identity-trust.initial-exclusion",
+          "result": "PASS"
+        },
+        {
+          "id": "identity-trust.public-settings-token",
+          "result": "PASS"
+        },
+        {
+          "id": "identity-trust.cache-expiry",
+          "result": "PASS"
+        },
+        {
+          "id": "identity-trust.positive-discovery",
+          "result": "PASS"
+        },
+        {
+          "id": "identity-trust.settings-restored",
+          "result": "PASS"
+        },
+        {
+          "id": "identity-trust.temporary-token-spent",
+          "result": "PASS"
+        },
+        {
+          "id": "identity-trust.public-boundary-only",
+          "result": "PASS"
+        },
+        {
+          "id": "identity-trust.cleanup",
+          "result": "PASS"
+        }
+      ],
+      "jobs": [
+        {
+          "name": "verify-transport.mjs",
+          "status": 0,
+          "signal": null,
+          "log": "integrated-1-verify-transport.mjs.log",
+          "sha256": "45def1ff76448bfe92455de7c4c71e0c3eb14c3de12b88b99dd41423f4665968"
+        },
+        {
+          "name": "verify-native-messaging.mjs",
+          "status": 0,
+          "signal": null,
+          "log": "integrated-1-verify-native-messaging.mjs.log",
+          "sha256": "052d03d9093e29cd66d122310e2e543791d20a0eb0a49f74d64a113258f3aeb2"
+        },
+        {
+          "name": "verify-native-synthesis.mjs",
+          "status": 0,
+          "signal": null,
+          "log": "integrated-1-verify-native-synthesis.mjs.log",
+          "sha256": "dab8aaea083dd0beb9959b00ee0edb46e2dd8b7e8f294d31a5aae83db1bdcbf7"
+        },
+        {
+          "name": "verify-wallet-boundary.mjs",
+          "status": 0,
+          "signal": null,
+          "log": "integrated-1-verify-wallet-boundary.mjs.log",
+          "sha256": "c613a20089d4ccac1e3c1c61ca1f5fc0972397164670d2d17690f780da5956f0"
+        },
+        {
+          "name": "verify-native-trust.mjs",
+          "status": 0,
+          "signal": null,
+          "log": "integrated-1-verify-native-trust.mjs.log",
+          "sha256": "e6308cda3153a10cc2c7087876b13e58fc902307d83fa41dc8f074bc9c389257"
+        }
+      ],
+      "temporaryRemoved": true
+    },
+    {
+      "repetition": 2,
+      "assertions": [
+        {
+          "id": "relay.origin-allowlist",
+          "result": "PASS"
+        },
+        {
+          "id": "relay.signed-qr-tamper",
+          "result": "PASS"
+        },
+        {
+          "id": "relay.pairing-and-identity",
+          "result": "PASS"
+        },
+        {
+          "id": "relay.desktop-token",
+          "result": "PASS"
+        },
+        {
+          "id": "relay.permission-denial",
+          "result": "PASS"
+        },
+        {
+          "id": "relay.binary-roundtrip",
+          "result": "PASS"
+        },
+        {
+          "id": "relay.reconnect",
+          "result": "PASS"
+        },
+        {
+          "id": "relay.session-revocation",
+          "result": "PASS"
+        },
+        {
+          "id": "402.challenge",
+          "result": "PASS"
+        },
+        {
+          "id": "402.malformed-payment",
+          "result": "PASS"
+        },
+        {
+          "id": "402.insufficient-value",
+          "result": "PASS"
+        },
+        {
+          "id": "402.real-wallet-payment",
+          "result": "PASS"
+        },
+        {
+          "id": "402.duplicate-rejected",
+          "result": "PASS"
+        },
+        {
+          "id": "402.restart-replay",
+          "result": "PASS"
+        },
+        {
+          "id": "402.automatic-retry",
+          "result": "PASS"
+        },
+        {
+          "id": "402.freshness",
+          "result": "PASS"
+        },
+        {
+          "id": "402.transaction-identities",
+          "result": "PASS"
+        },
+        {
+          "id": "messaging/typescript/discovery",
+          "result": "PASS"
+        },
+        {
+          "id": "messaging/typescript/native-paid-delivery",
+          "result": "PASS"
+        },
+        {
+          "id": "messaging/typescript/restart-ack-replay",
+          "result": "PASS"
+        },
+        {
+          "id": "messaging/go-adapted/discovery",
+          "result": "PASS"
+        },
+        {
+          "id": "messaging/go-adapted/native-paid-delivery",
+          "result": "PASS"
+        },
+        {
+          "id": "messaging/go-adapted/restart-ack-replay",
+          "result": "PASS"
+        },
+        {
+          "id": "NATIVE-SYNTHESIS-UHRP",
+          "result": "PASS"
+        },
+        {
+          "id": "NATIVE-SYNTHESIS-BOARD",
+          "result": "PASS"
+        },
+        {
+          "id": "NATIVE-SYNTHESIS-LCH",
+          "result": "PASS"
+        },
+        {
+          "id": "NATIVE-SYNTHESIS-REVISION",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/getPublicKey.identity",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/getNetwork.mainnet",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/getVersion.nonempty",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/isAuthenticated.true",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/waitForAuthentication.true",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/getHeight.controlled",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/getHeaderForHeight.genesis",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/encrypt.bytes",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/decrypt.roundtrip",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/createSignature.independent-verification",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/verifySignature.valid",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/createHmac.length",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/verifyHmac.valid",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/revealCounterpartyKeyLinkage.independent-secret",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/revealSpecificKeyLinkage.independent-secret",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/internalizeAction.mined-descendant-payment",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/createAction.serialized-outputs",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/listActions.metadata",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/listOutputs.metadata",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/abortAction.releases-reservation",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/signAction.serialized-spend",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/relinquishOutput.removes-basket-membership",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/acquireCertificate.signed-fields",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/listCertificates.issuer-scope",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/proveCertificate.selective-disclosure",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/identity-service.publish",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/discoverByIdentityKey.identity-service",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/discoverByAttributes.identity-service",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/relinquishCertificate.tombstone",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/getPublicKey.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/decrypt.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/verifyHmac.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/verifySignature.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/createAction.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/signAction.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/listOutputs.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/listActions.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/internalizeAction.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/getHeaderForHeight.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/acquireCertificate.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/proveCertificate.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "boundary/listCertificates.specified-rejection",
+          "result": "PASS"
+        },
+        {
+          "id": "identity-trust.initial-exclusion",
+          "result": "PASS"
+        },
+        {
+          "id": "identity-trust.public-settings-token",
+          "result": "PASS"
+        },
+        {
+          "id": "identity-trust.cache-expiry",
+          "result": "PASS"
+        },
+        {
+          "id": "identity-trust.positive-discovery",
+          "result": "PASS"
+        },
+        {
+          "id": "identity-trust.settings-restored",
+          "result": "PASS"
+        },
+        {
+          "id": "identity-trust.temporary-token-spent",
+          "result": "PASS"
+        },
+        {
+          "id": "identity-trust.public-boundary-only",
+          "result": "PASS"
+        },
+        {
+          "id": "identity-trust.cleanup",
+          "result": "PASS"
+        }
+      ],
+      "jobs": [
+        {
+          "name": "verify-transport.mjs",
+          "status": 0,
+          "signal": null,
+          "log": "integrated-2-verify-transport.mjs.log",
+          "sha256": "22b174df7e6d0ee8a907b02f8ab85e573dc24414a371d128a31e7c04bca25cf7"
+        },
+        {
+          "name": "verify-native-messaging.mjs",
+          "status": 0,
+          "signal": null,
+          "log": "integrated-2-verify-native-messaging.mjs.log",
+          "sha256": "8e51d40b30ebd365dc984e2018744c5b593e0e53b45dbb00fa888c0b2d93bd53"
+        },
+        {
+          "name": "verify-native-synthesis.mjs",
+          "status": 0,
+          "signal": null,
+          "log": "integrated-2-verify-native-synthesis.mjs.log",
+          "sha256": "0142df34cd37ce5c29710596ddc03ecb97fffef357fd5ad235c47dbf0a407ab4"
+        },
+        {
+          "name": "verify-wallet-boundary.mjs",
+          "status": 0,
+          "signal": null,
+          "log": "integrated-2-verify-wallet-boundary.mjs.log",
+          "sha256": "c613a20089d4ccac1e3c1c61ca1f5fc0972397164670d2d17690f780da5956f0"
+        },
+        {
+          "name": "verify-native-trust.mjs",
+          "status": 0,
+          "signal": null,
+          "log": "integrated-2-verify-native-trust.mjs.log",
+          "sha256": "772688e993d3a1ae041c9634c664b1c45814f32aa2c9ac82247959bf8e20576d"
+        }
+      ],
+      "temporaryRemoved": true
+    }
+  ]
+}

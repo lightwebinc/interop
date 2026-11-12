@@ -1,0 +1,14 @@
+{
+  "schema": "tpnil-storage-portability-go-build@1.0.0",
+  "patchLockSha256": "b9f229391f4fd8a953fd76b6c73cc7585818d91fe6c1802e9fc8667a86c1fcef",
+  "parentPatchLockSha256": "73b327cb785ab061d58678ff6c26eefa46a9aa838d09d5f8bfee50aae3fb4391",
+  "patchSha256": "5e1fff193191565fa0032f2b9954bf07054c9806a78e6103049a14122a947e0c",
+  "upstream": {
+    "module": "github.com/bsv-blockchain/go-wallet-toolbox",
+    "version": "v0.191.4",
+    "sum": "h1:Ah0arWUQLGeY8OOa3a3gWRZUtgAhH9siyfENkodDG7U="
+  },
+  "replacementModule": "/Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/storage-portability-go-source",
+  "toolchain": "go1.27.3",
+  "binarySha256": "34631e87e732e0bb1c14f0494539472ffc250cb4e2ca5419bf731a59a1763268"
+}

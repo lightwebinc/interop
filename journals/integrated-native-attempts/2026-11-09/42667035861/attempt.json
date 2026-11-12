@@ -1,0 +1,80 @@
+{
+  "schema": "tpnil-integration-attempt@1",
+  "source": "60c87315cccdfef86523b03a9ce2390bae639dae",
+  "workflowRun": 42667035861,
+  "claim": "OBSERVER_VERIFICATION_ERROR",
+  "walletExecuted": true,
+  "underlyingNativeFindingsRetained": true,
+  "files": [
+    {
+      "name": "README.md",
+      "size": 2565,
+      "sha256": "abf062223e9c87aa0916ff5500e04b8cf2e1c47f80442c0a8e26f478b943b370"
+    },
+    {
+      "name": "artifacts.json",
+      "size": 753,
+      "sha256": "1f6a333ddc09b8ecdf1e801789c420547eb91329b423cb700dc37d0823fe318b"
+    },
+    {
+      "name": "assessment.json",
+      "size": 23985,
+      "sha256": "d5e2d3b74732fe5ae288e32789e0e6cfdc20f3a333f630af62673f682584968e"
+    },
+    {
+      "name": "independent-review/inspect-no-send-change.mjs",
+      "size": 6261,
+      "sha256": "d95a3328f862355c2e9d5c5de126bcef300b93eb60796a693508242a2a29e3ed"
+    },
+    {
+      "name": "independent-review/inspection.log",
+      "size": 1637,
+      "sha256": "ea14acdca3d07f132ef0e96ba2be1ca0835ca2868a759041936c2356a4b915b1"
+    },
+    {
+      "name": "independent-review/inventory.json",
+      "size": 1017,
+      "sha256": "01b9219f5fef328fb170f94cb04c043089add1c31cce19ab2e61286edce4f34d"
+    },
+    {
+      "name": "independent-review/no-send-change.json",
+      "size": 11700,
+      "sha256": "c62f777f6f649ea9ef13ce94c41f2a5a4136a23562c4ad28a134b268a3056579"
+    },
+    {
+      "name": "independent-review/repetition-1-permission-identity.json",
+      "size": 943,
+      "sha256": "9b2c4414db9b3e9e272a78061c344060d42c0447bb9c30e04ad1b905f48c5b15"
+    },
+    {
+      "name": "independent-review/repetition-2-permission-identity.json",
+      "size": 943,
+      "sha256": "22c3c69ff7ec468b6166422aadafce2af9939ef1439f286aa33ffd90ef6cf506"
+    },
+    {
+      "name": "independent-review/review.json",
+      "size": 9402,
+      "sha256": "8afe32c7d9d3afd67e11a4123cd3b2653f1c50038490ba9b9d0c6bb783216152"
+    },
+    {
+      "name": "jobs.json",
+      "size": 4736,
+      "sha256": "39d00714134c759dbd84430870f84535ac83dc1914f4bf9d007db61e58e696eb"
+    },
+    {
+      "name": "native-integrated.zip",
+      "size": 1239936,
+      "sha256": "6422dc19008616785e6299a23ef9536e11c89de44d9773675ec28b815f66152b"
+    },
+    {
+      "name": "native-logs.zip",
+      "size": 59357,
+      "sha256": "4cc0bcad3cc37c758501d55e0db09d6867e45e2e02ff25c5a4461c7e307c9ca3"
+    },
+    {
+      "name": "run.json",
+      "size": 11989,
+      "sha256": "68692a9ebc8db1f545246cf499999c53d0b3a710cc43945d95b44e9c03fc9a80"
+    }
+  ]
+}

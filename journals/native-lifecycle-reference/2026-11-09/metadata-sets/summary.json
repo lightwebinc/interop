@@ -1,0 +1,67 @@
+{
+  "schema": "tpnil-lifecycle-metadata-set-reference@1",
+  "claim": "ENGINEERING_DIAGNOSTIC_ONLY",
+  "sourceRun": {
+    "id": "42674638927",
+    "source": "def98acc4d5dcf37b9ef7d52d9dbd13fe70023b8",
+    "originalArtifactSha256": "ff199e65316ed2501efcf4a34124977e9dd62a94f5086c5b82ba08a1449ef410"
+  },
+  "originalReportedOutcomes": [
+    [
+      "PASS",
+      "PASS",
+      "FAIL"
+    ],
+    [
+      "PASS",
+      "PASS",
+      "FAIL"
+    ]
+  ],
+  "diagnosis": "Valid recovery transaction and preserved prior output; only labels array order changed. BRC100 defines labels and tags as sets. Original raw schema2 outcomes remain unchanged.",
+  "prospectiveOracle": "tpnil-native-lifecycle-oracle@3.0.0",
+  "archive": {
+    "path": "evidence.json.gz",
+    "size": 151025,
+    "sha256": "23f038332b5a1f8552eb8047338e737cecc33ccb7dcb4ae98dd3163ce96d3c55",
+    "members": 25
+  },
+  "scope": "Replaying captured native responses through the corrected observer is a diagnostic regression, not a new native run or retrospective qualification.",
+  "validation": {
+    "focusedTests": 21,
+    "synthesisTestsPassed": 155,
+    "synthesisTestsSkipped": 8,
+    "coreTests": 76,
+    "typecheck": "PASS",
+    "repositoryCheck": "PASS",
+    "publishedQualificationArchives": 8,
+    "publishedObserverAttempts": 6,
+    "publishedSemanticReplay": "PASS",
+    "clauseReferenceArchives": 14,
+    "clauseReferenceFinalReplays": 4,
+    "goFixtureTests": 2,
+    "goFixtureSubcases": 8,
+    "freshGoReferenceAssertions": [
+      "PASS",
+      "PASS",
+      "PASS"
+    ],
+    "capturedNativeDiagnosticAssertions": [
+      [
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      [
+        "PASS",
+        "PASS",
+        "PASS"
+      ]
+    ],
+    "newNativeQualification": false
+  },
+  "retainedPreparationErrors": [
+    "First Go reference attempt correctly refused the patched binary without explicit storageSyncPatch admission; second attempt declared the exact compatibility manifest and passed.",
+    "Mistyped npm check command has no synthesis script; corrected npm run typecheck passed."
+  ]
+}

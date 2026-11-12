@@ -1,0 +1,86 @@
+{
+  "schema": "tpnil-integration-attempt@1",
+  "source": "def98acc4d5dcf37b9ef7d52d9dbd13fe70023b8",
+  "workflowRun": 42674638927,
+  "claim": "OBSERVER_VERIFICATION_ERROR",
+  "walletExecuted": true,
+  "workflowConclusion": "success",
+  "publicationDecision": "NOT_ACCEPTED_FOR_NATIVE_CONFORMANCE",
+  "files": [
+    {
+      "name": "README.md",
+      "size": 2900,
+      "sha256": "982841459c7290311efb82213346013acd2d95b9c0bbe8d350d30f6623854a29"
+    },
+    {
+      "name": "artifacts.json",
+      "size": 753,
+      "sha256": "64de134661645606326083c3999b7a6cb68e05d99c7b7bc0365691c4ce332f24"
+    },
+    {
+      "name": "assessment.json",
+      "size": 30605,
+      "sha256": "6925db7f4891657502b52d3635c51c7846dab2df0577d830a22aa48cb84cb781"
+    },
+    {
+      "name": "independent-review/inspect-portability.ts",
+      "size": 2587,
+      "sha256": "2830be0d84c962cacdd629e7899e3ea95b12bebaa9cb4931a61ec0a266280688"
+    },
+    {
+      "name": "independent-review/lifecycle-reserves.json",
+      "size": 16454,
+      "sha256": "c07661a5956ac9ae2e6a9ebcd170e2fe4ad69d409465d7a1161c89007028e2d4"
+    },
+    {
+      "name": "independent-review/portability-inspection.log",
+      "size": 543,
+      "sha256": "09821e924920ddbf0c1c96a1cda61dafd96631978fc634f8464e751ce7a625ba"
+    },
+    {
+      "name": "independent-review/portability.json",
+      "size": 20065,
+      "sha256": "afacc371116fb4efe711c6eecfd0a37fc5ee8410b2d68a659866ddaa71a700d5"
+    },
+    {
+      "name": "independent-review/repetition-1-permission-identity.json",
+      "size": 943,
+      "sha256": "4563e467ee4f76a1e32943027fcdd777b2a8e1628ee4b13f33cec34b7f61eabc"
+    },
+    {
+      "name": "independent-review/repetition-2-permission-identity.json",
+      "size": 943,
+      "sha256": "f63f16fcca2657b254bb405477bd91c83617f57c19f3f339fb76992a9c6c1fa7"
+    },
+    {
+      "name": "independent-review/review.json",
+      "size": 5524,
+      "sha256": "5292699c917e6689990a295ece792e4d4d8cdfb238a2e16cfa4541ec361766ae"
+    },
+    {
+      "name": "independent-verification.txt",
+      "size": 507283,
+      "sha256": "3c302d9e3b46fe29280af2b3a43fb556381414baba3e223b75b5edb0db6e68c1"
+    },
+    {
+      "name": "jobs.json",
+      "size": 3839,
+      "sha256": "4399386bb05bf5f54825c5ef638acf63bd38a93be0de6ddc92e4cc4dc25fae13"
+    },
+    {
+      "name": "native-integrated.zip",
+      "size": 1847441,
+      "sha256": "ff199e65316ed2501efcf4a34124977e9dd62a94f5086c5b82ba08a1449ef410"
+    },
+    {
+      "name": "native-logs.zip",
+      "size": 202172,
+      "sha256": "2459217133ee6944b2cae4e554fb4e6b83ae82a1e79630c55d7da18c56b66dbe"
+    },
+    {
+      "name": "run.json",
+      "size": 11993,
+      "sha256": "31c4f005972db9e34b817f83aabb3ffc6ab3a63b85b4c5bcf08d57ac7b01ff02"
+    }
+  ]
+}

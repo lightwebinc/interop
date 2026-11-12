@@ -1,0 +1,70 @@
+name: Retained native evidence reevaluation
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/native-evidence-reevaluation.yml'
+      - 'infra/native/conformance/reevaluation-42711700295-rust-3.0.0.json'
+      - 'components/rust/graph-oracle-3.0.0.json'
+      - 'components/rust/src/graph_oracle_v3.rs'
+      - 'scripts/native-reevaluation.mjs'
+      - 'scripts/reevaluate-native-integrated.mjs'
+      - 'scripts/verify-native-reevaluation.mjs'
+      - 'scripts/prepare-messaging.mjs'
+      - 'scripts/messaging-preparation.mjs'
+permissions:
+  contents: read
+jobs:
+  retained-native-evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      TPNIL_MESSAGING_PATHS: ${{ github.workspace }}/out/messaging-native-verifier/paths.json
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version-file: '.nvmrc'
+      - name: Prepare locked offline verifier dependencies
+        run: |
+          npm ci --ignore-scripts --prefix synthesis
+          npm ci --ignore-scripts --prefix components/transport
+          npm ci --ignore-scripts --prefix integrations/services
+          npm rebuild better-sqlite3 --prefix integrations/services
+          node scripts/prepare-messaging.mjs --native-verifier-only
+          rustup toolchain install 1.88.0 --profile minimal
+          RUSTUP_TOOLCHAIN=1.88.0 cargo fetch --locked --manifest-path components/rust/Cargo.toml
+      - name: Verify shared-ancestor and adversarial graph regressions
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
+          CARGO_NET_OFFLINE: 'true'
+        run: cargo test --offline --locked --manifest-path components/rust/Cargo.toml --features graph-oracle-v3 --target-dir components/rust/target/corpus-v3
+      - name: Reevaluate the unchanged original native observations
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
+          CARGO_NET_OFFLINE: 'true'
+        run: node scripts/reevaluate-native-integrated.mjs infra/native/conformance/reevaluation-42711700295-rust-3.0.0.json out/native-integrated-reevaluation
+      - name: Independently replay the separate reevaluation result
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
+          CARGO_NET_OFFLINE: 'true'
+        run: node scripts/verify-native-reevaluation.mjs out/native-integrated-reevaluation
+      - name: Retain original and derived evidence on every outcome
+        if: always()
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        with:
+          name: native-integrated-reevaluation
+          path: out/native-integrated-reevaluation
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Retain exact verifier dependency preparation
+        if: always()
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        with:
+          name: native-reevaluation-preparation
+          path: out/messaging-native-verifier/verifier-preparation.json
+          if-no-files-found: warn
+          retention-days: 90

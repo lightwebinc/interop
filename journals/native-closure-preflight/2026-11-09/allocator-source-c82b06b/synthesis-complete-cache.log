@@ -1,0 +1,13 @@
+
+> @tpnil/synthesis@0.1.0 test
+> vitest run
+
+
+ RUN  v4.1.12 /Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/frozen-native-source-c82b06b/synthesis
+
+
+ Test Files  32 passed (32)
+      Tests  293 passed | 8 skipped (301)
+   Start at  14:13:50
+   Duration  10.57s (transform 1.97s, setup 0ms, import 11.65s, tests 50.34s, environment 2ms)
+

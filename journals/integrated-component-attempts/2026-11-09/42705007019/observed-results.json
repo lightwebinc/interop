@@ -1,0 +1,388 @@
+{
+  "schema": "tpnil-observed-foundation-attempt@1",
+  "source": "3505d92a01fe7aeef7bb90fa1ed52f6eda003c54",
+  "workflowRun": 42705007019,
+  "workflowConclusion": "failure",
+  "acceptance": "NOT_ACCEPTED",
+  "qualificationIssued": false,
+  "jobs": [
+    {
+      "id": 129459384644,
+      "name": "offline-core",
+      "status": "completed",
+      "conclusion": "failure",
+      "html_url": "https://github.com/p2ppsr/interop/actions/runs/42705007019/job/129459384644"
+    },
+    {
+      "id": 129459385155,
+      "name": "go-components",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/p2ppsr/interop/actions/runs/42705007019/job/129459385155"
+    },
+    {
+      "id": 129459385415,
+      "name": "integrated-components",
+      "status": "completed",
+      "conclusion": "failure",
+      "html_url": "https://github.com/p2ppsr/interop/actions/runs/42705007019/job/129459385415"
+    }
+  ],
+  "offlineTests": {
+    "core": {
+      "PASS": 90
+    },
+    "synthesis": {
+      "PASS": 287,
+      "FAIL": 2,
+      "SKIP": 9,
+      "total": 298
+    },
+    "failedTestFile": "synthesis/test/native-shutdown-submissions.test.ts",
+    "timeoutMs": 5000,
+    "timedOutCases": [
+      {
+        "name": "rejects delayed denied payments under every verdict: ACCEPTED_BY_NETWORK",
+        "reportedDurationMs": 5538
+      },
+      {
+        "name": "rejects delayed denied payments under every verdict: UNKNOWN",
+        "reportedDurationMs": 5621
+      }
+    ],
+    "laterGates": "Skipped after the synthesis suite failure; no passing result inferred."
+  },
+  "integratedSetupTests": {
+    "PASS": 10,
+    "FAIL": 1,
+    "total": 11,
+    "failedTest": "retains actual typescript counterpart arrays after service ownership maps are retired",
+    "error": "listen EADDRINUSE: address already in use 127.0.0.1:37329",
+    "reportedDurationMs": 309,
+    "actualGoCounterpartTest": "PASS"
+  },
+  "componentMatrix": {
+    "executed": false,
+    "assertions": null,
+    "artifact": null,
+    "reason": "Required shutdown test failed before matrix execution."
+  },
+  "descendantMatrix": {
+    "executed": false,
+    "assertions": null,
+    "artifact": null,
+    "reason": "Required shutdown test failed before matrix execution."
+  },
+  "goComponents": {
+    "PASS": 11,
+    "FAIL": 0,
+    "artifact": {
+      "id": 13712413042,
+      "name": "itcve-go-components",
+      "bytes": 63363,
+      "sha256": "3801e4d0d3ea634279800531f9adabfa1503b9479bd3103664274138bc0abfbe",
+      "members": [
+        {
+          "name": "2026-11-09T21-43-48.079Z-2667e0f5/case-0.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "2026-11-09T21-43-48.079Z-2667e0f5/case-1.json",
+          "bytes": 2137,
+          "sha256": "59274e6a3931d1f7e4c5bb0e2a86ccf48699a7c40e5cad0316c7d94819ddda68"
+        },
+        {
+          "name": "2026-11-09T21-43-48.079Z-2667e0f5/case-0.json",
+          "bytes": 313,
+          "sha256": "f3f65a6413945f02e394ca6571964e35587de691b2951746fb246141c2b15009"
+        },
+        {
+          "name": "2026-11-09T21-43-48.079Z-2667e0f5/case-1.log",
+          "bytes": 474,
+          "sha256": "f7d7a5a56cc5060970ece7a9af4be452a56b9f6f741b4bfca5c2f29cee7d9360"
+        },
+        {
+          "name": "2026-11-09T21-43-48.079Z-2667e0f5/case-2.json",
+          "bytes": 2137,
+          "sha256": "f56b85d6a48d428cef7b3804d8ab4732174b9fac586afcbbf8bab0f700589f73"
+        },
+        {
+          "name": "2026-11-09T21-43-48.079Z-2667e0f5/case-2.log",
+          "bytes": 474,
+          "sha256": "5516f7cd18b6f2da908db0a1f734e174d18323001054d7c6a8c5a19f8d7fce3f"
+        },
+        {
+          "name": "2026-11-09T21-43-48.079Z-2667e0f5/case-3.json",
+          "bytes": 2113,
+          "sha256": "00b979f03f3824811eadc63cbb5ff3be2343314bb015751dffd4698b99b319c1"
+        },
+        {
+          "name": "2026-11-09T21-43-48.079Z-2667e0f5/case-3.log",
+          "bytes": 474,
+          "sha256": "97cec53bf530977af8f8bb69b2e277f3d977adfe4a6362675a1865d9e4df4af7"
+        },
+        {
+          "name": "2026-11-09T21-43-48.079Z-2667e0f5/case-4.json",
+          "bytes": 2137,
+          "sha256": "dbaf9adf2e2f7aed9084b078fa5c5887bf23f32e55816e42db74c3de383fffe3"
+        },
+        {
+          "name": "2026-11-09T21-43-48.079Z-2667e0f5/case-4.log",
+          "bytes": 473,
+          "sha256": "0841891731b9167589a1e7fa6d06b3e00839bf37a943b6757e46c274dd969c54"
+        },
+        {
+          "name": "2026-11-09T21-43-48.079Z-2667e0f5/case-5.json",
+          "bytes": 2113,
+          "sha256": "6ad84d8ad3325b2d1bf3954923cbb0edff4e89a1cbcf6b8d31f9e0e778e18cf5"
+        },
+        {
+          "name": "2026-11-09T21-43-48.079Z-2667e0f5/case-5.log",
+          "bytes": 474,
+          "sha256": "4bd79d6cbb15a1a7dbfc4f367c5f3d4e6ef5bd7be4bdc8b95a0ebaebc161247e"
+        },
+        {
+          "name": "2026-11-09T21-43-48.079Z-2667e0f5/case-6.json",
+          "bytes": 2113,
+          "sha256": "8d64834adebca15f864e8d4fe2a3f495b555defebffd6cb4bb0e4626ce02affa"
+        },
+        {
+          "name": "2026-11-09T21-43-48.079Z-2667e0f5/case-6.log",
+          "bytes": 474,
+          "sha256": "aeac1606e10aea5d8787d51faa4d8f408d7358c9f7321e143d3d6143cfee2c86"
+        },
+        {
+          "name": "2026-11-09T21-43-48.079Z-2667e0f5/case-7.json",
+          "bytes": 2089,
+          "sha256": "a75173e121a5d744fe108dc9e40ca2cead0d713ebd7155dac80d5b343ee46390"
+        },
+        {
+          "name": "2026-11-09T21-43-48.079Z-2667e0f5/case-7.log",
+          "bytes": 672,
+          "sha256": "0c18371505373e5e24936791a4298dd2b1b857a79a040bcbbf19772392f6b682"
+        },
+        {
+          "name": "2026-11-09T21-43-48.079Z-2667e0f5/mongo.log",
+          "bytes": 756203,
+          "sha256": "9549b7ad010bc19e3199aab201742907f70fef63b60e061f43724ccdcebaf4fc"
+        },
+        {
+          "name": "2026-11-09T21-43-48.079Z-2667e0f5/vitest.json",
+          "bytes": 3991,
+          "sha256": "0f72c494857ecb69e0770129e85032ccf2fa3b4a738d18eb15bea517b4817015"
+        }
+      ]
+    }
+  },
+  "allJobLogMembers": [
+    {
+      "name": "0_integrated-components.txt",
+      "bytes": 43679,
+      "sha256": "0ea50de1dc2b5b3c62c97d3f68dc2ecd9f471077f1e4ec72bc6b0f64b1cd576d"
+    },
+    {
+      "name": "integrated-components/system.txt",
+      "bytes": 614,
+      "sha256": "e957fbae360a0f474099cc7dd5f88bf22fdbd609f0eb608f0d3e942d3269d6b0"
+    },
+    {
+      "name": "integrated-components/1_Set up job.txt",
+      "bytes": 2444,
+      "sha256": "bd447f0e8925c4bab6d6d72ccac341b4369e8824ea15e071158e34f6c120c4e0"
+    },
+    {
+      "name": "integrated-components/2_Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt",
+      "bytes": 7268,
+      "sha256": "342c6c9a5bf9667cca6906a09923076f171c076c38f38606d1bfba61190f1e47"
+    },
+    {
+      "name": "integrated-components/3_Run actions_setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020.txt",
+      "bytes": 1546,
+      "sha256": "3f7fc6345922b1f6e6a08bf18571370b1710afcfa132971427b3ad3c9f92e74c"
+    },
+    {
+      "name": "integrated-components/4_Run actions_setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e.txt",
+      "bytes": 6018,
+      "sha256": "723ffc37146df3c4811ebe4d77da696413e127ac3a7049e7038a019c674db83d"
+    },
+    {
+      "name": "integrated-components/5_Prepare exact component closures.txt",
+      "bytes": 16579,
+      "sha256": "2931d11d73172528114c1951b109570459d297efb462179fa0e398e3e74bc081"
+    },
+    {
+      "name": "integrated-components/6_Verify retained submissions through actual Go shutdown.txt",
+      "bytes": 5775,
+      "sha256": "e6ab44dad1518979baf2726b348bd7caa0dc254847ae081ba95e0791d142bfdf"
+    },
+    {
+      "name": "integrated-components/11_Retain descendant replacement evidence.txt",
+      "bytes": 1061,
+      "sha256": "0c8221b7940bff2d18b5c0417a4c1f4a395c95ad38b2e98273416619fe57e67d"
+    },
+    {
+      "name": "integrated-components/12_Retain every attempt.txt",
+      "bytes": 1033,
+      "sha256": "9cded94a1f510634ce8978f7f59f14bc5129b34dac4756993d898f7e964c513b"
+    },
+    {
+      "name": "integrated-components/24_Post Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt",
+      "bytes": 1528,
+      "sha256": "51078c83d13fbd14688871d6edc58e3790bb70410109054bc23f94413de75244"
+    },
+    {
+      "name": "integrated-components/25_Complete job.txt",
+      "bytes": 454,
+      "sha256": "43dd79bf3ed2e093f5d9289c9f6a0f15cacf3b266e403fb004fe0c55b3607e6b"
+    },
+    {
+      "name": "1_go-components.txt",
+      "bytes": 35211,
+      "sha256": "c1134ca594a1ae03265ba2d37f49bf155cb5e724c87fef823f0f46f789fa0649"
+    },
+    {
+      "name": "go-components/system.txt",
+      "bytes": 606,
+      "sha256": "0505356c3344af820ba57c4915dfc87143b3844ae4b7926823abcdfb16f1f6b1"
+    },
+    {
+      "name": "go-components/1_Set up job.txt",
+      "bytes": 2436,
+      "sha256": "0d48f9cfbc54cc0600855afc96b1627ea1c8fd9fa9fef95ebab5f791933b5db7"
+    },
+    {
+      "name": "go-components/2_Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt",
+      "bytes": 7268,
+      "sha256": "84e8c98818b104f7df281c60ef41128d7bb327a5a91ac45b94b84a7aae05abe0"
+    },
+    {
+      "name": "go-components/3_Run actions_setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020.txt",
+      "bytes": 1546,
+      "sha256": "ea1de6562ff05cc15ba887b3da5782f45a3e1ee79c78c134c4d1035eae6a8c7e"
+    },
+    {
+      "name": "go-components/4_Run actions_setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e.txt",
+      "bytes": 6104,
+      "sha256": "2112871ade9946fad5917de086374720f168ff368a8d560e1d66a5567a8bbc30"
+    },
+    {
+      "name": "go-components/5_Run npm ci --prefix synthesis --ignore-scripts.txt",
+      "bytes": 700,
+      "sha256": "5f1f46595d1591061ce61cd1460ae5cbb2611d1dab35ec9f4ad9f78e115884aa"
+    },
+    {
+      "name": "go-components/6_Verify Go host, all mixed stacks, faults and recovery.txt",
+      "bytes": 12215,
+      "sha256": "902d24a36b449d4e342981656b106b876589f340b9e1d32f5c28ab498d7e456a"
+    },
+    {
+      "name": "go-components/7_Retain native component evidence on every outcome.txt",
+      "bytes": 2148,
+      "sha256": "9940f75ea94a248f567dc6a4645f3e678b16c81db3cfd3875c79f5defa09bb86"
+    },
+    {
+      "name": "go-components/12_Post Run actions_setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e.txt",
+      "bytes": 537,
+      "sha256": "998d01358b2784dfe8613bf431033cb56a1751459c0757f7470cf71eff4169d0"
+    },
+    {
+      "name": "go-components/13_Post Run actions_setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020.txt",
+      "bytes": 305,
+      "sha256": "3ed6d2d191bb556746b529d73eed958f13f20ceb00f95c495146bd292979c19b"
+    },
+    {
+      "name": "go-components/14_Post Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt",
+      "bytes": 1528,
+      "sha256": "c352b4771e9cd86e5989abd1e6114968263d946ab99a09a4c895ce08ff0b4ca1"
+    },
+    {
+      "name": "go-components/15_Complete job.txt",
+      "bytes": 454,
+      "sha256": "0e143b36151f2d732d94f6f10de5b453af1bc0bbccfd17b7d7c2545ec50db729"
+    },
+    {
+      "name": "2_offline-core.txt",
+      "bytes": 71608,
+      "sha256": "5a458d8a2fb5306abb320569ffe8dc0f7e235041ca084d4a1c15b34acaa504c2"
+    },
+    {
+      "name": "offline-core/system.txt",
+      "bytes": 605,
+      "sha256": "b2907f87032f998f27872f53177af0d871cc91dc70a44a00b3e1ccde64fb5fc2"
+    },
+    {
+      "name": "offline-core/1_Set up job.txt",
+      "bytes": 2108,
+      "sha256": "92499d7df4e7f4e37ee98bf90c352fb75185f9eee3bb5ffc685160241d731a26"
+    },
+    {
+      "name": "offline-core/2_Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt",
+      "bytes": 8044,
+      "sha256": "daadb93103dd7bd8fe7ea440ad3033ddd42b3c61564af2aa02c9baf2c3dec8e8"
+    },
+    {
+      "name": "offline-core/3_Run actions_setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020.txt",
+      "bytes": 1546,
+      "sha256": "f0fd26b8ef5a6639ebff71acfa687c7e653fd395ff0a03a3449c2da289b230b5"
+    },
+    {
+      "name": "offline-core/4_Run printf 'ImageOS=%s_nImageVersion=%s_n' $ImageOS $ImageVersion.txt",
+      "bytes": 419,
+      "sha256": "5b0be7f5b974e860e7e7f45b8cf2b91556f2622bf85c69beffa5ef6e70433ad5"
+    },
+    {
+      "name": "offline-core/5_Run npm test.txt",
+      "bytes": 11232,
+      "sha256": "a0c16f21265ef2ad72fb296472c51cef8f96c604b53b5a72c52b31a776beb32c"
+    },
+    {
+      "name": "offline-core/6_Run npm run check.txt",
+      "bytes": 735,
+      "sha256": "22c2e0bd400d418dbe2e09d581b48187ab72740d16d188c0d2a21838fe58509a"
+    },
+    {
+      "name": "offline-core/7_Run npm run qualifystandards.txt",
+      "bytes": 1178,
+      "sha256": "a68df24ec679444065f1d6d0144848f91abc6e2f1320bd66e3b56a6ff4ab9aca"
+    },
+    {
+      "name": "offline-core/8_Run npm ci --prefix synthesis --ignore-scripts.txt",
+      "bytes": 616,
+      "sha256": "a2c38e1557e3c33f94bf1f071d2f2ad389e97c4b077a4410d0fee41920f0bfe4"
+    },
+    {
+      "name": "offline-core/9_Run npm audit --prefix synthesis --audit-level=moderate.txt",
+      "bytes": 341,
+      "sha256": "a6e604a8a6df18299fb67dd2168ba3730795b909f521ac8e3ee529e3d819e11c"
+    },
+    {
+      "name": "offline-core/10_Run npm run typecheck --prefix synthesis.txt",
+      "bytes": 426,
+      "sha256": "cb887e951049e0e7b40db420653181321b39ac32715549277c90273276e2bf6d"
+    },
+    {
+      "name": "offline-core/11_Run npm test --prefix synthesis.txt",
+      "bytes": 43083,
+      "sha256": "6aa5c2c2dcfbf55d2befcc6afcaddd2380b4c15e72d9fb0c0a0d78e0fa4f0761"
+    },
+    {
+      "name": "offline-core/48_Post Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt",
+      "bytes": 1528,
+      "sha256": "d4bd63f46149666265fa670f8580ecc6d3f66238dfd9fc320bcf534c7df921e8"
+    },
+    {
+      "name": "offline-core/49_Complete job.txt",
+      "bytes": 388,
+      "sha256": "7342af6c4f65bf377fdd58e9f5acb69b178df615ec3dbac2bda2ff8397a6e641"
+    }
+  ],
+  "independentArtifactReview": {
+    "apiDigestAndSizeMatch": true,
+    "allZipMembersHashed": true,
+    "exactOriginalFailedLogsMatchAllJobZip": true,
+    "componentReplay": "NOT_EXECUTED_ARTIFACT_ABSENT",
+    "descendantReplay": "NOT_EXECUTED_ARTIFACT_ABSENT",
+    "nativeWalletExecuted": false
+  }
+}

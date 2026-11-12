@@ -1,0 +1,48 @@
+{
+  "schema": "tpnil-descendant-storage-ci-archive@2",
+  "source": "c338a93c97ffebeeef318e679ff82b7dbf309dd5",
+  "workflowRun": 42711677744,
+  "artifactId": 13715784901,
+  "files": [
+    {
+      "path": "README.md",
+      "size": 2048,
+      "sha256": "ead5edcf6b6eb8bbae60ee2b16cf382b49c6aed6b47993f254ce004da37a61ac"
+    },
+    {
+      "path": "artifacts.json",
+      "size": 2167,
+      "sha256": "ccf39be718df21a6fa9b2e399d045c1ebbc9acadfabc86356525df1f6bd763eb"
+    },
+    {
+      "path": "descendant-storage-sync.zip",
+      "size": 1526468,
+      "sha256": "ca7eaf1de715bc6e997755eeaa87d834974aafe027863f318b92709076221564"
+    },
+    {
+      "path": "foundation-logs.zip",
+      "size": 121383,
+      "sha256": "9eff3fe3b6279560aeecf87bed5efedea18bedc4425a29d36b87bc7b9f5e6029"
+    },
+    {
+      "path": "independent-verification.json",
+      "size": 837,
+      "sha256": "4f5e542b3e30d3fa9a29784089435022aa822456469d053753cdefe9263ae643"
+    },
+    {
+      "path": "jobs.json",
+      "size": 13059,
+      "sha256": "c9976299724fc6317211107637aa14cb00343b297d7e0b7010335be89a08c973"
+    },
+    {
+      "path": "qualification.json",
+      "size": 29502,
+      "sha256": "400072367fdf1a0a27c1b01c6c0d7241e49b81b2497b6bcc22afd1665188170c"
+    },
+    {
+      "path": "run.json",
+      "size": 11952,
+      "sha256": "5f5c05310f1d9561afb65b10e86566d7d45eea212b61fa7faf872bc62eda7f9c"
+    }
+  ]
+}

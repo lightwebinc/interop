@@ -1,0 +1,68 @@
+
+> @tpnil/synthesis@0.1.0 test
+> vitest run
+
+
+ RUN  v4.1.12 /Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/frozen-native-source-c82b06b/synthesis
+
+stdout | test/wallet-services-listeners.test.ts
+◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+◇ injected env (0) from .env // tip: ⌘ override existing { override: true }
+
+ ❯ test/wallet-services-listeners.test.ts (3 tests | 1 failed) 3187ms
+   × atomically binds concurrent go service listeners and publishes their actual live ports 247ms
+stdout | test/native-shutdown-submissions.test.ts
+◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+◇ injected env (0) from .env // tip: ⌘ override existing { override: true }
+
+ ❯ test/native-shutdown-submissions.test.ts (11 tests | 1 failed) 9317ms
+   × retains actual go counterpart arrays after service ownership maps are retired 86ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/native-shutdown-submissions.test.ts > retains actual go counterpart arrays after service ownership maps are retired
+Error: ENOENT: no such file or directory, open '/Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/frozen-native-source-c82b06b/out/itcve-go-storage-portability.json'
+ ❯ GoServices.start src/wallet-lab/go-services.ts:130:47
+    128|     this.executableSha256 = createHash('sha256').update(fs.readFileSyn…
+    129|     if (this.options.storageSyncPatch || this.options.storagePortabili…
+    130|       this.compatibilityPatch = JSON.parse(fs.readFileSync(`${this.bin…
+       |                                               ^
+    131|     }
+    132|     const child = spawn(this.binary, args, { stdio: ['ignore', 'pipe',…
+ ❯ ControlledWalletServices.startServices src/wallet-lab/services.ts:497:29
+ ❯ ControlledWalletServices.start src/wallet-lab/services.ts:476:11
+ ❯ test/native-shutdown-submissions.test.ts:111:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/wallet-services-listeners.test.ts > atomically binds concurrent go service listeners and publishes their actual live ports
+AssertionError: expected Error: ENOENT: no such file or directory,… { …(4) } to be undefined
+
+- Expected:
+undefined
+
++ Received:
+Error {
+  "message": "ENOENT: no such file or directory, open '/Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/frozen-native-source-c82b06b/out/itcve-go-storage-portability.json'",
+  "errno": -2,
+  "code": "ENOENT",
+  "syscall": "open",
+  "path": "/Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/frozen-native-source-c82b06b/out/itcve-go-storage-portability.json",
+}
+
+ ❯ test/wallet-services-listeners.test.ts:38:105
+     36|       try {
+     37|         const started = await Promise.allSettled(providers.map(provide…
+     38|         for (const result of started) expect(result.status === 'fulfil…
+       |                                                                                                         ^
+     39|         // Detect the old probe/release/rebind algorithm deterministic…
+     40|         // when the OS happens to choose different ports in this execu…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed | 30 passed (32)
+      Tests  2 failed | 291 passed | 8 skipped (301)
+   Start at  14:10:40
+   Duration  10.23s (transform 2.51s, setup 0ms, import 13.16s, tests 50.31s, environment 2ms)
+

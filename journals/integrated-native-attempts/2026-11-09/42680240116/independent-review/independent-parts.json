@@ -1,0 +1,417 @@
+{
+  "schema": "tpnil-native-completion-independent-review@1",
+  "claim": "FAILED_ATTEMPT_PARTIAL_INDEPENDENT_REVIEW_NOT_QUALIFICATION",
+  "run": "42680240116",
+  "runtimeSource": "3f9cbead7c05a17b663f9c2c52b93abdf04eac69",
+  "checkerRevision": "b434c9ad68a0389d453713cb38a4a1285a84ae5d",
+  "reviewedAt": "2026-11-09T19:32:21.236Z",
+  "originalArchive": {
+    "size": 1470368,
+    "sha256": "264ba858b5618574c3aea189425d22c5cbb47c91a1ae361b618609cc17d38e49"
+  },
+  "reviewScriptSha256": "ca7115a268c5cbdbc1e8e5dc72a0d4171e5f6b04aa9f52a2e0be5464f46846ac",
+  "all263ReportedAssertionOutcomesMatch": true,
+  "independentlyReplayedChildren": [
+    "permissions",
+    "lifecycle",
+    "clauses",
+    "funding-reserves"
+  ],
+  "portabilityQualification": "REJECTED_PRODUCER_ORACLE_DISAGREEMENT",
+  "integratedCounts": "Raw retained outcomes only; full semantic replay stopped at portability",
+  "integratedAssertionOutcomesMatch": true,
+  "results": [
+    {
+      "repetition": 1,
+      "recordSha256": "c3b0c7a43f7a541374d0194a96be450f3782252e3d2d764795c5396838811c68",
+      "identity": "0286891c908b18f21f807a8b2a05a8f0b543cf3f2d3e280e98eb4d4ec697af2ad9",
+      "conformance": {
+        "result": "FAIL",
+        "assertions": 263,
+        "counts": {
+          "PASS": 158,
+          "FAIL": 103,
+          "BLOCKED": 2
+        },
+        "vectors": [
+          {
+            "id": "ISI-4-V001",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V002",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V003",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V004",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V005",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V006",
+            "outcome": "FAIL"
+          },
+          {
+            "id": "ISI-4-V007",
+            "outcome": "FAIL"
+          },
+          {
+            "id": "ISI-4-V008",
+            "outcome": "FAIL"
+          }
+        ],
+        "projectionSha256": "18bf6ba5ba02e7cf41d4dc54e2bd814b6a96009318e6dad8ba47ba49825f25f5"
+      },
+      "permissions": {
+        "counts": {
+          "PASS": 8,
+          "FAIL": 0,
+          "BLOCKED": 0
+        },
+        "joinedPublicKeys": 5,
+        "independentSdk2And4Agreement": true
+      },
+      "lifecycle": {
+        "schema": "tpnil-native-conformance-lifecycle@3",
+        "oracle": "tpnil-native-lifecycle-oracle@3.0.0",
+        "result": "PASS",
+        "assertions": [
+          {
+            "id": "accepted-service-verdict-observed",
+            "result": "PASS"
+          },
+          {
+            "id": "rejection-preserves-wallet-state",
+            "result": "PASS"
+          },
+          {
+            "id": "post-rejection-recovery",
+            "result": "PASS"
+          }
+        ]
+      },
+      "reserves": {
+        "roots": [
+          "d1f21b52e894445586ab4b6ea0401ab1c17098a48d566d95dcff2769838254f7.0",
+          "322d79afa2885f9dc03f1b248424fd787ba1ac338760a3b2b99469ea77b4ffe1.0",
+          "4e003d9da26141cdb563aef832a5e9cbe372d005142fc42eeddb40f26584e0b0.0"
+        ],
+        "startedAt": "2026-11-09T19:13:07.611Z",
+        "completedAt": "2026-11-09T19:13:12.651Z",
+        "scenarioStartedAt": "2026-11-09T19:13:12.654Z",
+        "snapshotAuthenticated": true,
+        "scenarioGraph": [
+          {
+            "index": 3,
+            "txid": "24a8c69a9f05ff9d43aa46bca6ddb32f97ad91e396935f0b996b5027e3aecc6d",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "d1f21b52e894445586ab4b6ea0401ab1c17098a48d566d95dcff2769838254f7.0"
+            ]
+          },
+          {
+            "index": 4,
+            "txid": "73f85fee38811d10429257466d5c0ecab235c67ab7103f90dfaf0fbff0756910",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "24a8c69a9f05ff9d43aa46bca6ddb32f97ad91e396935f0b996b5027e3aecc6d.2"
+            ]
+          },
+          {
+            "index": 5,
+            "txid": "58f32bd0060219a2f933508eaf0c07af196cafbc1287da2ee783fb3ee3830baf",
+            "verdict": "REJECTED",
+            "inputs": [
+              "73f85fee38811d10429257466d5c0ecab235c67ab7103f90dfaf0fbff0756910.1"
+            ]
+          },
+          {
+            "index": 6,
+            "txid": "75efff1ac381cbc090b2ca52955b6d2e839d7ef025e5506b86d376e1f96f1dd6",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "24a8c69a9f05ff9d43aa46bca6ddb32f97ad91e396935f0b996b5027e3aecc6d.0",
+              "24a8c69a9f05ff9d43aa46bca6ddb32f97ad91e396935f0b996b5027e3aecc6d.1"
+            ]
+          },
+          {
+            "index": 7,
+            "txid": "a802c55f351cbf954fc5fe88bcaa87be801b32dcf602f84789233d244b4ebe6a",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "75efff1ac381cbc090b2ca52955b6d2e839d7ef025e5506b86d376e1f96f1dd6.0"
+            ]
+          },
+          {
+            "index": 8,
+            "txid": "a84a08afac81fe82fc80be4da8722ec1fc738de6682c77c8e5b8ca2b8a14e414",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "a802c55f351cbf954fc5fe88bcaa87be801b32dcf602f84789233d244b4ebe6a.1"
+            ]
+          },
+          {
+            "index": 9,
+            "txid": "bbcb5139174c13a757a87f69cc9d42a72a93119bc2df9a2e95ddfcdbc0c8e1d1",
+            "verdict": "REJECTED",
+            "inputs": [
+              "a84a08afac81fe82fc80be4da8722ec1fc738de6682c77c8e5b8ca2b8a14e414.1"
+            ]
+          },
+          {
+            "index": 10,
+            "txid": "6707233bbb083e471f72a068f381a64aaaa1b1986b80ed7ca76c0ac68ec20ebd",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "322d79afa2885f9dc03f1b248424fd787ba1ac338760a3b2b99469ea77b4ffe1.0"
+            ]
+          }
+        ],
+        "rejectedChainsUnreusedThroughRecovery": true
+      },
+      "clauses": {
+        "counts": {
+          "PASS": 132,
+          "FAIL": 98,
+          "BLOCKED": 2
+        },
+        "completeBRC100Conformance": false
+      },
+      "integrated": {
+        "counts": {
+          "PASS": 62,
+          "FAIL": 7,
+          "BLOCKED": 8
+        },
+        "identityJoinsVerified": true
+      },
+      "rust": {
+        "counts": {
+          "PASS": 0,
+          "FAIL": 0,
+          "BLOCKED": 0
+        },
+        "outcome": "NOT_EXECUTED_PARENT_VERIFICATION_STOPPED",
+        "parentInputsBound": 0,
+        "semanticReplay": "Not executed; native parent verifier stopped at portability predicate disagreement"
+      },
+      "admissionReceipts": {
+        "isolatedHost": true,
+        "exactInstalledArchives": true,
+        "kernelNetworkNone": true,
+        "sandbox": true,
+        "processShutdown": true,
+        "containerRemoved": true,
+        "mongoClean": true,
+        "usernsRestored": true
+      },
+      "worker": {
+        "startedAt": "2026-11-09T19:12:52.621Z",
+        "endedAt": "2026-11-09T19:21:04.248Z"
+      }
+    },
+    {
+      "repetition": 2,
+      "recordSha256": "fbc2d2941b9b3d4df2b264348201f2fb0ced7a87c69f504e623b50febc890e1f",
+      "identity": "039ac02e52640a3859f8dea2aa6e4f516aa4ffe3666a2c9ad907c82ed41afe7bb1",
+      "conformance": {
+        "result": "FAIL",
+        "assertions": 263,
+        "counts": {
+          "PASS": 158,
+          "FAIL": 103,
+          "BLOCKED": 2
+        },
+        "vectors": [
+          {
+            "id": "ISI-4-V001",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V002",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V003",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V004",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V005",
+            "outcome": "PASS"
+          },
+          {
+            "id": "ISI-4-V006",
+            "outcome": "FAIL"
+          },
+          {
+            "id": "ISI-4-V007",
+            "outcome": "FAIL"
+          },
+          {
+            "id": "ISI-4-V008",
+            "outcome": "FAIL"
+          }
+        ],
+        "projectionSha256": "18bf6ba5ba02e7cf41d4dc54e2bd814b6a96009318e6dad8ba47ba49825f25f5"
+      },
+      "permissions": {
+        "counts": {
+          "PASS": 8,
+          "FAIL": 0,
+          "BLOCKED": 0
+        },
+        "joinedPublicKeys": 5,
+        "independentSdk2And4Agreement": true
+      },
+      "lifecycle": {
+        "schema": "tpnil-native-conformance-lifecycle@3",
+        "oracle": "tpnil-native-lifecycle-oracle@3.0.0",
+        "result": "PASS",
+        "assertions": [
+          {
+            "id": "accepted-service-verdict-observed",
+            "result": "PASS"
+          },
+          {
+            "id": "rejection-preserves-wallet-state",
+            "result": "PASS"
+          },
+          {
+            "id": "post-rejection-recovery",
+            "result": "PASS"
+          }
+        ]
+      },
+      "reserves": {
+        "roots": [
+          "45cd1ad907ada2d752a6a9d202daa2376317cadd7c5985ec6775ad508ceb9219.0",
+          "b0c8fb73addaffd263b86675f2d8a193758640fcee769b0e50911c6e1ca30318.0",
+          "e45f553428f21e5d60cd8a4ecc685d6bf88107e80a742540bd4868aa0ae3aff2.0"
+        ],
+        "startedAt": "2026-11-09T19:21:19.033Z",
+        "completedAt": "2026-11-09T19:21:23.804Z",
+        "scenarioStartedAt": "2026-11-09T19:21:23.806Z",
+        "snapshotAuthenticated": true,
+        "scenarioGraph": [
+          {
+            "index": 3,
+            "txid": "7c7463c5197975b9d4621a2e6406a7a1c24420c28f5f740aac77eac39e1aaf38",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "45cd1ad907ada2d752a6a9d202daa2376317cadd7c5985ec6775ad508ceb9219.0"
+            ]
+          },
+          {
+            "index": 4,
+            "txid": "795cb69cb40b06513833ed86d0f6d6fd6d1ce40006bf75e4e8b75e308b15afd3",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "7c7463c5197975b9d4621a2e6406a7a1c24420c28f5f740aac77eac39e1aaf38.2"
+            ]
+          },
+          {
+            "index": 5,
+            "txid": "b5e223545355e43bffce9aa8d7105077be25b95b73c7b0cab8e904d109dfba11",
+            "verdict": "REJECTED",
+            "inputs": [
+              "795cb69cb40b06513833ed86d0f6d6fd6d1ce40006bf75e4e8b75e308b15afd3.1"
+            ]
+          },
+          {
+            "index": 6,
+            "txid": "d217a9590ebf19f98abfcc992e943f6668778db1276ee89b15fc4bfb6d3f3049",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "7c7463c5197975b9d4621a2e6406a7a1c24420c28f5f740aac77eac39e1aaf38.0",
+              "7c7463c5197975b9d4621a2e6406a7a1c24420c28f5f740aac77eac39e1aaf38.1"
+            ]
+          },
+          {
+            "index": 7,
+            "txid": "bae5f5df56f1656f10e8c4394b3aa1633006a2a23c50f00d1e2991b5a5adfe7c",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "d217a9590ebf19f98abfcc992e943f6668778db1276ee89b15fc4bfb6d3f3049.0"
+            ]
+          },
+          {
+            "index": 8,
+            "txid": "3e495a0ceb4da1b721125b44517c0e7b95942d34492077805086941ff871707d",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "bae5f5df56f1656f10e8c4394b3aa1633006a2a23c50f00d1e2991b5a5adfe7c.1"
+            ]
+          },
+          {
+            "index": 9,
+            "txid": "fc220f15afc7ffcf8442ad93cdf1ae9bdb7a8669d643355c63c4980edac430af",
+            "verdict": "REJECTED",
+            "inputs": [
+              "3e495a0ceb4da1b721125b44517c0e7b95942d34492077805086941ff871707d.1"
+            ]
+          },
+          {
+            "index": 10,
+            "txid": "d5858332e33d6f4e6cede59cab4988a5f281be6ddc1738c4d76b64feeed013ef",
+            "verdict": "ACCEPTED_BY_NETWORK",
+            "inputs": [
+              "b0c8fb73addaffd263b86675f2d8a193758640fcee769b0e50911c6e1ca30318.0"
+            ]
+          }
+        ],
+        "rejectedChainsUnreusedThroughRecovery": true
+      },
+      "clauses": {
+        "counts": {
+          "PASS": 132,
+          "FAIL": 98,
+          "BLOCKED": 2
+        },
+        "completeBRC100Conformance": false
+      },
+      "integrated": {
+        "counts": {
+          "PASS": 62,
+          "FAIL": 7,
+          "BLOCKED": 8
+        },
+        "identityJoinsVerified": true
+      },
+      "rust": {
+        "counts": {
+          "PASS": 0,
+          "FAIL": 0,
+          "BLOCKED": 0
+        },
+        "outcome": "NOT_EXECUTED_PARENT_VERIFICATION_STOPPED",
+        "parentInputsBound": 0,
+        "semanticReplay": "Not executed; native parent verifier stopped at portability predicate disagreement"
+      },
+      "admissionReceipts": {
+        "isolatedHost": true,
+        "exactInstalledArchives": true,
+        "kernelNetworkNone": true,
+        "sandbox": true,
+        "processShutdown": true,
+        "containerRemoved": true,
+        "mongoClean": true,
+        "usernsRestored": true
+      },
+      "worker": {
+        "startedAt": "2026-11-09T19:21:05.888Z",
+        "endedAt": "2026-11-09T19:29:14.451Z"
+      }
+    }
+  ]
+}

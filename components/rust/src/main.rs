@@ -4,6 +4,8 @@ use bsv::script::{spend::{Spend, SpendParams}, locking_script::LockingScript, un
 use serde_json::{json, Value};
 use std::io::{self, Read};
 use std::collections::{HashMap, HashSet};
+#[cfg(feature = "graph-oracle-v3")]
+mod graph_oracle_v3;
 
 fn s<'a>(v: &'a Value, key: &str) -> Result<&'a str, String> {
     v[key].as_str().ok_or_else(|| format!("Missing string: {key}"))
@@ -49,6 +51,8 @@ fn anchored_graph(tx: &Transaction, root: &str, height: u32, depth: usize, verif
 }
 fn execute(v: &Value) -> Result<Value, String> {
     match s(v, "op")? {
+        #[cfg(feature = "graph-oracle-v3")]
+        "spends-indexed-v3" => graph_oracle_v3::spends(v),
         "hash" => Ok(json!({"sha256":hex::encode(hash::sha256(&hex::decode(s(v,"hex")?).map_err(|e|e.to_string())?))})),
         "key" => {
             let key=PrivateKey::from_hex(s(v,"privateKey")?).map_err(|e|e.to_string())?;

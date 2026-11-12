@@ -1,0 +1,11 @@
+{
+  "verified": true,
+  "result": "PASS",
+  "directions": 4,
+  "freshExecutions": 8,
+  "independentIdentities": 8,
+  "assertions": 80,
+  "binarySha256": "4a5e7166136bb79e250178434577eaadedd1c7efaa8cf9f76be071d1ffaa8de1",
+  "sourceCommit": "cc3cf756272b8d3826612d71e8f6356239fed6fa",
+  "claim": "ENGINEERING_REFERENCE_STORAGE_QUALIFICATION_ONLY"
+}

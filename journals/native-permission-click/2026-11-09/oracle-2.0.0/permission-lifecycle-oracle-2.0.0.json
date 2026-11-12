@@ -1,0 +1,73 @@
+{
+  "id": "tpnil-native-permission-lifecycle-oracle@2.0.0",
+  "reportSchema": "tpnil-native-permission-lifecycle@2.0.0",
+  "program": "ISI-4@4.0.0",
+  "profile": "ITCVE-1@2.0.0",
+  "assertions": [
+    "permission-lifecycle.basket-denial",
+    "permission-lifecycle.basket-grant",
+    "permission-lifecycle.basket-cache",
+    "permission-lifecycle.certificate-denial",
+    "permission-lifecycle.certificate-grant",
+    "permission-lifecycle.certificate-cache",
+    "permission-lifecycle.spending-denial",
+    "permission-lifecycle.spending-grant",
+    "permission-lifecycle.spending-one-shot",
+    "permission-lifecycle.single-revocation-ui",
+    "permission-lifecycle.single-revocation-enforcement",
+    "permission-lifecycle.single-revocation-isolation",
+    "permission-lifecycle.origin-revocation-ui",
+    "permission-lifecycle.origin-revocation-enforcement",
+    "permission-lifecycle.origin-isolation",
+    "permission-lifecycle.cleanup"
+  ],
+  "boundary": "Unchanged released Yours5.1.0 window.CWI plus visible permission prompts and Settings\u2192Permissions controls. No extension messaging, IndexedDB reads, private grants, privileged roots or alternate keyrings.",
+  "source": {
+    "walletArtifact": "yours-wallet-v5.1.0",
+    "files": {
+      "background.js": "2e0c4bfd465af84bd52ea869c6dc98128b41cf41e8f6ccd51b1284cfdfe872a7",
+      "background.js.map": "cc084942acf05a6b8278160ca739663d865bbbbbb564b2567e3f81f54acc451b",
+      "assets/main-CVoIbM5l.js": "a795d7aed619c59ab679dadecb080be5cde18613d4185e90047ab998a9aed3e6",
+      "assets/main-CVoIbM5l.js.map": "4e5686158f9342048aeedf6c603c1001658c8d7f69b15cd2195b333957c83651",
+      "assets/prompt-tab-Dv4h0zv3.js": "47e27e649063763f63fac5ba2ee1da92dad55ea7e1ffa4ff67a008661cffdc82",
+      "assets/prompt-tab-Dv4h0zv3.js.map": "6f12efd25ed9e8a494569d46b8c3f81919c1fc46001b1c0a3bd052d7eac7a646"
+    },
+    "mappedSources": [
+      "src/pages/PermissionsManager.tsx",
+      "src/pages/requests/PermissionRequest.tsx",
+      "src/pages/requests/GroupedPermissionRequest.tsx",
+      "src/background.ts",
+      "node_modules/@1sat/wallet/dist/permissions/manager.js"
+    ]
+  },
+  "grantSemantics": "Protocol, basket and certificate approvals are persisted by the admitted LocalWalletPermissionsManager in its local permission store. Reactive spending consent is deliberately one-shot; only manifest/grouped consent creates a monthly spending allowance.",
+  "scope": [
+    "Basket explicit denial, explicit approval and subsequent cached access to a real native-created output.",
+    "Certificate-field explicit denial, approval and cached proof; independently verify issuer signature, native subject identity, exactly one disclosed field and 32-byte field key.",
+    "Spending explicit denial with no submission matching the customer payment script and amount, explicit approval of a real independently proven signed payment, and a subsequent payment requiring fresh consent again. Unrelated background receipts remain in the complete window.",
+    "Single visible basket-grant revocation, renewed prompt denial, separately approved recovery and cached recovered access; certificate grant remains available.",
+    "Visible origin-wide revoke-all plus confirmation, renewed basket/certificate prompts and rejection, original protocol grant no longer available; another origin retains its independently granted matching basket and protocol.",
+    "All assertions join the original native identity; signed transactions and global submission-window indices are retained for parent independent funding/storage joins.",
+    "Close only owned application/settings/prompt pages; parent retires the whole admitted browser and controlled services."
+  ],
+  "limits": [
+    "No finite-expiry UI exists in the admitted prompt; no expiry enforcement claim.",
+    "Grouped standing monthly spending budgets and counterparty pacts are separate unexecuted scopes.",
+    "No privileged-mode, secondary keyring, on-chain permission-token, physical USB or full permission-category completeness claim.",
+    "Original eight V005 predicates and historical reports remain unchanged; this is an opt-in additive report executed after the existing integration graph."
+  ],
+  "timing": {
+    "perRequestMilliseconds": 30000,
+    "expectedScenarioSeconds": 120
+  },
+  "historicalPolicy": "Version1 manifests, raw failed native7 reports and frozen journal replay remain unchanged. This version corrects the observer causal boundary without changing permission, identity, payment or revocation acceptance criteria.",
+  "setup": "ToDo-origin setup may approve its visible manifest/grouped request using Allow Selected; the primary and alternate test origins have no manifest standing allowance. The16 reported category/revocation predicates operate on those independent origins.",
+  "observer": {
+    "id": "tpnil-native-permission-click@2",
+    "controls": "Passive document capture listener, armed before the ordinary Playwright visible button click. No event synthesis, cancellation, propagation changes, private grants or extension messaging.",
+    "join": "Distinct public request nonce binds the retained original CWI promise, matching popup/main-frame/button event, trusted left-click capture timestamp, host receipt timestamp and actual terminal native result. Click observation nonces cannot be reused.",
+    "closure": "A target-closed Playwright transport error is retained separately. PASS still requires the actual trusted matching DOM click and subsequent real native terminal result; popup closure alone, missing event, synthetic events, timeout and unrelated errors cannot pass.",
+    "timing": "Native settlement may precede completion of the Playwright click promise. It must follow the actual DOM dispatch. Every timestamp is retained, including host receipt and automation completion.",
+    "default": "Version1 remains the default producer behavior; prospective 2.0 wiring explicitly selects trustedClick:true."
+  }
+}

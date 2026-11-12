@@ -1,0 +1,23 @@
+{
+  "schema": "tpnil-ci-verifier-preparation-acquisition@1",
+  "runId": 43059172140,
+  "source": "9cded11fae9c8a48fc23894157bbab0b561077e5",
+  "artifact": {
+    "id": 13873800591,
+    "name": "native-reevaluation-preparation",
+    "size": 1572,
+    "sha256": "1613dbcf6bf23f6f49f6100f7162b02d34eeca2e49f10bf9479899ca2a74a494",
+    "githubDigestVerified": true,
+    "extracted": {
+      "entries": 1,
+      "bytes": 3471
+    }
+  },
+  "member": {
+    "path": "verifier-preparation.json",
+    "size": 3471,
+    "sha256": "fc56b03a3f4d7c9b7ccdb2dbe812453e1e1de115fe14d44ff6ac85c8dde025c1"
+  },
+  "preparationSourceInputsVerified": true,
+  "originalArtifactMembersUnchanged": true
+}

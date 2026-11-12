@@ -1,0 +1,35 @@
+{
+  "schema": "tpnil-diagnostic-inventory@1",
+  "files": [
+    {
+      "path": "inspect-no-send-change.mjs",
+      "bytes": 6261,
+      "sha256": "d95a3328f862355c2e9d5c5de126bcef300b93eb60796a693508242a2a29e3ed"
+    },
+    {
+      "path": "inspection.log",
+      "bytes": 1637,
+      "sha256": "ea14acdca3d07f132ef0e96ba2be1ca0835ca2868a759041936c2356a4b915b1"
+    },
+    {
+      "path": "no-send-change.json",
+      "bytes": 11700,
+      "sha256": "c62f777f6f649ea9ef13ce94c41f2a5a4136a23562c4ad28a134b268a3056579"
+    },
+    {
+      "path": "repetition-1-permission-identity.json",
+      "bytes": 943,
+      "sha256": "9b2c4414db9b3e9e272a78061c344060d42c0447bb9c30e04ad1b905f48c5b15"
+    },
+    {
+      "path": "repetition-2-permission-identity.json",
+      "bytes": 943,
+      "sha256": "22c3c69ff7ec468b6166422aadafce2af9939ef1439f286aa33ffd90ef6cf506"
+    },
+    {
+      "path": "review.json",
+      "bytes": 9402,
+      "sha256": "8afe32c7d9d3afd67e11a4123cd3b2653f1c50038490ba9b9d0c6bb783216152"
+    }
+  ]
+}

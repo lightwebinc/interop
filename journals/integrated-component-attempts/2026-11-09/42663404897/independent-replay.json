@@ -1,0 +1,103 @@
+{
+  "schema": "tpnil-failed-component-replay@1",
+  "source": "8f23d1c638fd97d176e12c6d634e65401c03e82f",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "qualified": false,
+  "parent": {
+    "exitCode": 1,
+    "error": "boundary-typescript repetitions differ"
+  },
+  "allRetainedChildOutcomesIndependentlyVerified": true,
+  "children": [
+    {
+      "lane": "storage-sync",
+      "resultPath": "storage-sync/result.json",
+      "script": "verify-storage-sync.mjs",
+      "exitCode": 0
+    },
+    {
+      "lane": "overlay-identity",
+      "resultPath": "overlay-identity-1/result.json",
+      "script": "verify-overlay-identity.mjs",
+      "exitCode": 0
+    },
+    {
+      "lane": "overlay-identity",
+      "resultPath": "overlay-identity-2/result.json",
+      "script": "verify-overlay-identity.mjs",
+      "exitCode": 0
+    },
+    {
+      "lane": "messaging",
+      "resultPath": "messaging-1/result.json",
+      "script": "verify-messaging.mjs",
+      "exitCode": 0
+    },
+    {
+      "lane": "messaging",
+      "resultPath": "messaging-2/result.json",
+      "script": "verify-messaging.mjs",
+      "exitCode": 0
+    },
+    {
+      "lane": "transport-typescript",
+      "resultPath": "transport-typescript-1/result.json",
+      "script": "verify-transport.mjs",
+      "exitCode": 0
+    },
+    {
+      "lane": "transport-typescript",
+      "resultPath": "transport-typescript-2/result.json",
+      "script": "verify-transport.mjs",
+      "exitCode": 0
+    },
+    {
+      "lane": "transport-go",
+      "resultPath": "transport-go-1/result.json",
+      "script": "verify-transport.mjs",
+      "exitCode": 0
+    },
+    {
+      "lane": "transport-go",
+      "resultPath": "transport-go-2/result.json",
+      "script": "verify-transport.mjs",
+      "exitCode": 0
+    },
+    {
+      "lane": "boundary-typescript",
+      "resultPath": "boundary-typescript-1/result.json",
+      "script": "verify-wallet-boundary.mjs",
+      "exitCode": 0
+    },
+    {
+      "lane": "boundary-typescript",
+      "resultPath": "boundary-typescript-2/result.json",
+      "script": "verify-wallet-boundary.mjs",
+      "exitCode": 0
+    },
+    {
+      "lane": "boundary-go",
+      "resultPath": "boundary-go-1/result.json",
+      "script": "verify-wallet-boundary.mjs",
+      "exitCode": 0
+    },
+    {
+      "lane": "boundary-go",
+      "resultPath": "boundary-go-2/result.json",
+      "script": "verify-wallet-boundary.mjs",
+      "exitCode": 0
+    },
+    {
+      "lane": "rust",
+      "resultPath": "rust-1/result.json",
+      "script": "verify-rust.mjs",
+      "exitCode": 0
+    },
+    {
+      "lane": "rust",
+      "resultPath": "rust-2/result.json",
+      "script": "verify-rust.mjs",
+      "exitCode": 0
+    }
+  ]
+}

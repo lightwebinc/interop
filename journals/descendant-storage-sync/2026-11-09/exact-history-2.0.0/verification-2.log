@@ -1,0 +1,23 @@
+◇ injected env (0) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+◇ injected env (0) from .env // tip: ⌘ override existing { override: true }
+{
+  "verified": true,
+  "result": "PASS",
+  "projection": {
+    "profile": "ISI-3/descendant-storage@2.0.0",
+    "projectionPolicy": "tpnil-storage-history-projection@2.0.0",
+    "projectionManifestSha256": "3549779398c8c562cd01e7253377b6c4c9b5a2f636028940ff7ddf817a6c9fb2",
+    "storageProjection": {
+      "profile": "ISI-3/storage-http-sync@2.0.0",
+      "projectionPolicy": "tpnil-storage-history-projection@2.0.0",
+      "projectionManifestSha256": "02d213f1215ecdde54b813e04d93b9a8be8464063fbfdefb07c1a3ad4b740062"
+    }
+  },
+  "directions": 4,
+  "freshExecutions": 8,
+  "independentIdentities": 8,
+  "assertions": 80,
+  "binarySha256": "34631e87e732e0bb1c14f0494539472ffc250cb4e2ca5419bf731a59a1763268",
+  "sourceCommit": "1acb320ac8306494a6ca19288fd43b3c99a78836",
+  "claim": "ENGINEERING_REFERENCE_STORAGE_QUALIFICATION_ONLY"
+}

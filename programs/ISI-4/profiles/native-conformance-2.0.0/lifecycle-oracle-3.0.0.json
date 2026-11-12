@@ -1,0 +1,21 @@
+{
+  "id": "tpnil-native-lifecycle-oracle@3.0.0",
+  "reportSchema": "tpnil-native-conformance-lifecycle@3",
+  "profile": "ISI-4@2.0.0",
+  "predecessorReportSchemas": ["tpnil-native-conformance-lifecycle@1", "tpnil-native-conformance-lifecycle@2"],
+  "changeClass": "MAJOR_VERDICT_CHANGE",
+  "source": {
+    "repository": "bsv-blockchain/BRCs",
+    "commit": "39a643ff148a8dcd23ec08986a8ddeb7d5713743",
+    "path": "wallet/0100.md",
+    "sha256": "537ab393c655195e8cd61897b00d6b187a36f17d930493f8af48430752064082",
+    "setSemanticsLine": 29,
+    "categorizationLines": [229, 232],
+    "listOutputsLines": [893, 933]
+  },
+  "unorderedFields": ["listOutputs.outputs[].labels", "listOutputs.outputs[].tags"],
+  "comparison": "Compare only labels and tags as unique string sets, copying and sorting these two fields without mutating raw observations. Duplicates and non-string members fail the respective predicate. Preserve exact outpoints, values, spendability, custom instructions and every other metadata field; no other array is normalized.",
+  "unchangedRequirements": "The original ToDo UI sequence and all three public lifecycle predicates remain required. Terminal rejection still requires exact authenticated Go processAction receipts, a real native error, preserved prior outputs and no spendable rejected action. Subsequent recovery requires a new independently proven accepted transaction using unaffected pre-existing funds.",
+  "historicalPolicy": "Reports with schemas1/2 retain their original order-sensitive comparisons and outcomes. Native run42674638927 remains its original reported FAIL with a separately documented observer comparison defect; a diagnostic v3 replay does not replace or qualify that run.",
+  "recoveryScope": "unaffected-preexisting-funds; no claim of releasing or reusing quarantined rejected input chains"
+}

@@ -1,0 +1,42 @@
+◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+◇ injected env (0) from .env // tip: ⌘ override existing { override: true }
+{"verified":true,"qualifiedEnvironment":true,"claim":"EXPERIMENTAL_CONFORMANCE_RESULT","outcome":"FAIL","vectors":[{"id":"ISI-4-V001","outcome":"PASS"},{"id":"ISI-4-V002","outcome":"PASS"},{"id":"ISI-4-V003","outcome":"PASS"},{"id":"ISI-4-V004","outcome":"PASS"},{"id":"ISI-4-V005","outcome":"PASS"},{"id":"ISI-4-V006","outcome":"PASS"},{"id":"ISI-4-V007","outcome":"PASS"},{"id":"ISI-4-V008","outcome":"FAIL"}]}
+{"verified":true,"assertions":17,"paidTransactions":["f9c74055e5ede000557df961ffe226889a11eedeab5d879da41b414476161513","f44ad554de351eea5b231c59a53199ed5b798911d1cb319f6ba99e6b0afc5bae"]}
+{
+  "verified": true,
+  "assertions": 6,
+  "nativeIdentity": "03f3bdc33964247a0ab8353511f0469eaeee3126bf9a3f55c6a6384ec75cb4a0ea",
+  "paymentTransactions": [
+    "4c8b87e7872d2544a640a19ef80023c3644ddd3b56bdf3df50b8326e911fec1d",
+    "99ca0bcba2bdfe3172a1f71d968432144ad72a753259618fc4cee147f8d357aa"
+  ],
+  "nativeArtifactQualification": "Requires the enclosing unchanged-native-wallet admission and provenance envelope"
+}
+{"verified":true,"outcome":"PASS","transactions":4,"receipts":2,"walletIdentity":"03f3bdc33964247a0ab8353511f0469eaeee3126bf9a3f55c6a6384ec75cb4a0ea"}
+{"verified":true,"outcome":"PASS","assertions":[{"id":"getPublicKey.identity","result":"PASS"},{"id":"getNetwork.mainnet","result":"PASS"},{"id":"getVersion.nonempty","result":"PASS"},{"id":"isAuthenticated.true","result":"PASS"},{"id":"waitForAuthentication.true","result":"PASS"},{"id":"getHeight.controlled","result":"PASS"},{"id":"getHeaderForHeight.genesis","result":"PASS"},{"id":"encrypt.bytes","result":"PASS"},{"id":"decrypt.roundtrip","result":"PASS"},{"id":"createSignature.independent-verification","result":"PASS"},{"id":"verifySignature.valid","result":"PASS"},{"id":"createHmac.length","result":"PASS"},{"id":"verifyHmac.valid","result":"PASS"},{"id":"revealCounterpartyKeyLinkage.independent-secret","result":"PASS"},{"id":"revealSpecificKeyLinkage.independent-secret","result":"PASS"},{"id":"internalizeAction.mined-descendant-payment","result":"PASS"},{"id":"createAction.serialized-outputs","result":"PASS"},{"id":"listActions.metadata","result":"PASS"},{"id":"listOutputs.metadata","result":"PASS"},{"id":"abortAction.releases-reservation","result":"PASS"},{"id":"signAction.serialized-spend","result":"PASS"},{"id":"relinquishOutput.removes-basket-membership","result":"PASS"},{"id":"acquireCertificate.signed-fields","result":"PASS"},{"id":"listCertificates.issuer-scope","result":"PASS"},{"id":"proveCertificate.selective-disclosure","result":"PASS"},{"id":"identity-service.publish","result":"PASS"},{"id":"discoverByIdentityKey.identity-service","result":"PASS"},{"id":"discoverByAttributes.identity-service","result":"PASS"},{"id":"relinquishCertificate.tombstone","result":"PASS"},{"id":"getPublicKey.specified-rejection","result":"PASS"},{"id":"decrypt.specified-rejection","result":"PASS"},{"id":"verifyHmac.specified-rejection","result":"PASS"},{"id":"verifySignature.specified-rejection","result":"PASS"},{"id":"createAction.specified-rejection","result":"PASS"},{"id":"signAction.specified-rejection","result":"PASS"},{"id":"listOutputs.specified-rejection","result":"PASS"},{"id":"listActions.specified-rejection","result":"PASS"},{"id":"internalizeAction.specified-rejection","result":"PASS"},{"id":"getHeaderForHeight.specified-rejection","result":"PASS"},{"id":"acquireCertificate.specified-rejection","result":"PASS"},{"id":"proveCertificate.specified-rejection","result":"PASS"},{"id":"listCertificates.specified-rejection","result":"PASS"}],"methodCalls":[{"method":"createAction","calls":4},{"method":"signAction","calls":2},{"method":"abortAction","calls":1},{"method":"listActions","calls":2},{"method":"internalizeAction","calls":2},{"method":"listOutputs","calls":5},{"method":"relinquishOutput","calls":1},{"method":"getPublicKey","calls":3},{"method":"revealCounterpartyKeyLinkage","calls":1},{"method":"revealSpecificKeyLinkage","calls":1},{"method":"encrypt","calls":1},{"method":"decrypt","calls":2},{"method":"createHmac","calls":1},{"method":"verifyHmac","calls":2},{"method":"createSignature","calls":1},{"method":"verifySignature","calls":2},{"method":"acquireCertificate","calls":2},{"method":"listCertificates","calls":3},{"method":"proveCertificate","calls":3},{"method":"relinquishCertificate","calls":1},{"method":"discoverByIdentityKey","calls":1},{"method":"discoverByAttributes","calls":1},{"method":"isAuthenticated","calls":1},{"method":"waitForAuthentication","calls":1},{"method":"getHeight","calls":1},{"method":"getHeaderForHeight","calls":2},{"method":"getNetwork","calls":1},{"method":"getVersion","calls":1}],"completeBRC100Conformance":false,"tamper":{"changedReturnedHeightRejected":true}}
+◇ injected env (0) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+{"verified":true,"result":"PASS","assertions":[{"id":"identity-trust.initial-exclusion","result":"PASS"},{"id":"identity-trust.public-settings-token","result":"PASS"},{"id":"identity-trust.cache-expiry","result":"PASS"},{"id":"identity-trust.positive-discovery","result":"PASS"},{"id":"identity-trust.settings-restored","result":"PASS"},{"id":"identity-trust.temporary-token-spent","result":"PASS"},{"id":"identity-trust.public-boundary-only","result":"PASS"},{"id":"identity-trust.cleanup","result":"PASS"}],"transactions":2,"claim":"ENGINEERING_OBSERVATION_ONLY","tamperRejections":["missing-real-cache-expiry","changed-original-settings-restoration","valid-transaction-that-does-not-spend-temporary-token"]}
+{"verified":true,"outcome":"FAIL","calls":47,"assertions":48,"independentReplay":true,"parentInputsBound":4}
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+'FAIL' !== 'PASS'
+
+    at file:///Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/frozen-native-source-c338a93/scripts/verify-native-integrated.mjs:78:10
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'FAIL',
+  expected: 'PASS',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.22.1

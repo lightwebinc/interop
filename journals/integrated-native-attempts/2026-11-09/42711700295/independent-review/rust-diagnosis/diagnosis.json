@@ -1,0 +1,196 @@
+{
+  "schema": "tpnil-native-rust-observer-diagnosis@1",
+  "source": "c338a93c97ffebeeef318e679ff82b7dbf309dd5",
+  "nativeRunId": 42711700295,
+  "observedAt": "2026-11-09T22:55:31.545Z",
+  "classification": "OBSERVER_VERIFICATION_ERROR",
+  "originalOutcome": {
+    "nativeBaseQualified": true,
+    "rustRepetition1": {
+      "PASS": 42,
+      "FAIL": 6,
+      "total": 48
+    },
+    "rustRepetition2": "NOT_EXECUTED",
+    "integratedQualification": "NOT_ACCEPTED"
+  },
+  "cause": "The lab Rust anchored_graph walks owned source_transaction placements as complete trees. Pinned rs-sdk reconstructs shared ancestry with one deep placement per ancestor and shallow copies on other edges. A depth-first visit can encounter a shallow copy before the fully owned placement. The lab observer then reports Unanchored missing ancestor even though the exact original BEEF includes that ancestor and proof.",
+  "missingBytes": false,
+  "additionalFundingRequired": false,
+  "exactSharedEdge": {
+    "spending": "0684bb979e9da36b3ebf3e50fa11eb9cbc45bbdb73bd3883df97836955c15b23",
+    "inputIndex": 0,
+    "parent": "09c43beac77dfc16df94629542515743550ba1eda3bc889241a9e583cfa110e9"
+  },
+  "originalFailingGraphs": [
+    {
+      "path": "out/native-ci-42711700295/repetition-1/evidence/integrated/synthesis-transactions.json",
+      "reportSha256": "daf3713a4272e7a70ccfb0010b114f0e63b8628686dea2e9b3eb05c5234d121c",
+      "subject": "e38cde74767c69586d1886b1554315d6cdb59c93166ab6ed3ae7c9b00b12badf",
+      "beefSha256": "6bd180d2352819158cb1bcd7c0c32ad5de7371ea4953f8202dbac92c823b4e6c",
+      "encodedTransactions": 14,
+      "encodedProofs": 1,
+      "edgeRows": [
+        {
+          "txid": "0684bb979e9da36b3ebf3e50fa11eb9cbc45bbdb73bd3883df97836955c15b23",
+          "rawSha256": "b72072bb3a219c992624a7ccb6467bff148a848dcbc8a5821d7234a69a2c9f2a",
+          "rawBytes": 442,
+          "exactStorageRowPresent": true
+        },
+        {
+          "txid": "09c43beac77dfc16df94629542515743550ba1eda3bc889241a9e583cfa110e9",
+          "rawSha256": "81c8e8cae5ea0fd45288a83ac1d2dda600e9ec69c6e029435e050938ec9c1a84",
+          "rawBytes": 426,
+          "exactStorageRowPresent": true
+        }
+      ]
+    },
+    {
+      "path": "out/native-ci-42711700295/repetition-1/evidence/integrated/identity-trust.json",
+      "reportSha256": "fe7920058d1aea69a01db1c2255c3aa6c6bf699e3e0e45b08d2d74f70cd6a460",
+      "subject": "c197bdaf3a7201bc2e7785e08cc895636050c2acf3a6f8fc7c620ef7663f14ed",
+      "beefSha256": "adb30cfd185b3c74e9fb3882bdad3bc5cdea1b186218d3ef8e8cfb6bf65ae4e6",
+      "encodedTransactions": 18,
+      "encodedProofs": 1,
+      "edgeRows": [
+        {
+          "txid": "0684bb979e9da36b3ebf3e50fa11eb9cbc45bbdb73bd3883df97836955c15b23",
+          "rawSha256": "b72072bb3a219c992624a7ccb6467bff148a848dcbc8a5821d7234a69a2c9f2a",
+          "rawBytes": 442,
+          "exactStorageRowPresent": true
+        },
+        {
+          "txid": "09c43beac77dfc16df94629542515743550ba1eda3bc889241a9e583cfa110e9",
+          "rawSha256": "81c8e8cae5ea0fd45288a83ac1d2dda600e9ec69c6e029435e050938ec9c1a84",
+          "rawBytes": 426,
+          "exactStorageRowPresent": true
+        }
+      ]
+    },
+    {
+      "path": "out/native-ci-42711700295/repetition-1/evidence/integrated/identity-trust.json",
+      "reportSha256": "fe7920058d1aea69a01db1c2255c3aa6c6bf699e3e0e45b08d2d74f70cd6a460",
+      "subject": "628f1d5b4ff288aac735fe04c0fc5ea64293683dbe1c2f9833ccaa9d1316044e",
+      "beefSha256": "06d6271526566cfec91f084db291a79cd1b2c3afc5a370d5c51fa82679154160",
+      "encodedTransactions": 33,
+      "encodedProofs": 1,
+      "edgeRows": [
+        {
+          "txid": "0684bb979e9da36b3ebf3e50fa11eb9cbc45bbdb73bd3883df97836955c15b23",
+          "rawSha256": "b72072bb3a219c992624a7ccb6467bff148a848dcbc8a5821d7234a69a2c9f2a",
+          "rawBytes": 442,
+          "exactStorageRowPresent": true
+        },
+        {
+          "txid": "09c43beac77dfc16df94629542515743550ba1eda3bc889241a9e583cfa110e9",
+          "rawSha256": "81c8e8cae5ea0fd45288a83ac1d2dda600e9ec69c6e029435e050938ec9c1a84",
+          "rawBytes": 426,
+          "exactStorageRowPresent": true
+        }
+      ]
+    }
+  ],
+  "sdk": {
+    "commit": "99d2313f2ede48a465aa8be1907d26d098aac8fd",
+    "sourceEvidence": [
+      {
+        "path": "src/transaction/beef.rs",
+        "sha256": "68c9261e54e49609d007134cc27ceee5852d06a6a80b8a513572cba8c9c1626d",
+        "lines": "1101-1180: breadth-first deep-edge ownership, shallow proof_tree_leaf copies"
+      },
+      {
+        "path": "src/transaction/transaction.rs",
+        "sha256": "4b3a1c72a15f074a998d3868625044215def4cd77045a522bc21ab4c06c84e59",
+        "lines": "129-175: documents repeated placements and transaction-id index consumer requirement"
+      }
+    ]
+  },
+  "frozenInputs": {
+    "scripts/rust-corpus.mjs": "0a2f48fa981095c50655ed11cb1c321d4aa6cab11edfdf30681e9f84525ecaa1",
+    "scripts/verify-native-integrated.mjs": "2b0c9b3db17c3df919e32eb0b4f7730ea33d2872afb8f97281318523dc53d8bd",
+    "components/rust/src/main.rs": "1cb5dd79701a74ce66b49764bd6787295a5858b133dd980f5b61cd006194df64",
+    "components/rust/Cargo.lock": "2c0ca447f074d3eaaa6028469774db4a382904a4a8b92fd2ddf7560285246402"
+  },
+  "diagnosticErrorObservation": {
+    "source": "Only error detail was changed in an ignored diagnostic copy of the Rust lab observer; all acceptance branches retained.",
+    "sourceSha256": "500eba8331725676678ac1998da19cb002b7be7de8794467bf46af15ea89d454",
+    "binarySha256": "6671831d259b1f5b01a0e14955bd0629563fb09e7b6f33d3a7a87ca883645d21",
+    "failures": [
+      {
+        "callIndex": 39,
+        "originalResponse": {
+          "error": "Unanchored missing ancestor",
+          "ok": false
+        },
+        "diagnosticResponse": {
+          "error": "Unanchored missing ancestor: spending=0684bb979e9da36b3ebf3e50fa11eb9cbc45bbdb73bd3883df97836955c15b23 input=0 parent=Some(\"09c43beac77dfc16df94629542515743550ba1eda3bc889241a9e583cfa110e9\") depth=8",
+          "ok": false
+        }
+      },
+      {
+        "callIndex": 40,
+        "originalResponse": {
+          "error": "Unanchored missing ancestor",
+          "ok": false
+        },
+        "diagnosticResponse": {
+          "error": "Unanchored missing ancestor: spending=0684bb979e9da36b3ebf3e50fa11eb9cbc45bbdb73bd3883df97836955c15b23 input=0 parent=Some(\"09c43beac77dfc16df94629542515743550ba1eda3bc889241a9e583cfa110e9\") depth=8",
+          "ok": false
+        }
+      },
+      {
+        "callIndex": 42,
+        "originalResponse": {
+          "error": "Unanchored missing ancestor",
+          "ok": false
+        },
+        "diagnosticResponse": {
+          "error": "Unanchored missing ancestor: spending=0684bb979e9da36b3ebf3e50fa11eb9cbc45bbdb73bd3883df97836955c15b23 input=0 parent=Some(\"09c43beac77dfc16df94629542515743550ba1eda3bc889241a9e583cfa110e9\") depth=12",
+          "ok": false
+        }
+      },
+      {
+        "callIndex": 43,
+        "originalResponse": {
+          "error": "Unanchored missing ancestor",
+          "ok": false
+        },
+        "diagnosticResponse": {
+          "error": "Unanchored missing ancestor: spending=0684bb979e9da36b3ebf3e50fa11eb9cbc45bbdb73bd3883df97836955c15b23 input=0 parent=Some(\"09c43beac77dfc16df94629542515743550ba1eda3bc889241a9e583cfa110e9\") depth=12",
+          "ok": false
+        }
+      },
+      {
+        "callIndex": 45,
+        "originalResponse": {
+          "error": "Unanchored missing ancestor",
+          "ok": false
+        },
+        "diagnosticResponse": {
+          "error": "Unanchored missing ancestor: spending=0684bb979e9da36b3ebf3e50fa11eb9cbc45bbdb73bd3883df97836955c15b23 input=0 parent=Some(\"09c43beac77dfc16df94629542515743550ba1eda3bc889241a9e583cfa110e9\") depth=13",
+          "ok": false
+        }
+      },
+      {
+        "callIndex": 46,
+        "originalResponse": {
+          "error": "Unanchored missing ancestor",
+          "ok": false
+        },
+        "diagnosticResponse": {
+          "error": "Unanchored missing ancestor: spending=0684bb979e9da36b3ebf3e50fa11eb9cbc45bbdb73bd3883df97836955c15b23 input=0 parent=Some(\"09c43beac77dfc16df94629542515743550ba1eda3bc889241a9e583cfa110e9\") depth=13",
+          "ok": false
+        }
+      }
+    ]
+  },
+  "recommendedCorrection": {
+    "boundary": "Laboratory Rust observer, not wallet, Go storage, native driver or retained corpus input data.",
+    "method": "Resolve each ancestor by transaction id from the same parsed original BEEF transaction table and its associated Merkle proof, while retaining depth, exact txid, unique-input, conflicting-spend, value, script-signature and pinned-root checks.",
+    "versioning": "A separately identified observer/corpus revision and append-only postprocessing receipt are required; the original failed Rust report and original native run remain unchanged.",
+    "newNativeExecutionTechnicallyRequired": false,
+    "recoveryAcceptance": "New independently reviewed postprocessing must bind the exact original native ZIP, parent inputs and all native base/child checks. This diagnosis alone does not admit the original integrated run."
+  },
+  "artifactMutation": false,
+  "trackedSourceEdits": false
+}

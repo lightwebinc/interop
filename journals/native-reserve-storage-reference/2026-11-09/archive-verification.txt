@@ -1,0 +1,4 @@
+◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+◇ injected env (0) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+{"language":"typescript","outputRows":1,"verified":true}
+{"language":"go","outputRows":1,"verified":true}

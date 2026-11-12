@@ -1,0 +1,84 @@
+{
+  "schema": "tpnil-shutdown-submissions-engineering-tests@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "recordedAt": "2026-11-09T21:37:30.083781+00:00",
+  "platform": "Darwin",
+  "architecture": "arm64",
+  "implementationCommit": "f20a535",
+  "policy": "tpnil-native-shutdown-submissions@1.0.0",
+  "policySha256": "b579b46714532f9625e562e2842bfac414262e497c9628ab3a6b95554a84acb8",
+  "nativeFixture": {
+    "run": 42697283161,
+    "sha256": "20f854ee8fa3f32eaa3122bf20f8200204d7b04ae31df7f4542cd31138021176",
+    "status": "FAILED_ATTEMPT_UNCHANGED"
+  },
+  "scope": "Read-only native7 fixture bytes and prospective unit receipt, plus real isolated TypeScript and patched Go source/replacement service shutdown. No new native customer qualification.",
+  "results": {
+    "finalFocusedTests": 11,
+    "precedingPortabilityRegressionBatch": 20,
+    "typecheck": "PASS",
+    "reboundReceiptMutationsRejected": 16,
+    "deniedPaymentAmountVerdictCasesRejected": 8,
+    "lateApprovedPaymentRejected": true,
+    "preModuleSameScriptPaymentPreserved": true,
+    "cleanupFailureRejected": true,
+    "actualProviderClosure": [
+      "typescript",
+      "go"
+    ]
+  },
+  "retainedFailedPreflights": [
+    {
+      "log": "shutdown-submissions-tests-1.txt",
+      "classification": "TEST_HARNESS_ERROR",
+      "cause": "One premature-capture mutation used equal millisecond timestamps and therefore was not actually invalid; cleanup test called non-idempotent source.close twice. Fixed test inputs/control, unchanged acceptance predicate."
+    },
+    {
+      "log": "shutdown-submissions-typecheck-2.txt",
+      "classification": "INCOMPLETE_COORDINATED_VERSION_WIRING",
+      "cause": "Prospective2.0 driver type introduced before parent WalletLabResult union update; final parent mapping/typecheck passed."
+    }
+  ],
+  "logs": [
+    {
+      "path": "shutdown-submissions-tests-1.txt",
+      "bytes": 3759,
+      "sha256": "18e7096e455378a0cafd4bf476f22d7e32e168df0af5d6caba840a25a1cad9c0"
+    },
+    {
+      "path": "shutdown-submissions-tests-2.txt",
+      "bytes": 363,
+      "sha256": "fb1e412d98f380ba18fabc1268bed0d353ac2a4c39e772c14f645b125a9da0c4"
+    },
+    {
+      "path": "shutdown-submissions-tests-3.txt",
+      "bytes": 365,
+      "sha256": "8787c2c14576f77a8a2a6996c11c6e727ff1208faabc2b98ac10b6368d015238"
+    },
+    {
+      "path": "shutdown-submissions-tests-final.txt",
+      "bytes": 444,
+      "sha256": "63ad22eedd00484ad6394359dcf8344f3bc9aab476cc58549af51d3caffcb125"
+    },
+    {
+      "path": "shutdown-submissions-tests-extra.txt",
+      "bytes": 365,
+      "sha256": "cb894b0d88525b92269822bccb1c19fdb9abc0ca815c75397863283d896f000c"
+    },
+    {
+      "path": "shutdown-submissions-typecheck-1.txt",
+      "bytes": 52,
+      "sha256": "381be222d640c62a1491f0cd300dd4b3d77f00d5b62028c59702bba3119afc8f"
+    },
+    {
+      "path": "shutdown-submissions-typecheck-2.txt",
+      "bytes": 509,
+      "sha256": "2bc3855d8af51d406600dcaee4f7fddac5b5a5658082eb7ecdb9e7f57c730fc2"
+    },
+    {
+      "path": "shutdown-submissions-typecheck-final.txt",
+      "bytes": 52,
+      "sha256": "381be222d640c62a1491f0cd300dd4b3d77f00d5b62028c59702bba3119afc8f"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+◇ injected env (0) from .env // tip: ⌘ override existing { override: true }
+◇ injected env (0) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Independent portability predicate differs: portability.native-mediated-sync: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert.ok(report.ui.some((row: any) => row.stage === 'replacement-active' && row.text.includes('replacement-wallet.itcve.test') && row.text.includes('In use')))
+
+
+'PASS' !== 'FAIL'
+
+    at verifyNativePortability (/Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/frozen-descendant-source-d02414f/synthesis/src/wallet-lab/native/verify-conformance-portability.ts:219:12)
+    at async verifyNativeConformance (/Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/frozen-descendant-source-d02414f/synthesis/src/wallet-lab/native/verify-conformance.ts:44:23)
+    at async file:///Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/frozen-descendant-source-d02414f/out/independent-native6-review.mjs:72:20 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'PASS',
+  expected: 'FAIL',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.22.1

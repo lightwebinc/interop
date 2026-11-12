@@ -1,0 +1,287 @@
+--- a/pkg/storage/provider.go
++++ b/pkg/storage/provider.go
+@@ -999,11 +999,18 @@
+ 		return nil, fmt.Errorf("invalid requestSyncChunk args: %w", err)
+ 	}
+ 
+-	chunk, err := sync.NewGetSyncChunkAction(p.logger, p.repo, &args).Get(ctx)
++	// Apply rough sizing after public ancestry expansion. Keep the original
++	// item cap, so collection is bounded even for a very small rough limit.
++	queryArgs := args
++	queryArgs.MaxRoughSize = ^uint64(0)
++	chunk, err := sync.NewGetSyncChunkAction(p.logger, p.repo, &queryArgs).Get(ctx)
+ 	if err != nil {
+ 		return nil, fmt.Errorf("failed to get sync chunk: %w", err)
+ 	}
+-	return chunk, nil
++	if err = p.completeSyncInputBEEF(ctx, chunk); err != nil {
++		return nil, fmt.Errorf("failed to export complete sync ancestry: %w", err)
++	}
++	return boundSyncAncestryChunk(chunk, args.MaxRoughSize)
+ }
+ 
+ // FindOrInsertSyncStateAuth finds or inserts a sync state for the given user, storage identity key, and storage name.
+--- /dev/null
++++ b/pkg/storage/provider_sync_ancestry.go
+@@ -0,0 +1,135 @@
++package storage
++
++import (
++	"context"
++	"encoding/json"
++	"fmt"
++	"reflect"
++	"sort"
++	"time"
++
++	"github.com/bsv-blockchain/go-sdk/chainhash"
++	"github.com/bsv-blockchain/go-sdk/transaction"
++	"github.com/bsv-blockchain/go-wallet-toolbox/pkg/wdk"
++)
++
++// completeSyncInputBEEF exports the public ancestor graph required by each
++// signed owner transaction. A storage-local known-tx optimization may have
++// persisted an empty InputBEEF because another user's transaction already
++// anchored its inputs. Those global rows are deliberately excluded from the
++// owner's sync dataset. Sending the same empty blob to a fresh counterpart
++// therefore loses usable proof ancestry even though every owned row arrives.
++//
++// Resolve only authenticated owner rows selected by GetSyncChunk, through the
++// existing storage-only BEEF builder. No network fetch, other user's metadata,
++// additional entity/page, or synthetic proof is involved. Remove the subject
++// itself: InputBEEF carries its ancestors, while rawTx retains the signed tx.
++// Expansion is deterministic and leaves statuses, timestamps, labels, notify
++// links and all other portable fields unchanged. Pending unsigned rows retain
++// their original representation until they have an actual signed transaction.
++func (p *Provider) completeSyncInputBEEF(ctx context.Context, chunk *wdk.SyncChunk) error {
++	cache := map[string][]byte{}
++	complete := func(txid string, raw []byte) ([]byte, error) {
++		if value, ok := cache[txid]; ok {
++			return value, nil
++		}
++		beef, err := p.repo.KnownTx.GetBEEFForTxID(ctx, txid)
++		if err != nil {
++			return nil, err
++		}
++		hash, err := chainhash.NewHashFromHex(txid)
++		if err != nil {
++			return nil, err
++		}
++		subject := beef.FindAtomicTransaction(txid)
++		if subject == nil {
++			return nil, fmt.Errorf("missing signed subject %s", txid)
++		}
++		// A mismatching row cannot substitute a different graph in the sync export.
++		if string(subject.Bytes()) != string(raw) {
++			return nil, fmt.Errorf("raw transaction differs for %s", txid)
++		}
++		// Rebuild only the reachable graph: stored batch BEEFs may also carry
++		// unrelated public transactions. Those are not this owner's ancestry.
++		beef, err = transaction.NewBeefFromTransaction(subject)
++		if err != nil {
++			return nil, err
++		}
++		beef.RemoveExistingTxid(hash)
++		encoded, err := beef.Bytes()
++		if err != nil {
++			return nil, err
++		}
++		cache[txid] = encoded
++		return encoded, nil
++	}
++	for _, row := range chunk.ProvenTxReqs {
++		if len(row.RawTx) == 0 || row.TxID == "" {
++			continue
++		}
++		value, err := complete(row.TxID, row.RawTx)
++		if err != nil {
++			return fmt.Errorf("request %s: %w", row.TxID, err)
++		}
++		row.InputBEEF = value
++	}
++	return nil
++}
++
++// The protocol's rough-size rule includes the item crossing the limit and
++// stops afterwards. Reapply it after expansion; offsets count only emitted
++// rows, so the omitted suffix is requested normally on the next page.
++func boundSyncAncestryChunk(chunk *wdk.SyncChunk, maximum uint64) (*wdk.SyncChunk, error) {
++	if maximum == 0 {
++		return chunk, nil
++	}
++	result := wdk.NewSyncChunk(chunk.FromStorageIdentityKey, chunk.ToStorageIdentityKey, chunk.UserIdentityKey)
++	result.User = chunk.User
++	source, target := reflect.ValueOf(chunk).Elem(), reflect.ValueOf(result).Elem()
++
++	type item struct {
++		field string
++		value reflect.Value
++	}
++	var rows []item
++	appendField := func(name string) {
++		values := source.FieldByName(name)
++		for i := 0; i < values.Len(); i++ {
++			rows = append(rows, item{name, values.Index(i)})
++		}
++	}
++	appendField("OutputBaskets")
++	// KnownTx uses one combined SQL cursor (sum of the two offsets). Preserve
++	// that exact created_at DESC, tx_id ASC order when cutting its prefix.
++	var known []item
++	for _, name := range []string{"ProvenTxs", "ProvenTxReqs"} {
++		values := source.FieldByName(name)
++		for i := 0; i < values.Len(); i++ {
++			known = append(known, item{name, values.Index(i)})
++		}
++	}
++	sort.SliceStable(known, func(i, j int) bool {
++		a, b := known[i].value.Elem(), known[j].value.Elem()
++		at, bt := a.FieldByName("CreatedAt").Interface().(time.Time), b.FieldByName("CreatedAt").Interface().(time.Time)
++		if !at.Equal(bt) {
++			return at.After(bt)
++		}
++		return a.FieldByName("TxID").String() < b.FieldByName("TxID").String()
++	})
++	rows = append(rows, known...)
++	for _, name := range []string{"Transactions", "Outputs", "TxLabels", "TxLabelMaps", "OutputTags", "OutputTagMaps", "Certificates", "CertificateFields", "Commissions"} {
++		appendField(name)
++	}
++	for _, row := range rows {
++		output := target.FieldByName(row.field)
++		output.Set(reflect.Append(output, row.value))
++		encoded, err := json.Marshal(result)
++		if err != nil {
++			return nil, fmt.Errorf("cannot size completed sync ancestry: %w", err)
++		}
++		if uint64(len(encoded)) > maximum {
++			return result, nil
++		}
++	}
++	return result, nil
++}
+--- /dev/null
++++ b/pkg/storage/provider_sync_ancestry_test.go
+@@ -0,0 +1,123 @@
++package storage
++
++import (
++	"context"
++	"encoding/hex"
++	"testing"
++	"time"
++
++	"github.com/bsv-blockchain/go-sdk/transaction"
++	"github.com/bsv-blockchain/go-wallet-toolbox/pkg/internal/storage/database/models"
++	"github.com/bsv-blockchain/go-wallet-toolbox/pkg/internal/storage/dbretry"
++	"github.com/bsv-blockchain/go-wallet-toolbox/pkg/internal/storage/repo"
++	"github.com/bsv-blockchain/go-wallet-toolbox/pkg/internal/testabilities/dbfixtures"
++	"github.com/bsv-blockchain/go-wallet-toolbox/pkg/wdk"
++	"github.com/stretchr/testify/require"
++)
++
++// Public signed transactions and proof retained from native run42680240116.
++const ancestryFixture = "0200beef010101010002f92c04a4c91f3bf86d4c180f010ffb83e794eb4f2cc092aed958e1c0b9061cf803010001000000010000000000000000000000000000000000000000000000000000000000000000ffffffff1a030100002f746572616e6f64652f2e5e3c1121ea0660a4599f7fffffffff0100f2052a010000001976a9144af543ce73e607e0ae1752bc90901bf73cc16a2488ac00000000000100000001f92c04a4c91f3bf86d4c180f010ffb83e794eb4f2cc092aed958e1c0b9061cf8000000006b483045022100ca856a10038bf8a3d1844e33f992a31e4b18396d56aae97b4cfa2d09426bd01f02205d81fe26962ae9edb8c5dbc07edad0b218c4f885c9bcf460b076403b14323abe412102c7b07af6ad7d5f05c5c074fab5dc0644a4d1df05f165797d8fa67d71b7c4d13bffffffff0910270000000000001976a9149bfbbe5a418d9151dd3827b1ef23b7fadcba15eb88ac27f1522c000000001976a914204c63f805e353226ffdfc10438343d72816ec3c88aca8ff820e000000001976a9149223a825a89ba67223ed82edf4f1d8c29defaa1a88ac8b476225000000001976a914ef99a800dea68ef8be6a724ea04613eb451d155388acdcc34224000000001976a914498ddfb6fe305f22fcc0d8f4e00421550081634488acd4ae3e26000000001976a914c754274629e37fd6fb167df0cc39f3cb8a74569488ac252b1f25000000001976a9146549aa16c532e5cfe7d57c66cfb289869974943788ac0873fe3b000000001976a9143fb2803dd44b83eaa3bbe042a1f53bb8b9e8c6e488ac8a812e1e000000001976a914ccbb816002251d03e56e1cbacefc902c0a73cf8788ac00000000000100000001f75482836927ffdc956d568da49870c1b11a40a06e4bab86554494e8521bf2d1000000006b483045022100d0f1de53e2ca0df46d722395c93317b16c2342858bf805c653065ea4d1fc087b02203b860b36b35fb8197f39bc0b66fbd82e2633e4394b7f29d0eb229e93dcf0913d4121038b9d6b39bf11e8863fb9a3571e84b4add4f6534f7d735cbc6a4144365afb57e8ffffffff030200000000000000d42102c3f5c2c3d469595fcb6948208bdd77bc25dfd6eea6c6f67d7fabd878373a7b2fac2131546f446f44744b7265457a6248594b466a6d6f42756475466d53585855475a4745625a537b43c891deb36c218462d48dbe2211388ff4ab01645ebca776c327b1653c5db7c71dbf7e846404f9a735afaac957b6877f775a50cb33e9116d407c5c2d27f2500c8746304402201be6f0f0541d41cb04a163a8d11d65a82a6299bb458c12587b94d707296799ca02205acbf3e362f42a97df0b875d3a71f46de2268e4eb68f05621bcacff484d7156a6d7559130000000000001976a9142fcf739013fad161f14ccb12fedda4158a9b0f0488ac88130000000000001976a9143c3e2d50cdcecd6d3378dd2a4c6e236026c2de5488ac00000000"
++const subjectFixture = "01000000026dccaee327506b990b5f9396e391ad972fb3dda6bc46aa439dff059f9ac6a8240000000049483045022100b77af1f3c705d1f88db0dee2489c4b4e5829dd24e89399a4f707b33c839f28e8022013ffb544f3eb483cb7c9de676af76633d73a26c2efbee4739bbd09923c22927041ffffffff6dccaee327506b990b5f9396e391ad972fb3dda6bc46aa439dff059f9ac6a824010000006a4730440220484975b1815621641a9991aba7e95daf89a6aa7a2c4d30d2babfa6425012e786022055f569e3ca2cb2694f74286abeca8bd89c0e50746ac0c6da822e856e34d759974121030514d3843f0c8d28c5578314ca28857fd788990044fec4a68498c3a7bb56dc72ffffffff013c130000000000001976a914bdd0b7277890ac07ed185d23b34dd36aaaab3d9b88ac00000000"
++
++func TestSyncAncestryExportsActualPublicParents(t *testing.T) {
++	db, cleanup := dbfixtures.TestDatabase(t)
++	defer cleanup()
++	bytes, err := hex.DecodeString(ancestryFixture)
++	require.NoError(t, err)
++	graph, err := transaction.NewBeefFromBytes(bytes)
++	require.NoError(t, err)
++	for _, entry := range graph.Transactions {
++		tx := entry.Transaction
++		require.NotNil(t, tx)
++		row := models.KnownTx{TxID: tx.TxID().String(), RawTx: tx.Bytes()}
++		if tx.MerklePath != nil {
++			row.MerklePath = tx.MerklePath.Bytes()
++		}
++		require.NoError(t, db.DB.Create(&row).Error)
++	}
++	raw, err := hex.DecodeString(subjectFixture)
++	require.NoError(t, err)
++	subject, err := transaction.NewTransactionFromBytes(raw)
++	require.NoError(t, err)
++	require.NoError(t, db.DB.Create(&models.KnownTx{TxID: subject.TxID().String(), RawTx: raw}).Error)
++	provider := &Provider{repo: repo.NewSQLRepositories(db.DB, dbretry.NoRetry())}
++	chunk := wdk.NewSyncChunk("from", "to", "owner")
++	chunk.ProvenTxReqs = []*wdk.TableProvenTxReq{{TxID: subject.TxID().String(), RawTx: raw, Notify: "private-owner-notify"}}
++	require.NoError(t, provider.completeSyncInputBEEF(context.Background(), chunk))
++	exported, err := transaction.NewBeefFromBytes(chunk.ProvenTxReqs[0].InputBEEF)
++	require.NoError(t, err)
++	require.Nil(t, exported.FindTransaction(subject.TxID().String()), "input BEEF excludes signed subject")
++	require.Equal(t, len(graph.Transactions), len(exported.Transactions))
++	require.Equal(t, "private-owner-notify", chunk.ProvenTxReqs[0].Notify)
++	require.Len(t, chunk.ProvenTxReqs, 1)
++	require.Len(t, chunk.Transactions, 0, "no other owner's transaction records exported")
++	require.Len(t, exported.BUMPs, 1)
++	first := append([]byte(nil), chunk.ProvenTxReqs[0].InputBEEF...)
++	require.NoError(t, provider.completeSyncInputBEEF(context.Background(), chunk))
++	require.Equal(t, first, []byte(chunk.ProvenTxReqs[0].InputBEEF), "deterministic closure encoding")
++	unrelated, err := transaction.NewTransactionFromBytes(raw)
++	require.NoError(t, err)
++	unrelated.LockTime++
++	_, err = graph.MergeTransaction(unrelated)
++	require.NoError(t, err)
++	extra, err := graph.Bytes()
++	require.NoError(t, err)
++	require.NoError(t, db.DB.Model(&models.KnownTx{}).Where("tx_id = ?", subject.TxID().String()).Update("input_beef", extra).Error)
++	require.NoError(t, provider.completeSyncInputBEEF(context.Background(), chunk))
++	pruned, err := transaction.NewBeefFromBytes(chunk.ProvenTxReqs[0].InputBEEF)
++	require.NoError(t, err)
++	require.Nil(t, pruned.FindTransaction(unrelated.TxID().String()), "stored batch extras must not leak through owner ancestry export")
++	require.Equal(t, first, []byte(chunk.ProvenTxReqs[0].InputBEEF))
++	require.NoError(t, db.DB.Model(&models.KnownTx{}).Where("tx_id = ?", subject.TxID().String()).Update("input_beef", nil).Error)
++
++	chunk.ProvenTxReqs[0].RawTx = append([]byte(nil), raw...)
++	chunk.ProvenTxReqs[0].RawTx[0] ^= 1
++	require.ErrorContains(t, provider.completeSyncInputBEEF(context.Background(), chunk), "raw transaction differs")
++	chunk.ProvenTxReqs[0].RawTx = raw
++	require.NoError(t, db.DB.Delete(&models.KnownTx{}, "tx_id = ?", "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9").Error)
++	require.ErrorContains(t, provider.completeSyncInputBEEF(context.Background(), chunk), "not known to storage", "no fixture or service fetch may repair an absent ancestor")
++}
++
++func TestSyncAncestrySizeBoundPreservesCombinedKnownCursor(t *testing.T) {
++	chunk := wdk.NewSyncChunk("from", "to", "owner")
++	now := time.Now()
++	chunk.ProvenTxs = []*wdk.TableProvenTx{{TxID: "b", CreatedAt: now}}
++	chunk.ProvenTxReqs = []*wdk.TableProvenTxReq{{TxID: "a", CreatedAt: now}, {TxID: "c", CreatedAt: now.Add(-time.Second)}}
++	bounded, err := boundSyncAncestryChunk(chunk, 1)
++	require.NoError(t, err)
++	require.Len(t, bounded.ProvenTxReqs, 1)
++	require.Equal(t, "a", bounded.ProvenTxReqs[0].TxID)
++	require.Empty(t, bounded.ProvenTxs, "combined SQL prefix cannot skip the earlier request")
++	require.Empty(t, bounded.Transactions)
++	require.Len(t, chunk.ProvenTxReqs, 2, "original observation remains unchanged")
++}
++
++func TestSyncAncestryRepeatedTinyPagesHaveNoSkips(t *testing.T) {
++	now := time.Now()
++	want := []string{"b", "d", "a", "c"}
++	seen := []string{}
++	// The actual shared SQL cursor is offset(provenTx)+offset(provenTxReq).
++	for cursor := 0; cursor < len(want); cursor++ {
++		chunk := wdk.NewSyncChunk("from", "to", "owner")
++		for _, id := range want[cursor:] {
++			at := now
++			if id == "a" || id == "c" {
++				at = now.Add(-time.Second)
++			}
++			if id == "b" || id == "c" {
++				chunk.ProvenTxs = append(chunk.ProvenTxs, &wdk.TableProvenTx{TxID: id, CreatedAt: at})
++			} else {
++				chunk.ProvenTxReqs = append(chunk.ProvenTxReqs, &wdk.TableProvenTxReq{TxID: id, CreatedAt: at})
++			}
++		}
++		page, err := boundSyncAncestryChunk(chunk, 1)
++		require.NoError(t, err)
++		require.Equal(t, 1, len(page.ProvenTxs)+len(page.ProvenTxReqs))
++		if len(page.ProvenTxs) > 0 {
++			seen = append(seen, page.ProvenTxs[0].TxID)
++		} else {
++			seen = append(seen, page.ProvenTxReqs[0].TxID)
++		}
++	}
++	require.Equal(t, want, seen)
++}

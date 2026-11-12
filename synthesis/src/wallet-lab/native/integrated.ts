@@ -12,33 +12,40 @@ import { PublicSettingsTrust } from './identity-trust.js'
 
 /** Native wallet calls cross the unchanged application's public CWI boundary.
  * No wallet key, database or extension implementation is accessed by this proxy. */
-export function nativeWalletBoundary(application: Page): any {
+export function nativeWalletBoundary(application: Page, preserveErrors = false): any {
   return new Proxy({}, { get: (_target, name) => {
     if (typeof name !== 'string' || name === 'then') return undefined
     return async (args: unknown = {}) => {
       let timer: NodeJS.Timeout | undefined
       try {
-        return await Promise.race([
-          application.evaluate(async ({ method, args }) => {
+        const observed = await Promise.race([
+          application.evaluate(async ({ method, args, preserveErrors }) => {
             const boundary = (window as any).CWI
             if (typeof boundary?.[method] !== 'function') throw new Error(`Wallet method unsupported: ${method}`)
-            return boundary[method](args)
-          }, { method: name, args }),
+            if (!preserveErrors) return boundary[method](args)
+            try { return { ok: true, result: await boundary[method](args) } }
+            catch (error: any) { return { ok: false, error: JSON.parse(JSON.stringify({ ...error, name: error?.name ?? 'Error', message: error?.message ?? String(error) })) } }
+          }, { method: name, args, preserveErrors }),
           new Promise((_resolve, reject) => { timer = setTimeout(() => reject(new Error(`Native ${name} exceeded 45 seconds`)), 45_000) })
         ])
+        if (!preserveErrors) return observed
+        if (!observed.ok) throw Object.assign(new Error(observed.error.message), observed.error)
+        return observed.result
       } finally { if (timer) clearTimeout(timer) }
     }
   } })
 }
 
-export async function runNativeIntegration({ application, services, evidence }: {
+export async function runNativeIntegration({ application, services, evidence, profile = 'ITCVE-1@1.3.0', beforeTrustRestore }: {
   application: Page; services: ControlledWalletServices; evidence: EvidenceBundle
+  profile?: 'ITCVE-1@1.3.0' | 'ITCVE-1@1.4.0' | 'ITCVE-1@1.5.0' | 'ITCVE-1@2.0.0'
+  beforeTrustRestore?: (boundaryReport: any) => Promise<void>
 }): Promise<void> {
   const root = path.resolve(import.meta.dirname, '../../../..')
   const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'tpnil-native-joined-'))
   const payee = await createFixtureWallet(services, '78'.repeat(32))
   try {
-    const wallet = nativeWalletBoundary(application)
+    const wallet = nativeWalletBoundary(application, ['ITCVE-1@1.4.0', 'ITCVE-1@1.5.0', 'ITCVE-1@2.0.0'].includes(profile))
     const walletIdentity = (await wallet.getPublicKey({ identityKey: true })).publicKey
     const { qualifyRelay } = await import(pathToFileURL(path.join(root, 'components/transport/relay.mjs')).href)
     const { qualifyPaidHttp } = await import(pathToFileURL(path.join(root, 'components/transport/paid-http.mjs')).href)
@@ -88,13 +95,14 @@ export async function runNativeIntegration({ application, services, evidence }: 
       evidence.addJson('integrated/boundary.json', boundary)
       evidence.addJson('integrated/boundary-publication.json', publication ?? null)
       evidence.addJson('integrated/boundary-coverage.json', JSON.parse(fs.readFileSync(path.join(root, 'programs/ISI-4/profiles/brc100-boundary-1.0.0/coverage.json'), 'utf8')))
+      if (beforeTrustRestore) await beforeTrustRestore(boundary)
     } finally {
       if (trust) { await trust.finish(boundary); evidence.addJson('integrated/identity-trust.json', trust.report) }
       await funder.destroy(); await identityOverlay.close()
     }
     const boundaryAssertions = boundary.assertions.map((item: any) => ({ ...item, id: `boundary/${item.id}` }))
     evidence.addJson('integrated/result.json', {
-      schema: 'tpnil-native-integration@1', profile: 'ITCVE-1@1.3.0',
+      schema: 'tpnil-native-integration@1', profile,
       claim: 'ENGINEERING_OBSERVATION_ONLY',
       interface: 'unchanged Yours Wallet public CWI through native Chromium extension',
       customerInterface: 'Harness-driven wallet API operations; ToDo UI remains separately evaluated',

@@ -1,0 +1,60 @@
+{
+  "schema": "tpnil-native-portability-reference-summary@2",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "sourceCommit": "43025e95ec47fb4b9a0fc731262fe4f4e1b36b9f",
+  "sourceState": "Owned Go/oracle source committed; referenced TypeScript adapter was separately frozen in the shared worktree. Exact source files are retained in this archive.",
+  "nativeQualification": false,
+  "oracle": "tpnil-native-portability-oracle@2.0.0",
+  "archive": {
+    "path": "evidence.json.gz",
+    "size": 379627,
+    "sha256": "f9b3b35365a71f6c679fb58935437253b48b683e2e046669a44f0b4d41f16706"
+  },
+  "files": 34,
+  "finalRuns": [
+    {
+      "implementation": "go",
+      "directory": "out/portability-ancestry-reference-go-final",
+      "assertions": 9,
+      "result": "PASS"
+    },
+    {
+      "implementation": "typescript",
+      "directory": "out/portability-ancestry-reference-typescript-final",
+      "assertions": 9,
+      "result": "PASS"
+    }
+  ],
+  "precedingRun": {
+    "directory": "out/portability-ancestry-reference-go-1",
+    "result": "PASS",
+    "scope": "Earlier prospective Go implementation before final paging/pruning correction; retained separately, not final admission."
+  },
+  "tests": {
+    "goUpstreamSynchronizationTopLevel": 42,
+    "goFocusedAncestryPaging": 3,
+    "typescriptFocusedPassed": 16,
+    "optionalOriginalGoMatrixSkipped": 8,
+    "corePassed": 76,
+    "pythonPassed": 5,
+    "catalogCheck": "PASS",
+    "publishedJournals": "PASS",
+    "clauseJournal2": "PASS",
+    "clauseJournal3": "PASS"
+  },
+  "observerPreflights": [
+    {
+      "path": "out/storage-portability-typecheck-final2.log",
+      "result": "FAIL",
+      "cause": "Shared TS adapter initially crossed CJS/ESM SDK Transaction classes. Adapter now uses a canonical AtomicBEEF wire bridge; later typecheck log retained PASS."
+    }
+  ],
+  "separation": "These reference wallets use known fixture keys. They exercise genuine public sync and source-off reconstruction but cannot qualify the native extension. Native attempt42680240116 remains a failed, unpromoted original sample in its own journal.",
+  "reproduction": [
+    "node scripts/prepare-storage-portability-go.mjs",
+    "node scripts/run-conformance-portability-reference.mjs out/new-go-reference go --native-wire --terminal-rejection-receipts --portability-patch",
+    "node scripts/run-conformance-portability-reference.mjs out/new-ts-reference typescript --native-wire --portability-patch",
+    "node scripts/verify-conformance-portability.mjs out/new-go-reference/portability.json --reference",
+    "node scripts/verify-conformance-portability.mjs out/new-ts-reference/portability.json --reference"
+  ]
+}

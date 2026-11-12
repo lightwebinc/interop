@@ -1,0 +1,86 @@
+{
+  "schema": "tpnil-integration-attempt@1",
+  "claim": "OBSERVER_VERIFICATION_ERROR",
+  "failureClassification": "STORAGE_SYNC_REPETITION_MISMATCH",
+  "source": "4e7c1e1050bbb29a31093e19dfd4e8c089d12451",
+  "workflowRun": 42706097914,
+  "run": "https://github.com/p2ppsr/interop/actions/runs/42706097914",
+  "workflowConclusion": "failure",
+  "stage": "component-storage-repetition-verification",
+  "acceptance": "NOT_ACCEPTED",
+  "qualificationIssued": false,
+  "nativeWalletExecuted": false,
+  "referenceWalletExecuted": true,
+  "observedAssertions": {
+    "total": 510,
+    "PASS": 502,
+    "FAIL": 8
+  },
+  "descendantMatrixExecuted": false,
+  "cause": "The strict frozen history metadata comparison rejects a trailing fractional-second zero spelling difference at the same exact instant, producing two failed TS-to-Go storage predicates in repetition2. Parent repeatability rejects the sample. Original raw bytes and failed verdicts are retained.",
+  "artifactId": 13714116905,
+  "artifactSha256": "aa8c3b2787a73e08ec60c97564f746ae8bf3c291e0ffa7c2d4ed3434b8693ce0",
+  "artifactSize": 1830338,
+  "files": [
+    {
+      "name": "README.md",
+      "size": 3751,
+      "sha256": "afcdf37c8cc5f2b63c663280084da895a3ca5f93c6132944107a2affaa61c69f"
+    },
+    {
+      "name": "artifacts.json",
+      "size": 1450,
+      "sha256": "afd665a3df6d23974db1d31c97562785aba0a28ff05d47ed05c3e16289604fd4"
+    },
+    {
+      "name": "foundation-logs.zip",
+      "size": 105199,
+      "sha256": "91989f6c1bd0300dbed33b1b68f2c6503ab5e7c6b4989e5eda39cbd2dfe33d5a"
+    },
+    {
+      "name": "independent-replay.json",
+      "size": 67732,
+      "sha256": "4864eb730c689baa8d12cea43ba2ecfa84c0a1c0b7439832e42e7aa2347f061f"
+    },
+    {
+      "name": "integrated-components-original.log",
+      "size": 56900,
+      "sha256": "82a68a650755ae461641522e6640eac759bc00c58f93e7d306ebddefed51c4a9"
+    },
+    {
+      "name": "integrated-lab.zip",
+      "size": 1830338,
+      "sha256": "aa8c3b2787a73e08ec60c97564f746ae8bf3c291e0ffa7c2d4ed3434b8693ce0"
+    },
+    {
+      "name": "itcve-go-components.zip",
+      "size": 60504,
+      "sha256": "e36eeaf45c01e2e0b9957a7e9a1dcb84d09648a2355f4561c0bc4537b670e964"
+    },
+    {
+      "name": "jobs.json",
+      "size": 13059,
+      "sha256": "cd9ba105a06b9b2fd4c930cc59b9630667a33b0762e44c0a2dca2ced51adae18"
+    },
+    {
+      "name": "observed-results.json",
+      "size": 32148,
+      "sha256": "4116160bd518949b417e0952b1961735afbe9e5fdb667b41c07ed0b0d40f557f"
+    },
+    {
+      "name": "offline-core-original.log",
+      "size": 80118,
+      "sha256": "5f0c130b1b08beba684b6def4f2d89acba9313d839fa11f2093484fe4d96c77b"
+    },
+    {
+      "name": "run.json",
+      "size": 11930,
+      "sha256": "c8920aff5df1bf64218d3a8191c4778aa7c8cbd81a51ac26c42f9dc003e28f3e"
+    },
+    {
+      "name": "storage-diagnosis.json",
+      "size": 2416,
+      "sha256": "53e4b764273f9d2d0388e836ff6254bb3736e0932e7dc4e9008f56c241a563dc"
+    }
+  ]
+}

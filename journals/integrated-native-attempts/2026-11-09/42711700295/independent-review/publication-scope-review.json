@@ -1,0 +1,112 @@
+{
+  "schema": "tpnil-native-publication-scope-review@1",
+  "run": "42711700295",
+  "source": "c338a93c97ffebeeef318e679ff82b7dbf309dd5",
+  "qualification": {
+    "path": "out/native-ci-42711700295/qualification.json",
+    "sha256": "8a98103995b918aec867f414c36bc8ff71645ce1004e1ced3f4706257ea82ad7",
+    "claim": "EXPERIMENTAL_CONFORMANCE_RESULT",
+    "qualifiedEnvironment": true,
+    "outcome": "FAIL",
+    "repetitionMatch": true,
+    "vectorOutcomes": [
+      {
+        "id": "ISI-4-V001",
+        "outcome": "PASS"
+      },
+      {
+        "id": "ISI-4-V002",
+        "outcome": "PASS"
+      },
+      {
+        "id": "ISI-4-V003",
+        "outcome": "PASS"
+      },
+      {
+        "id": "ISI-4-V004",
+        "outcome": "PASS"
+      },
+      {
+        "id": "ISI-4-V005",
+        "outcome": "PASS"
+      },
+      {
+        "id": "ISI-4-V006",
+        "outcome": "PASS"
+      },
+      {
+        "id": "ISI-4-V007",
+        "outcome": "PASS"
+      },
+      {
+        "id": "ISI-4-V008",
+        "outcome": "FAIL"
+      }
+    ]
+  },
+  "originalWholePackStatus": "FAILURE; retained Rust repetition1 has42PASS/6FAIL and repetition2 Rust was not reached",
+  "permittedScopedStatement": "Native environment admission and evidence verification succeeded under the original frozen ITCVE-1@2.0.0 / ISI-4@4.0.0 base verifier. The experimental conformance result remains FAIL: V001-V007 PASS, V008 FAIL; each repetition has180PASS/99FAIL/1BLOCKED across280 predicates. Native protocol/category permissions, replacement and final submission closure are independently verified. The integrated pack is not qualified by this scoped result.",
+  "notPermitted": [
+    "Labeling the native conformance outcome PASS",
+    "Labeling the original whole integrated pack qualified or passing",
+    "Claiming complete BRC100 conformance or certification",
+    "Replacing, deleting, or relabeling the original failed Rust evidence"
+  ],
+  "governanceBasis": [
+    {
+      "path": "GOVERNANCE.md",
+      "sha256": "244278046a05a5bd7de9c8fa6131fba0324c127f16da404c095c201fe47b558e",
+      "exactFrozenSource": true
+    },
+    {
+      "path": "docs/versioning.md",
+      "sha256": "29e56cdd0e7378f769e387bc6240da28cedd92b3bc5da38f7d04d25a0f693b5f",
+      "exactFrozenSource": true
+    },
+    {
+      "path": "docs/evidence.md",
+      "sha256": "c0204d75ffde07bd05d7ae330a5fdcba8511fe08a41558a530ad64a27dec035d",
+      "exactFrozenSource": true
+    },
+    {
+      "path": "docs/conformance-model.md",
+      "sha256": "48ffce028ed137c3024b45122947c276c636d2e842c80394be61c4fe8ecbb8a9",
+      "exactFrozenSource": true
+    },
+    {
+      "path": "docs/determinism.md",
+      "sha256": "7d8c316c49131e1cd27c30bded2697a7b47cd1fe6d31e75caf87aa828d8c354b",
+      "exactFrozenSource": true
+    },
+    {
+      "path": "itcves/ITCVE-1/2.0.0/profile.json",
+      "sha256": "1d9fd67b907a40b39384d1ae8cc1547be5f8edd77d8c917aed68cf4c7ca0d477",
+      "exactFrozenSource": true
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/verify.ts",
+      "sha256": "701ef7d13c9e666cb0d8c4d9da87087d3ad65508a88c8e27afb89e4fb7318421",
+      "exactFrozenSource": true
+    },
+    {
+      "path": "scripts/verify-native-integrated.mjs",
+      "sha256": "2b0c9b3db17c3df919e32eb0b4f7730ea33d2872afb8f97281318523dc53d8bd",
+      "exactFrozenSource": true
+    }
+  ],
+  "postprocessingRecommendation": {
+    "conditional": true,
+    "condition": "Only if the diagnosis proves every necessary original signed transaction and pinned mined proof was already retained in the immutable native pack and the missing ancestry was an observer corpus-assembly omission.",
+    "identity": "Acceptance-changing corpus/runner/oracle edits require a separately versioned MAJOR identity and separately identified evaluation result; original native run source remains c338a93 and reprocessing source is recorded independently.",
+    "requiredEvidence": [
+      "Original archive digest, qualification digest and all original failed Rust calls/results preserved",
+      "Explicit source location and digest for every proof/ancestor added to the derived corpus",
+      "Strict transaction identity, signature, pinned-root proof and native-funding ownership checks before using retained closure",
+      "Re-evaluate both original clean native repetitions with the new frozen postprocessor and independently reproduce the derived result",
+      "Negative mutations for absent ancestor, altered proof/signature, wrong native ownership and external/unrelated funding",
+      "Separate derived run lock and result reference the original native run; never rewrite original native reports or the failed frozen-corpus result"
+    ],
+    "freshNativeExecution": "Not intrinsically required for an evidence-only re-evaluation when the complete admitted observations already exist. Required if closure depends on a new wallet/service call, state transition, funding fixture, native artifact change, or missing original observation.",
+    "scope": "This is a governance interpretation and conditional review, not a claim that the Rust assembly defect or repaired result has yet been demonstrated."
+  }
+}

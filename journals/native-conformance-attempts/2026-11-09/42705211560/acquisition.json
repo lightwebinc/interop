@@ -1,0 +1,52 @@
+{
+  "schema": "tpnil-original-ci-acquisition@1",
+  "runId": 42705211560,
+  "source": "3505d92a01fe7aeef7bb90fa1ed52f6eda003c54",
+  "conclusion": "cancelled",
+  "workflowUrl": "https://github.com/p2ppsr/interop/actions/runs/42705211560",
+  "acquiredAt": "2026-11-09T21:54:49.658Z",
+  "artifacts": [],
+  "nativeExecutionSteps": [
+    {
+      "job": "all-go-native",
+      "name": "Execute two clean isolated native repetitions and verify results",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 9,
+      "started_at": "2026-11-09T21:53:22Z",
+      "completed_at": "2026-11-09T21:53:22Z"
+    },
+    {
+      "job": "all-go-native",
+      "name": "Execute and independently verify the integrated native wallet graph",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 10,
+      "started_at": "2026-11-09T21:53:22Z",
+      "completed_at": "2026-11-09T21:53:22Z"
+    }
+  ],
+  "logs": {
+    "path": "out/native-ci-42705211560-receipts/logs.zip",
+    "size": 60153,
+    "sha256": "535349cc9154cbae121a557715962367198893f9dad5a0840171cbfe49c2f79e",
+    "zipIntegrity": "PASS"
+  },
+  "api": [
+    {
+      "name": "run.json",
+      "size": 11989,
+      "sha256": "ad3cad84cb2ec0fb144410053d20947126f1dbaefba82be2501ef2f858db4bfe"
+    },
+    {
+      "name": "jobs.json",
+      "size": 4740,
+      "sha256": "378b8be096401e8aa00a62c6acb8c144cade0d6f53bc515c2fb98dca63c14b43"
+    },
+    {
+      "name": "artifacts.json",
+      "size": 32,
+      "sha256": "244563f989470892c537c9a4622920af0d228ee4528f7d00c64a06d6cd95856c"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "schema": "tpnil-native-portability-oracle@3.0.0",
+  "reportSchema": "tpnil-native-storage-portability@3",
+  "parent": "tpnil-native-portability-oracle@2.0.0",
+  "assertions": [
+    "portability.same-identity",
+    "portability.distinct-counterparts",
+    "portability.native-mediated-sync",
+    "portability.complete-logical-dataset",
+    "portability.source-unavailable",
+    "portability.cold-wallet-reload",
+    "portability.cold-task-recovery",
+    "portability.replacement-redemption",
+    "portability.cleanup"
+  ],
+  "changes": [
+    "Match the exact rendered active-storage status line after ASCII case and whitespace normalization. Require the replacement hostname and actual successful native synchronization as before. This admits CSS-rendered IN USE, never inactive or substring-only status text.",
+    "Wait for the unchanged ToDo success message emitted after awaited signAction before opening a separate observer authentication session. Then poll complete authenticated replacement datasets at one-second intervals within the existing 45-second observation deadline. Retain every intermediate snapshot and raw paginated RPC response. A reserved input or unsigned action is not completion.",
+    "Before the final public task read, require a retained signed transaction that actually spends the recovered task, matches its storage identity and raw bytes, and closes to the pinned mined proof using only the synchronized dataset. Bind the exact authenticated replacement processAction request identity, txid and raw bytes to its non-error HTTP200 JSON-RPC response. Bind the successful snapshot, receipt capture, final public read and final complete dataset to ordered times before source restoration.",
+    "All oracle2 ownership, logical metadata, proof closure, source outage, cold native lock/unlock, public decryption, actual redemption and cleanup predicates remain required."
+  ],
+  "implementation": [
+    "synthesis/src/wallet-lab/native/conformance-portability.ts",
+    "synthesis/src/wallet-lab/native/verify-conformance-portability.ts",
+    "synthesis/src/wallet-lab/native/portability-proof.ts"
+  ],
+  "legacy": "Schemas1 and2 retain their original predicates. Native run42690318194 remains a failed observation; later signed storage bytes cannot establish redemption before its source restoration.",
+  "scope": "Prospective ITCVE-1@1.5.0 only. No native wallet changes, private state extraction, database copy, out-of-band funding or imported root seeds."
+}

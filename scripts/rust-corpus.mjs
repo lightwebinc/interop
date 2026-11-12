@@ -2,13 +2,35 @@ import fs from 'node:fs'
 import path from 'node:path'
 import assert from 'node:assert/strict'
 import { createRequire } from 'node:module'
+import { createHash } from 'node:crypto'
 const root = path.resolve(import.meta.dirname, '..')
 const require = createRequire(path.join(root, 'components/transport/package.json'))
 const { PrivateKey, PublicKey, Signature, Transaction } = require('@bsv/sdk')
 export const corpusSources = ['scripts/rust-corpus.mjs', 'components/rust/vectors.json', 'components/rust/Cargo.toml', 'components/rust/Cargo.lock', 'components/rust/src/main.rs', 'fixtures/teranode/wab-funding-v1.json', 'components/transport/package-lock.json']
+export const corpusV3Manifest = 'components/rust/graph-oracle-3.0.0.json'
+export const corpusV3ManifestInputs = [...corpusSources, 'components/rust/src/graph_oracle_v3.rs', 'scripts/run-rust.mjs', 'scripts/verify-rust.mjs']
+export const corpusV3Sources = [...corpusV3ManifestInputs, corpusV3Manifest]
+export function validateRustGraphManifest(manifest, readSource) {
+  assert.equal(manifest.schema, 'tpnil-rust-graph-oracle@3.0.0')
+  assert.equal(manifest.corpus, 'tpnil-rust-corpus@3')
+  assert.equal(manifest.operation, 'spends-indexed-v3')
+  assert.equal(manifest.cargoFeature, 'graph-oracle-v3')
+  assert.deepEqual(manifest.pins, { rustSdk: '99d2313f2ede48a465aa8be1907d26d098aac8fd', typescriptSdk: '4.0.1' })
+  assert.deepEqual(Object.keys(manifest.sources).sort(), [...corpusV3ManifestInputs].sort())
+  for (const file of corpusV3ManifestInputs) assert.equal(manifest.sources[file], createHash('sha256').update(readSource(file)).digest('hex'), `Rust graph oracle source differs: ${file}`)
+}
+export function rustCorpusPolicy(corpus = 'tpnil-rust-corpus@2') {
+  assert.ok(['tpnil-rust-corpus@2', 'tpnil-rust-corpus@3'].includes(corpus), 'Unknown Rust corpus')
+  if (corpus === 'tpnil-rust-corpus@2') return { corpus, sources: corpusSources }
+  const bytes = fs.readFileSync(path.join(root, corpusV3Manifest)), manifest = JSON.parse(bytes)
+  validateRustGraphManifest(manifest, file => fs.readFileSync(path.join(root, file)))
+  return { corpus, sources: corpusV3Sources, graphOracle: { id: manifest.schema, manifest: corpusV3Manifest, manifestSha256: createHash('sha256').update(bytes).digest('hex'), operation: manifest.operation, cargoFeature: manifest.cargoFeature } }
+}
 /** The same predicates evaluate fresh and replayed observations. Calls must stay
  * ordered and exhaustive; input identities are bound separately by the caller. */
-export function evaluateRustCorpus(rust, inputReports) {
+export function evaluateRustCorpus(rust, inputReports, { corpus = 'tpnil-rust-corpus@2' } = {}) {
+assert.ok(['tpnil-rust-corpus@2', 'tpnil-rust-corpus@3'].includes(corpus), 'Unknown Rust corpus')
+const indexed = corpus === 'tpnil-rust-corpus@3'
 const assertions = []
 function check(id, fn) {
   try { const detail=fn(); assertions.push({id,result:'PASS',detail:detail??'Expected outcome observed'}) }
@@ -48,14 +70,14 @@ for (const report of inputReports) {
   for(const tx of payments) {
     check(`joined-payment-${tx.txid}-serialization`,()=>assert.equal(rust({op:'transaction',hex:tx.rawHex}).result.txid,tx.txid))
     check(`joined-payment-${tx.txid}-scripts-and-value`,()=> {
-      const result=rust({op:'spends',hex:tx.beefHex,merkleRoot:funding.merkleRoot,height:funding.fundingHeight}); assert.equal(result.ok,true,JSON.stringify(result)); assert.equal(result.result.valid,true,JSON.stringify(result)); assert.equal(result.result.anchoredGraphValid,true); return result.result
+      const result=rust({op:indexed?'spends-indexed-v3':'spends',...(indexed?{txid:tx.txid}:{}),hex:tx.beefHex,merkleRoot:funding.merkleRoot,height:funding.fundingHeight}); assert.equal(result.ok,true,JSON.stringify(result)); assert.equal(result.result.valid,true,JSON.stringify(result)); assert.equal(result.result.anchoredGraphValid,true); return result.result
     })
     check(`joined-payment-${tx.txid}-modified-output`,()=> {
       const subject=Transaction.fromBEEF([...Buffer.from(tx.beefHex,'hex')])
       subject.outputs[0].satoshis += 1
       // Rebuild the entire Atomic BEEF subject so the negative case reaches script verification.
       const mutated=subject.toAtomicBEEF()
-      const result=rust({op:'spends',hex:Buffer.from(mutated).toString('hex'),merkleRoot:funding.merkleRoot,height:funding.fundingHeight})
+      const result=rust({op:indexed?'spends-indexed-v3':'spends',...(indexed?{txid:subject.id('hex')}:{}),hex:Buffer.from(mutated).toString('hex'),merkleRoot:funding.merkleRoot,height:funding.fundingHeight})
       assert.equal(result.ok,true,JSON.stringify(result)); assert.equal(result.result.valid,false)
     })
   }

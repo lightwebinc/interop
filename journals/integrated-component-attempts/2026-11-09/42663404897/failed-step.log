@@ -1,0 +1,597 @@
+integrated-components	Execute all component matrices with fresh repeated state	﻿2026-11-09T17:22:59.9131950Z ##[group]Run node scripts/run-integrated-lab.mjs out/integrated-lab
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:22:59.9132957Z [36;1mnode scripts/run-integrated-lab.mjs out/integrated-lab[0m
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:22:59.9147708Z shell: /usr/bin/bash -e {0}
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:22:59.9148080Z env:
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:22:59.9148394Z   GOTOOLCHAIN: local
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:22:59.9148782Z   RUSTUP_TOOLCHAIN: 1.88.0
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:22:59.9149134Z ##[endgroup]
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:22:59.9662329Z [integrated-lab] storage-sync: starting
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:23:32.8460263Z [integrated-lab] storage-sync: exit 0; 88 observations
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:23:32.8461186Z [integrated-lab] overlay-identity-1: starting
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:23:43.7051463Z [integrated-lab] overlay-identity-1: exit 0; 14 observations
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:23:43.7052522Z [integrated-lab] overlay-identity-2: starting
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:23:51.1662644Z [integrated-lab] overlay-identity-2: exit 0; 14 observations
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:23:51.1663623Z [integrated-lab] messaging-1: starting
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:24:22.1648687Z [integrated-lab] messaging-1: exit 0; 41 observations
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:24:22.1649955Z [integrated-lab] messaging-2: starting
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:24:39.8198688Z [integrated-lab] messaging-2: exit 0; 41 observations
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:24:39.8199703Z [integrated-lab] transport-typescript-1: starting
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:24:43.2741627Z [integrated-lab] transport-typescript-1: exit 0; 17 observations
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:24:43.2743049Z [integrated-lab] transport-typescript-2: starting
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:24:46.6423052Z [integrated-lab] transport-typescript-2: exit 0; 17 observations
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:24:46.6424232Z [integrated-lab] transport-go-1: starting
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:24:49.6640427Z [integrated-lab] transport-go-1: exit 0; 17 observations
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:24:49.6641334Z [integrated-lab] transport-go-2: starting
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:24:52.6858044Z [integrated-lab] transport-go-2: exit 0; 17 observations
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:24:52.6859204Z [integrated-lab] boundary-typescript-1: starting
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:24:58.2793996Z [integrated-lab] boundary-typescript-1: exit 0; 43 observations
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:24:58.2794838Z [integrated-lab] boundary-typescript-2: starting
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:03.8750510Z [integrated-lab] boundary-typescript-2: exit 0; 43 observations
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:03.8751308Z [integrated-lab] boundary-go-1: starting
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:08.9037464Z [integrated-lab] boundary-go-1: exit 0; 43 observations
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:08.9038249Z [integrated-lab] boundary-go-2: starting
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:13.8962340Z [integrated-lab] boundary-go-2: exit 0; 43 observations
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:13.8963248Z [integrated-lab] rust-1: starting
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.1660123Z [integrated-lab] rust-1: exit 0; 36 observations
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.1661056Z [integrated-lab] rust-2: starting
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8130649Z [integrated-lab] rust-2: exit 0; 36 observations
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8730599Z node:internal/modules/run_main:107
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8731650Z     triggerUncaughtException(
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8732409Z     ^
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8732870Z 
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8733341Z AssertionError [ERR_ASSERTION]: boundary-typescript repetitions differ
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8734158Z + actual - expected
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8734624Z ... Skipped lines
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8735547Z 
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8735783Z   [
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8736380Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8737113Z       id: 'abortAction.releases-reservation',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8737644Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8738399Z       result: 'PASS',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8738747Z ...
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8739119Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8739548Z +     result: 'PASS',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8739898Z -     result: 'FAIL',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8740266Z       run: 0
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8740650Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8740924Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8741411Z       id: 'discoverByIdentityKey.identity-service',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8741873Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8742500Z +     result: 'PASS',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8742915Z -     result: 'FAIL',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8743234Z       run: 0
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8743619Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8744148Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8744505Z       id: 'encrypt.bytes',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8744957Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8745295Z ...
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8745645Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8745995Z +     result: 'PASS',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8746856Z -     result: 'FAIL',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8747208Z       run: 0
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8747578Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8747862Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8748318Z       id: 'internalizeAction.mined-descendant-payment',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8748847Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8749074Z 
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8749605Z     at verifyIntegrated (file:///home/runner/work/interop/interop/scripts/integrated-evidence.mjs:69:39)
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8750424Z     at file:///home/runner/work/interop/interop/scripts/run-integrated-lab.mjs:57:16
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8751192Z     at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8751719Z   generatedMessage: false,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8752139Z   code: 'ERR_ASSERTION',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8752728Z   actual: [
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8753162Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8753504Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8753961Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8754432Z       id: 'abortAction.releases-reservation',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8754839Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8755243Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8755539Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8755889Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8756245Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8756740Z       id: 'acquireCertificate.signed-fields',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8757178Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8757501Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8757878Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8758188Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8758546Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8759074Z       id: 'acquireCertificate.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8759518Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8759870Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8760399Z     { run: 0, implementation: null, id: 'cleanup', result: 'PASS' },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8760909Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8761222Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8761706Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8762500Z       id: 'createAction.serialized-outputs',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8763091Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8763536Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8763915Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8764311Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8764819Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8765400Z       id: 'createAction.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8765974Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8768351Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8768665Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8769037Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8769387Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8769784Z       id: 'createHmac.length',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8770229Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8770598Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8770924Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8771230Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8771659Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8772421Z       id: 'createSignature.independent-verification',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8772940Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8773334Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8773639Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8773989Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8774418Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8775038Z       id: 'decrypt.roundtrip',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8775467Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8775877Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8776199Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8776528Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8776942Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8777412Z       id: 'decrypt.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8777861Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8778220Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8778571Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8778888Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8779269Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8779822Z       id: 'discoverByAttributes.identity-service',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8780315Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8780772Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8781150Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8781500Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8781864Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8782639Z       id: 'discoverByIdentityKey.identity-service',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8783082Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8783430Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8783776Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8784082Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8784448Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8784818Z       id: 'encrypt.bytes',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8785251Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8785566Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8785857Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8786210Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8786538Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8787020Z       id: 'getHeaderForHeight.genesis',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8787460Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8787797Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8788077Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8788418Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8788806Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8789288Z       id: 'getHeaderForHeight.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8789778Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8790095Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8790406Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8790725Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8791098Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8791557Z       id: 'getHeight.controlled',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8792050Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8792606Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8792902Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8793192Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8793615Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8794022Z       id: 'getNetwork.mainnet',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8794438Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8794800Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8795099Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8795413Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8795804Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8796256Z       id: 'getPublicKey.identity',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8796672Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8797069Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8797354Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8797674Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8798064Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8798546Z       id: 'getPublicKey.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8798976Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8799295Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8799645Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8800084Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8800447Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8800920Z       id: 'getVersion.nonempty',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8801327Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8801651Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8801988Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8802628Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8803031Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8803512Z       id: 'identity-service.publish',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8803949Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8804273Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8804611Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8804941Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8805274Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8805814Z       id: 'internalizeAction.mined-descendant-payment',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8806291Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8806632Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8806946Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8807291Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8807648Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8808409Z       id: 'internalizeAction.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8808917Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8809237Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8809521Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8809886Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8810216Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8810684Z       id: 'isAuthenticated.true',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8811106Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8811442Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8811721Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8812116Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8812732Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8813234Z       id: 'listActions.metadata',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8813646Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8814340Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8814660Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8814977Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8815347Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8815837Z       id: 'listActions.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8816250Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8816706Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8816990Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8817327Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8817683Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8818148Z       id: 'listCertificates.issuer-scope',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8818607Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8818925Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8819206Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8819556Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8819913Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8820416Z       id: 'listCertificates.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8820882Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8821215Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8821502Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8821866Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8822353Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8822839Z       id: 'listOutputs.metadata',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8823276Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8823630Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8823918Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8824235Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8824599Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8825092Z       id: 'listOutputs.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8825525Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8825883Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8826178Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8826471Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8826923Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8827398Z       id: 'proveCertificate.selective-disclosure',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8827847Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8828197Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8828480Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8828823Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8829188Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8829698Z       id: 'proveCertificate.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8830125Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8830500Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8830808Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8831095Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8831477Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8831962Z       id: 'relinquishCertificate.tombstone',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8832570Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8832934Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8833263Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8833580Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8833928Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8834514Z       id: 'relinquishOutput.removes-basket-membership',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8834954Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8835268Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8835603Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8835890Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8836294Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8836862Z       id: 'revealCounterpartyKeyLinkage.independent-secret',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8837344Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8837657Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8837926Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8838324Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8838678Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8839194Z       id: 'revealSpecificKeyLinkage.independent-secret',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8839678Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8840021Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8840321Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8840648Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8841169Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8841605Z       id: 'signAction.serialized-spend',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8842097Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8842589Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8842873Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8843260Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8843640Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8844111Z       id: 'signAction.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8844561Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8844884Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8845182Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8845517Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8845923Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8846363Z       id: 'verifyHmac.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8846867Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8847267Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8847533Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8847867Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8848248Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8848662Z       id: 'verifyHmac.valid',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8849055Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8849421Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8849718Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8850021Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8850421Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8850909Z       id: 'verifySignature.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8851334Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8851665Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8851964Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8852503Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8852869Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8853352Z       id: 'verifySignature.valid',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8853745Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8854045Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8854425Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8854735Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8855112Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8855580Z       id: 'waitForAuthentication.true',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8855981Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8856328Z     }
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8856641Z   ],
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8856981Z   expected: [
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8857283Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8857590Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8858015Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8858458Z       id: 'abortAction.releases-reservation',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8858903Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8859256Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8859582Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8859887Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8860278Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8860739Z       id: 'acquireCertificate.signed-fields',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8861148Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8861543Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8861839Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8862139Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8862710Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8863186Z       id: 'acquireCertificate.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8863678Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8864031Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8864527Z     { run: 0, implementation: null, id: 'cleanup', result: 'PASS' },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8864955Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8865269Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8865694Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8866154Z       id: 'createAction.serialized-outputs',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8866569Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8866925Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8867241Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8867555Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8867920Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8868399Z       id: 'createAction.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8868808Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8869203Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8869486Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8869771Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8870191Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8870619Z       id: 'createHmac.length',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8871009Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8871365Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8871651Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8871967Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8872530Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8873161Z       id: 'createSignature.independent-verification',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8873722Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8874045Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8874414Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8874699Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8875081Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8875527Z       id: 'decrypt.roundtrip',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8875917Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8876262Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8876589Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8876905Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8877252Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8877755Z       id: 'decrypt.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8878160Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8878478Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8878771Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8879175Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8879587Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8880061Z       id: 'discoverByAttributes.identity-service',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8880551Z       result: 'FAIL'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8880866Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8881133Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8881538Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8881890Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8882546Z       id: 'discoverByIdentityKey.identity-service',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8883025Z       result: 'FAIL'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8883370Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8883672Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8884005Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8884387Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8884760Z       id: 'encrypt.bytes',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8885197Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8885512Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8885785Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8886117Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8886498Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8886968Z       id: 'getHeaderForHeight.genesis',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8887373Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8887734Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8888026Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8888352Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8888749Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8889226Z       id: 'getHeaderForHeight.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8889659Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8890022Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8890314Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8890649Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8891036Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8891465Z       id: 'getHeight.controlled',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8891849Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8892303Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8892704Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8893019Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8893398Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8893871Z       id: 'getNetwork.mainnet',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8894253Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8894589Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8894898Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8895243Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8895620Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8896121Z       id: 'getPublicKey.identity',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8896523Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8896824Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8897185Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8897510Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8897880Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8898333Z       id: 'getPublicKey.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8898804Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8899159Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8899446Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8899809Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8900157Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8900575Z       id: 'getVersion.nonempty',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8901033Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8901331Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8901656Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8901999Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8902523Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8902980Z       id: 'identity-service.publish',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8903429Z       result: 'FAIL'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8903766Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8904052Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8904378Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8904789Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8905290Z       id: 'internalizeAction.mined-descendant-payment',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8905874Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8906218Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8906565Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8906863Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8907257Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8907728Z       id: 'internalizeAction.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8908138Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8908542Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8908825Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8909144Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8909528Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8909965Z       id: 'isAuthenticated.true',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8910365Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8910698Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8911017Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8911400Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8911770Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8912401Z       id: 'listActions.metadata',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8912794Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8913153Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8913503Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8913834Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8914187Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8914674Z       id: 'listActions.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8915095Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8915441Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8915900Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8916201Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8916564Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8917065Z       id: 'listCertificates.issuer-scope',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8917475Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8917799Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8918102Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8918431Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8918802Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8919265Z       id: 'listCertificates.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8919739Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8920045Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8920362Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8920724Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8921089Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8921507Z       id: 'listOutputs.metadata',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8921930Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8922411Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8922734Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8923097Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8923454Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8923909Z       id: 'listOutputs.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8924397Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8924695Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8925016Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8925321Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8925722Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8926224Z       id: 'proveCertificate.selective-disclosure',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8926645Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8927040Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8927326Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8927683Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8928066Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8928545Z       id: 'proveCertificate.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8928975Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8929316Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8929659Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8929961Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8930370Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8930813Z       id: 'relinquishCertificate.tombstone',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8931201Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8931606Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8931891Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8932426Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8932776Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8933335Z       id: 'relinquishOutput.removes-basket-membership',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8933788Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8934096Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8934435Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8934736Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8935110Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8935685Z       id: 'revealCounterpartyKeyLinkage.independent-secret',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8936141Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8936489Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8936834Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8937157Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8937505Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8938044Z       id: 'revealSpecificKeyLinkage.independent-secret',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8938622Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8938970Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8939318Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8939627Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8939982Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8940423Z       id: 'signAction.serialized-spend',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8940868Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8941216Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8941502Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8941859Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8942330Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8942774Z       id: 'signAction.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8943256Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8943666Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8943966Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8944326Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8944669Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8945117Z       id: 'verifyHmac.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8945539Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8945905Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8946190Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8946538Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8946877Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8947249Z       id: 'verifyHmac.valid',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8947663Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8948017Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8948318Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8948622Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8949011Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8949510Z       id: 'verifySignature.specified-rejection',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8949935Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8950296Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8950579Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8950881Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8951300Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8951694Z       id: 'verifySignature.valid',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8952112Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8952591Z     },
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8952926Z     {
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8953226Z       run: 0,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8953559Z       implementation: null,
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8954055Z       id: 'waitForAuthentication.true',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8954463Z       result: 'PASS'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8954817Z     }
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8955138Z   ],
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8955495Z   operator: 'deepStrictEqual',
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8955871Z   diff: 'simple'
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8956227Z }
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8956386Z 
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8956570Z Node.js v24.22.1
+integrated-components	Execute all component matrices with fresh repeated state	2026-11-09T17:25:15.8967769Z ##[error]Process completed with exit code 1.

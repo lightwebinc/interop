@@ -1,0 +1,263 @@
+{
+  "schema": "tpnil-ci-native-reevaluation-independent-review@1",
+  "claim": "RETAINED_NATIVE_EVIDENCE_REEVALUATION",
+  "workflowRun": 43059172140,
+  "source": "9cded11fae9c8a48fc23894157bbab0b561077e5",
+  "sourceSnapshot": {
+    "root": "/Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/frozen-reevaluation-source-9cded11",
+    "source": "9cded11fae9c8a48fc23894157bbab0b561077e5",
+    "files": 468,
+    "reused": [
+      "synthesis/node_modules",
+      "integrations/services/node_modules",
+      "components/transport/node_modules",
+      "components/rust/target",
+      "out"
+    ]
+  },
+  "startedAt": "2026-11-11T16:36:25.561Z",
+  "completedAt": "2026-11-11T16:36:40.990Z",
+  "command": [
+    "node",
+    "/Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/frozen-reevaluation-source-9cded11/scripts/verify-native-reevaluation.mjs",
+    "/Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/out/reevaluation-ci-43059172140"
+  ],
+  "exitCode": 0,
+  "independentVerification": {
+    "verified": true,
+    "claim": "RETAINED_NATIVE_EVIDENCE_REEVALUATION",
+    "originalNativeSource": "c338a93c97ffebeeef318e679ff82b7dbf309dd5",
+    "evaluatorSource": "9cded11fae9c8a48fc23894157bbab0b561077e5",
+    "newNativeSessions": 0,
+    "nativeOutcome": "FAIL",
+    "integrationOutcome": "PASS",
+    "rustOutcome": "PASS",
+    "repetitions": 2
+  },
+  "allCanonicalExecutablePaths": true,
+  "allOriginalArtifactMembersUnchanged": 220,
+  "originalNativeMembers": 186,
+  "originalArchiveMatchesCommittedFailure": true,
+  "exactPreparationSourceAndSdkMatch": true,
+  "all16ProducerReceiptsNonemptyAndValidated": [
+    {
+      "path": "logs/native-admission.log",
+      "bytes": 568,
+      "sha256": "b3f9021b6ffdc9583731fa175623821d1d9fb6f8f9df7316989eb95b5193a258",
+      "receiptKind": "verification",
+      "verified": true,
+      "outcome": "FAIL"
+    },
+    {
+      "path": "logs/original-rust-1.log",
+      "bytes": 110,
+      "sha256": "db072d403d2e3c2d8f37ef031a59163dbc006b97b69ae7b552c483b6dd5707e7",
+      "receiptKind": "verification",
+      "verified": true,
+      "outcome": "FAIL"
+    },
+    {
+      "path": "logs/repetition-1-verify-native-messaging.mjs.log",
+      "bytes": 425,
+      "sha256": "2c955598576317901cad4c8429412ab5e0eff99f39a74b44a3f3548f4f799b1f",
+      "receiptKind": "verification",
+      "verified": true
+    },
+    {
+      "path": "logs/repetition-1-verify-native-synthesis.mjs.log",
+      "bytes": 152,
+      "sha256": "911cd04a0204ff546cdcda67f37b5ef180f0b6ad02fb2f98da2966a8b9923cd0",
+      "receiptKind": "verification",
+      "verified": true,
+      "outcome": "PASS"
+    },
+    {
+      "path": "logs/repetition-1-verify-native-trust.mjs.log",
+      "bytes": 876,
+      "sha256": "bd7016e6dd67cb6ea46b8ff0028d5128e7a19e6b64f95d22f832ac700357422a",
+      "receiptKind": "verification",
+      "verified": true
+    },
+    {
+      "path": "logs/repetition-1-verify-transport.mjs.log",
+      "bytes": 190,
+      "sha256": "667bc77b2c53114fdb9878243691b92799d0ab602b98654a2b5eca865d94f65c",
+      "receiptKind": "verification",
+      "verified": true
+    },
+    {
+      "path": "logs/repetition-1-verify-wallet-boundary.mjs.log",
+      "bytes": 3563,
+      "sha256": "c613a20089d4ccac1e3c1c61ca1f5fc0972397164670d2d17690f780da5956f0",
+      "receiptKind": "verification",
+      "verified": true,
+      "outcome": "PASS"
+    },
+    {
+      "path": "logs/repetition-2-verify-native-messaging.mjs.log",
+      "bytes": 425,
+      "sha256": "e329ffb1d40e1eb5b9f4b332008cf75bf593a1306014c61c2ca61e9867773ae5",
+      "receiptKind": "verification",
+      "verified": true
+    },
+    {
+      "path": "logs/repetition-2-verify-native-synthesis.mjs.log",
+      "bytes": 152,
+      "sha256": "0c50b831354ff63896ebb5c4a163238f7995b69b526b34e6db37f7997491d044",
+      "receiptKind": "verification",
+      "verified": true,
+      "outcome": "PASS"
+    },
+    {
+      "path": "logs/repetition-2-verify-native-trust.mjs.log",
+      "bytes": 866,
+      "sha256": "9785b5b10c905438c0e2e5fccf966e8867febb1da8bccaa23f8f8bb7cea64955",
+      "receiptKind": "verification",
+      "verified": true
+    },
+    {
+      "path": "logs/repetition-2-verify-transport.mjs.log",
+      "bytes": 190,
+      "sha256": "9898891053b22a3268177938a01ff1f5f31965e2dffd53ecfe66682f61f6791a",
+      "receiptKind": "verification",
+      "verified": true
+    },
+    {
+      "path": "logs/repetition-2-verify-wallet-boundary.mjs.log",
+      "bytes": 3563,
+      "sha256": "c613a20089d4ccac1e3c1c61ca1f5fc0972397164670d2d17690f780da5956f0",
+      "receiptKind": "verification",
+      "verified": true,
+      "outcome": "PASS"
+    },
+    {
+      "path": "logs/rust-1-run.log",
+      "bytes": 10403,
+      "sha256": "bd4995e8ae4d2cb7313aaf6f46e6f9457bcce7df775c117e9b8c958240c31b0d",
+      "receiptKind": "tpnil-component-result@1",
+      "verified": true,
+      "outcome": "PASS"
+    },
+    {
+      "path": "logs/rust-1-verify.log",
+      "bytes": 110,
+      "sha256": "509ed748ddd20b127d5660d940c9155a5ab92557cc737b2488229ea97983b5bb",
+      "receiptKind": "verification",
+      "verified": true,
+      "outcome": "PASS"
+    },
+    {
+      "path": "logs/rust-2-run.log",
+      "bytes": 10403,
+      "sha256": "1d86ba31ee8535448fbedb5f5437444d9604fe10a90903e5939ed37c283b0a35",
+      "receiptKind": "tpnil-component-result@1",
+      "verified": true,
+      "outcome": "PASS"
+    },
+    {
+      "path": "logs/rust-2-verify.log",
+      "bytes": 110,
+      "sha256": "509ed748ddd20b127d5660d940c9155a5ab92557cc737b2488229ea97983b5bb",
+      "receiptKind": "verification",
+      "verified": true,
+      "outcome": "PASS"
+    }
+  ],
+  "newNativeSessions": 0,
+  "originalRust": [
+    {
+      "index": 1,
+      "status": "EXECUTED",
+      "corpus": "tpnil-rust-corpus@2",
+      "sha256": "ede7591f0ef610d90ed696134ab2b3d1ed8598bfa3862784d283471a8e08db8e",
+      "assertions": 48,
+      "counts": {
+        "PASS": 42,
+        "FAIL": 6,
+        "BLOCKED": 0
+      },
+      "outcome": "FAIL"
+    },
+    {
+      "index": 2,
+      "status": "NOT_EXECUTED"
+    }
+  ],
+  "perRepetition": [
+    {
+      "index": 1,
+      "native": {
+        "PASS": 180,
+        "FAIL": 99,
+        "BLOCKED": 1
+      },
+      "integration": {
+        "PASS": 77,
+        "FAIL": 0,
+        "BLOCKED": 0
+      },
+      "rust": {
+        "PASS": 48,
+        "FAIL": 0,
+        "BLOCKED": 0
+      },
+      "originalInputReports": [
+        {
+          "name": "paid-http.json",
+          "sha256": "b7b9cec5d2ac508e7c1f39ef3fb9fa16fe84ebb7dc3ab9eadeb4c91e2c44b769"
+        },
+        {
+          "name": "messaging.json",
+          "sha256": "87492d2549173c7df6909b85b794558219cff10acccc868d8da1fc731b2fa1b9"
+        },
+        {
+          "name": "synthesis-transactions.json",
+          "sha256": "daf3713a4272e7a70ccfb0010b114f0e63b8628686dea2e9b3eb05c5234d121c"
+        },
+        {
+          "name": "identity-trust.json",
+          "sha256": "fe7920058d1aea69a01db1c2255c3aa6c6bf699e3e0e45b08d2d74f70cd6a460"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "native": {
+        "PASS": 180,
+        "FAIL": 99,
+        "BLOCKED": 1
+      },
+      "integration": {
+        "PASS": 77,
+        "FAIL": 0,
+        "BLOCKED": 0
+      },
+      "rust": {
+        "PASS": 48,
+        "FAIL": 0,
+        "BLOCKED": 0
+      },
+      "originalInputReports": [
+        {
+          "name": "paid-http.json",
+          "sha256": "c022f19285e73571c3aae17359509026a9d2680855085f828f8063d180c322b8"
+        },
+        {
+          "name": "messaging.json",
+          "sha256": "d333b5c927aa56cf1b2e3e6377f2af70a30162cf9a33ba9ce6d4a36b353903a5"
+        },
+        {
+          "name": "synthesis-transactions.json",
+          "sha256": "583f8d7116772da280220f9d50588df8fd08f23ce4adef7541a794168efb6bd7"
+        },
+        {
+          "name": "identity-trust.json",
+          "sha256": "a587c57ccdc7c150d60e86e72c506110ecb554715c7d8f036a46c792bd1cd478"
+        }
+      ]
+    }
+  ],
+  "nativeOutcome": "FAIL",
+  "combinedOutcome": "FAIL",
+  "completeBRC100Conformance": false
+}

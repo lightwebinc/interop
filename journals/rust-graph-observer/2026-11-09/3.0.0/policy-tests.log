@@ -1,0 +1,12 @@
+✔ Rust corpus2 remains the default and has no graph-v3 policy (0.979583ms)
+✔ graph manifest requires the entire exact source inventory (4.422ms)
+✔ graph manifest rejects source byte changes and policy/pin substitution (5.397708ms)
+✔ explicit corpus3 changes only joined spend operation and subject binding (20.432458ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 137.837875

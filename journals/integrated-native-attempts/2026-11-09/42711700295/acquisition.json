@@ -1,0 +1,45 @@
+{
+  "schema": "tpnil-original-ci-acquisition@1",
+  "runId": 42711700295,
+  "source": "c338a93c97ffebeeef318e679ff82b7dbf309dd5",
+  "conclusion": "failure",
+  "workflowUrl": "https://github.com/p2ppsr/interop/actions/runs/42711700295",
+  "acquiredAt": "2026-11-09T22:50:53.647Z",
+  "artifact": {
+    "id": 13717672291,
+    "name": "native-go-yours-wallet-5.1.0",
+    "createdAt": "2026-11-09T22:50:05Z",
+    "path": "out/native-ci-42711700295.zip",
+    "size": 4255642,
+    "sha256": "c0645821afeea30cbc1c0c70f4ca10bfbe288ebfa570b719af5a709f145c3826",
+    "githubDigestVerified": true
+  },
+  "extraction": {
+    "path": "out/native-ci-42711700295",
+    "entries": 186,
+    "bytes": 23226215
+  },
+  "logs": {
+    "path": "out/native-ci-42711700295-receipts/logs.zip",
+    "size": 70576,
+    "sha256": "a42ee84b141058f94da5179460fa9f850280ee30a6f1fbf97629ff8fef0183d8",
+    "zipIntegrity": "PASS"
+  },
+  "api": [
+    {
+      "name": "run.json",
+      "size": 11982,
+      "sha256": "1a8de022231b2486cb2b77fb7c406dd53ef4bbcb293942466233adca42ce43e6"
+    },
+    {
+      "name": "jobs.json",
+      "size": 4736,
+      "sha256": "71d3fd9e28f8f28d94a68976a874b8f0fba9c9f185c026ae5450ac72f7cff53c"
+    },
+    {
+      "name": "artifacts.json",
+      "size": 753,
+      "sha256": "b20dc0d34b498d1f65d1811025401d6f526a829818dcd506cc1c3ed373f08450"
+    }
+  ]
+}

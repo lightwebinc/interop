@@ -1,0 +1,256 @@
+{
+  "schema": "tpnil-certificate-fixture-engineering-archive@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "baseSource": "8f23d1c638fd97d176e12c6d634e65401c03e82f",
+  "scope": "External certificate fixture issuer only; native wallet and strict disclosure predicates unchanged",
+  "fixtureKeyGeneration": "32 uniform random bytes; no retries or biased resampling",
+  "deterministicRegression": {
+    "inputBytes": [
+      0,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17,
+      17
+    ],
+    "originalMinimalWidth": 31,
+    "revelationWidth": 32,
+    "path": [
+      "fixture issuer SDK 2.7.1",
+      "Toolbox 2.13 public acquireCertificate with real remote TypeScript storage",
+      "Toolbox 2.13 public proveCertificate",
+      "SDK 4.0.1 strict VerifiableCertificate.decryptFields"
+    ],
+    "result": "PASS"
+  },
+  "sourceSnapshot": [
+    {
+      "path": "synthesis/src/wallet-lab/certificate-fixture.ts",
+      "size": 1886,
+      "sha256": "105a89b1d84f115855dfbf99508a4150f40e39ff848027be377a5cc8920a6ca9"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/boundary-corpus.ts",
+      "size": 18724,
+      "sha256": "5b0dd1000877fba01512c05f52737a017251620fba242585126c45dfb281eda8"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/conformance-clauses.ts",
+      "size": 17081,
+      "sha256": "d88c02cda9247c1c64a057cb1bc785b549a6ea04a0123ac398022aff37a2642c"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/verify-boundary.ts",
+      "size": 11647,
+      "sha256": "39811beaf698824473d441091ccb67de0852e5efe60c69d18c2767ecbe28510b"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/verify-conformance-clauses.ts",
+      "size": 19412,
+      "sha256": "8c0264fa52b59e9ba6b7d289a5db597c8396d1e8c6a65a4f713b984d2f12c670"
+    },
+    {
+      "path": "synthesis/test/certificate-fixture.test.ts",
+      "size": 2463,
+      "sha256": "9ec3d37b9cac59eb044652b55284b4b36ae07f51c23f1a39aa0cb35a7a59589e"
+    },
+    {
+      "path": "integrations/services/test/certificate-fixture.test.ts",
+      "size": 3050,
+      "sha256": "aa37575a1c87f446018c912583a4268da9827807451cb8a7964291f4e8175bc4"
+    }
+  ],
+  "archive": {
+    "path": "evidence.json.gz",
+    "size": 616487,
+    "sha256": "bb7329a5f9ad1ee8618128ffa5ced163ce97f4841a70f4bef6e503971813e470",
+    "files": 35
+  },
+  "runs": [
+    {
+      "directory": "boundary-zero-prefix-typescript-20261109-1",
+      "kind": "reference-wallet",
+      "storage": "typescript",
+      "boundaryAssertions": {
+        "PASS": 43
+      },
+      "cleanup": [
+        {
+          "name": "wallet",
+          "closed": true
+        },
+        {
+          "name": "funder",
+          "closed": true
+        },
+        {
+          "name": "overlay",
+          "closed": true
+        },
+        {
+          "name": "mongo",
+          "closed": true
+        },
+        {
+          "name": "services",
+          "closed": true
+        }
+      ]
+    },
+    {
+      "directory": "boundary-zero-prefix-go-20261109-1",
+      "kind": "reference-wallet",
+      "storage": "go",
+      "boundaryAssertions": {
+        "PASS": 43
+      },
+      "cleanup": [
+        {
+          "name": "wallet",
+          "closed": true
+        },
+        {
+          "name": "funder",
+          "closed": true
+        },
+        {
+          "name": "overlay",
+          "closed": true
+        },
+        {
+          "name": "mongo",
+          "closed": true
+        },
+        {
+          "name": "services",
+          "closed": true
+        }
+      ]
+    },
+    {
+      "directory": "clauses-zero-prefix-typescript-20261109",
+      "kind": "reference-wallet",
+      "storage": "typescript",
+      "boundaryAssertions": {
+        "PASS": 43
+      },
+      "cleanup": [
+        {
+          "name": "wallet",
+          "closed": true
+        },
+        {
+          "name": "funder",
+          "closed": true
+        },
+        {
+          "name": "overlay",
+          "closed": true
+        },
+        {
+          "name": "mongo",
+          "closed": true
+        },
+        {
+          "name": "services",
+          "closed": true
+        }
+      ],
+      "clauseAssertions": {
+        "PASS": 133,
+        "FAIL": 98,
+        "BLOCKED": 1
+      },
+      "clauseResult": "FAIL",
+      "completeBRC100Conformance": false
+    },
+    {
+      "directory": "clauses-zero-prefix-go-20261109",
+      "kind": "reference-wallet",
+      "storage": "go",
+      "boundaryAssertions": {
+        "PASS": 43
+      },
+      "cleanup": [
+        {
+          "name": "wallet",
+          "closed": true
+        },
+        {
+          "name": "funder",
+          "closed": true
+        },
+        {
+          "name": "overlay",
+          "closed": true
+        },
+        {
+          "name": "mongo",
+          "closed": true
+        },
+        {
+          "name": "services",
+          "closed": true
+        }
+      ],
+      "clauseAssertions": {
+        "PASS": 133,
+        "FAIL": 98,
+        "BLOCKED": 1
+      },
+      "clauseResult": "FAIL",
+      "completeBRC100Conformance": false
+    }
+  ],
+  "checks": {
+    "core": {
+      "PASS": 75
+    },
+    "synthesis": {
+      "PASS": 133,
+      "SKIP": 8
+    },
+    "integrationServices": {
+      "PASS": 14
+    },
+    "typecheck": "PASS",
+    "repositoryCheck": "PASS"
+  },
+  "retainedTestAttempt": {
+    "file": "checks/certificate-fixture-services-tests.log",
+    "result": "13 PASS / 1 FAIL",
+    "classification": "TEST_ASSERTION_ERROR",
+    "cause": "The strict decoder returned the correct fields in a null-prototype object; prototype-sensitive deepEqual rejected the expected contents. Final regression compares the exact entries."
+  },
+  "limitations": [
+    "Reference wallets only; no native conformance qualification.",
+    "Boundary runs use unbiased random fixture keys. The deterministic leading-zero case is the real Toolbox public-operation integration regression.",
+    "Clause outcomes remain 133 PASS / 98 FAIL / 1 BLOCKED on each storage language; full BRC100 conformance is not claimed."
+  ]
+}

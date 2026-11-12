@@ -1,0 +1,12 @@
+{
+  "id": "tpnil-brc100-clause-oracle@4.0.0",
+  "profile": "ISI-4@3.0.0",
+  "predecessor": "tpnil-brc100-clause-oracle@3.0.0",
+  "changeClass": "MAJOR_VERDICT_CHANGE",
+  "assertionCount": 233,
+  "addedAssertion": "output.createAction.noSendChange-final-outpoints",
+  "inputFixture": "For input.createAction.options.noSendChange.0, a uniquely labelled signed noSend action and a subsequent public listActions lookup establish the final wallet-managed change outpoints. AtomicBEEF must verify against the admitted mined fixture; public output indices, scripts, values, basket and spendability must match. The positive control must actually consume the independently established change. The malformed call differs at only the declared outpoint field.",
+  "returnedOutput": "The exact original noSendChange return is retained. Every returned outpoint must uniquely identify a final signed wallet-managed change output. BRC100 lines660/704 make this return optional without requiring every change output; an absent or empty return leaves this optional branch BLOCKED, and a nonempty valid subset is accepted. A stale pre-signing txid fails this predicate even when the independent caller fixture allows evaluation of invalid-input handling.",
+  "historicalRetention": "Oracle3 remains the default and retains its 232 predicates, original caller fixture and archived outcomes. Oracle4 requires an explicit opt-in and an independently bound environment plan. Earlier native runs are not requalified with this oracle.",
+  "completeBRC100Conformance": false
+}

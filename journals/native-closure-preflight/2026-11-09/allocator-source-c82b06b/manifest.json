@@ -1,0 +1,90 @@
+{
+  "schema": "tpnil-native-closure-source-preflight@1",
+  "claim": "LAB_SELF_TEST_ONLY",
+  "createdAt": "2026-11-09T22:14:46.886576+00:00",
+  "source": "c82b06b8d6ba657e3c973f87b58416493b0433e6",
+  "sourceCache": "git archive of exact committed revision; unchanged pinned dependency and Go binary/build-manifest links supplied separately",
+  "planId": "YOURS-5.1.0-GO-ITCVE-1-V2.0.0-CONFORMANCE-CLOSURE",
+  "planInputs": {
+    "itcves/ITCVE-1/2.0.0/profile.json": "1d9fd67b907a40b39384d1ae8cc1547be5f8edd77d8c917aed68cf4c7ca0d477",
+    "programs/ISI-4/4.0.0/catalog.json": "0cc0bf3cd657e81b675a0f3a17c767b8cd355a0cd4dfab20b115cf27e1bd82c5",
+    "programs/ISI-4/profiles/native-conformance-2.0.0/brc100-contract.json": "ad803952399a66f099ea9f9efa664a37801866284c5a01064d3357878199a8eb",
+    "programs/ISI-4/profiles/native-conformance-3.0.0/oracle-4.0.0.json": "b3df2d9a60571f19bb2e48fc19a2b0b60704392aef62b3d8855c136ce1201e3c",
+    "programs/ISI-4/profiles/native-conformance-2.0.0/lifecycle-oracle-3.0.0.json": "7f7585d34920cad911531099009fa2e3b8cf6e0e1f9037bb4812f9bb09e8fe95",
+    "programs/ISI-4/profiles/native-conformance-3.0.0/portability-oracle-3.0.0.json": "266c34829ec30f343bfe6d4899f139d27f0eb30b6fdbe84919b6850a1a47893f",
+    "programs/ISI-4/profiles/native-conformance-2.0.0/todo-submission-binding-1.0.0.json": "215efe521a229779a3ead0ea3f03b304d63a8d8fd754c6c9994a810cba5a5be4",
+    "programs/ISI-4/profiles/native-conformance-4.0.0/permission-oracle-2.0.0.json": "f67d74120e4edb6a5f91f0e1aa169f6d2cb98f6f547c33b7931d0995f1db3b0c",
+    "programs/ISI-4/profiles/native-conformance-4.0.0/permission-lifecycle-oracle-2.0.0.json": "8395291e84398404816a1e91eeeebbe3322c5568ae5e2371af058e0d40e7b0de",
+    "programs/ISI-4/profiles/native-conformance-4.0.0/shutdown-submissions-1.0.0.json": "b579b46714532f9625e562e2842bfac414262e497c9628ab3a6b95554a84acb8"
+  },
+  "walletExecuted": false,
+  "qualifiedEnvironment": false,
+  "checks": {
+    "core": {
+      "PASS": 90
+    },
+    "catalog": "PASS",
+    "typecheck": "PASS",
+    "python": {
+      "PASS": 5
+    },
+    "initialSynthesis": {
+      "PASS": 291,
+      "FAIL": 2,
+      "SKIP": 8,
+      "classification": "LOCAL_CACHE_PREPARATION_ERROR",
+      "cause": "Missing .json build manifest links; both Go tests failed ENOENT before Go execution."
+    },
+    "correctedAffectedSuites": {
+      "PASS": 14
+    },
+    "completePreparedSynthesis": {
+      "PASS": 293,
+      "FAIL": 0,
+      "SKIP": 8
+    }
+  },
+  "sourceCorrection": "None; cache preparation only. Original failed output retained separately.",
+  "files": [
+    {
+      "path": "core.log",
+      "bytes": 8062,
+      "sha256": "90df01a066f4d02b40aa8fc862e5e041267f7ae32b5634f8e1d8bd15e267f452"
+    },
+    {
+      "path": "check.log",
+      "bytes": 233,
+      "sha256": "baa33431367858d930c5009e8d05cd2cda11023cb2f667ab89fa5cbbf0299d10"
+    },
+    {
+      "path": "python.log",
+      "bytes": 710,
+      "sha256": "707902e727121da2e05ef6762daffab6dca6502d42ba5dbd8da0d34a94219bd4"
+    },
+    {
+      "path": "typecheck.log",
+      "bytes": 52,
+      "sha256": "381be222d640c62a1491f0cd300dd4b3d77f00d5b62028c59702bba3119afc8f"
+    },
+    {
+      "path": "synthesis.log",
+      "bytes": 3627,
+      "sha256": "a94cf0243a6f02bd05168b562e5a15d51b10819489634be12471087479f1ca32"
+    },
+    {
+      "path": "cache-preparation-correction.json",
+      "bytes": 488,
+      "sha256": "2f5e73597c32b374b8fb53b769c08c0971e16591d86a9955945b3c198887d0c7"
+    },
+    {
+      "path": "go-services-corrected.log",
+      "bytes": 433,
+      "sha256": "b5f5061fa6d458bfb51a68f2d463cd041426dcb939a342e7109ab7c20c6894a9"
+    },
+    {
+      "path": "synthesis-complete-cache.log",
+      "bytes": 382,
+      "sha256": "c962893c783de2d2a965e5f62fcc6b4da8407740e0d648da53fb2e6540be1ee6"
+    }
+  ]
+}

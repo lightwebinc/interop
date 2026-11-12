@@ -1,0 +1,21 @@
+{
+  "schema": "tpnil-engineering-evidence-inventory@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "files": [
+    {
+      "path": "journals/messaging-verifier-preparation/2026-11-09/native-verifier-only/README.md",
+      "size": 2110,
+      "sha256": "ac4ee855f161d4b69b1c8aa595a0de06980805f1e6616e33d64e657da702fbf5"
+    },
+    {
+      "path": "journals/messaging-verifier-preparation/2026-11-09/native-verifier-only/evidence.zip",
+      "size": 16597,
+      "sha256": "14d257b2a28f9a1eee6141e149cf1238c756fb8faed0685a62aa6e0a4d143efd"
+    },
+    {
+      "path": "journals/messaging-verifier-preparation/2026-11-09/native-verifier-only/index.json",
+      "size": 3839,
+      "sha256": "8f5949b7ed5e551f0fc885fc11b3b3a20fbf10317ad6a6dd66ebb739ca8059b8"
+    }
+  ]
+}

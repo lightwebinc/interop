@@ -1,0 +1,57 @@
+﻿2026-11-09T23:25:19.2660576Z ##[group]Run node scripts/reevaluate-native-integrated.mjs infra/native/conformance/reevaluation-42711700295-rust-3.0.0.json out/native-integrated-reevaluation
+2026-11-09T23:25:19.2661514Z [36;1mnode scripts/reevaluate-native-integrated.mjs infra/native/conformance/reevaluation-42711700295-rust-3.0.0.json out/native-integrated-reevaluation[0m
+2026-11-09T23:25:19.2679489Z shell: /usr/bin/bash -e {0}
+2026-11-09T23:25:19.2679693Z env:
+2026-11-09T23:25:19.2679860Z   RUSTUP_TOOLCHAIN: 1.88.0
+2026-11-09T23:25:19.2680059Z   CARGO_NET_OFFLINE: true
+2026-11-09T23:25:19.2680243Z ##[endgroup]
+2026-11-09T23:25:38.1976662Z node:internal/modules/run_main:107
+2026-11-09T23:25:38.1977492Z     triggerUncaughtException(
+2026-11-09T23:25:38.1977866Z     ^
+2026-11-09T23:25:38.1978005Z 
+2026-11-09T23:25:38.1978973Z AssertionError [ERR_ASSERTION]: /tmp/tpnil-native-reevaluation-2BNup4/source/scripts/verify-native-messaging.mjs failed: node:internal/modules/cjs/loader:1564
+2026-11-09T23:25:38.1979984Z   const err = new Error(message);
+2026-11-09T23:25:38.1980396Z               ^
+2026-11-09T23:25:38.1980538Z 
+2026-11-09T23:25:38.1980705Z Error: Cannot find module '@bsv/sdk'
+2026-11-09T23:25:38.1981020Z Require stack:
+2026-11-09T23:25:38.1981981Z - /tmp/tpnil-native-reevaluation-2BNup4/source/out/messaging-sources/ts-stack-eb131148c3e95749162e7c8263e444e255c7db1f/infra/message-box-server/package.json
+2026-11-09T23:25:38.1983253Z     at Module._resolveFilename (node:internal/modules/cjs/loader:1564:15)
+2026-11-09T23:25:38.1983865Z     at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)
+2026-11-09T23:25:38.1984481Z     at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)
+2026-11-09T23:25:38.1985075Z     at require.resolve (node:internal/modules/helpers:175:31)
+2026-11-09T23:25:38.1985923Z     at verifyNativeMessaging (file:///tmp/tpnil-native-reevaluation-2BNup4/source/scripts/verify-native-messaging.mjs:27:122)
+2026-11-09T23:25:38.1986950Z     at file:///tmp/tpnil-native-reevaluation-2BNup4/source/scripts/verify-native-messaging.mjs:94:128
+2026-11-09T23:25:38.1987661Z     at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+2026-11-09T23:25:38.1988144Z     at async node:internal/modules/esm/loader:647:26
+2026-11-09T23:25:38.1988753Z     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+2026-11-09T23:25:38.1989270Z   code: 'MODULE_NOT_FOUND',
+2026-11-09T23:25:38.1989561Z   requireStack: [
+2026-11-09T23:25:38.1990516Z     '/tmp/tpnil-native-reevaluation-2BNup4/source/out/messaging-sources/ts-stack-eb131148c3e95749162e7c8263e444e255c7db1f/infra/message-box-server/package.json'
+2026-11-09T23:25:38.1991490Z   ]
+2026-11-09T23:25:38.1991712Z }
+2026-11-09T23:25:38.1991844Z 
+2026-11-09T23:25:38.1991953Z Node.js v24.22.1
+2026-11-09T23:25:38.1992106Z 
+2026-11-09T23:25:38.1992113Z 
+2026-11-09T23:25:38.1992119Z 
+2026-11-09T23:25:38.1992224Z 1 !== 0
+2026-11-09T23:25:38.1992470Z 
+2026-11-09T23:25:38.1992885Z     at execute (file:///home/runner/work/interop/interop/scripts/native-reevaluation.mjs:48:10)
+2026-11-09T23:25:38.1993728Z     at run (file:///home/runner/work/interop/interop/scripts/native-reevaluation.mjs:64:26)
+2026-11-09T23:25:38.1994657Z     at verifyIntegratedChildren (file:///home/runner/work/interop/interop/scripts/native-reevaluation.mjs:66:3)
+2026-11-09T23:25:38.1995720Z     at evaluateNativeReevaluation (file:///home/runner/work/interop/interop/scripts/native-reevaluation.mjs:98:25)
+2026-11-09T23:25:38.1996664Z     at file:///home/runner/work/interop/interop/scripts/reevaluate-native-integrated.mjs:18:14
+2026-11-09T23:25:38.1997368Z     at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+2026-11-09T23:25:38.1997873Z     at async node:internal/modules/esm/loader:647:26
+2026-11-09T23:25:38.1998491Z     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+2026-11-09T23:25:38.1999036Z   generatedMessage: false,
+2026-11-09T23:25:38.1999322Z   code: 'ERR_ASSERTION',
+2026-11-09T23:25:38.1999588Z   actual: 1,
+2026-11-09T23:25:38.1999817Z   expected: 0,
+2026-11-09T23:25:38.2000440Z   operator: 'strictEqual',
+2026-11-09T23:25:38.2000711Z   diff: 'simple'
+2026-11-09T23:25:38.2000939Z }
+2026-11-09T23:25:38.2001051Z 
+2026-11-09T23:25:38.2001155Z Node.js v24.22.1
+2026-11-09T23:25:38.2099804Z ##[error]Process completed with exit code 1.

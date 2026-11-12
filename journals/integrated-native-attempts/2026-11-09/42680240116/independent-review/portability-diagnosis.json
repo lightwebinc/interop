@@ -1,0 +1,286 @@
+{
+  "schema": "tpnil-native-portability-diagnosis@1",
+  "claim": "FAILED_NATIVE_ATTEMPT_DIAGNOSIS_ONLY",
+  "runId": 42680240116,
+  "sourceRevision": "3f9cbead7c05a17b663f9c2c52b93abdf04eac69",
+  "artifactSha256": "264ba858b5618574c3aea189425d22c5cbb47c91a1ae361b618609cc17d38e49",
+  "unknownAncestor": "f81c06b9c0e158d9ae92c02c4feb94e783fb0f010f184c6df83b1fc9a4042cf9",
+  "cause": "Authenticated synchronization retains proof bytes only in another rejected branch inputBEEF; replacement recursive BEEF reconstruction cannot find the shared mined ancestor. Actual cold task recovery times out. Independent v1 oracle additionally rejects producer complete-logical-dataset PASS because no owned provenTx row exists.",
+  "qualification": "NOT_QUALIFIED",
+  "repetitions": [
+    {
+      "repetition": 1,
+      "path": "out/native-ci-42680240116/repetition-1/evidence/conformance/portability.json",
+      "sha256": "a7e0bcb20bf4289268f0d99cffaf8233cb5143bb27c86a051c5b95b3f2246b82",
+      "assertions": [
+        {
+          "detail": "Independent storage identities and temporary databases back the two counterparts.",
+          "id": "portability.distinct-counterparts",
+          "result": "PASS"
+        },
+        {
+          "detail": "All logical records, bytes, metadata and foreign-key relationships match after native-mediated synchronization.",
+          "id": "portability.complete-logical-dataset",
+          "result": "PASS"
+        },
+        {
+          "detail": "The declared wallet mediator sends authenticated processSyncChunk requests; reference mode is not native qualification.",
+          "id": "portability.native-mediated-sync",
+          "result": "PASS"
+        },
+        {
+          "detail": "The source storage TCP listener is stopped while chain, overlay and replacement services remain running.",
+          "id": "portability.source-unavailable",
+          "result": "PASS"
+        },
+        {
+          "detail": "The source listener is restored; caller retires the isolated replacement after evidence collection.",
+          "id": "portability.cleanup",
+          "result": "PASS"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.same-identity",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.cold-wallet-reload",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.cold-task-recovery",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.replacement-redemption",
+          "result": "FAIL"
+        }
+      ],
+      "sourceCounts": {
+        "certificateFields": 0,
+        "certificates": 0,
+        "commissions": 0,
+        "outputBaskets": 3,
+        "outputTagMaps": 3,
+        "outputTags": 3,
+        "outputs": 22,
+        "provenTxReqs": 12,
+        "provenTxs": 0,
+        "transactions": 12,
+        "txLabelMaps": 27,
+        "txLabels": 8
+      },
+      "destinationCounts": {
+        "certificateFields": 0,
+        "certificates": 0,
+        "commissions": 0,
+        "outputBaskets": 3,
+        "outputTagMaps": 3,
+        "outputTags": 3,
+        "outputs": 22,
+        "provenTxReqs": 12,
+        "provenTxs": 0,
+        "transactions": 12,
+        "txLabelMaps": 27,
+        "txLabels": 8
+      },
+      "ui": [
+        {
+          "at": "2026-11-09T19:13:56.787Z",
+          "stage": "native-task-visible"
+        },
+        {
+          "at": "2026-11-09T19:13:59.840Z",
+          "stage": "before-add"
+        },
+        {
+          "at": "2026-11-09T19:14:16.109Z",
+          "stage": "native-sync-complete"
+        },
+        {
+          "at": "2026-11-09T19:14:21.189Z",
+          "stage": "replacement-active"
+        },
+        {
+          "at": "2026-11-09T19:14:38.782Z",
+          "stage": "source-removed-from-config"
+        }
+      ],
+      "outage": {
+        "endedAt": "2026-11-09T19:15:37.356Z",
+        "events": [
+          {
+            "at": "2026-11-09T19:14:38.784Z",
+            "available": false
+          }
+        ],
+        "probe": {
+          "error": "TypeError: fetch failed",
+          "reachable": false
+        },
+        "restorationStartedAt": "2026-11-09T19:15:37.356Z",
+        "startedAt": "2026-11-09T19:14:38.784Z"
+      },
+      "error": {
+        "message": "locator.waitFor: Timeout 45000ms exceeded.\nCall log:\n  - waiting for getByText('TPNIL native storage replacement', { exact: true }) to be visible\n",
+        "name": "TimeoutError",
+        "stack": "locator.waitFor: Timeout 45000ms exceeded.\nCall log:\n  - waiting for getByText('TPNIL native storage replacement', { exact: true }) to be visible\n\n    at Object.coldReload (/work/synthesis/src/wallet-lab/native/conformance-portability.ts:191:68)\n    at async qualifyStoragePortability (/work/synthesis/src/wallet-lab/native/conformance-portability.ts:111:25)\n    at async runNativePortability (/work/synthesis/src/wallet-lab/native/conformance-portability.ts:215:14)\n    at async Object.runNativeConformance (/work/synthesis/src/wallet-lab/native/conformance.ts:21:23)\n    at async runYoursWallet (/work/synthesis/src/wallet-lab/yours-driver.ts:711:26)\n    at async <anonymous> (/work/synthesis/src/wallet-lab/native/worker.ts:75:18)"
+      },
+      "coldReload": null,
+      "readWindows": {
+        "destination": {
+          "endedAt": "2026-11-09T19:14:16.696Z",
+          "startedAt": "2026-11-09T19:14:16.444Z",
+          "storageEnd": 6,
+          "storageStart": 4
+        },
+        "source": {
+          "endedAt": "2026-11-09T19:14:16.444Z",
+          "startedAt": "2026-11-09T19:14:16.111Z",
+          "storageEnd": 4,
+          "storageStart": 2
+        }
+      }
+    },
+    {
+      "repetition": 2,
+      "path": "out/native-ci-42680240116/repetition-2/evidence/conformance/portability.json",
+      "sha256": "feb0abf83a0496d935f09cfffe01af8020faa32d216232b3d3ba877cf64e136a",
+      "assertions": [
+        {
+          "detail": "Independent storage identities and temporary databases back the two counterparts.",
+          "id": "portability.distinct-counterparts",
+          "result": "PASS"
+        },
+        {
+          "detail": "All logical records, bytes, metadata and foreign-key relationships match after native-mediated synchronization.",
+          "id": "portability.complete-logical-dataset",
+          "result": "PASS"
+        },
+        {
+          "detail": "The declared wallet mediator sends authenticated processSyncChunk requests; reference mode is not native qualification.",
+          "id": "portability.native-mediated-sync",
+          "result": "PASS"
+        },
+        {
+          "detail": "The source storage TCP listener is stopped while chain, overlay and replacement services remain running.",
+          "id": "portability.source-unavailable",
+          "result": "PASS"
+        },
+        {
+          "detail": "The source listener is restored; caller retires the isolated replacement after evidence collection.",
+          "id": "portability.cleanup",
+          "result": "PASS"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.same-identity",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.cold-wallet-reload",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.cold-task-recovery",
+          "result": "FAIL"
+        },
+        {
+          "detail": "A preceding operation prevented this observation.",
+          "id": "portability.replacement-redemption",
+          "result": "FAIL"
+        }
+      ],
+      "sourceCounts": {
+        "certificateFields": 0,
+        "certificates": 0,
+        "commissions": 0,
+        "outputBaskets": 3,
+        "outputTagMaps": 3,
+        "outputTags": 3,
+        "outputs": 22,
+        "provenTxReqs": 12,
+        "provenTxs": 0,
+        "transactions": 12,
+        "txLabelMaps": 27,
+        "txLabels": 8
+      },
+      "destinationCounts": {
+        "certificateFields": 0,
+        "certificates": 0,
+        "commissions": 0,
+        "outputBaskets": 3,
+        "outputTagMaps": 3,
+        "outputTags": 3,
+        "outputs": 22,
+        "provenTxReqs": 12,
+        "provenTxs": 0,
+        "transactions": 12,
+        "txLabelMaps": 27,
+        "txLabels": 8
+      },
+      "ui": [
+        {
+          "at": "2026-11-09T19:22:07.602Z",
+          "stage": "native-task-visible"
+        },
+        {
+          "at": "2026-11-09T19:22:09.816Z",
+          "stage": "before-add"
+        },
+        {
+          "at": "2026-11-09T19:22:27.921Z",
+          "stage": "native-sync-complete"
+        },
+        {
+          "at": "2026-11-09T19:22:33.000Z",
+          "stage": "replacement-active"
+        },
+        {
+          "at": "2026-11-09T19:22:49.576Z",
+          "stage": "source-removed-from-config"
+        }
+      ],
+      "outage": {
+        "endedAt": "2026-11-09T19:23:48.225Z",
+        "events": [
+          {
+            "at": "2026-11-09T19:22:49.578Z",
+            "available": false
+          }
+        ],
+        "probe": {
+          "error": "TypeError: fetch failed",
+          "reachable": false
+        },
+        "restorationStartedAt": "2026-11-09T19:23:48.225Z",
+        "startedAt": "2026-11-09T19:22:49.578Z"
+      },
+      "error": {
+        "message": "locator.waitFor: Timeout 45000ms exceeded.\nCall log:\n  - waiting for getByText('TPNIL native storage replacement', { exact: true }) to be visible\n",
+        "name": "TimeoutError",
+        "stack": "locator.waitFor: Timeout 45000ms exceeded.\nCall log:\n  - waiting for getByText('TPNIL native storage replacement', { exact: true }) to be visible\n\n    at Object.coldReload (/work/synthesis/src/wallet-lab/native/conformance-portability.ts:191:68)\n    at async qualifyStoragePortability (/work/synthesis/src/wallet-lab/native/conformance-portability.ts:111:25)\n    at async runNativePortability (/work/synthesis/src/wallet-lab/native/conformance-portability.ts:215:14)\n    at async Object.runNativeConformance (/work/synthesis/src/wallet-lab/native/conformance.ts:21:23)\n    at async runYoursWallet (/work/synthesis/src/wallet-lab/yours-driver.ts:711:26)\n    at async <anonymous> (/work/synthesis/src/wallet-lab/native/worker.ts:75:18)"
+      },
+      "coldReload": null,
+      "readWindows": {
+        "destination": {
+          "endedAt": "2026-11-09T19:22:28.507Z",
+          "startedAt": "2026-11-09T19:22:28.264Z",
+          "storageEnd": 6,
+          "storageStart": 4
+        },
+        "source": {
+          "endedAt": "2026-11-09T19:22:28.264Z",
+          "startedAt": "2026-11-09T19:22:27.922Z",
+          "storageEnd": 4,
+          "storageStart": 2
+        }
+      }
+    }
+  ]
+}

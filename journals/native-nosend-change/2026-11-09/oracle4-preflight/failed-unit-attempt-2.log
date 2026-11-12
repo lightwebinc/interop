@@ -1,0 +1,44 @@
+
+ RUN  v4.1.12 /Users/tyeverett/tmp/network-ops/worktrees/p2ppsr/interop/codex/lab-integration-20261106/synthesis
+
+stdout | test/native-conformance-nosend-change.test.ts
+◇ injected env (0) from .env // tip: ⌘ override existing { override: true }
+◇ injected env (0) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+
+stdout | test/native-conformance-nosend-change.test.ts
+WalletStorageServer listening at http://127.0.0.1:60897
+
+stdout | test/native-conformance-nosend-change.test.ts
+SNI enabled. Clients not supporting SNI may fail
+
+stdout | test/native-conformance-nosend-change.test.ts
+https server started on 60900
+
+ ❯ test/native-conformance-nosend-change.test.ts (6 tests | 1 failed | 5 skipped) 491ms
+     × binds a successful public caller control to signed mined ancestry and public action outputs 51ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/native-conformance-nosend-change.test.ts > Prospective noSendChange oracle4, with actual reference public calls > binds a successful public caller control to signed mined ancestry and public action outputs
+AssertionError: [{"id":"input.createAction.options.noSendChange.0","result":"FAIL","detail":"The negative call must differ from its valid base at exactly one declared field\n+ actual - expected\n... Skipped lines\n\n  {\n    description: 'TPNIL parameter validation fixture',\n    labels: [\n      'tpnil-clauses'\n    ],\n...\n        '!invalid!',\n-       '4e60e79908542db7f6c29b4563a3e691328b98ec38c19a72100fdfe9e3bb601a.2',\n-       '4e60e79908542db7f6c29b4563a3e691328b98ec38c19a72100fdfe9e3bb601a.3',\n-       '4e60e79908542db7f6c29b4563a3e691328b98ec38c19a72100fdfe9e3bb601a.4',\n-       '4e60e79908542db7f6c29b4563a3e691328b98ec38c19a72100fdfe9e3bb601a.5',\n-       '4e60e79908542db7f6c29b4563a3e691328b98ec38c19a72100fdfe9e3bb601a.6',\n-       '4e60e79908542db7f6c29b4563a3e691328b98ec38c19a72100fdfe9e3bb601a.7',\n-       '4e60e79908542db7f6c29b4563a3e691328b98ec38c19a72100fdfe9e3bb601a.8'\n      ],\n      randomizeOutputs: false,\n      signAndProcess: false\n    },\n    outputs: [\n"},{"id":"output.createAction.noSendChange-final-outpoints","result":"PASS","detail":"Independent predicate satisfied by retained public calls."}]: expected { …(2) } to deeply equal { …(2) }
+
+- Expected
++ Received
+
+  {
+-   "input.createAction.options.noSendChange.0": "PASS",
++   "input.createAction.options.noSendChange.0": "FAIL",
+    "output.createAction.noSendChange-final-outpoints": "PASS",
+  }
+
+ ❯ test/native-conformance-nosend-change.test.ts:56:136
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 5 skipped (6)
+   Start at  12:21:20
+   Duration  890ms (transform 68ms, setup 0ms, import 327ms, tests 491ms, environment 0ms)
+

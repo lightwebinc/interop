@@ -1,0 +1,113 @@
+{
+  "schema": "tpnil-native-permission-preflight@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "source": "c3b3d97f636416c79e1fb36371ca2371744b0c48",
+  "nativeQualification": false,
+  "platform": "darwin",
+  "architecture": "arm64",
+  "networkBoundary": "Controlled application/services proxy; local engineering browser with test CA bypass, no kernel network isolation claim",
+  "funding": "None; public key permission operations only",
+  "artifact": {
+    "path": "out/sut-artifacts/yours-wallet-v5.1.0/pw-v5.1.0.zip",
+    "size": 13513123,
+    "sha256": "d55abda7dc8790ecfdd57ed0f5f4dd4a28187bb4833715f7612b067625eabc52"
+  },
+  "browser": {
+    "path": "Google Chrome for Testing",
+    "size": 52112,
+    "sha256": "a596b1cfc6353e987fcec8d71a23a28cd6a9e7a6b4e20b908e4c4fcffe51158e"
+  },
+  "sources": [
+    {
+      "path": "synthesis/src/wallet-lab/native/conformance-permissions-model.ts",
+      "size": 2826,
+      "sha256": "fa9f7c47e657ce7723e377cab04ee5706fe612bc078e63c34b3752a9e108e8c3"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/conformance-permissions.ts",
+      "size": 6398,
+      "sha256": "e44c4dfe75d8d4d64b4ddf3e9da0311f924df8aca834c4aa9a9de07e481cc6d2"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/verify-conformance-permissions.ts",
+      "size": 7052,
+      "sha256": "a94a7ecfd4c6d964e0962b4f139bc8768992fa7433bc134449901a79250eec28"
+    },
+    {
+      "path": "synthesis/test/native-conformance-permissions.test.ts",
+      "size": 5750,
+      "sha256": "e984dd69befe9b746dce7f8a08549c2472a3db9d1602e552cfade0b367c454cf"
+    }
+  ],
+  "results": {
+    "attempt1": "OBSERVER_STARTUP_ERROR; no service worker in headless mode",
+    "attempt2": "Actual UI denial for explicit seekPermission and two counterparties",
+    "attempt3": "Actual UI denial with both omitted and explicit seekPermission",
+    "attempt4": {
+      "result": "PASS",
+      "assertions": 8,
+      "requests": 9,
+      "promptDecisions": 3,
+      "cleanup": "PASS"
+    }
+  },
+  "validation": {
+    "targetedTests": {
+      "pass": 16,
+      "fail": 0
+    },
+    "synthesisTypecheck": "PASS"
+  },
+  "files": [
+    {
+      "path": "01-headless-startup-failure/result.json",
+      "size": 350,
+      "sha256": "d42fc3e9916f38faaace3c1015879682c2fc79dd6266abeb933de97d50543a3d"
+    },
+    {
+      "path": "02-explicit-denial/result.json",
+      "size": 65481,
+      "sha256": "acfb82985c38fc82bc2e1bd348c95bfba0acac3d69db57a0b9ce2f0ba5914b06"
+    },
+    {
+      "path": "03-default-and-explicit-denial/result.json",
+      "size": 65431,
+      "sha256": "9d184c00206b6dad85e1c5b73fae88df88f18fd412cdb94601c20e2684589f84"
+    },
+    {
+      "path": "04-complete-permission-scenario/evidence/conformance/permissions-alternate-approve.png",
+      "size": 15010,
+      "sha256": "51ea2d522a3f0210b3ef9334f6c35c00efa279f77c3fe8aa599f9e14a05338ea"
+    },
+    {
+      "path": "04-complete-permission-scenario/evidence/conformance/permissions-alternate-deny.png",
+      "size": 7487,
+      "sha256": "a926911bf2a6ad687ba7cf427efe2ef2105d59c7d5c491534d28f45c6c244304"
+    },
+    {
+      "path": "04-complete-permission-scenario/evidence/conformance/permissions-primary-approve.png",
+      "size": 11402,
+      "sha256": "a305e02e5381416c4f94c283ad5d9eb5db0e1ec211ab167d69c866d41e5289fd"
+    },
+    {
+      "path": "04-complete-permission-scenario/evidence/conformance/permissions.json",
+      "size": 8439,
+      "sha256": "e137709110ebabc11eb1c30c9a320e370b97f059ddee2d5c5b9390f7b056bb2a"
+    },
+    {
+      "path": "04-complete-permission-scenario/result.json",
+      "size": 88612,
+      "sha256": "4efcf9542bf95bb629b59f43c7fdfbea0097afc67dde1ce0c083b13acab0c057"
+    },
+    {
+      "path": "complete-scenario-runner.ts",
+      "size": 3384,
+      "sha256": "9015da5f710c7844e1a671619b4f03f441b7aea38530b07fb9a0c5aafe37e296"
+    },
+    {
+      "path": "README.md",
+      "size": 1990,
+      "sha256": "c69e9a4f4fa8c40f5ea83f5f1e104f7e302705ef801df990fe0140ce0d0d7000"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "result": "diagnostic-reproduced",
+  "repetitions": [
+    {
+      "repetition": 1,
+      "computedTxid": "4da2f80c6d26e1ca440ab98ea7f7fae5dd474010ebd322984d20c5a213e8ccf0",
+      "returnedNoSendChange": [
+        "3be68f1b237edaacd6968ca39bd28dcfb0ca3e9cbeb737edaa711d453b7d6a5a.1"
+      ],
+      "output": {
+        "index": 1,
+        "outpoint": "4da2f80c6d26e1ca440ab98ea7f7fae5dd474010ebd322984d20c5a213e8ccf0.1",
+        "satoshis": 574,
+        "lockingScriptHex": "76a91435681961183e2c98d5c3ed90adac15a3fd8d16b188ac",
+        "lockingScriptSha256": "cb731020d43609b0f668d4bd5c3ae489c33965ae7ea9aa27885179189259780f",
+        "metadataSource": "Decoded signed transaction; no storage basket or spendability metadata is inferred."
+      },
+      "counts": {
+        "PASS": 132,
+        "FAIL": 98,
+        "BLOCKED": 2
+      }
+    },
+    {
+      "repetition": 2,
+      "computedTxid": "392b6ca2586235eedd5d8bd2cc640ffdc8e61b747cf4bb5530bfdc7a0eacdc1e",
+      "returnedNoSendChange": [
+        "e77fe81b85461373cabc415ebfaa1d7ed43ab72c2cd1d1baa32b700cc8e97ad0.1"
+      ],
+      "output": {
+        "index": 1,
+        "outpoint": "392b6ca2586235eedd5d8bd2cc640ffdc8e61b747cf4bb5530bfdc7a0eacdc1e.1",
+        "satoshis": 573,
+        "lockingScriptHex": "76a914b342cdeeb42b6de6a2d356ae3ac3d97cadecc17388ac",
+        "lockingScriptSha256": "b6da765b3dbc1e00d8ae636e9c1e506d3c08d8a41006b2285f933c2b206583ad",
+        "metadataSource": "Decoded signed transaction; no storage basket or spendability metadata is inferred."
+      },
+      "counts": {
+        "PASS": 132,
+        "FAIL": 98,
+        "BLOCKED": 2
+      }
+    }
+  ]
+}

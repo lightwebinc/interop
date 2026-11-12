@@ -1,0 +1,96 @@
+{
+  "schema": "tpnil-messaging-verifier-preparation-engineering@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "source": {
+    "commit": "d27dee0afed0e921793273da7d915395696b03f0",
+    "dirty": true,
+    "files": {
+      "scripts/prepare-messaging.mjs": "77c7661e713e12391d072c9fb621861ed46584d16e03a64ae186e3cabb746d87",
+      "scripts/messaging-preparation.mjs": "b7e7ba0854f79625e2b9d0eef7ab36fe71635f026c6542b379ee7c93ad1ecdbd",
+      "components/messaging/identity.mjs": "2efcc48bb74b954c9101d75e99f814f3c989406143f3ce3ab25f61ae4641dbc8",
+      "components/messaging/sources.lock.json": "11d2a834b5364f9132330acd1013fb09cd9037086937dbdd2b63ebd761d6372d"
+    }
+  },
+  "inputs": {
+    "scripts/prepare-messaging.mjs": "77c7661e713e12391d072c9fb621861ed46584d16e03a64ae186e3cabb746d87",
+    "scripts/messaging-preparation.mjs": "b7e7ba0854f79625e2b9d0eef7ab36fe71635f026c6542b379ee7c93ad1ecdbd",
+    "components/messaging/identity.mjs": "2efcc48bb74b954c9101d75e99f814f3c989406143f3ce3ab25f61ae4641dbc8",
+    "components/messaging/sources.lock.json": "11d2a834b5364f9132330acd1013fb09cd9037086937dbdd2b63ebd761d6372d",
+    "test/messaging-preparation.test.mjs": "f657b61e4644c65e184a929f4a1d22b78b70db41edd5ea2cb9bde47c6335ee19"
+  },
+  "originalFailedWorkflow": 42720214271,
+  "nativeRunReplayed": 42711700295,
+  "nativeSource": "c338a93c97ffebeeef318e679ff82b7dbf309dd5",
+  "nativeArtifactSha256": "c0645821afeea30cbc1c0c70f4ca10bfbe288ebfa570b719af5a709f145c3826",
+  "cacheInitiallyAbsent": true,
+  "fullClosurePreserved": true,
+  "replayedAssertions": [
+    6,
+    6
+  ],
+  "newWalletSessions": 0,
+  "serviceBuilds": 0,
+  "coreTests": {
+    "PASS": 111,
+    "FAIL": 0
+  },
+  "check": "PASS",
+  "evidenceZip": {
+    "bytes": 16597,
+    "sha256": "14d257b2a28f9a1eee6141e149cf1238c756fb8faed0685a62aa6e0a4d143efd"
+  },
+  "members": {
+    "source/scripts/prepare-messaging.mjs": {
+      "bytes": 4036,
+      "sha256": "77c7661e713e12391d072c9fb621861ed46584d16e03a64ae186e3cabb746d87"
+    },
+    "source/scripts/messaging-preparation.mjs": {
+      "bytes": 6648,
+      "sha256": "b7e7ba0854f79625e2b9d0eef7ab36fe71635f026c6542b379ee7c93ad1ecdbd"
+    },
+    "source/components/messaging/identity.mjs": {
+      "bytes": 1724,
+      "sha256": "2efcc48bb74b954c9101d75e99f814f3c989406143f3ce3ab25f61ae4641dbc8"
+    },
+    "source/components/messaging/sources.lock.json": {
+      "bytes": 1036,
+      "sha256": "11d2a834b5364f9132330acd1013fb09cd9037086937dbdd2b63ebd761d6372d"
+    },
+    "source/test/messaging-preparation.test.mjs": {
+      "bytes": 3543,
+      "sha256": "f657b61e4644c65e184a929f4a1d22b78b70db41edd5ea2cb9bde47c6335ee19"
+    },
+    "observations/before.json": {
+      "bytes": 269,
+      "sha256": "e3123e2963e370fca20deb417d9a04582301926641097b28c01afa9023e0b064"
+    },
+    "observations/check.log": {
+      "bytes": 233,
+      "sha256": "baa33431367858d930c5009e8d05cd2cda11023cb2f667ab89fa5cbbf0299d10"
+    },
+    "observations/core-tests.log": {
+      "bytes": 10408,
+      "sha256": "3cdcd3b4b7153ef96fbb88b6957e721f59a46694b794c1cc9d7d35a52cd838ee"
+    },
+    "observations/prepare.log": {
+      "bytes": 4753,
+      "sha256": "514d1693a8e50ac75f972a0036d1ffbf2cd1163292f7dfe173fed0411e2b6172"
+    },
+    "observations/preservation.json": {
+      "bytes": 580,
+      "sha256": "f893032617427b3e6ac5a942057be62d596be91d9cd393e00c2c62a98525c490"
+    },
+    "observations/repetition-1.log": {
+      "bytes": 424,
+      "sha256": "a6d076278a6379c296fa946a4e0fd2c227eae462f97fb467f68f1e8d448b79e5"
+    },
+    "observations/repetition-2.log": {
+      "bytes": 424,
+      "sha256": "71cbb20d76c0afc4ee53b6b1af66dc8f1d055ed73461414b4741d5cd6494956e"
+    },
+    "observations/verifier-preparation.json": {
+      "bytes": 3803,
+      "sha256": "2e1125728ac2a3b48454ad6db5925ffd30f1010019caf614d812b712f01f9279"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "tpnil-native-clause-review-archive@1",
+  "claim": "READ_ONLY_SCOPE_REVIEW",
+  "sourceRun": 42674638927,
+  "source": "def98acc4d5dcf37b9ef7d52d9dbd13fe70023b8",
+  "files": [
+    {
+      "path": "README.md",
+      "size": 1179,
+      "sha256": "f01b673794493013505bffc125a0fa7c15a65eba3d64ba93df6803b9474cab96"
+    },
+    {
+      "path": "audit.json",
+      "size": 19817,
+      "sha256": "b55b5baab9073f79735c48812e6b259aee5423e01591c417c7e6e9b2b339c89a"
+    }
+  ]
+}

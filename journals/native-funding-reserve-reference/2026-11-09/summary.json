@@ -1,0 +1,119 @@
+{
+  "schema": "tpnil-native-funding-reserve-reference@1",
+  "claim": "ENGINEERING_OBSERVATION_ONLY",
+  "failedNativeSource": "60c87315cccdfef86523b03a9ce2390bae639dae",
+  "failedNativeRun": 42667035861,
+  "originalNativeArtifactSha256": "6422dc19008616785e6299a23ef9536e11c89de44d9773675ec28b815f66152b",
+  "failedNativeLifecycleOutcomes": {
+    "repetition-1": [
+      "PASS",
+      "PASS",
+      "FAIL"
+    ],
+    "repetition-2": [
+      "PASS",
+      "PASS",
+      "FAIL"
+    ]
+  },
+  "reservePolicy": {
+    "count": 2,
+    "satoshisEach": 10000,
+    "stage": "before-all-customer-scenarios",
+    "recoveryScope": "unaffected-preexisting-funds"
+  },
+  "references": [
+    {
+      "storage": "typescript",
+      "reserveOracle": "PASS",
+      "twoRejectionsWithoutRefill": true,
+      "lifecycle": [
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "boundaryPaymentOracle": "PASS",
+      "tamperTests": "PASS"
+    },
+    {
+      "storage": "go",
+      "reserveOracle": "PASS",
+      "twoRejectionsWithoutRefill": true,
+      "lifecycle": [
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "boundaryPaymentOracle": "PASS",
+      "tamperTests": "PASS"
+    }
+  ],
+  "nativeAdmission": "PENDING_NEW_SEPARATE_RUN",
+  "limitations": [
+    "Go intentionally retains posted terminal-invalid input chains; these are not released by this fixture.",
+    "The unchanged wallet exposes no public UnFail review UI.",
+    "Later operations use unaffected funds already present before every customer scenario.",
+    "Reference wallets establish setup/oracle feasibility only; native production qualification requires a fresh run.",
+    "Earlier local oracle/test failures are retained in checks logs, including TS logical-vs-auth identity, cross-owner notify projection and unsigned test transaction serialization issues."
+  ],
+  "sourceSnapshot": [
+    {
+      "path": "synthesis/src/wallet-lab/native/conformance-reserves.ts",
+      "sha256": "e4fe1809a8d01b03a6566218086b327a6df5c98073d141e4d0528ce001027404"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/verify-conformance-reserves.ts",
+      "sha256": "d416b1552f2f024b1156a60594d3e420f80c2cd660ecd6bd5ded306ebb6c6f54"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/conformance-reserve-storage.ts",
+      "sha256": "8f216cf7020c259750cfe171c688efc55f59f9341768357ea55ae3bed391b7d9"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/verify-conformance-lifecycle.ts",
+      "sha256": "d22b4f282fca9f1185a5774fa1222d301a9874662594845727145b6013e89db2"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/verify.ts",
+      "sha256": "f3c297be3a54fe1ab6745419a728bd4a7e5ceba66118237cfc46877ad57834f2"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/native/worker.ts",
+      "sha256": "52183830744b819d2b4f5813c3d44b2582e718c126e2283994ca6e42a2897f2c"
+    },
+    {
+      "path": "synthesis/src/wallet-lab/yours-driver.ts",
+      "sha256": "edf3bd62c99125aad9233f78e62d09f88143df0d3b3ddadadbc9c184b31023e8"
+    },
+    {
+      "path": "synthesis/test/native-conformance-reserves.test.ts",
+      "sha256": "8e139cd9d5550f939348ea7d56f22f2ce39ff1755abf96b0f0c4d80beae73d39"
+    },
+    {
+      "path": "synthesis/test/native-conformance-lifecycle.test.ts",
+      "sha256": "18dd91f4723ada65b8a9266183f274076e9e0551c488bb86cc4eabcc31b0037d"
+    },
+    {
+      "path": "infra/native/conformance/plan.json",
+      "sha256": "601766487add58a629e7edb393ca54777f6d8bda841f5881f5c9797021cdaf67"
+    },
+    {
+      "path": "itcves/ITCVE-1/1.4.0/profile.json",
+      "sha256": "a9cccd76b22ef506c9bca7f5c2440d98ee94d8aaed943c9df2965d84d2bb1229"
+    },
+    {
+      "path": "scripts/verify-native-reserve-reference.mjs",
+      "sha256": "d2ff0a2aa3d319b4e91ac34b2c3f91e6ffe9e4587c10a464dcc8d2d654df6b4a"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "42bb659d326e97842e871eef310658d70242bdfe86e829ff65ced801fb9ec258"
+    }
+  ],
+  "archive": {
+    "path": "evidence.json.gz",
+    "size": 235043,
+    "sha256": "be9a23f38f6e60817a1d73838711059fab11cffc22d3e08630c5da1d2f1dddf7",
+    "files": 33
+  }
+}

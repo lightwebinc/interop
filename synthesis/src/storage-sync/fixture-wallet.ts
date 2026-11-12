@@ -22,7 +22,7 @@ export async function createFixtureWallet(services: ControlledWalletServices, ro
   dependencies.getHeight = async () => 900_100
   dependencies.postBeef = async (beef, txids) => txids.map(txid => {
     const bytes = Uint8Array.from(beef.toBinaryAtomic(txid))
-    services.submissions.push({ txid, bytes, verdict: 'ACCEPTED_BY_NETWORK' })
+    services.recordSubmission({ txid, bytes, verdict: 'ACCEPTED_BY_NETWORK' })
     return { name: 'tpnil-controlled-submission', status: 'success' as const,
       txidResults: [{ txid, status: 'success' as const }] }
   })

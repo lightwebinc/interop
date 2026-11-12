@@ -1,0 +1,468 @@
+{
+  "schema": "tpnil-native-portability-diagnosis@1",
+  "run": 42690318194,
+  "source": "d02414f58d888e3d11913dedd888a3e5871bf29f",
+  "claim": "FAILED_ATTEMPT_DIAGNOSIS_ONLY",
+  "repetitions": [
+    {
+      "repetition": 1,
+      "result": "FAIL",
+      "assertions": [
+        {
+          "detail": "Independent storage identities and temporary databases back the two counterparts.",
+          "id": "portability.distinct-counterparts",
+          "result": "PASS"
+        },
+        {
+          "detail": "All logical records, bytes, metadata and foreign keys match; the declared proof oracle verifies retained ancestry.",
+          "id": "portability.complete-logical-dataset",
+          "result": "PASS"
+        },
+        {
+          "detail": "The declared wallet mediator sends authenticated processSyncChunk requests; reference mode is not native qualification.",
+          "id": "portability.native-mediated-sync",
+          "result": "PASS"
+        },
+        {
+          "detail": "The source storage TCP listener is stopped while chain, overlay and replacement services remain running.",
+          "id": "portability.source-unavailable",
+          "result": "PASS"
+        },
+        {
+          "detail": "Supported Lock/Unlock retires the native live wallet context; the ToDo client cache is cleared and reloaded.",
+          "id": "portability.cold-wallet-reload",
+          "result": "PASS"
+        },
+        {
+          "detail": "Native wallet identity is unchanged after counterpart replacement and cold reconstruction.",
+          "id": "portability.same-identity",
+          "result": "PASS"
+        },
+        {
+          "detail": "The same unspent encrypted ToDo outpoint is reconstructed and decrypted from the replacement.",
+          "id": "portability.cold-task-recovery",
+          "result": "PASS"
+        },
+        {
+          "detail": "A ToDo redemption is serialized and stored by the replacement while the source listener remains unavailable.",
+          "id": "portability.replacement-redemption",
+          "result": "FAIL"
+        },
+        {
+          "detail": "The source listener is restored; caller retires the isolated replacement after evidence collection.",
+          "id": "portability.cleanup",
+          "result": "PASS"
+        }
+      ],
+      "ui": [
+        {
+          "at": "2026-11-09T20:20:28.756Z",
+          "stage": "native-task-visible",
+          "text": "Task successfully created!\nToDo List — Get Rewarded!\nTPNIL native storage replacement\n\n3 satoshis\n\nCreate a Task\n\nDescribe your task and set aside some satoshis you'll get back once it's done.\n\nTask to complete\nTask to complete\n\n\n\nCompletion amount\nCompletion amount\nCancel\nOK"
+        },
+        {
+          "at": "2026-11-09T20:20:40.293Z",
+          "stage": "before-add",
+          "text": "Coins\nOrdinals\nTools\nSettings\n/\nTPNIL Fixture\nRemote Backup\n\nYour wallet is syncing to a remote server. You can use the same keys on another device and it will stay in sync.\n\nACTIVE STORAGE\nSynced across devices\n\nwallet.1sat.app\n\nAll devices with your keys connect here\n\n0\n\nOutputs\n\n0\n\nTransactions\n\n1\n\nRemotes\n\nSync Now\nRepair Sync\nBACKUP STORAGE\n\nCopies of your data for safety\n\nAdd\nThis Browser\nBACKUP COPY\n4.2 MB / 1.7 GB\nAdvanced"
+        },
+        {
+          "at": "2026-11-09T20:21:00.137Z",
+          "stage": "native-sync-complete",
+          "text": "Coins\nOrdinals\nTools\nSettings\nSync complete\n/\nTPNIL Fixture\nRemote Backup\n\nYour wallet is syncing to a remote server. You can use the same keys on another device and it will stay in sync.\n\nACTIVE STORAGE\nSynced across devices\n\nwallet.1sat.app\n\nAll devices with your keys connect here\n\n0\n\nOutputs\n\n0\n\nTransactions\n\n2\n\nRemotes\n\nSync Now\nRepair Sync\nBACKUP STORAGE\n\nCopies of your data for safety\n\nAdd\nThis Browser\nBACKUP COPY\n4.2 MB / 1.7 GB\nreplacement-wallet.itcve.test\nBACKUP COPY\nOnline\nConnected\nAdvanced"
+        },
+        {
+          "at": "2026-11-09T20:21:06.235Z",
+          "stage": "replacement-active",
+          "text": "Coins\nOrdinals\nTools\nSettings\nActive: replacement-wallet.itcve.test\n/\nTPNIL Fixture\nreplacement-wallet.itcve.test\n\nreplacement-wallet.itcve.test\n\nIN USE\n\nhttps://replacement-wallet.itcve.test\n\nThis is your active storage. To remove it, switch to a different location first."
+        },
+        {
+          "at": "2026-11-09T20:21:22.810Z",
+          "stage": "source-removed-from-config",
+          "text": "Coins\nOrdinals\nTools\nSettings\nRemote removed\n/\nTPNIL Fixture\nRemote Backup\n\nYour wallet is syncing to a remote server. You can use the same keys on another device and it will stay in sync.\n\nACTIVE STORAGE\nSynced across devices\n\nreplacement-wallet.itcve.test\n\nAll devices with your keys connect here\n\n0\n\nOutputs\n\n0\n\nTransactions\n\n1\n\nRemotes\n\nSync Now\nRepair Sync\nBACKUP STORAGE\n\nCopies of your data for safety\n\nAdd\nThis Browser\nBACKUP COPY\n4.3 MB / 1.7 GB\nAdvanced"
+        }
+      ],
+      "coldReload": {
+        "applicationCacheCleared": true,
+        "at": "2026-11-09T20:21:37.851Z",
+        "consoleMessages": [
+          "[background] dropWalletContext (WALLET_LOCKED): gone immediately"
+        ],
+        "contextDropped": true,
+        "locked": true,
+        "mechanism": "native-settings-lock-unlock",
+        "taskVisible": true,
+        "unlocked": true
+      },
+      "outage": {
+        "endedAt": "2026-11-09T20:21:39.503Z",
+        "events": [
+          {
+            "at": "2026-11-09T20:21:22.812Z",
+            "available": false
+          }
+        ],
+        "probe": {
+          "error": "TypeError: fetch failed",
+          "reachable": false
+        },
+        "restorationStartedAt": "2026-11-09T20:21:39.503Z",
+        "startedAt": "2026-11-09T20:21:22.812Z"
+      },
+      "readWindows": {
+        "destination": {
+          "endedAt": "2026-11-09T20:21:01.471Z",
+          "startedAt": "2026-11-09T20:21:00.854Z",
+          "storageEnd": 6,
+          "storageStart": 4
+        },
+        "destinationAfter": {
+          "endedAt": "2026-11-09T20:21:39.502Z",
+          "startedAt": "2026-11-09T20:21:38.312Z",
+          "storageEnd": 8,
+          "storageStart": 6
+        },
+        "source": {
+          "endedAt": "2026-11-09T20:21:00.854Z",
+          "startedAt": "2026-11-09T20:21:00.139Z",
+          "storageEnd": 4,
+          "storageStart": 2
+        }
+      },
+      "datasets": [
+        {
+          "name": "source",
+          "transactions": 12,
+          "outputs": 22,
+          "provenTxs": 0,
+          "provenTxReqs": 12,
+          "verifiedSignedTxids": [
+            "01c73d3ef672e867f6e3648442a2dc1926cf57362dbd31da6039ec178e816509",
+            "066a22661ccaf9d76e07c14cd3f51d1cc3b5a41e13c325be86075a446c344e45",
+            "32b189fe40b895d0584e2d3579b2ff33c65b21e3c246ebc8f903bb661cf99cc7",
+            "37d0473e6b2e400bb4c43ada19fdee5b70cfe27628bd8cc7cdc356389e967573",
+            "5e02d54e087c4cd692db4bfb6b7ce07c799d4cabddeb44f67be9b36d0665fe8c",
+            "9dbfae563ad49a86975f1c537a866f17609bb62165e042bcfc27bad50a7f8507",
+            "a48d0e779619d80b16ce5b6daedfc8626949788e4e11aae55913d4a6aeca7baa",
+            "a9baa5ba0727fb0ac3faa38c81eab860cb095bd13e8d455afce4ea395b1bc121",
+            "b6ae2343165262e9d6227a0eb5680f70a1db7f59601f2c617973457e48449068",
+            "c7379ffb603f187c123e71a723d158668a6df87856b3b9258faf95b1da4a2ee4",
+            "c7b4a18b0a3f4156fbe44532769980d7e24a6aeb7505464129718ed503c7870e",
+            "f16178aff6af7bfa2e0a8c4fefb4ace4816a9aaa66a93fcbb4a2c1bc62eafbbc"
+          ]
+        },
+        {
+          "name": "destination",
+          "transactions": 12,
+          "outputs": 22,
+          "provenTxs": 0,
+          "provenTxReqs": 12,
+          "verifiedSignedTxids": [
+            "01c73d3ef672e867f6e3648442a2dc1926cf57362dbd31da6039ec178e816509",
+            "066a22661ccaf9d76e07c14cd3f51d1cc3b5a41e13c325be86075a446c344e45",
+            "32b189fe40b895d0584e2d3579b2ff33c65b21e3c246ebc8f903bb661cf99cc7",
+            "37d0473e6b2e400bb4c43ada19fdee5b70cfe27628bd8cc7cdc356389e967573",
+            "5e02d54e087c4cd692db4bfb6b7ce07c799d4cabddeb44f67be9b36d0665fe8c",
+            "9dbfae563ad49a86975f1c537a866f17609bb62165e042bcfc27bad50a7f8507",
+            "a48d0e779619d80b16ce5b6daedfc8626949788e4e11aae55913d4a6aeca7baa",
+            "a9baa5ba0727fb0ac3faa38c81eab860cb095bd13e8d455afce4ea395b1bc121",
+            "b6ae2343165262e9d6227a0eb5680f70a1db7f59601f2c617973457e48449068",
+            "c7379ffb603f187c123e71a723d158668a6df87856b3b9258faf95b1da4a2ee4",
+            "c7b4a18b0a3f4156fbe44532769980d7e24a6aeb7505464129718ed503c7870e",
+            "f16178aff6af7bfa2e0a8c4fefb4ace4816a9aaa66a93fcbb4a2c1bc62eafbbc"
+          ]
+        },
+        {
+          "name": "destinationAfter",
+          "transactions": 13,
+          "outputs": 27,
+          "provenTxs": 0,
+          "provenTxReqs": 12,
+          "verifiedSignedTxids": [
+            "01c73d3ef672e867f6e3648442a2dc1926cf57362dbd31da6039ec178e816509",
+            "066a22661ccaf9d76e07c14cd3f51d1cc3b5a41e13c325be86075a446c344e45",
+            "32b189fe40b895d0584e2d3579b2ff33c65b21e3c246ebc8f903bb661cf99cc7",
+            "37d0473e6b2e400bb4c43ada19fdee5b70cfe27628bd8cc7cdc356389e967573",
+            "5e02d54e087c4cd692db4bfb6b7ce07c799d4cabddeb44f67be9b36d0665fe8c",
+            "9dbfae563ad49a86975f1c537a866f17609bb62165e042bcfc27bad50a7f8507",
+            "a48d0e779619d80b16ce5b6daedfc8626949788e4e11aae55913d4a6aeca7baa",
+            "a9baa5ba0727fb0ac3faa38c81eab860cb095bd13e8d455afce4ea395b1bc121",
+            "b6ae2343165262e9d6227a0eb5680f70a1db7f59601f2c617973457e48449068",
+            "c7379ffb603f187c123e71a723d158668a6df87856b3b9258faf95b1da4a2ee4",
+            "c7b4a18b0a3f4156fbe44532769980d7e24a6aeb7505464129718ed503c7870e",
+            "f16178aff6af7bfa2e0a8c4fefb4ace4816a9aaa66a93fcbb4a2c1bc62eafbbc"
+          ]
+        }
+      ],
+      "spentOutput": {
+        "outpoint": "01c73d3ef672e867f6e3648442a2dc1926cf57362dbd31da6039ec178e816509.0",
+        "spendable": false,
+        "spentBy": 13,
+        "updated_at": "2026-11-09T20:21:38.194Z"
+      },
+      "spendingTransaction": {
+        "created_at": "2026-11-09T20:21:38.193Z",
+        "isOutgoing": true,
+        "lockTime": 0,
+        "reference": "lBdNF+PvGYFxWhSY",
+        "satoshis": -42,
+        "status": "unsigned",
+        "transactionId": 13,
+        "updated_at": "2026-11-09T20:21:38.193Z",
+        "userId": 1,
+        "version": 1
+      },
+      "redemptionPresent": false,
+      "actionRpc": [
+        {
+          "completed": true,
+          "durationMs": 8,
+          "host": "replacement-wallet.itcve.test",
+          "method": "createAction",
+          "sequence": 454,
+          "status": 200
+        }
+      ],
+      "laterFinalStorageSpends": [
+        {
+          "txid": "5ae1f9562451cbae180279f96889a4d9f8fd57566481eebfad91c204a24a61c8",
+          "rawBytes": 441
+        }
+      ],
+      "findings": [
+        "Frozen oracle2 rejected CSS-rendered IN USE because it required mixed-case In use; original outcome disagreement remains.",
+        "Final listOutputs absence reflects an unsigned createAction input lock, not serialized redemption; destinationAfter has no spending txid/raw transaction and replacement RPC has no processAction in the observed window.",
+        "Later final storage may contain the signed spend, but it cannot establish completion before source restoration."
+      ]
+    },
+    {
+      "repetition": 2,
+      "result": "FAIL",
+      "assertions": [
+        {
+          "detail": "Independent storage identities and temporary databases back the two counterparts.",
+          "id": "portability.distinct-counterparts",
+          "result": "PASS"
+        },
+        {
+          "detail": "All logical records, bytes, metadata and foreign keys match; the declared proof oracle verifies retained ancestry.",
+          "id": "portability.complete-logical-dataset",
+          "result": "PASS"
+        },
+        {
+          "detail": "The declared wallet mediator sends authenticated processSyncChunk requests; reference mode is not native qualification.",
+          "id": "portability.native-mediated-sync",
+          "result": "PASS"
+        },
+        {
+          "detail": "The source storage TCP listener is stopped while chain, overlay and replacement services remain running.",
+          "id": "portability.source-unavailable",
+          "result": "PASS"
+        },
+        {
+          "detail": "Supported Lock/Unlock retires the native live wallet context; the ToDo client cache is cleared and reloaded.",
+          "id": "portability.cold-wallet-reload",
+          "result": "PASS"
+        },
+        {
+          "detail": "Native wallet identity is unchanged after counterpart replacement and cold reconstruction.",
+          "id": "portability.same-identity",
+          "result": "PASS"
+        },
+        {
+          "detail": "The same unspent encrypted ToDo outpoint is reconstructed and decrypted from the replacement.",
+          "id": "portability.cold-task-recovery",
+          "result": "PASS"
+        },
+        {
+          "detail": "A ToDo redemption is serialized and stored by the replacement while the source listener remains unavailable.",
+          "id": "portability.replacement-redemption",
+          "result": "FAIL"
+        },
+        {
+          "detail": "The source listener is restored; caller retires the isolated replacement after evidence collection.",
+          "id": "portability.cleanup",
+          "result": "PASS"
+        }
+      ],
+      "ui": [
+        {
+          "at": "2026-11-09T20:29:06.549Z",
+          "stage": "native-task-visible",
+          "text": "Task successfully created!\nToDo List — Get Rewarded!\nTPNIL native storage replacement\n\n3 satoshis"
+        },
+        {
+          "at": "2026-11-09T20:29:17.469Z",
+          "stage": "before-add",
+          "text": "Coins\nOrdinals\nTools\nSettings\n/\nTPNIL Fixture\nRemote Backup\n\nYour wallet is syncing to a remote server. You can use the same keys on another device and it will stay in sync.\n\nACTIVE STORAGE\nSynced across devices\n\nwallet.1sat.app\n\nAll devices with your keys connect here\n\n0\n\nOutputs\n\n0\n\nTransactions\n\n1\n\nRemotes\n\nSync Now\nRepair Sync\nBACKUP STORAGE\n\nCopies of your data for safety\n\nAdd\nThis Browser\nBACKUP COPY\n4.2 MB / 1.7 GB\nAdvanced"
+        },
+        {
+          "at": "2026-11-09T20:29:37.324Z",
+          "stage": "native-sync-complete",
+          "text": "Coins\nOrdinals\nTools\nSettings\nSync complete\n/\nTPNIL Fixture\nRemote Backup\n\nYour wallet is syncing to a remote server. You can use the same keys on another device and it will stay in sync.\n\nACTIVE STORAGE\nSynced across devices\n\nwallet.1sat.app\n\nAll devices with your keys connect here\n\n0\n\nOutputs\n\n0\n\nTransactions\n\n2\n\nRemotes\n\nSync Now\nRepair Sync\nBACKUP STORAGE\n\nCopies of your data for safety\n\nAdd\nThis Browser\nBACKUP COPY\n4.2 MB / 1.7 GB\nreplacement-wallet.itcve.test\nBACKUP COPY\nOnline\nConnected\nAdvanced"
+        },
+        {
+          "at": "2026-11-09T20:29:43.415Z",
+          "stage": "replacement-active",
+          "text": "Coins\nOrdinals\nTools\nSettings\nActive: replacement-wallet.itcve.test\n/\nTPNIL Fixture\nreplacement-wallet.itcve.test\n\nreplacement-wallet.itcve.test\n\nIN USE\n\nhttps://replacement-wallet.itcve.test\n\nThis is your active storage. To remove it, switch to a different location first."
+        },
+        {
+          "at": "2026-11-09T20:30:00.056Z",
+          "stage": "source-removed-from-config",
+          "text": "Coins\nOrdinals\nTools\nSettings\nRemote removed\n/\nTPNIL Fixture\nRemote Backup\n\nYour wallet is syncing to a remote server. You can use the same keys on another device and it will stay in sync.\n\nACTIVE STORAGE\nSynced across devices\n\nreplacement-wallet.itcve.test\n\nAll devices with your keys connect here\n\n0\n\nOutputs\n\n0\n\nTransactions\n\n1\n\nRemotes\n\nSync Now\nRepair Sync\nBACKUP STORAGE\n\nCopies of your data for safety\n\nAdd\nThis Browser\nBACKUP COPY\n4.3 MB / 1.7 GB\nAdvanced"
+        }
+      ],
+      "coldReload": {
+        "applicationCacheCleared": true,
+        "at": "2026-11-09T20:30:16.005Z",
+        "consoleMessages": [
+          "[background] dropWalletContext (WALLET_LOCKED): gone immediately"
+        ],
+        "contextDropped": true,
+        "locked": true,
+        "mechanism": "native-settings-lock-unlock",
+        "taskVisible": true,
+        "unlocked": true
+      },
+      "outage": {
+        "endedAt": "2026-11-09T20:30:17.683Z",
+        "events": [
+          {
+            "at": "2026-11-09T20:30:00.059Z",
+            "available": false
+          }
+        ],
+        "probe": {
+          "error": "TypeError: fetch failed",
+          "reachable": false
+        },
+        "restorationStartedAt": "2026-11-09T20:30:17.683Z",
+        "startedAt": "2026-11-09T20:30:00.059Z"
+      },
+      "readWindows": {
+        "destination": {
+          "endedAt": "2026-11-09T20:29:38.674Z",
+          "startedAt": "2026-11-09T20:29:38.075Z",
+          "storageEnd": 6,
+          "storageStart": 4
+        },
+        "destinationAfter": {
+          "endedAt": "2026-11-09T20:30:17.683Z",
+          "startedAt": "2026-11-09T20:30:16.522Z",
+          "storageEnd": 8,
+          "storageStart": 6
+        },
+        "source": {
+          "endedAt": "2026-11-09T20:29:38.075Z",
+          "startedAt": "2026-11-09T20:29:37.326Z",
+          "storageEnd": 4,
+          "storageStart": 2
+        }
+      },
+      "datasets": [
+        {
+          "name": "source",
+          "transactions": 12,
+          "outputs": 22,
+          "provenTxs": 0,
+          "provenTxReqs": 12,
+          "verifiedSignedTxids": [
+            "16cc9d34d58d9da58a452abc7513b1feda4a9f6c1a1691a62dc081af244e1606",
+            "3856aa2b0b8252b6918385a82afd869db3d0ea3820cc5ad0e1aab29cbdbfbdd5",
+            "40b3a483c9aafb125e3feb971c1f9fa1f8c9e3e3701efca377823cf7bea8b01a",
+            "8ba990f8ffc95cf33f4ecb9681e53cf04fc5e351607a16aecbea861cda64fa16",
+            "a8ae788c0049f6900465749f3e85f3dc3d88ef016a98d6f6b4cbd727c1799d9c",
+            "ad5831e3e5e64f3c127a4dc45da54039d0989caa1bdf073d7a8561cf913091b5",
+            "afaed01589550d4f6353d0ed51b909f8cf87367bced0802ed9ed1711823a95f2",
+            "c0ced4a3402d3214e6000ff5cf57bb44a77963847f747095885d63da2ab8fefb",
+            "d0941d7dbcac189835eff5d53ac63af4d0f8c6723c99e31366e975936475dc6c",
+            "db9cbfa66f5f4a502de0a3ce4f27c966774e6048d16a695444509e38481ff500",
+            "de6e6e99753a5857983cd02bbb4358923489c8cce3507d482b745bd6afa2f9f0",
+            "e5d4800e5eb2f7d4354d96f8dfdf63e726cde680dd3624145363e1c334e47b58"
+          ]
+        },
+        {
+          "name": "destination",
+          "transactions": 12,
+          "outputs": 22,
+          "provenTxs": 0,
+          "provenTxReqs": 12,
+          "verifiedSignedTxids": [
+            "16cc9d34d58d9da58a452abc7513b1feda4a9f6c1a1691a62dc081af244e1606",
+            "3856aa2b0b8252b6918385a82afd869db3d0ea3820cc5ad0e1aab29cbdbfbdd5",
+            "40b3a483c9aafb125e3feb971c1f9fa1f8c9e3e3701efca377823cf7bea8b01a",
+            "8ba990f8ffc95cf33f4ecb9681e53cf04fc5e351607a16aecbea861cda64fa16",
+            "a8ae788c0049f6900465749f3e85f3dc3d88ef016a98d6f6b4cbd727c1799d9c",
+            "ad5831e3e5e64f3c127a4dc45da54039d0989caa1bdf073d7a8561cf913091b5",
+            "afaed01589550d4f6353d0ed51b909f8cf87367bced0802ed9ed1711823a95f2",
+            "c0ced4a3402d3214e6000ff5cf57bb44a77963847f747095885d63da2ab8fefb",
+            "d0941d7dbcac189835eff5d53ac63af4d0f8c6723c99e31366e975936475dc6c",
+            "db9cbfa66f5f4a502de0a3ce4f27c966774e6048d16a695444509e38481ff500",
+            "de6e6e99753a5857983cd02bbb4358923489c8cce3507d482b745bd6afa2f9f0",
+            "e5d4800e5eb2f7d4354d96f8dfdf63e726cde680dd3624145363e1c334e47b58"
+          ]
+        },
+        {
+          "name": "destinationAfter",
+          "transactions": 13,
+          "outputs": 27,
+          "provenTxs": 0,
+          "provenTxReqs": 12,
+          "verifiedSignedTxids": [
+            "16cc9d34d58d9da58a452abc7513b1feda4a9f6c1a1691a62dc081af244e1606",
+            "3856aa2b0b8252b6918385a82afd869db3d0ea3820cc5ad0e1aab29cbdbfbdd5",
+            "40b3a483c9aafb125e3feb971c1f9fa1f8c9e3e3701efca377823cf7bea8b01a",
+            "8ba990f8ffc95cf33f4ecb9681e53cf04fc5e351607a16aecbea861cda64fa16",
+            "a8ae788c0049f6900465749f3e85f3dc3d88ef016a98d6f6b4cbd727c1799d9c",
+            "ad5831e3e5e64f3c127a4dc45da54039d0989caa1bdf073d7a8561cf913091b5",
+            "afaed01589550d4f6353d0ed51b909f8cf87367bced0802ed9ed1711823a95f2",
+            "c0ced4a3402d3214e6000ff5cf57bb44a77963847f747095885d63da2ab8fefb",
+            "d0941d7dbcac189835eff5d53ac63af4d0f8c6723c99e31366e975936475dc6c",
+            "db9cbfa66f5f4a502de0a3ce4f27c966774e6048d16a695444509e38481ff500",
+            "de6e6e99753a5857983cd02bbb4358923489c8cce3507d482b745bd6afa2f9f0",
+            "e5d4800e5eb2f7d4354d96f8dfdf63e726cde680dd3624145363e1c334e47b58"
+          ]
+        }
+      ],
+      "spentOutput": {
+        "outpoint": "3856aa2b0b8252b6918385a82afd869db3d0ea3820cc5ad0e1aab29cbdbfbdd5.0",
+        "spendable": false,
+        "spentBy": 13,
+        "updated_at": "2026-11-09T20:30:16.408Z"
+      },
+      "spendingTransaction": {
+        "created_at": "2026-11-09T20:30:16.407Z",
+        "isOutgoing": true,
+        "lockTime": 0,
+        "reference": "XS7NJ3S9qfmg62y9",
+        "satoshis": -42,
+        "status": "unsigned",
+        "transactionId": 13,
+        "updated_at": "2026-11-09T20:30:16.407Z",
+        "userId": 1,
+        "version": 1
+      },
+      "redemptionPresent": false,
+      "actionRpc": [
+        {
+          "completed": true,
+          "durationMs": 10,
+          "host": "replacement-wallet.itcve.test",
+          "method": "createAction",
+          "sequence": 455,
+          "status": 200
+        }
+      ],
+      "laterFinalStorageSpends": [
+        {
+          "txid": "752a2170345260077a05c5dfa52e41801df1697440ddac0503e1158b89b12246",
+          "rawBytes": 440
+        }
+      ],
+      "findings": [
+        "Frozen oracle2 rejected CSS-rendered IN USE because it required mixed-case In use; original outcome disagreement remains.",
+        "Final listOutputs absence reflects an unsigned createAction input lock, not serialized redemption; destinationAfter has no spending txid/raw transaction and replacement RPC has no processAction in the observed window.",
+        "Later final storage may contain the signed spend, but it cannot establish completion before source restoration."
+      ]
+    }
+  ]
+}

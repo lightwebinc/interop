@@ -1,0 +1,299 @@
+{
+  "schema": "tpnil-integrated-component-qualification@1",
+  "claim": "INFRASTRUCTURE_QUALIFICATION_ONLY",
+  "profile": "ITCVE-1@1.3.0",
+  "source": "60c87315cccdfef86523b03a9ce2390bae639dae",
+  "workflowRun": 42666966132,
+  "workflowUrl": "https://github.com/p2ppsr/interop/actions/runs/42666966132",
+  "jobUrl": "https://github.com/p2ppsr/interop/actions/runs/42666966132/job/129333107327",
+  "workflowConclusion": "failure",
+  "jobConclusions": {
+    "go-components": "success",
+    "offline-core": "failure",
+    "integrated-components": "failure"
+  },
+  "workflowFailure": {
+    "classification": "EVIDENCE_PUBLICATION_ERROR",
+    "stage": "historical archive inventory verification",
+    "path": "journals/integrated-component-attempts/2026-11-09/42663404897/failed-step.log",
+    "cause": "The prior failed-attempt manifest included this exact raw log, but the global *.log ignore rule omitted it from the source commit. The local file had passed replay; CI correctly rejected the incomplete committed file set.",
+    "preservedLogSha256": "add8d330b7e48684b702fff857368ada6bd2de7ca7fc2acd9692e75806c9693e",
+    "correctivePublicationCommit": "957d6bf53204d49138292131a5d2be815f89ed41",
+    "nativeWalletExecuted": false,
+    "artifactOutcome": "All component executions and their original offline child verification completed before the unrelated historical archive inventory failure. The artifact was then independently replayed without mutation."
+  },
+  "artifact": {
+    "id": 13696169780,
+    "name": "integrated-lab",
+    "size": 1830209,
+    "sha256": "1284a5e3ea28e175091f217a97efcdc27d573af7f2eb9f63896b4e0f5e4edc17",
+    "url": "https://github.com/p2ppsr/interop/actions/runs/42666966132/artifacts/13696169780"
+  },
+  "verification": {
+    "completed": true,
+    "childOraclesVerified": true,
+    "sourceChecksUnmodified": true,
+    "command": "node scripts/verify-integrated-lab.mjs out/recheck-foundation-42666966132-messaging",
+    "localVerificationSource": "60c87315cccdfef86523b03a9ce2390bae639dae",
+    "localRepositoryHead": "957d6bf53204d49138292131a5d2be815f89ed41",
+    "localPlatform": "darwin-arm64",
+    "localNode": "24.22.1",
+    "receipt": "independent-verification.json",
+    "unchangedArtifactMembers": 141,
+    "note": "The component verifier and every child oracle match the frozen run source. The later repository head only publishes the missing historical log. All original artifact members remain byte-identical, including original verification.json."
+  },
+  "laneCount": 8,
+  "laneRuns": 15,
+  "isolatedExecutions": 22,
+  "assertions": {
+    "total": 510,
+    "outcomes": {
+      "PASS": 504,
+      "FAIL": 6
+    }
+  },
+  "lanes": [
+    {
+      "id": "storage-sync",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "storage-sync/result.json",
+          "assertions": 88,
+          "outcomes": {
+            "PASS": 88
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "overlay-identity",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "overlay-identity-1/result.json",
+          "assertions": 14,
+          "outcomes": {
+            "PASS": 14
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "overlay-identity-2/result.json",
+          "assertions": 14,
+          "outcomes": {
+            "PASS": 14
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "messaging",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "messaging-1/result.json",
+          "assertions": 41,
+          "outcomes": {
+            "PASS": 38,
+            "FAIL": 3
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "messaging-2/result.json",
+          "assertions": 41,
+          "outcomes": {
+            "PASS": 38,
+            "FAIL": 3
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "transport-typescript",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "transport-typescript-1/result.json",
+          "assertions": 17,
+          "outcomes": {
+            "PASS": 17
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "transport-typescript-2/result.json",
+          "assertions": 17,
+          "outcomes": {
+            "PASS": 17
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "transport-go",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "transport-go-1/result.json",
+          "assertions": 17,
+          "outcomes": {
+            "PASS": 17
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "transport-go-2/result.json",
+          "assertions": 17,
+          "outcomes": {
+            "PASS": 17
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "boundary-typescript",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "boundary-typescript-1/result.json",
+          "assertions": 43,
+          "outcomes": {
+            "PASS": 43
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "boundary-typescript-2/result.json",
+          "assertions": 43,
+          "outcomes": {
+            "PASS": 43
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "boundary-go",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "boundary-go-1/result.json",
+          "assertions": 43,
+          "outcomes": {
+            "PASS": 43
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "boundary-go-2/result.json",
+          "assertions": 43,
+          "outcomes": {
+            "PASS": 43
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    },
+    {
+      "id": "rust",
+      "runs": [
+        {
+          "repetition": 1,
+          "resultPath": "rust-1/result.json",
+          "assertions": 36,
+          "outcomes": {
+            "PASS": 36
+          },
+          "exitCode": 0,
+          "timedOut": false
+        },
+        {
+          "repetition": 2,
+          "resultPath": "rust-2/result.json",
+          "assertions": 36,
+          "outcomes": {
+            "PASS": 36
+          },
+          "exitCode": 0,
+          "timedOut": false
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "lane": "messaging",
+      "repetition": 1,
+      "resultPath": "messaging-1/result.json",
+      "implementation": "go",
+      "id": "paid-internalization",
+      "result": "FAIL"
+    },
+    {
+      "lane": "messaging",
+      "repetition": 1,
+      "resultPath": "messaging-1/result.json",
+      "implementation": "go",
+      "id": "payment-replay-after-acknowledgment",
+      "result": "FAIL"
+    },
+    {
+      "lane": "messaging",
+      "repetition": 1,
+      "resultPath": "messaging-1/result.json",
+      "implementation": "go",
+      "id": "payment-replay-rejected",
+      "result": "FAIL"
+    },
+    {
+      "lane": "messaging",
+      "repetition": 2,
+      "resultPath": "messaging-2/result.json",
+      "implementation": "go",
+      "id": "paid-internalization",
+      "result": "FAIL"
+    },
+    {
+      "lane": "messaging",
+      "repetition": 2,
+      "resultPath": "messaging-2/result.json",
+      "implementation": "go",
+      "id": "payment-replay-after-acknowledgment",
+      "result": "FAIL"
+    },
+    {
+      "lane": "messaging",
+      "repetition": 2,
+      "resultPath": "messaging-2/result.json",
+      "implementation": "go",
+      "id": "payment-replay-rejected",
+      "result": "FAIL"
+    }
+  ]
+}

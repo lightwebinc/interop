@@ -1,0 +1,44 @@
+{
+  "schema": "tpnil-rust-graph-oracle@3.0.0",
+  "corpus": "tpnil-rust-corpus@3",
+  "operation": "spends-indexed-v3",
+  "cargoFeature": "graph-oracle-v3",
+  "claim": "LABORATORY_OBSERVER_ONLY",
+  "pins": {
+    "rustSdk": "99d2313f2ede48a465aa8be1907d26d098aac8fd",
+    "typescriptSdk": "4.0.1"
+  },
+  "scope": "Resolve reachable transaction ancestry by txid from the same original strict-framed BEEF. No wallet, SDK, source input report, storage record, funding or native execution is modified. Default corpus2 and its spends operation remain unchanged.",
+  "acceptance": {
+    "subject": "Exact requested txid equals the Atomic BEEF subject, or the last subject of non-atomic BEEF.",
+    "closure": "Every reachable parent has full bytes in this single request; no cross-report, fixture or network supplementation.",
+    "structure": [
+      "unique BEEF transaction IDs",
+      "raw transaction hash agrees with indexed txid",
+      "unique input outpoints",
+      "no conflicting spends across the reachable graph",
+      "cycle detection",
+      "maximum64 edges to the pinned proof, including memoized paths"
+    ],
+    "cryptography": [
+      "every unmined input script validates against its exact parent output",
+      "checked input/output arithmetic and nonnegative fee",
+      "exact Merkle root and height for every terminal proof",
+      "u32 anchor height without wrapping"
+    ],
+    "negativeControl": "Mutated subject output reaches the same signature and value predicates and must fail. Subject binding is updated to the actual mutation txid; evidence input bytes remain unchanged."
+  },
+  "historicalPolicy": "Original corpus2 results remain immutable. A fresh corpus3 result has a distinct identity and complete source/input hashes. It cannot retroactively replace a failed corpus2 report or imply that a native scenario was rerun.",
+  "sources": {
+    "scripts/rust-corpus.mjs": "c65bba363b4f0605b1b47db354eb65b49cfeb88a17685d631cea4d9efb26906c",
+    "components/rust/vectors.json": "3396484d7c094b8d116df44c0b4284df1b59fe92bcc2fab07b4d1ab93db954c8",
+    "components/rust/Cargo.toml": "71064a519d63fe7174d6d16f1525321541cba75830b1fa79e8b020eedb693837",
+    "components/rust/Cargo.lock": "2c0ca447f074d3eaaa6028469774db4a382904a4a8b92fd2ddf7560285246402",
+    "components/rust/src/main.rs": "0cacf7baa33a9e4c7b43c810adcb5386c0183d1a7f3e13d50026a7032220f315",
+    "fixtures/teranode/wab-funding-v1.json": "7c4fd4d2c98f8c80b4ac41614b09c9baed91c087b1a418e0f15edc6b8e55560a",
+    "components/transport/package-lock.json": "dda70c2b8b059836108cdf36b8ba3d35faf0a21a16300ef1ba3789bbd8c49fac",
+    "components/rust/src/graph_oracle_v3.rs": "e9b0176a2039d8716f5ae28638991dbe0ef6eb40b29ec6d34d9346689d161a6b",
+    "scripts/run-rust.mjs": "b38c6bb59f5b368c0ac49d2c535075d975efc5df3abe49ddc09e53f4b200e63e",
+    "scripts/verify-rust.mjs": "f896b4c8493025456ecc4dea52180dea47f7544f5db5e46793c94171aeef8ae7"
+  }
+}

@@ -1,0 +1,10 @@
+◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+◇ injected env (0) from .env // tip: ⌘ override existing { override: true }
+{"name":"typescript-to-typescript/rep-1","result":"PASS"}
+{"name":"typescript-to-typescript/rep-2","result":"PASS"}
+{"name":"typescript-to-go/rep-1","result":"PASS"}
+{"name":"typescript-to-go/rep-2","result":"PASS"}
+{"name":"go-to-typescript/rep-1","result":"PASS"}
+{"name":"go-to-typescript/rep-2","result":"PASS"}
+{"name":"go-to-go/rep-1","result":"PASS"}
+{"name":"go-to-go/rep-2","result":"PASS"}
